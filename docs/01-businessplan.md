@@ -1,6 +1,6 @@
 # Rewarded — Businessplan v1 (besluiten van de founder)
 
-*Stand: 4 november 2026. Gebaseerd op de founder brief en de rapporten van het strategieteam in `docs/research/` (01 markt en concurrentie, 02 businessmodel en juridisch, 03 viraliteit en tractie; 08 gedragswetenschap en 09 verificatietechniek volgen). Waar ik van het team afwijk, staat dat erbij.*
+*Stand: 4 november 2026. Gebaseerd op de founder brief en de rapporten van het strategieteam in `docs/research/` (01 markt en concurrentie, 02 businessmodel en juridisch, 03 viraliteit en tractie, 08 gedragswetenschap, 09 verificatietechniek; de laatste twee zijn na controle door drie onafhankelijke sceptici herzien). Waar ik van het team afwijk, staat dat erbij.*
 
 ## 1. Het besluit in het kort
 
@@ -52,7 +52,27 @@ Rewarded bestaat uit vijf onderdelen. Het productteam werkt ze in fase 2 uit.
 4. **Prijzen.** Twee soorten, altijd helder gescheiden. Verdiende prijzen: collectieve prijzen voor verenigingen en individuele prijzen op prestatie (bijvoorbeeld "elke dag van de tentamenweek minstens twee uur"), waarbij alleen winnaars grondig worden geverifieerd. Verlote prijzen: een wekelijkse of maandelijkse gratis trekking onder wie zijn doel haalde, 18+, met Rewarded als organisator, spelvoorwaarden in de app en kansspelbelasting voor rekening van Rewarded. We communiceren verdiende prijzen als verdiend en verlote prijzen eerlijk als kans. Trekkingen zijn secundair; als de Kansspelautoriteit de structuur van kleine spellen niet accepteert, vervallen ze en blijven de verdiende prijzen.
 5. **Inzet (later).** Een opt-in commitment contract: je zet €5 tot €50 in op een weekdoel. Haal je het, dan vervalt de kaartreservering; haal je het niet, dan wordt het bedrag afgeschreven en doneert Rewarded het volledig aan een goed doel uit een korte lijst die de gebruiker zelf kiest. Voorwaarden: 18+, native verificatie, maandlimiet, afkoelperiode na een verloren week, geen verdubbelen, menselijke beroepsprocedure, advocatenopinie en toetsing door de Kansspelautoriteit en de betaaldienstverlener vooraf.
 
-**Ontwerpprincipes uit het bewijs.** We belonen inputs (geverifieerde focusminuten), geen outputs (cijfers); Fryer (2011) vond effect van het eerste en niet van het tweede. Beloningen zijn vast en voorspelbaar. Verliesframing zit in streaks, squads en de inzetlaag, niet in de puntenlaag. Status gaat vóór geld in de gratis laag. Elke afgekeurde sessie heeft een begrijpelijke reden. De gedragswetenschappelijke onderbouwing en de open vragen (verdringing van intrinsieke motivatie, effect na het stoppen van beloningen, heterogene effecten naar vaardigheid) staan in rapport 08 en worden in de pilot als hypotheses getoetst.
+**Ontwerpprincipes uit het bewijs (rapport 08, herzien na verificatie).**
+
+- Geldprikkels veranderen gedrag zolang ze lopen en zakken daarna grotendeels weg (Milkman e.a. 2021: van 54 interventies had 8% na afloop nog meetbaar effect; Allcott e.a. 2022: na-effect ongeveer een derde van het effect tijdens de bonus). De kern van Rewarded is daarom de overgang van beloning naar zelfgekozen commitment: squads, streaks en later de eigen inzet. Dat is de centrale pilothypothese, niet een aanname.
+- We belonen inputs (geverifieerde focusminuten), geen outputs (cijfers). Het bewijs dat inputprikkels beter werken dan outputprikkels is dunner dan de brief aannam (Fryer 2011: gemiddeld effect nul; het voordeel van inputs rust op een working paper), maar outputprikkels pakten voor zwakkere studenten negatief uit (Leuven e.a. 2010). Inputs zijn dus de veilige keuze.
+- Beloningen volgen direct op de prestatie (Levitt e.a. 2016): punten worden bij het einde van de sessie bijgeschreven, niet aan het eind van de week.
+- Geen kleine geldbedragen. Een kleine betaling kan slechter uitpakken dan geen betaling (Gneezy en Rustichini 2000, labbewijs) en verdringt intrinsieke motivatie bij verwachte, aan deelname gekoppelde beloningen (Deci e.a. 1999, omstreden in reikwijdte). De gratis laag werkt daarom met punten en status, nooit met centen per uur.
+- Verliesframing zonder eigen geld werkte in Patel e.a. (2016) het best zolang de prikkel liep: een budget vooraf dat per gemist doel slinkt. We testen dit in de pilot als aparte arm (wekelijks puntenbudget dat je behoudt door je dagdoel te halen) tegenover gewone bijschrijving.
+- Openbare individuele ranglijsten kunnen averechts werken, onder meer bij goed presterende studenten die niet willen opvallen (Bursztyn en Jensen 2015). Individuele vergelijking blijft daarom binnen de squad en is opt-in; openbare ranglijsten tonen alleen verenigingen en campussen, geaggregeerd.
+- We claimen minder afleiding en meer studietijd, geen cognitieve winst: het "brain drain"-effect van een telefoon in de buurt houdt in replicaties grotendeels geen stand.
+- Elke afgekeurde sessie heeft een begrijpelijke reden, en fraudebeslissingen met gevolgen voor beloningen krijgen een menselijke herbeoordeling.
+
+**Verificatieladder (rapport 09, herzien na verificatie).** De bewijssterkte bepaalt het beloningsplafond.
+
+| Trede | Wat het bewijst | Beloning |
+|---|---|---|
+| 1. Web-MVP: pagina zichtbaar, Wake Lock, tijdstempels | Dat Rewarded zichtbaar was op één browser tussen begin en eind; goedkoop te vervalsen | Punten, status, kleine verdiende prijzen; geen geld |
+| 2. Native app op de voorgrond met apparaatattestatie (App Attest, Play Integrity) | Een echte app op een echt toestel; niet dat er een mens zat | Catalogusbeloningen tot een plafond per toestel en per persoon |
+| 3. iOS: actieve blokkade van afleidende apps via de Screen Time-API's; Android: gebruikstijdlijn via UsageStats | iOS geeft een app geen gebruiksduur van andere apps als data, dus we belonen de blokkade zelf; drempelmeldingen zijn aanleiding voor controle, geen automatisch verlies. Android levert het sterkste meetbare signaal | Grotere verdiende prijzen, verenigingsprijzen |
+| 4. Trede 3 plus identiteitscheck, plafonds, menselijke steekproeven en beroep | Zo sterk als haalbaar zonder camera | Eigen inzet, geldprijzen |
+
+Praktische gevolgen: de Family Controls-entitlement bij Apple wordt aangevraagd zodra het ontwikkelaarsaccount bestaat (wachttijden van weken tot maanden zijn gemeld); het ontwerp van geld gekoppeld aan Screen Time-signalen wordt vóór indiening aan App Review of een jurist voorgelegd vanwege richtlijn 4.10; het Google Play-beleid voor de gebruikstoegangspermissie wordt vóór de Android-bouw op de primaire pagina gecontroleerd.
 
 ## 5. Verdienmodel
 
