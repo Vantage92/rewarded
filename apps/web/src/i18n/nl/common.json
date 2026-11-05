@@ -1,0 +1,38 @@
+{
+  "app": {
+    "name": "Rewarded",
+    "skip_to_content": "Naar de inhoud"
+  },
+  "nav": {
+    "label": "Hoofdmenu",
+    "home": "Vandaag",
+    "focus": "Focus",
+    "squad": "Squad",
+    "points": "Punten",
+    "profile": "Profiel"
+  },
+  "placeholder": {
+    "coming": "Dit scherm komt in een volgend werkpakket ({owner})."
+  },
+  "not_found": {
+    "title": "Pagina niet gevonden",
+    "back": "Terug naar Vandaag"
+  },
+  "features": {
+    "home": "Vandaag",
+    "waitlist": "Wachtlijst",
+    "onboarding": "Welkom",
+    "focus": "Focus",
+    "points": "Punten",
+    "squads": "Squad",
+    "duels": "Duel",
+    "club": "Vereniging",
+    "challenges": "Challenge",
+    "belofte": "De Belofte",
+    "cards": "Kaart",
+    "draws": "Kans",
+    "profile": "Profiel",
+    "board": "Bestuur",
+    "admin": "Beheer"
+  }
+}

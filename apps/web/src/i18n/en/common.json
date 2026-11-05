@@ -1,0 +1,38 @@
+{
+  "app": {
+    "name": "Rewarded",
+    "skip_to_content": "Skip to content"
+  },
+  "nav": {
+    "label": "Main menu",
+    "home": "Today",
+    "focus": "Focus",
+    "squad": "Squad",
+    "points": "Points",
+    "profile": "Profile"
+  },
+  "placeholder": {
+    "coming": "This screen arrives in a later work package ({owner})."
+  },
+  "not_found": {
+    "title": "Page not found",
+    "back": "Back to Today"
+  },
+  "features": {
+    "home": "Today",
+    "waitlist": "Waitlist",
+    "onboarding": "Welcome",
+    "focus": "Focus",
+    "points": "Points",
+    "squads": "Squad",
+    "duels": "Duel",
+    "club": "Club",
+    "challenges": "Challenge",
+    "belofte": "The Pledge",
+    "cards": "Card",
+    "draws": "Chance",
+    "profile": "Profile",
+    "board": "Board",
+    "admin": "Admin"
+  }
+}

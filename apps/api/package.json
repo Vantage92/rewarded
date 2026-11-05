@@ -4,12 +4,12 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "node --watch --env-file-if-exists=../../.env src/server.dev.ts",
-    "start:dev": "node --env-file-if-exists=../../.env src/server.dev.ts",
+    "dev": "node --watch src/server.dev.ts",
+    "start:dev": "node src/server.dev.ts",
     "build": "vite build",
-    "start": "node --env-file-if-exists=../../.env dist/server.prod.js",
+    "start": "node dist/server.prod.js",
     "typecheck": "tsc -p tsconfig.json",
-    "db:migrate": "node --env-file-if-exists=../../.env src/cli/migrate.ts"
+    "db:migrate": "node src/cli/migrate.ts"
   },
   "dependencies": {
     "@hono/node-server": "2.1.6",
