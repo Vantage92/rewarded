@@ -52,13 +52,13 @@ function steady(until: number, skip: [number, number] | null = null): Heartbeat[
   }
   return out;
 }
-function input(over: Partial<EvaluateSessionInput> & { plannedMin?: 25 | 50 | 90 | 1 } = {}): EvaluateSessionInput {
+function input(over: Omit<Partial<EvaluateSessionInput>, "endReport"> & { plannedMin?: 25 | 50 | 90 | 1; endReport?: EvaluateSessionInput["endReport"] | undefined } = {}): EvaluateSessionInput {
   const plannedMin = over.plannedMin ?? 25;
   const session = over.session ?? header(plannedMin);
   return {
     session, heartbeats: over.heartbeats ?? steady(plannedMin * MIN), events: over.events ?? [],
     outages: over.outages ?? [], now: over.now ?? T0 + plannedMin * MIN + 1_000, params: P,
-    ...(over.endReport !== undefined ? { endReport: over.endReport } : { endReport: { monoMs: MONO0 + plannedMin * MIN, clientTs: T0 + plannedMin * MIN, serverRecvAt: T0 + plannedMin * MIN + 500 } }),
+    ...('endReport' in over ? (over.endReport ? { endReport: over.endReport } : {}) : { endReport: { monoMs: MONO0 + plannedMin * MIN, clientTs: T0 + plannedMin * MIN, serverRecvAt: T0 + plannedMin * MIN + 500 } }),
   };
 }
 const END25 = 25 * MIN;
