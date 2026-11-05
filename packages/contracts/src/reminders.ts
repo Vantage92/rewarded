@@ -11,3 +11,6 @@ export const reminderRoutes = defineRoutes({
     body: ReminderUnsubscribeRequest, response: NoContent, responseKind: 'empty', status: [204], errors: ['LINK_INVALID'], spec: 'arch §8.2',
   },
 });
+
+// Inferred types (output side) for every schema above.
+export type ReminderUnsubscribeRequest = z.output<typeof ReminderUnsubscribeRequest>;

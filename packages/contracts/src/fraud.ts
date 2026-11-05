@@ -177,3 +177,28 @@ export const fraudRoutes = defineRoutes({
     errors: ['REASON_REQUIRED'], spec: 'arch §8.2 Beheer, §6.5',
   },
 });
+
+// Inferred types (output side) for every schema above.
+export type AppealRequest = z.output<typeof AppealRequest>;
+export type AppealResponse = z.output<typeof AppealResponse>;
+export type InstitutionStartRequest = z.output<typeof InstitutionStartRequest>;
+export type InstitutionConfirmRequest = z.output<typeof InstitutionConfirmRequest>;
+export type InstitutionConfirmResponse = z.output<typeof InstitutionConfirmResponse>;
+export type FlagSessionEvidence = z.output<typeof FlagSessionEvidence>;
+export type AdminFlag = z.output<typeof AdminFlag>;
+export type FlagListQuery = z.output<typeof FlagListQuery>;
+export type FlagListResponse = z.output<typeof FlagListResponse>;
+export type FlagDecisionRequest = z.output<typeof FlagDecisionRequest>;
+export type FlagDecisionResponse = z.output<typeof FlagDecisionResponse>;
+export type BlockConfirmRequest = z.output<typeof BlockConfirmRequest>;
+export type BlockConfirmResponse = z.output<typeof BlockConfirmResponse>;
+export type AdminAppeal = z.output<typeof AdminAppeal>;
+export type AppealListResponse = z.output<typeof AppealListResponse>;
+export type AppealDecisionRequest = z.output<typeof AppealDecisionRequest>;
+export type AppealDecisionResponse = z.output<typeof AppealDecisionResponse>;
+export type FirstRedemptionsResponse = z.output<typeof FirstRedemptionsResponse>;
+export type SampleItem = z.output<typeof SampleItem>;
+export type CurrentSampleResponse = z.output<typeof CurrentSampleResponse>;
+export type SampleItemParams = z.output<typeof SampleItemParams>;
+export type SampleJudgementRequest = z.output<typeof SampleJudgementRequest>;
+export type SampleJudgementResponse = z.output<typeof SampleJudgementResponse>;

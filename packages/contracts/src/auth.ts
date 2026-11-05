@@ -143,3 +143,22 @@ export const authRoutes = defineRoutes({
     errors: ['ALREADY_OPTED_OUT'], spec: 'arch §8.2, spec §7.3',
   },
 });
+
+// Inferred types (output side) for every schema above.
+export type DailyGoalMin = z.output<typeof DailyGoalMin>;
+export type MagicLinkRequest = z.output<typeof MagicLinkRequest>;
+export type ConfirmLinkRequest = z.output<typeof ConfirmLinkRequest>;
+export type LoginCodeRequest = z.output<typeof LoginCodeRequest>;
+export type LoginResponse = z.output<typeof LoginResponse>;
+export type UserSettings = z.output<typeof UserSettings>;
+export type MeUser = z.output<typeof MeUser>;
+export type MeSquad = z.output<typeof MeSquad>;
+export type MeClub = z.output<typeof MeClub>;
+export type MeResponse = z.output<typeof MeResponse>;
+export type OnboardingRequest = z.output<typeof OnboardingRequest>;
+export type ExperimentAssignmentDto = z.output<typeof ExperimentAssignmentDto>;
+export type OnboardingResponse = z.output<typeof OnboardingResponse>;
+export type SettingsPatch = z.output<typeof SettingsPatch>;
+export type SettingsResponse = z.output<typeof SettingsResponse>;
+export type ResearchOptOutRequest = z.output<typeof ResearchOptOutRequest>;
+export type ResearchOptOutResponse = z.output<typeof ResearchOptOutResponse>;

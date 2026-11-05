@@ -114,3 +114,23 @@ export const clubRoutes = defineRoutes({
     params: IdParam, body: DecideLinkRequest, response: DecideLinkResponse, responseKind: 'json', status: [200], errors: [], spec: 'arch §8.2 Beheer',
   },
 });
+
+// Inferred types (output side) for every schema above.
+export type JoinCode = z.output<typeof JoinCode>;
+export type QrSource = z.output<typeof QrSource>;
+export type ClubDto = z.output<typeof ClubDto>;
+export type JoinClubRequest = z.output<typeof JoinClubRequest>;
+export type JoinClubResponse = z.output<typeof JoinClubResponse>;
+export type Metric = z.output<typeof Metric>;
+export type BoardTab = z.output<typeof BoardTab>;
+export type BoardDashboardQuery = z.output<typeof BoardDashboardQuery>;
+export type BoardDashboardResponse = z.output<typeof BoardDashboardResponse>;
+export type PromoKitResponse = z.output<typeof PromoKitResponse>;
+export type AdminClub = z.output<typeof AdminClub>;
+export type AdminClubCreate = z.output<typeof AdminClubCreate>;
+export type AdminClubPatch = z.output<typeof AdminClubPatch>;
+export type AdminClubResponse = z.output<typeof AdminClubResponse>;
+export type AdminClubListResponse = z.output<typeof AdminClubListResponse>;
+export type PendingLinksResponse = z.output<typeof PendingLinksResponse>;
+export type DecideLinkRequest = z.output<typeof DecideLinkRequest>;
+export type DecideLinkResponse = z.output<typeof DecideLinkResponse>;

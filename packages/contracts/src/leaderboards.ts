@@ -24,3 +24,7 @@ export const leaderboardRoutes = defineRoutes({
     params: z.strictObject({ challenge_id: Ulid }), response: LeaderboardResponse, responseKind: 'json', status: [200], errors: ['NOT_FOUND'], spec: 'arch §8.2, §6.2',
   },
 });
+
+// Inferred types (output side) for every schema above.
+export type LeaderboardRow = z.output<typeof LeaderboardRow>;
+export type LeaderboardResponse = z.output<typeof LeaderboardResponse>;

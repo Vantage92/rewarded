@@ -47,3 +47,13 @@ export const redemptionRoutes = defineRoutes({
     errors: ['OUT_OF_STOCK'], spec: 'arch §8.2 Beheer',
   },
 });
+
+// Inferred types (output side) for every schema above.
+export type RedeemRequest = z.output<typeof RedeemRequest>;
+export type RedeemResponse = z.output<typeof RedeemResponse>;
+export type RedemptionDto = z.output<typeof RedemptionDto>;
+export type RedemptionListResponse = z.output<typeof RedemptionListResponse>;
+export type BrokenRequest = z.output<typeof BrokenRequest>;
+export type BrokenResponse = z.output<typeof BrokenResponse>;
+export type ReplaceVoucherRequest = z.output<typeof ReplaceVoucherRequest>;
+export type ReplaceVoucherResponse = z.output<typeof ReplaceVoucherResponse>;

@@ -176,3 +176,34 @@ export const adminRoutes = defineRoutes({
     query: AuditQuery, response: AuditResponse, responseKind: 'json', status: [200], errors: [], spec: 'arch §8.2 Beheer, §10.8',
   },
 });
+
+// Inferred types (output side) for every schema above.
+export type MfaEnrollResponse = z.output<typeof MfaEnrollResponse>;
+export type MfaVerifyRequest = z.output<typeof MfaVerifyRequest>;
+export type MfaVerifyResponse = z.output<typeof MfaVerifyResponse>;
+export type UserSearchQuery = z.output<typeof UserSearchQuery>;
+export type UserGetQuery = z.output<typeof UserGetQuery>;
+export type AdminUserSummary = z.output<typeof AdminUserSummary>;
+export type UserSearchResponse = z.output<typeof UserSearchResponse>;
+export type AdminUserDetail = z.output<typeof AdminUserDetail>;
+export type TeamFlagResponse = z.output<typeof TeamFlagResponse>;
+export type AdminPrize = z.output<typeof AdminPrize>;
+export type PrizeResponse = z.output<typeof PrizeResponse>;
+export type PrizeVerifyRequest = z.output<typeof PrizeVerifyRequest>;
+export type PrizeAgeCheckRequest = z.output<typeof PrizeAgeCheckRequest>;
+export type PrizeDeliveryContactRequest = z.output<typeof PrizeDeliveryContactRequest>;
+export type VacationPauseRequest = z.output<typeof VacationPauseRequest>;
+export type VacationPauseResponse = z.output<typeof VacationPauseResponse>;
+export type ExperimentsResponse = z.output<typeof ExperimentsResponse>;
+export type FeatureFlagParams = z.output<typeof FeatureFlagParams>;
+export type FeatureFlagRequest = z.output<typeof FeatureFlagRequest>;
+export type FeatureFlagResponse = z.output<typeof FeatureFlagResponse>;
+export type WellbeingSummaryResponse = z.output<typeof WellbeingSummaryResponse>;
+export type ArmBStopRequest = z.output<typeof ArmBStopRequest>;
+export type ArmBStopResponse = z.output<typeof ArmBStopResponse>;
+export type Ambassador = z.output<typeof Ambassador>;
+export type AmbassadorCreate = z.output<typeof AmbassadorCreate>;
+export type AmbassadorListResponse = z.output<typeof AmbassadorListResponse>;
+export type AuditQuery = z.output<typeof AuditQuery>;
+export type AuditEntryDto = z.output<typeof AuditEntryDto>;
+export type AuditResponse = z.output<typeof AuditResponse>;

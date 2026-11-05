@@ -38,3 +38,10 @@ export const inviteRoutes = defineRoutes({
     errors: ['INVITE_INVALID', 'INVITE_EXPIRED', 'INVITE_EXHAUSTED', 'ALREADY_IN_SQUAD', 'SQUAD_FULL', 'DUEL_ACTIVE'], spec: 'arch §8.2',
   },
 });
+
+// Inferred types (output side) for every schema above.
+export type InviteDto = z.output<typeof InviteDto>;
+export type InvitePreview = z.output<typeof InvitePreview>;
+export type AcceptedSquad = z.output<typeof AcceptedSquad>;
+export type AcceptedDuel = z.output<typeof AcceptedDuel>;
+export type InviteAcceptResponse = z.output<typeof InviteAcceptResponse>;

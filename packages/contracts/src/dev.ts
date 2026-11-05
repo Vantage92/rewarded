@@ -46,3 +46,17 @@ export const devRoutes = defineRoutes({
     body: AaCheckRequest, response: AaCheckResponse, responseKind: 'json', status: [200], errors: [], spec: 'arch §8.2 Ontwikkeling, voorregistratie §9.3',
   },
 });
+
+// Inferred types (output side) for every schema above.
+export type DevInboxQuery = z.output<typeof DevInboxQuery>;
+export type DevInboxMessage = z.output<typeof DevInboxMessage>;
+export type DevInboxResponse = z.output<typeof DevInboxResponse>;
+export type DevClockRequest = z.output<typeof DevClockRequest>;
+export type DevClockResponse = z.output<typeof DevClockResponse>;
+export type DevJobParams = z.output<typeof DevJobParams>;
+export type DevJobRequest = z.output<typeof DevJobRequest>;
+export type DevJobResponse = z.output<typeof DevJobResponse>;
+export type DevResetRequest = z.output<typeof DevResetRequest>;
+export type DevResetResponse = z.output<typeof DevResetResponse>;
+export type AaCheckRequest = z.output<typeof AaCheckRequest>;
+export type AaCheckResponse = z.output<typeof AaCheckResponse>;

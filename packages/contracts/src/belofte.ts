@@ -52,3 +52,13 @@ export const belofteRoutes = defineRoutes({
     errors: ['AGE_RESTRICTED'], spec: 'arch §8.2, spec §3.12',
   },
 });
+
+// Inferred types (output side) for every schema above.
+export type BelofteOfferResponse = z.output<typeof BelofteOfferResponse>;
+export type CreateBelofteRequest = z.output<typeof CreateBelofteRequest>;
+export type BelofteDto = z.output<typeof BelofteDto>;
+export type CreateBelofteResponse = z.output<typeof CreateBelofteResponse>;
+export type CurrentBelofteResponse = z.output<typeof CurrentBelofteResponse>;
+export type StopBelofteResponse = z.output<typeof StopBelofteResponse>;
+export type ReflectionRequest = z.output<typeof ReflectionRequest>;
+export type ReflectionResponse = z.output<typeof ReflectionResponse>;

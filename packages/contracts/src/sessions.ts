@@ -230,3 +230,32 @@ export const sessionRoutes = defineRoutes({
     body: AdminOutageRequest, response: AdminOutageResponse, responseKind: 'json', status: [201], errors: [], spec: 'arch §8.2 Beheer, §4.8',
   },
 });
+
+// Inferred types (output side) for every schema above.
+export type DeviceRequest = z.output<typeof DeviceRequest>;
+export type DeviceResponse = z.output<typeof DeviceResponse>;
+export type StartSessionRequest = z.output<typeof StartSessionRequest>;
+export type StartSessionResponse = z.output<typeof StartSessionResponse>;
+export type VisibilityEvent = z.output<typeof VisibilityEvent>;
+export type BufferedHeartbeat = z.output<typeof BufferedHeartbeat>;
+export type OutboxItem = z.output<typeof OutboxItem>;
+export type HeartbeatRequest = z.output<typeof HeartbeatRequest>;
+export type HeartbeatResponse = z.output<typeof HeartbeatResponse>;
+export type SessionEventsRequest = z.output<typeof SessionEventsRequest>;
+export type SessionEventsResponse = z.output<typeof SessionEventsResponse>;
+export type EndSessionRequest = z.output<typeof EndSessionRequest>;
+export type EndSessionResponse = z.output<typeof EndSessionResponse>;
+export type StopSessionRequest = z.output<typeof StopSessionRequest>;
+export type StopSessionResponse = z.output<typeof StopSessionResponse>;
+export type SessionVerdictDto = z.output<typeof SessionVerdictDto>;
+export type SessionDto = z.output<typeof SessionDto>;
+export type ActiveSessionResponse = z.output<typeof ActiveSessionResponse>;
+export type SessionDetailResponse = z.output<typeof SessionDetailResponse>;
+export type SessionListQuery = z.output<typeof SessionListQuery>;
+export type SessionListResponse = z.output<typeof SessionListResponse>;
+export type SessionReportRequest = z.output<typeof SessionReportRequest>;
+export type SessionReportResponse = z.output<typeof SessionReportResponse>;
+export type AdminRestoreRequest = z.output<typeof AdminRestoreRequest>;
+export type AdminRestoreResponse = z.output<typeof AdminRestoreResponse>;
+export type AdminOutageRequest = z.output<typeof AdminOutageRequest>;
+export type AdminOutageResponse = z.output<typeof AdminOutageResponse>;

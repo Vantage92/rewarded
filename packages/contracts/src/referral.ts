@@ -14,3 +14,6 @@ export const referralRoutes = defineRoutes({
     response: ReferralMineResponse, responseKind: 'json', status: [200], errors: ['FEATURE_DISABLED'], spec: 'arch §8.2, spec §4.9',
   },
 });
+
+// Inferred types (output side) for every schema above.
+export type ReferralMineResponse = z.output<typeof ReferralMineResponse>;

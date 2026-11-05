@@ -119,3 +119,18 @@ export const challengeRoutes = defineRoutes({
     errors: ['FOUR_EYES_REQUIRED', 'SAMPLE_REQUIRED'], spec: 'arch §8.2 Beheer, §10.8',
   },
 });
+
+// Inferred types (output side) for every schema above.
+export type PrizeSummary = z.output<typeof PrizeSummary>;
+export type ChallengeListItem = z.output<typeof ChallengeListItem>;
+export type ChallengeListResponse = z.output<typeof ChallengeListResponse>;
+export type EnrollmentDto = z.output<typeof EnrollmentDto>;
+export type EnrollResponse = z.output<typeof EnrollResponse>;
+export type ProgressResponse = z.output<typeof ProgressResponse>;
+export type ChallengeRules = z.output<typeof ChallengeRules>;
+export type PrizeSpec = z.output<typeof PrizeSpec>;
+export type AdminChallengeCreate = z.output<typeof AdminChallengeCreate>;
+export type AdminChallenge = z.output<typeof AdminChallenge>;
+export type AdminChallengeResponse = z.output<typeof AdminChallengeResponse>;
+export type ResultsProposeRequest = z.output<typeof ResultsProposeRequest>;
+export type ResultsConfirmRequest = z.output<typeof ResultsConfirmRequest>;

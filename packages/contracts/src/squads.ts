@@ -105,3 +105,22 @@ export const squadRoutes = defineRoutes({
     errors: ['ALREADY_REPORTED'], spec: 'arch §8.2, spec §4.4 (DSA)',
   },
 });
+
+// Inferred types (output side) for every schema above.
+export type SquadName = z.output<typeof SquadName>;
+export type SquadDto = z.output<typeof SquadDto>;
+export type CreateSquadRequest = z.output<typeof CreateSquadRequest>;
+export type CreateSquadResponse = z.output<typeof CreateSquadResponse>;
+export type SquadMember = z.output<typeof SquadMember>;
+export type SquadMineResponse = z.output<typeof SquadMineResponse>;
+export type PresenceResponse = z.output<typeof PresenceResponse>;
+export type CompareResponse = z.output<typeof CompareResponse>;
+export type WitnessBelofte = z.output<typeof WitnessBelofte>;
+export type SquadBeloftesResponse = z.output<typeof SquadBeloftesResponse>;
+export type SquadInviteResponse = z.output<typeof SquadInviteResponse>;
+export type PatchSquadRequest = z.output<typeof PatchSquadRequest>;
+export type PatchSquadResponse = z.output<typeof PatchSquadResponse>;
+export type MergeRequestBody = z.output<typeof MergeRequestBody>;
+export type MergeRequestResponse = z.output<typeof MergeRequestResponse>;
+export type NameReportRequest = z.output<typeof NameReportRequest>;
+export type NameReportResponse = z.output<typeof NameReportResponse>;

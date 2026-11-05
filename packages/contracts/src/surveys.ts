@@ -32,3 +32,9 @@ export const surveyRoutes = defineRoutes({
     errors: ['NOT_DUE'], spec: 'arch §8.2, spec §7.4',
   },
 });
+
+// Inferred types (output side) for every schema above.
+export type SurveyItem = z.output<typeof SurveyItem>;
+export type SurveyDueResponse = z.output<typeof SurveyDueResponse>;
+export type SurveyAnswerRequest = z.output<typeof SurveyAnswerRequest>;
+export type SurveyMomentParam = z.output<typeof SurveyMomentParam>;

@@ -44,3 +44,10 @@ export const cardRoutes = defineRoutes({
     params: TokenParam, response: VerifyResponse, responseKind: 'json', status: [200], errors: ['CARD_UNAVAILABLE'], spec: 'arch §8.2, spec §4.8',
   },
 });
+
+// Inferred types (output side) for every schema above.
+export type CardFields = z.output<typeof CardFields>;
+export type CreateCardRequest = z.output<typeof CreateCardRequest>;
+export type CreateCardResponse = z.output<typeof CreateCardResponse>;
+export type CardImageQuery = z.output<typeof CardImageQuery>;
+export type VerifyResponse = z.output<typeof VerifyResponse>;

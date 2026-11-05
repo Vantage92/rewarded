@@ -22,3 +22,10 @@ export const phoneRoutes = defineRoutes({
     errors: ['CODE_INVALID', 'CODE_EXPIRED', 'TOO_MANY_ATTEMPTS'], spec: 'arch §8.2',
   },
 });
+
+// Inferred types (output side) for every schema above.
+export type PhoneNumber = z.output<typeof PhoneNumber>;
+export type PhoneStartRequest = z.output<typeof PhoneStartRequest>;
+export type PhoneStartResponse = z.output<typeof PhoneStartResponse>;
+export type PhoneConfirmRequest = z.output<typeof PhoneConfirmRequest>;
+export type PhoneConfirmResponse = z.output<typeof PhoneConfirmResponse>;

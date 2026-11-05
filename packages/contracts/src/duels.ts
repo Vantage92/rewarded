@@ -34,3 +34,9 @@ export const duelRoutes = defineRoutes({
     response: CurrentDuelResponse, responseKind: 'json', status: [200], errors: ['NOT_FOUND'], spec: 'arch §8.2',
   },
 });
+
+// Inferred types (output side) for every schema above.
+export type DuelDto = z.output<typeof DuelDto>;
+export type CreateDuelRequest = z.output<typeof CreateDuelRequest>;
+export type CreateDuelResponse = z.output<typeof CreateDuelResponse>;
+export type CurrentDuelResponse = z.output<typeof CurrentDuelResponse>;

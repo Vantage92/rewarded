@@ -35,3 +35,10 @@ export const supportRoutes = defineRoutes({
     params: IdParam, body: TicketPatchRequest, response: TicketResponse, responseKind: 'json', status: [200], errors: ['NOT_FOUND'], spec: 'arch §8.2 Beheer',
   },
 });
+
+// Inferred types (output side) for every schema above.
+export type SupportTicket = z.output<typeof SupportTicket>;
+export type SupportListResponse = z.output<typeof SupportListResponse>;
+export type ExternalTicketRequest = z.output<typeof ExternalTicketRequest>;
+export type TicketPatchRequest = z.output<typeof TicketPatchRequest>;
+export type TicketResponse = z.output<typeof TicketResponse>;

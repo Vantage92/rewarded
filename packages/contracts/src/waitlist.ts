@@ -47,3 +47,10 @@ export const waitlistRoutes = defineRoutes({
     body: InviteBatchRequest, response: InviteBatchResponse, responseKind: 'json', status: [200], errors: [], spec: 'arch §8.2 Beheer, §3.1',
   },
 });
+
+// Inferred types (output side) for every schema above.
+export type WaitlistRequest = z.output<typeof WaitlistRequest>;
+export type WaitlistUnsubscribeRequest = z.output<typeof WaitlistUnsubscribeRequest>;
+export type AdminWaitlistOverview = z.output<typeof AdminWaitlistOverview>;
+export type InviteBatchRequest = z.output<typeof InviteBatchRequest>;
+export type InviteBatchResponse = z.output<typeof InviteBatchResponse>;

@@ -20,3 +20,8 @@ export const kpiRoutes = defineRoutes({
     params: KpiParams, query: KpiQuery, response: KpiResponse, responseKind: 'json', status: [200], errors: ['NOT_FOUND'], spec: 'arch §8.2 Beheer, spec §7.2',
   },
 });
+
+// Inferred types (output side) for every schema above.
+export type KpiParams = z.output<typeof KpiParams>;
+export type KpiQuery = z.output<typeof KpiQuery>;
+export type KpiResponse = z.output<typeof KpiResponse>;

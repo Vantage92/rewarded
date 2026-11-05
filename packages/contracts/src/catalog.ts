@@ -164,3 +164,22 @@ export const catalogRoutes = defineRoutes({
     errors: ['OUT_OF_STOCK'], spec: 'arch §8.2 Beheer, spec §4.3',
   },
 });
+
+// Inferred types (output side) for every schema above.
+export type CatalogItem = z.output<typeof CatalogItem>;
+export type CatalogResponse = z.output<typeof CatalogResponse>;
+export type Partner = z.output<typeof Partner>;
+export type PartnerCreateRequest = z.output<typeof PartnerCreateRequest>;
+export type PartnerListResponse = z.output<typeof PartnerListResponse>;
+export type BudgetCreateRequest = z.output<typeof BudgetCreateRequest>;
+export type BudgetCancelRequest = z.output<typeof BudgetCancelRequest>;
+export type Budget = z.output<typeof Budget>;
+export type BudgetResponse = z.output<typeof BudgetResponse>;
+export type BudgetOverviewResponse = z.output<typeof BudgetOverviewResponse>;
+export type RewardCreateRequest = z.output<typeof RewardCreateRequest>;
+export type AdminReward = z.output<typeof AdminReward>;
+export type AdminRewardResponse = z.output<typeof AdminRewardResponse>;
+export type VoucherImportRequest = z.output<typeof VoucherImportRequest>;
+export type VoucherImportResponse = z.output<typeof VoucherImportResponse>;
+export type RewardPublishRequest = z.output<typeof RewardPublishRequest>;
+export type RewardReleaseRequest = z.output<typeof RewardReleaseRequest>;

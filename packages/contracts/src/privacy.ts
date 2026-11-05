@@ -28,3 +28,8 @@ export const privacyRoutes = defineRoutes({
     errors: ['FOUR_EYES_REQUIRED', 'NOT_FOUND'], spec: 'arch §8.2 Beheer, §10.7',
   },
 });
+
+// Inferred types (output side) for every schema above.
+export type ExportFile = z.output<typeof ExportFile>;
+export type DeleteMeRequest = z.output<typeof DeleteMeRequest>;
+export type DeleteMeResponse = z.output<typeof DeleteMeResponse>;

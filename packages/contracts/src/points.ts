@@ -98,3 +98,13 @@ export const pointsRoutes = defineRoutes({
     response: TodayResponse, responseKind: 'json', status: [200], errors: [], spec: 'arch §8.2',
   },
 });
+
+// Inferred types (output side) for every schema above.
+export type BalanceResponse = z.output<typeof BalanceResponse>;
+export type LedgerItem = z.output<typeof LedgerItem>;
+export type LedgerResponse = z.output<typeof LedgerResponse>;
+export type DailyGoalRequest = z.output<typeof DailyGoalRequest>;
+export type DailyGoalResponse = z.output<typeof DailyGoalResponse>;
+export type ExamDayParams = z.output<typeof ExamDayParams>;
+export type ExamDaysResponse = z.output<typeof ExamDaysResponse>;
+export type TodayResponse = z.output<typeof TodayResponse>;

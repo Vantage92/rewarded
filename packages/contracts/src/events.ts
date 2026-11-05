@@ -280,3 +280,5 @@ export const eventRoutes = defineRoutes({
   },
 });
 
+// Inferred types (output side) for every schema above.
+export type StoredEvent = z.output<typeof StoredEvent>;
