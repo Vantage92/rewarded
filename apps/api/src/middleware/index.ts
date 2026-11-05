@@ -1,5 +1,10 @@
-export { requireAuth, type AuthLevel } from './auth.ts';
-export { csrf, type CsrfOptions } from './csrf.ts';
-export { rateLimit, type RateLimitOptions } from './rateLimit.ts';
-export { idempotency, type IdempotencyOptions } from './idempotency.ts';
-export { ApiError, errorHandler, notFoundHandler } from './errors.ts';
+export { requireAuth, checkAuth, loadSession, createSession, deleteUserSessions, setSessionCookie, clearSessionCookie, sessionLoader, SESSION_COOKIE, type AuthLevel, type NewSession, type RequireAuthOptions } from './auth.ts';
+export { csrf, csrfValueMatches, BODY_TOKEN_PATHS, CSRF_COOKIE, CSRF_HEADER, type CsrfOptions } from './csrf.ts';
+export { rateLimit, enforceRateLimit, limitFor, RateLimiter, RATE_LIMITS, type RateKey, type RateLimitOptions } from './rateLimit.ts';
+export { idempotency, checkIdempotency, saveIdempotentResponse, canonicalJson, IDEMPOTENCY_HEADER, type IdempotencyOptions } from './idempotency.ts';
+export { ApiError, errorHandler, notFoundHandler, toErrorResponse, zodDetails, fail } from './errors.ts';
+export { mount, reply, type HandlerArgs, type HandlerResult, type MountOptions, type Reply } from './route.ts';
+export { requestContext, securityHeaders, accessLog, clientIp } from './request.ts';
+export { requireFeature } from './feature.ts';
+export { globalMiddleware } from './global.ts';
+export { DEFAULT_HTTP_CONFIG, type AppEnv, type AuthState, type AuthUser, type HttpConfig, type RequestVars } from './context.ts';

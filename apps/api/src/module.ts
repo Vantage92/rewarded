@@ -1,15 +1,18 @@
 import type { Hono } from 'hono';
 import type { Db } from './db/types.ts';
+import type { AppEnv, HttpConfig } from './middleware/context.ts';
 import type { Platform } from './platform/types.ts';
 import type { Services } from './services/index.ts';
 
-// Intentionally empty: filled by later work packages.
-export type AppEnv = { Variables: {} };
+// Request variables (auth, net class, IP hash, limiter) are defined by WP-3 in middleware/context.ts.
+export type { AppEnv } from './middleware/context.ts';
 
 export interface ModuleDeps {
   db: Db;
   platform: Platform;
   services: Services;
+  /** HTTP settings (app origin, proxy, cookies, release); defaults from middleware/context.ts. */
+  http?: HttpConfig;
 }
 
 /**

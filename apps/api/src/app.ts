@@ -1,5 +1,6 @@
 import { Hono } from 'hono';
 import { errorHandler, notFoundHandler } from './middleware/errors.ts';
+import { globalMiddleware } from './middleware/global.ts';
 import type { ApiModule, AppEnv, ModuleDeps } from './module.ts';
 
 export interface CreateAppOptions {
@@ -14,7 +15,8 @@ export function createApp({ modules, deps }: CreateAppOptions): Hono<AppEnv> {
   app.notFound(notFoundHandler);
 
   const api = new Hono<AppEnv>();
-  // Global middleware (security headers, logging, CSRF) is added here by WP-3.
+  // Global middleware of WP-3 (request context, access log, headers, session, CSRF), before all modules.
+  globalMiddleware(api, { db: deps.db, platform: deps.platform, ...(deps.http ? { http: deps.http } : {}) });
   api.get('/health', (c) => c.json({ status: 'ok', db: deps.db.driver, modules: modules.map((m) => m.name) }));
 
   const seen = new Set<string>();

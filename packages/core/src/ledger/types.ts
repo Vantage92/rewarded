@@ -234,6 +234,11 @@ export interface ReconcileDayInput {
   params: LedgerParams;
   examDay: boolean;
   earnArm: EarnArm;
+  /**
+   * Whether the day close for this day has run (WP-4 addition, optional and backward compatible).
+   * Arm B only lapses a missed goal after the close; defaults to `cause.type === 'day_close'`.
+   */
+  dayClosed?: boolean;
 }
 
 export interface ReconcileDayResult {

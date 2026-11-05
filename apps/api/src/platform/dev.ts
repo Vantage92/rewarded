@@ -1,5 +1,5 @@
 // Dev and test implementations. Never imported by server.prod.ts.
-import type { Clock, MailMessage, Mailer, Peppers, Random, SmsMessage, SmsSender } from './types.ts';
+import type { Clock, MailMessage, Mailer, Peppers, PhoneLineType, Random, SmsMessage, SmsSender } from './types.ts';
 
 /** Settable clock for dev and tests (POST /dev/clock arrives in WP-3). */
 export class DevClock implements Clock {
@@ -64,7 +64,8 @@ export class DevInbox {
 }
 
 export class DevMailer implements Mailer {
-  private readonly inbox: DevInbox;
+  /** Read by GET /dev/inbox (modules/dev). */
+  readonly inbox: DevInbox;
   private readonly echo: boolean;
   constructor(inbox: DevInbox, echo = true) {
     this.inbox = inbox;
@@ -76,8 +77,19 @@ export class DevMailer implements Mailer {
   }
 }
 
+/**
+ * Number type table for dev and tests (architecture §11: fake SmsSender with a number type table).
+ * Dutch prefixes: 06 mobile, 085/084/088 VoIP or business, other 0xx landline.
+ */
+export function devLineType(e164: string): PhoneLineType {
+  if (/^\+316\d{8}$/.test(e164)) return 'mobile';
+  if (/^\+318[458]\d{7}$/.test(e164)) return 'voip';
+  if (/^\+31[1-57-9]\d{8}$/.test(e164)) return 'landline';
+  return 'unknown';
+}
+
 export class DevSmsSender implements SmsSender {
-  private readonly inbox: DevInbox;
+  readonly inbox: DevInbox;
   private readonly echo: boolean;
   constructor(inbox: DevInbox, echo = true) {
     this.inbox = inbox;
@@ -87,6 +99,9 @@ export class DevSmsSender implements SmsSender {
     this.inbox.push(message, 'sms');
     if (this.echo) console.info(`[dev-sms] to=${message.to}\n${message.text}`);
   }
+  async lookupLineType(e164: string): Promise<PhoneLineType> {
+    return devLineType(e164);
+  }
 }
 
 /** Fixed peppers for tests and for dev when no secrets file exists. Never valid in production. */
@@ -94,4 +109,9 @@ export const DEV_PEPPERS: Peppers = {
   pepper_ip: 'dev-pepper-ip-not-secret-000000000000',
   pepper_phone: 'dev-pepper-phone-not-secret-0000000000',
   pepper_audit: 'dev-pepper-audit-not-secret-0000000000',
+  pepper_email: 'dev-pepper-email-not-secret-0000000000',
 };
+
+/** Fixed TOTP encryption key and experiment seed for dev and tests. Never valid in production. */
+export const DEV_TOTP_KEY = 'dev-totp-key-not-secret-000000000000000';
+export const DEV_EXPERIMENT_SEED = 'dev-experiment-seed-not-secret-0000000';
