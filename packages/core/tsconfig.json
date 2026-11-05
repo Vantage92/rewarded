@@ -1,0 +1,9 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    // No DOM and no Node types: core is pure domain code (architecture §2).
+    "lib": ["ES2023"],
+    "types": []
+  },
+  "include": ["src", "test"]
+}

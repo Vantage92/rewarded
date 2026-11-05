@@ -1,0 +1,20 @@
+node_modules/
+dist/
+coverage/
+.data/
+.cache/
+.secrets/
+*.sqlite
+*.sqlite-wal
+*.sqlite-shm
+.env
+.env.local
+# Generated files (see tooling/scripts and apps/web/scripts)
+apps/api/src/modules.gen.ts
+apps/api/src/modules.dev.gen.ts
+apps/web/src/design/tokens.css
+apps/web/src/design/tokens.gen.ts
+# Playwright
+test-results/
+playwright-report/
+e2e/.output/
