@@ -86,3 +86,30 @@ Drie besluiten raken alles:
 ## Wat ik niet overneem
 
 Niets wordt afgewezen. Drie punten neem ik aangepast over: het stukloon per minuut blijft als vaste ratio (bindend en uitlegbaar), maar verschuift naar de achtergrond (GS1); het team kan ik niet benoemen, dus de pitch is daar eerlijk over en de investeerdersvoorwaarde blijft open (M5); de nawerkingstoets krijgt naast de verschoven Belofte een rustperiode-arm, omdat dat de enige zuivere toets van "beloning als steiger" is, onder voorbehoud van de jurist (G1).
+
+## Aanvulling na de samenhangcontrole (5 november 2026, middag)
+
+De onafhankelijke controle vond 22 tegenstrijdigheden en 10 punten waarop een besluit van mij ontbrak. Die besluiten staan hier; de eindredacteur en de volgende revisie volgen ze.
+
+| Punt | Besluit |
+|---|---|
+| Rustperiode-arm tegenover de eis dat geen arm meer kan opleveren (G1, JS2) | De eis uit JS2 geldt voor de bonusarmen A en B. De rustperiode is geen beloningsregel maar een vooraf aangekondigde onderzoeksconditie met opt-out zonder verlies van punten; verdiende punten blijven inwisselbaar. De advocaat beoordeelt of hier een kanselement of oneerlijke handelspraktijk in zit (vraag 3b); bij een negatief oordeel vervalt de arm. |
+| Stopregel D30 op het lanceringsmoment (M4, G3) | Lanceringsbesluit: D7 van het go/no-go-cohort onder 15% betekent geen lancering. D30 buiten de tentamenweken onder 6%, gemeten in 1–14 februari, betekent geen tweede tranche en geen opschaling. Zo staat het in de voorregistratie; pitch en businessplan volgen die lezing. |
+| Einde van de rustperiode (G1) | Vaste datum: 19 januari tot en met 31 maart 2027; vanaf 1 april verdient iedereen weer punten. De aprilmeting is de tentamenperiode per instelling, met de challenge voor iedereen. De maat "terugkeer zonder nieuwe challenge" vervalt; in de plaats komt terugkeer in de week vóór de aprilchallenge (25–31 maart) als secundaire maat. |
+| Moment van het Belofte-aanbod (G1) | Eén vaste datum voor iedereen in de vroege arm: 11 januari 2027, een week vóór de stop van de doelbonus op 18 januari 04:00. Niet per vereniging. |
+| Datum van het lanceringsbesluit | 19 januari 2027, op data tot en met 18 januari 04:00. |
+| Eenheid van het kostenplafond (M2, M4) | In het model: €0,25 per maandelijks actieve gebruiker per maand. Als go/no-go-maat in de pilot: kosten per wekelijks actieve gebruiker per week, afgeleid uit het maandplafond (werkhypothese €0,06), inclusief de pilotprijzen. |
+| Wie de pilotprijzen en de catalogus betaalt | Rewarded zelf, uit één begrotingspost "pilotprijzen en catalogus" binnen het plafond van de gratis laag (werkhypothese €1.500 voor de gesloten pilot). Getekende partnerbijdragen komen daar bovenop. |
+| Seizoensprofiel per instelling (M2) | Voorlopig één werkhypothese (vier tentamenperiodes); per instelling in te vullen uit de jaarkalenders van de pilotinstellingen vóór 1 december (actie founder). |
+| Bemanning en financiering van de bouw in november en december (M5) | De founder bouwt R1–R3 met AI-ondersteunde ontwikkeling (de huidige bouw), met een freelance senior engineer voor de toesteltest en een onafhankelijke codereview als de eigen middelen dat toelaten; de begroting van de ronde begint in januari 2027. Zo staat het in architectuur §12.4, businessplan §10 en de pitch. |
+| Identiteitsanker en instellingsanker (J2, J3) | Twee begrippen. Identiteitsanker: een bevestigd e-mailadres van een hbo- of wo-instelling óf een geverifieerd mobiel nummer; nodig om in de prijsperiode in de teller te tellen. Instellingsanker: alleen een bevestigd instellingsadres; nodig voor de gereserveerde voorraad en de ambassadeursvergoeding. We bewaren alleen een vinkje en het domein, geen hash van het adres. |
+| Plafond per ambassadeur (J3) | Werkhypothese: €5 per gebruiker die op dag 14 minstens vijf sessies, een instellingsanker en geen verdenking in de steekproef heeft, hoogstens 40 per ambassadeur per maand, uitbetaald na de steekproef. |
+| Stopregel arm B en welzijnsgrens (G4) | Eigenaar: founder met de statisticus en de onderzoeker, uiterlijk 25 november. Werkhypothese: arm B stopt als de wekelijkse welzijnsscore (stress en ervaren druk) twee weken achter elkaar minstens een halve standaarddeviatie slechter is dan in arm A, of als het aandeel schadesignalen in arm B meer dan twee keer dat van arm A is. |
+| Streakherstel (GS5) | Twee squaddagen op rij na de gebroken dag herstellen de oude lengte, niet de oude lengte plus twee. |
+| Vereniging zonder externe bron (J2) | Alleen uitgesloten van de hoofdprijs; de drempelprijs blijft mogelijk. |
+| Tentamendag in arm B | Spec en architectuur zijn leidend: in arm B vervalt de 20 van die dag stil, zonder melding; in arm A geen bonus. De gebruiksvoorwaarden volgen. |
+| Looptijd gesloten pilot in de voorwaarden | Gesloten pilot op uitnodiging van 2 december 2026 tot 18 januari 2027; vanaf 19 januari open registratie; de onderzoeksperiode voor wie vóór 19 januari instroomde loopt door tot en met de aprilmeting. |
+| Grondslag telefoonverificatie en vragenlijsten | Voorlopig gerechtvaardigd belang (sub f) voor beide, met de aantekening dat welzijnsvragen gezondheidsgegevens kunnen zijn (art. 9 AVG) en dan aparte toestemming vragen; definitief na de advocatenopinie. |
+| Advocatenopinie en aanloopklassement | Het aanloopklassement heeft geen prijs en hangt niet aan de opinie. De hoofdprijs vraagt een positieve opinie vóór 2 december; anders geldt de terugval met alleen drempelprijzen. |
+| Hypothesenummering en formuleringen (G2) | De voorregistratie is leidend (H1–H4); pitch en productplan nemen de zinnen letterlijk over. |
+| Data van de stukken | Alle herziene stukken dragen 5 november 2026 of later. |

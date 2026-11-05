@@ -222,7 +222,7 @@ button{cursor:pointer}
 </svg>
 
 <header class="page-head">
-  <h1>Rewarded — kernschermen web-MVP (versie 1.1)</h1>
+  <h1>Rewarded — kernschermen web-MVP (versie 1.2, ronde 1)</h1>
   <p>Mockups bij <code>docs/research/06-ux-ontwerp.md</code>. Negentien telefoonschermen op 390 × 844 px en het bestuursdashboard op laptopbreedte, in het lichte en het donkere thema van het designsysteem. Scroll horizontaal door de galerij.</p>
   <p><strong>Alle namen, aantallen, verenigingen, partners en prijzen in deze mockups zijn fictief.</strong> Elk scherm draagt daarom de markering "Fictief". De mockups illustreren opmaak en semantiek, niet de werkelijke catalogus of uitkomsten.</p>
   <p>De mockups gebruiken echte knoppen, keuzerondjes (<code>role="radio"</code>), schakelaars (<code>role="switch"</code>) en <code>aria-current</code>, zodat bouwers de structuur kunnen overnemen. Waar een mockup toch afwijkt, zijn §5.5 en §5.8 van het ontwerpdocument bindend.</p>
@@ -230,7 +230,6 @@ button{cursor:pointer}
     <span><i class="sw" style="background:#2B5A4E"></i>primary (licht)</span>
     <span><i class="sw" style="background:#7FC4AE"></i>primary (donker)</span>
     <span><i class="sw" style="background:#FBEFD6"></i>status: afgebroken, weekbudget, wordt nagekeken</span>
-    <span><i class="sw" style="background:#ECE9F7"></i>kans: alleen verlote prijzen</span>
     <span><i class="sw" style="background:#000"></i>sessiescherm</span>
     <span><i class="sw" style="background:#FFF"></i>eindscherm</span>
   </div>
@@ -279,15 +278,16 @@ button{cursor:pointer}
    <p class="body">Begin en einde van je sessies, of Rewarded zichtbaar op je scherm stond, en bij wie je in de squad zit. Geen locatie, geen camera, geen contacten.</p>
   </div>
   <div class="card stack" style="gap:6px">
-   <p class="label">Dit is een pilot</p>
-   <p class="body">We testen twee bonusregels die evenveel opleveren; jouw squad krijgt er één, door loting. Je punten per minuut zijn voor iedereen gelijk. Sommige onderdelen krijg je op een ander moment dan anderen. De doelbonus stopt op 18 januari 2027. Stoppen en je gegevens laten verwijderen kan altijd.</p>
+   <p class="label">Dit is ook een onderzoek</p>
+   <p class="body">Door loting krijg je een van twee bonusregels die evenveel opleveren, een van twee momenten voor de Belofte, soms een extra uitnodiging om een squad te maken, en mogelijk een rustperiode zonder nieuwe punten na 18 januari. Je punten per minuut zijn voor iedereen gelijk. De doelbonus stopt op 18 januari 2027.</p>
+   <p class="body"><strong>Afmelden voor het onderzoek kan altijd in Ik; je punten blijven.</strong> Stoppen en je gegevens laten verwijderen kan ook altijd.</p>
   </div>
   <label class="check"><input type="checkbox"><span>Ik ga akkoord met de <u>voorwaarden</u>.</span></label>
   <label class="check" style="margin-top:-6px"><input type="checkbox"><span>Ik heb de <u>privacyverklaring</u> gelezen.</span></label>
   <div style="flex:1"></div>
   <button type="button" class="btn primary" aria-describedby="o6r" disabled>Akkoord</button>
   <p class="caption" id="o6r" style="text-align:center;padding-bottom:28px">Zet beide vinkjes aan om verder te gaan.</p>
- </div></div><h2 id="h03"><span class="idx">03</span>Voorwaarden en pilotuitleg (O6)</h2><p class="note">Geïnformeerd akkoord in gewone taal, voor 16–17 en 18+ dezelfde tekst. De pilot met twee bonusregels staat er expliciet, met de loting en de einddatum van de doelbonus. Twee aparte vinkjes, niet vooraf aangevinkt; de knop is uit met de reden ernaast.</p></section><section class="item" aria-labelledby="h04"><div class="phone t-light " role="group" aria-label="Home met dagdoel en sessiestart, arm A"><div class="statusbar"><span aria-hidden="true">10:05</span><span class="fict">Fictief</span><span class="sb-icons" aria-hidden="true"><span class="sig"><i style="height:4px"></i><i style="height:6px"></i><i style="height:8px"></i><i style="height:10px"></i></span><span class="bat"></span></span></div>
+ </div></div><h2 id="h03"><span class="idx">03</span>Onderzoek, voorwaarden en privacy (O6)</h2><p class="note">Geïnformeerde deelname in gewone taal, voor 16–17 en 18+ dezelfde tekst (voor 16–17 met één extra regel, zie ontwerpdocument). Alle experimentfactoren staan er, met de loting, de einddatum van de doelbonus en afmelden zonder verlies van punten (ronde 1, G4). Twee aparte vinkjes, niet vooraf aangevinkt; de knop is uit met de reden ernaast.</p></section><section class="item" aria-labelledby="h04"><div class="phone t-light " role="group" aria-label="Home met dagdoel en sessiestart, arm A"><div class="statusbar"><span aria-hidden="true">10:05</span><span class="fict">Fictief</span><span class="sb-icons" aria-hidden="true"><span class="sig"><i style="height:4px"></i><i style="height:6px"></i><i style="height:8px"></i><i style="height:10px"></i></span><span class="bat"></span></span></div>
  <div class="content with-tabs" style="gap:12px">
   <div class="row between"><h1 class="title-l">Hoi Lotte</h1><span class="chip ok"><svg class="" aria-hidden="true" focusable="false"><use href="#i-flame"/></svg>Squadstreak dag 6</span></div>
   <div class="card row" style="gap:16px">
@@ -296,6 +296,7 @@ button{cursor:pointer}
     <p class="label muted">Dagdoel vandaag</p>
     <p class="title-m num">25 van 50 min</p>
     <p class="body muted">Nog één sessie van 25 minuten.</p>
+    <p class="body">Deze week: 3 van de 7 dagen</p>
    </div>
   </div>
   <button type="button" class="card row between" style="text-align:left;width:100%;min-height:64px">
@@ -305,6 +306,7 @@ button{cursor:pointer}
    </span><span class="caption">Squad ›</span>
   </button>
   <p class="caption row" style="gap:6px"><svg class="ico sm" aria-hidden="true" focusable="false"><use href="#i-joker"/></svg>Joker deze week: nog over.</p>
+  <button type="button" class="link" style="align-self:flex-start;margin-top:-6px">Vandaag heb ik een tentamen</button>
   <p class="label muted" id="durA">Hoe lang?</p>
   <div class="seg" role="radiogroup" aria-label="Duur van de sessie"><button type="button" role="radio" aria-checked="false">25 min</button><button type="button" role="radio" aria-checked="true">50 min</button><button type="button" role="radio" aria-checked="false">90 min</button></div>
   <button type="button" class="btn primary" style="min-height:60px;font-size:19px"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-focus"/></svg>Start focussessie</button>
@@ -319,6 +321,7 @@ button{cursor:pointer}
     <p class="label muted">Dagdoel vandaag</p>
     <p class="title-m num">25 van 50 min</p>
     <p class="body muted">Nog één sessie van 25 minuten.</p>
+    <p class="body">Deze week: 3 van de 7 dagen</p>
    </div>
   </div>
   <button type="button" class="card row between" style="text-align:left;width:100%;min-height:64px">
@@ -328,6 +331,7 @@ button{cursor:pointer}
    </span><span class="caption">Squad ›</span>
   </button>
   <p class="caption row" style="gap:6px"><svg class="ico sm" aria-hidden="true" focusable="false"><use href="#i-joker"/></svg>Joker deze week: nog over.</p>
+  <button type="button" class="link" style="align-self:flex-start;margin-top:-6px">Vandaag heb ik een tentamen</button>
   <p class="label muted" id="durB">Hoe lang?</p>
   <div class="seg" role="radiogroup" aria-label="Duur van de sessie"><button type="button" role="radio" aria-checked="false">25 min</button><button type="button" role="radio" aria-checked="true">50 min</button><button type="button" role="radio" aria-checked="false">90 min</button></div>
   <button type="button" class="btn primary" style="min-height:60px;font-size:19px"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-focus"/></svg>Start focussessie</button>
@@ -396,13 +400,13 @@ button{cursor:pointer}
  <div class="content with-tabs" style="gap:12px;padding-top:14px">
   <div aria-hidden="true" style="width:56px;height:56px;border-radius:50%;background:var(--primary-soft);color:var(--primary);display:flex;align-items:center;justify-content:center"><svg class="" aria-hidden="true" focusable="false" style="width:30px;height:30px"><use href="#i-check"/></svg></div>
   <h1 class="title-l">50 minuten.<br>Je dagdoel is gehaald.</h1>
-  <p class="body muted">Twee volle sessies vandaag, samen 75 minuten.</p>
+  <p class="body">Deze week 4 van de 7 dagen.</p>
   <div class="card stack" style="gap:10px">
    <div class="row" style="gap:10px"><div class="avatars" aria-hidden="true"><div class="avatar sm">M</div><div class="avatar sm">D</div></div><p class="body"><strong>Mila en Daan</strong> zaten er ook.</p></div>
    <div class="row between"><span class="chip ok"><svg class="" aria-hidden="true" focusable="false"><use href="#i-flame"/></svg>Squadstreak dag 6</span><span class="caption">Squaddag: 2 van 3 actieve leden</span></div>
   </div>
   <div class="card stack" style="gap:6px">
-   <p class="body-l strong num">+50 punten bijgeschreven</p>
+   <p class="caption num">+50 punten</p>
    <div class="bar" style="margin-top:6px" role="progressbar" aria-label="Inverdienperiode" aria-valuemin="0" aria-valuemax="300" aria-valuenow="262" aria-valuetext="262 van 300 minuten"><i style="width:87%"></i></div>
    <p class="body num">262 van 300 min · nog 38 minuten tot je eerste verzilvering</p>
    <p class="bonus">+20 bonus voor je gehaalde dagdoel. <button type="button" class="link inline">Waarom zie ik dit?</button></p>
@@ -414,13 +418,13 @@ button{cursor:pointer}
  <div class="content with-tabs" style="gap:12px;padding-top:14px">
   <div aria-hidden="true" style="width:56px;height:56px;border-radius:50%;background:var(--primary-soft);color:var(--primary);display:flex;align-items:center;justify-content:center"><svg class="" aria-hidden="true" focusable="false" style="width:30px;height:30px"><use href="#i-check"/></svg></div>
   <h1 class="title-l">50 minuten.<br>Je dagdoel is gehaald.</h1>
-  <p class="body muted">Twee volle sessies vandaag, samen 75 minuten.</p>
+  <p class="body">Deze week 4 van de 7 dagen.</p>
   <div class="card stack" style="gap:10px">
    <div class="row" style="gap:10px"><div class="avatars" aria-hidden="true"><div class="avatar sm">M</div><div class="avatar sm">D</div></div><p class="body"><strong>Mila en Daan</strong> zaten er ook.</p></div>
    <div class="row between"><span class="chip ok"><svg class="" aria-hidden="true" focusable="false"><use href="#i-flame"/></svg>Squadstreak dag 6</span><span class="caption">Squaddag: 2 van 3 actieve leden</span></div>
   </div>
   <div class="card stack" style="gap:6px">
-   <p class="body-l strong num">+50 punten bijgeschreven</p>
+   <p class="caption num">+50 punten</p>
    <div class="bar" style="margin-top:6px" role="progressbar" aria-label="Inverdienperiode" aria-valuemin="0" aria-valuemax="300" aria-valuenow="262" aria-valuetext="262 van 300 minuten"><i style="width:87%"></i></div>
    <p class="body num">262 van 300 min · nog 38 minuten tot je eerste verzilvering</p>
    <p class="bonus">20 uit je weekbudget staan nu veilig. Nog 80 in je weekbudget. <button type="button" class="link inline">Waarom zie ik dit?</button></p>
@@ -471,7 +475,7 @@ button{cursor:pointer}
  <div class="content with-tabs" style="gap:12px">
   <button type="button" class="topnav"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-back"/></svg>Squad</button>
   <h1 class="title-l">Iets beloven voor de komende twee weken?</h1>
-  <p class="body muted">Je hebt twee weken gefocust. Dit is ons voorstel, op basis van wat je echt deed. Pas het gerust aan.</p>
+  <p class="body muted">Op 18 januari stopt de doelbonus. Dit is ons voorstel, op basis van wat je de afgelopen twee weken echt deed. Pas het gerust aan.</p>
   <p class="section-label">Dagen per week</p>
   <div class="seg" role="radiogroup" aria-label="Dagen per week"><button type="button" role="radio" aria-checked="false">3</button><button type="button" role="radio" aria-checked="false">4</button><button type="button" role="radio" aria-checked="true">5</button><button type="button" role="radio" aria-checked="false">6</button><button type="button" role="radio" aria-checked="false">7</button></div>
   <p class="section-label">Minuten per dag</p>
@@ -502,21 +506,21 @@ button{cursor:pointer}
  <div class="content with-tabs" style="gap:10px">
   <h1 class="title-l">Blokchallenge</h1>
   <div class="row" style="gap:8px;flex-wrap:wrap"><span class="chip neutral">Utrecht · poule 150–500 leden</span><span class="chip pause">Voorlopig</span></div>
-  <p class="caption">Deelnamegraad: leden die deze week op minstens 3 dagen hun dagdoel haalden, gedeeld door het ledental. Grootte geeft geen voordeel. <button type="button" class="link inline">Hoe rekenen we?</button></p>
+  <p class="caption">Deelnamegraad: leden die deze week op minstens 3 dagen hun dagdoel haalden, gedeeld door het ledental uit een externe bron. In de prijsweken tellen alleen leden met een bevestigd instellingsmailadres of mobiel nummer. Grootte geeft geen voordeel. <button type="button" class="link inline">Hoe rekenen we?</button></p>
   <ol class="card list" style="padding:2px 16px;margin:0;list-style:none">
-   <li class="li"><span class="label num" style="width:18px">1</span><div class="grow"><p class="body"><strong>SV Meridiaan</strong></p><p class="caption">71 min per actief lid per dag</p></div><p class="title-m num">38%</p></li>
-   <li class="li" style="margin:0 -14px;padding:6px 14px;border:2px solid var(--primary);border-radius:10px"><span class="label num" style="width:18px">2</span><div class="grow"><p class="body"><strong>SV Kompas</strong> · jullie</p><p class="caption">64 min per actief lid per dag</p></div><p class="title-m num">31%</p></li>
-   <li class="li"><span class="label num" style="width:18px">3</span><div class="grow"><p class="body"><strong>SV Lumen</strong></p><p class="caption">58 min per actief lid per dag</p></div><p class="title-m num">27%</p></li>
-   <li class="li"><span class="label num" style="width:18px">4</span><div class="grow"><p class="body"><strong>SV Prisma</strong></p><p class="caption">66 min per actief lid per dag</p></div><p class="title-m num">22%</p></li>
+   <li class="li"><span class="label num" style="width:18px">1</span><div class="grow"><p class="body"><strong>SV Meridiaan</strong></p><p class="caption">280 leden · opgave aan de instelling · 71 min per actief lid per dag</p></div><p class="title-m num">38%</p></li>
+   <li class="li" style="margin:0 -14px;padding:6px 14px;border:2px solid var(--primary);border-radius:10px"><span class="label num" style="width:18px">2</span><div class="grow"><p class="body"><strong>SV Kompas</strong> · jullie</p><p class="caption">320 leden · opgave aan de instelling · 64 min per actief lid per dag</p></div><p class="title-m num">31%</p></li>
+   <li class="li"><span class="label num" style="width:18px">3</span><div class="grow"><p class="body"><strong>SV Lumen</strong></p><p class="caption">190 leden · bevestiging faculteit · 58 min per actief lid per dag</p></div><p class="title-m num">27%</p></li>
+   <li class="li"><span class="label num" style="width:18px">4</span><div class="grow"><p class="body"><strong>SV Prisma</strong></p><p class="caption">410 leden · bestuursbeurs · 66 min per actief lid per dag</p></div><p class="title-m num">22%</p></li>
   </ol>
   <div class="card stack" style="gap:6px">
    <div class="row between"><p class="label">Drempelprijs voor elke vereniging ≥ 25%</p><span class="chip ok">Verdiend</span></div>
    <p class="body">[Prijs in natura] · gefinancierd door [partner]</p>
    <div class="bar" style="margin-top:0" role="progressbar" aria-label="Afstand tot de drempel" aria-valuemin="0" aria-valuemax="31" aria-valuenow="31" aria-valuetext="31 procent, drempel 25 procent gehaald"><i style="width:100%"></i></div>
-   <p class="caption">Jullie zitten op 31%. Uitslag pas na controle van sessies en winnaars.</p>
+   <p class="caption">Jullie zitten op 31%. Uitslag pas na controle van sessies, de steekproef van 20 leden en de winnaars.</p>
   </div>
   <div class="card stack" style="gap:6px">
-   <div class="row between"><p class="label">Hoofdprijs poule</p><span class="chip ok">Verdiend, niet verloot</span></div>
+   <div class="row between"><p class="label">Hoofdprijs poule</p><span class="chip ok">Verdiend</span></div>
    <p class="body">[Prijs in natura] · gefinancierd door [faculteit] · 7 procentpunt achter nr. 1.</p>
   </div>
  </div><nav class="tabbar" aria-label="Hoofdnavigatie"><a href="#" class="tab"><svg aria-hidden="true" focusable="false"><use href="#i-focus"/></svg>Focus</a><a href="#" class="tab"><svg aria-hidden="true" focusable="false"><use href="#i-squad"/></svg>Squad</a><a href="#" class="tab on" aria-current="page"><svg aria-hidden="true" focusable="false"><use href="#i-flag-f"/></svg>Vereniging</a><a href="#" class="tab"><svg aria-hidden="true" focusable="false"><use href="#i-gift"/></svg>Beloningen</a><a href="#" class="tab"><svg aria-hidden="true" focusable="false"><use href="#i-user"/></svg>Ik</a></nav></div><h2 id="h16"><span class="idx">16</span>Blokchallenge, ranglijst van verenigingen (V1)</h2><p class="note">Alleen verenigingen, nooit personen of totalen. Groot cijfer: deelnamegraad (de prijsmaatstaf); klein: intensiteit zonder prijs. Eigen vereniging met een rand. Beide prijzen noemen hun financier en dragen "Verdiend".</p></section><section class="item" aria-labelledby="h17"><div class="phone t-light " role="group" aria-label="Catalogus met verzilver-sheet"><div class="statusbar"><span aria-hidden="true">18:30</span><span class="fict">Fictief</span><span class="sb-icons" aria-hidden="true"><span class="sig"><i style="height:4px"></i><i style="height:6px"></i><i style="height:8px"></i><i style="height:10px"></i></span><span class="bat"></span></span></div>
@@ -543,25 +547,21 @@ button{cursor:pointer}
   </div>
   <button type="button" class="btn primary">Verzilver voor 300 punten</button>
   <button type="button" class="btn secondary">Annuleren</button>
- </div></div><h2 id="h17"><span class="idx">17</span>Catalogus en verzilveren (B1, B2), arm B</h2><p class="note">"In afwachting" is gesplitst: het weekbudget van arm B (nog niet veilig) staat los van punten die worden nagekeken. Referral verschijnt pas als die vlag aan staat. Voorraad nul zonder belofte van aanvulling, omdat die hier niet gedekt is. Nergens een eurowaarde.</p></section><section class="item" aria-labelledby="h18"><div class="phone t-light " role="group" aria-label="Verlote prijs met spelvoorwaarden, 18 plus"><div class="statusbar"><span aria-hidden="true">19:12</span><span class="fict">Fictief</span><span class="sb-icons" aria-hidden="true"><span class="sig"><i style="height:4px"></i><i style="height:6px"></i><i style="height:8px"></i><i style="height:10px"></i></span><span class="bat"></span></span></div>
+ </div></div><h2 id="h17"><span class="idx">17</span>Catalogus en verzilveren (B1, B2), arm B</h2><p class="note">"In afwachting" is gesplitst: het weekbudget van arm B (nog niet veilig) staat los van punten die worden nagekeken. Referral verschijnt pas als die vlag aan staat. Voorraad nul zonder belofte van aanvulling, omdat die hier niet gedekt is. Nergens een eurowaarde.</p></section><section class="item" aria-labelledby="h18"><div class="phone t-light " role="group" aria-label="Tentamendag aanzetten"><div class="statusbar"><span aria-hidden="true">19:12</span><span class="fict">Fictief</span><span class="sb-icons" aria-hidden="true"><span class="sig"><i style="height:4px"></i><i style="height:6px"></i><i style="height:8px"></i><i style="height:10px"></i></span><span class="bat"></span></span></div>
  <div class="content" style="gap:10px">
-  <button type="button" class="topnav"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-back"/></svg>Beloningen</button>
-  <span class="chip kans" style="align-self:flex-start"><svg class="" aria-hidden="true" focusable="false"><use href="#i-ticket"/></svg>Kans · 18+</span>
-  <h1 class="title-l">Kans op een [prijs]</h1>
-  <p class="body-l">Haalde je je dagdoel op 5 van de 7 dagen? Dan doe je gratis mee aan de trekking. Dit is een kans, geen beloning die je verdient.</p>
+  <button type="button" class="topnav"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-back"/></svg>Focus</button>
+  <span class="chip neutral" style="align-self:flex-start">Tentamendag</span>
+  <h1 class="title-l">Tentamen vandaag?</h1>
+  <p class="body-l">Dan telt je dagdoel vandaag niet mee. Je streak breekt niet en je joker blijft over. Succes.</p>
   <div class="card" style="padding:2px 16px">
-   <div class="kv"><span class="muted">Prijzen</span><b class="num">3 × [prijs]</b></div>
-   <div class="kv"><span class="muted">Vorige trekking</span><b class="num">412 deelnemers</b></div>
-   <div class="kv"><span class="muted">Kans, op basis daarvan</span><b class="num">ongeveer 1 op 137</b></div>
-   <div class="kv"><span class="muted">Trekking</span><b>ma 11 januari 2027</b></div>
-   <div class="kv"><span class="muted">Seed-hash</span><b class="num" style="font-family:ui-monospace,Menlo,monospace;font-size:13px">9f2c…e41a</b></div>
+   <div class="kv"><span class="muted">Welke dag</span><b>vandaag, di 12 januari</b></div>
+   <div class="kv"><span class="muted">Tentamendagen deze week</span><b class="num">1 van 3 gebruikt</b></div>
   </div>
-  <div class="card kans"><p class="body">Geen aankoop of abonnement nodig, en niets geeft extra kans. Organisator: Rewarded. De kansspelbelasting betaalt Rewarded. Win je, dan vragen we eenmalig om een leeftijdscontrole.</p></div>
+  <div class="card soft"><p class="body">Haal je je dagdoel vandaag toch, dan telt het gewoon. Een tentamendag kost geen punten en geen weekbudget.</p></div>
   <div style="flex:1"></div>
-  <button type="button" class="btn kansbtn">Meedoen aanzetten</button>
-  <p class="caption" style="text-align:center">Uitzetten kan altijd, hier en bij Ik.</p>
-  <button type="button" class="link" style="margin-top:-8px;margin-bottom:22px">Spelvoorwaarden</button>
- </div></div><h2 id="h18"><span class="idx">18</span>Verlote prijs met spelvoorwaarden, 18+ (B5)</h2><p class="note">Eigen violette kleurfamilie, een lot als icoon (geen klavertje) en het woord "Kans". Kans als getal, trekkingsdatum, seed-hash, organisator en de leeftijdscontrole bij winnaars. Alleen voor 18+ met de vlag aan; voor 16–17 bestaat dit scherm niet. Na de opt-in wordt de knop een schakelaar die je met één tik uitzet.</p></section><section class="item" aria-labelledby="h19"><div class="phone t-dark " role="group" aria-label="Deelbare bewijskaart maken"><div class="statusbar"><span aria-hidden="true">21:40</span><span class="fict">Fictief</span><span class="sb-icons" aria-hidden="true"><span class="sig"><i style="height:4px"></i><i style="height:6px"></i><i style="height:8px"></i><i style="height:10px"></i></span><span class="bat"></span></span></div>
+  <button type="button" class="btn primary">Zet aan</button>
+  <button type="button" class="btn secondary" style="margin-bottom:22px">Annuleer</button>
+ </div></div><h2 id="h18"><span class="idx">18</span>Tentamendag (F10), vervangt de verlote prijs (B5)</h2><p class="note">Ronde 1: trekkingen worden niet gebouwd, dus B5 en de violette kans-kleur vervallen. Op deze plek staat nu de tentamendag (founder G4): het dagdoel wordt opgeschort zonder joker, hoogstens 3 keer per week (werkhypothese), zonder "−20" in arm B. Geen punten in beeld.</p></section><section class="item" aria-labelledby="h19"><div class="phone t-dark " role="group" aria-label="Deelbare bewijskaart maken"><div class="statusbar"><span aria-hidden="true">21:40</span><span class="fict">Fictief</span><span class="sb-icons" aria-hidden="true"><span class="sig"><i style="height:4px"></i><i style="height:6px"></i><i style="height:8px"></i><i style="height:10px"></i></span><span class="bat"></span></span></div>
  <div class="content" style="gap:10px">
   <button type="button" class="topnav"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-back"/></svg>Terug</button>
   <h1 class="title-m">Maak een kaart</h1>
@@ -577,7 +577,7 @@ button{cursor:pointer}
    <div class="switchrow"><span class="body" id="sw3">Vereniging</span><button type="button" class="toggle" role="switch" aria-checked="false" aria-labelledby="sw3"></button></div>
    <div class="switchrow"><span class="body" id="sw4">Squadnaam<span class="caption" style="display:block">alle leden moeten akkoord zijn</span></span><button type="button" class="toggle" role="switch" aria-checked="false" aria-labelledby="sw4"></button></div>
   </div>
-  <p class="caption">Delen levert niets op; het is gewoon leuk. Punten, beloningen en trekkingen staan nooit op je kaart.</p>
+  <p class="caption">Delen levert niets op; het is gewoon leuk. Punten en beloningen staan nooit op je kaart.</p>
   <div class="row" style="gap:10px;padding-bottom:26px"><button type="button" class="btn secondary" style="flex:1">Opslaan</button><button type="button" class="btn primary" style="flex:1.3"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-share"/></svg>Delen</button></div>
  </div></div><h2 id="h19"><span class="idx">19</span>Deelbare bewijskaart (K1), donker thema</h2><p class="note">Focustijd is de inhoud van de kaart; voornaam en streak staan standaard aan maar zijn uit te zetten, extra velden zijn opt-in. Geen punten, bedragen, badges of trekkingen. De kaartachtergrond is het token card-share-bg. De QR in deze mockup is decoratief.</p></section><section class="item wide" aria-labelledby="h20"><div class="laptop t-light" role="group" aria-label="Bestuursdashboard op laptopbreedte">
   <nav class="side" aria-label="Dashboard">
@@ -588,7 +588,7 @@ button{cursor:pointer}
   </nav>
   <div class="main">
    <div class="row between">
-    <div><h1 class="title-l">Werving</h1><p class="body muted">Blokchallenge week 2 van 2 · poule 150–500 leden · opgegeven ledental 320 (bron: jaarverslag)</p></div>
+    <div><h1 class="title-l">Werving</h1><p class="body muted">Blokchallenge week 2 van 2 · poule 150–500 leden · ledental 320 (bron: opgave aan de instelling)</p></div>
     <div class="standstrip"><span class="chip neutral">Positie 2 van 6</span><span class="chip ok">Deelnamegraad 31%</span><span class="chip pause">Voorlopig</span></div>
    </div>
    <div class="card soft row" style="gap:10px;padding:12px 16px"><svg class="ico sm" aria-hidden="true" focusable="false"><use href="#i-lock"/></svg><p class="body">Je ziet groepscijfers. Wie wat doet, zie je niet, en wij ook niet zonder reden. Cijfers verschijnen vanaf 5 leden per groep en zijn afgerond op vijftallen. Geen namen, geen export.</p></div>
@@ -600,9 +600,9 @@ button{cursor:pointer}
    </div>
    <div class="grid2">
     <div class="card">
-     <div class="row between"><p class="label">Gekoppelde en actieve leden per dag</p><p class="caption"><i class="sw" style="background:var(--primary-soft);vertical-align:-2px"></i> gekoppeld &nbsp; <i class="sw" style="background:var(--primary);vertical-align:-2px"></i> actief · afgerond op vijftallen</p></div>
-     <div class="chart" role="img" aria-label="Staafdiagram: gekoppelde leden stijgen van ongeveer 55 naar 185, actieve leden van ongeveer 30 naar 120, van 4 tot en met 17 januari"><div class="col"><div class="b1" style="height:30%"><div class="b2" style="height:55%"></div></div></div><div class="col"><div class="b1" style="height:38%"><div class="b2" style="height:52%"></div></div></div><div class="col"><div class="b1" style="height:45%"><div class="b2" style="height:58%"></div></div></div><div class="col"><div class="b1" style="height:52%"><div class="b2" style="height:54%"></div></div></div><div class="col"><div class="b1" style="height:60%"><div class="b2" style="height:60%"></div></div></div><div class="col"><div class="b1" style="height:66%"><div class="b2" style="height:57%"></div></div></div><div class="col"><div class="b1" style="height:71%"><div class="b2" style="height:52%"></div></div></div><div class="col"><div class="b1" style="height:76%"><div class="b2" style="height:63%"></div></div></div><div class="col"><div class="b1" style="height:82%"><div class="b2" style="height:64%"></div></div></div><div class="col"><div class="b1" style="height:86%"><div class="b2" style="height:61%"></div></div></div><div class="col"><div class="b1" style="height:90%"><div class="b2" style="height:66%"></div></div></div><div class="col"><div class="b1" style="height:93%"><div class="b2" style="height:64%"></div></div></div><div class="col"><div class="b1" style="height:96%"><div class="b2" style="height:67%"></div></div></div><div class="col"><div class="b1" style="height:98%"><div class="b2" style="height:65%"></div></div></div></div>
-     <div class="xl" aria-hidden="true"><span>4 jan</span><span></span><span></span><span></span><span></span><span></span><span>10 jan</span><span>11</span><span></span><span></span><span></span><span></span><span></span><span>17 jan</span></div>
+     <div class="row between"><p class="label">Gekoppelde en actieve leden per week</p><p class="caption"><i class="sw" style="background:var(--primary-soft);vertical-align:-2px"></i> gekoppeld &nbsp; <i class="sw" style="background:var(--primary);vertical-align:-2px"></i> actief · afgerond op vijftallen</p></div>
+     <div class="chart" role="img" aria-label="Staafdiagram per week: gekoppelde leden ongeveer 120 in week 1 en 185 in week 2, actieve leden ongeveer 70 en 120"><div class="col"><div class="b1" style="height:65%"><div class="b2" style="height:58%"></div></div></div><div class="col"><div class="b1" style="height:100%"><div class="b2" style="height:65%"></div></div></div></div>
+     <div class="xl" aria-hidden="true"><span>week 1 (4–10 jan)</span><span>week 2 (11–17 jan)</span></div>
     </div>
     <div class="card stack" style="gap:2px">
      <p class="label">Koppelingen per QR-bron</p>
@@ -616,5 +616,20 @@ button{cursor:pointer}
   </div>
  </div><h2 id="h20"><span class="idx">20</span>Bestuursdashboard, tab Werving (D2), op laptopbreedte</h2><p class="note">Vijf tabbladen zoals spec 4.6 (D1–D5). De stand staat als kopregel op elk tabblad. Alleen aggregaten, met de grens bovenaan in gewone taal; aantallen afgerond op vijftallen, zodat verschilberekening met kennis van buitenaf lastig wordt. Geen namen, lijsten, tijdstippen, export of berichten.</p></section>
 </main>
+<section class="changelog" aria-labelledby="wlog" style="max-width:860px;margin:32px auto;padding:0 16px;font:15px/1.5 system-ui,sans-serif">
+ <h2 id="wlog">Wijzigingslog</h2>
+ <p><strong>Ronde 1 — 4 november 2026 (versie 1.2).</strong> Bijgewerkt volgens <code>docs/pitch/ronde-1-founder-reactie.md</code> en het ontwerpdocument versie 1.2.</p>
+ <ul>
+  <li>Scherm 18: de verlote prijs (B5) en de kans-kleur in de legenda vervallen (J4, S9); op die plek de tentamendag (F10, G4).</li>
+  <li>O6: onderzoeksuitleg met alle experimentfactoren en afmelden zonder verlies van punten (G1, G2, G4).</li>
+  <li>F1 (arm A en B): weekprestatie onder het dagdoel en de link "Vandaag heb ik een tentamen" (GS1, G4).</li>
+  <li>F5 (arm A en B): weekprestatie voorop, punten klein en onderaan (GS1).</li>
+  <li>Belofte-aanbod: tekst bij de aangekondigde stop van de doelbonus (G1).</li>
+  <li>V1: ledental met soort bron naast elke vereniging, regel over het instellingsanker, "Verdiend" zonder "niet verloot", uitslag na de steekproef (J2, JS1).</li>
+  <li>D2: ledental uit een externe bron; werving per week in plaats van per dag.</li>
+  <li>Kaart: geen verwijzing meer naar trekkingen.</li>
+  <li>Nog niet als mockup uitgewerkt (zie prioriteit 1b in het ontwerpdocument): O5a, O6b, H1, S1, Q8, B8 en de duelweergave op dagdoelen.</li>
+ </ul>
+</section>
 </body>
 </html>
