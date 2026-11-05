@@ -1,5 +1,9 @@
-// Stub (WP-0). Owner: WP-9 (architecture §12.1). Replace the placeholder with the real screens.
+// Vereniging tab (UX §2.1 tab 3, §3.5; architecture §9.1 /vereniging, /vereniging/ranglijst). Owner: WP-9.
 import type { RouteObject } from 'react-router';
-import { Placeholder } from '../../app/Placeholder.tsx';
+import { ClubScreen, JoinClubScreen } from './ClubScreen.tsx';
 
-export const routes: RouteObject[] = [{ path: 'vereniging/*', element: <Placeholder feature="club" owner="WP-9" /> }];
+export const routes: RouteObject[] = [
+  { path: 'vereniging', element: <ClubScreen /> },
+  { path: 'vereniging/ranglijst', element: <ClubScreen /> },
+  { path: 'vereniging/koppelen', element: <JoinClubScreen /> },
+];

@@ -1,0 +1,97 @@
+{
+  "title": "Squad",
+  "empty": {
+    "text": "Nog geen squad. Squads houden het beter vol.",
+    "create": "Squad maken"
+  },
+  "visibility": "Je squad ziet of je nu focust, hoe lang je sessie nog loopt en of je je dagdoel haalde. Je focusminuten en punten zien ze niet, tenzij je zelf minuten vergelijken aanzet. Stille modus verbergt je status; je telt wel mee voor de squaddag.",
+  "create": {
+    "title": "Squad maken",
+    "intro": "Focus samen. Squads houden het beter vol.",
+    "name": "Naam van je squad",
+    "name_hint": "2 tot 40 tekens. Iedereen die de naam ziet, kan hem melden.",
+    "club": "Koppel de squad aan {club}",
+    "submit": "Maak squad",
+    "busy": "Bezig…",
+    "rejected": "Kies een andere naam."
+  },
+  "streak": {
+    "label": "Squadstreak",
+    "value": "{count, plural, =0 {Nog geen streak} one {# dag} other {# dagen}}",
+    "building": "Nog {count, plural, one {# vriend} other {# vrienden}} nodig. Je focust intussen gewoon.",
+    "frozen": "Jullie zijn met minder dan 3 actieve leden. De streak staat stil tot er weer 3 zijn.",
+    "recovery": "Pak je streak terug met twee dagen op rij.",
+    "recovery_detail": "Lukt dat, dan staat de streak weer op {count, plural, one {# dag} other {# dagen}}."
+  },
+  "today": {
+    "line": "Vandaag: {met} van {active} actieve leden haalden hun dagdoel.",
+    "success": "De squaddag is geslaagd.",
+    "needed": "Voor een geslaagde squaddag zijn er {needed} nodig."
+  },
+  "presence": {
+    "line": "{live} van {active} focussen nu",
+    "remaining": "Iemand focust nu (nog {count, plural, one {# minuut} other {# minuten}})",
+    "label": "Wie er nu focust"
+  },
+  "members": {
+    "label": "Squadleden",
+    "met": "Dagdoel gehaald",
+    "open": "Nog niet",
+    "paused_title": "Op pauze",
+    "paused": "{name} staat op pauze",
+    "paused_label": "Leden op pauze"
+  },
+  "joker": {
+    "available": "Joker deze week: nog over.",
+    "used": "Joker deze week: ingezet. Je telde mee voor de squaddag."
+  },
+  "belofte": {
+    "own": "Jouw Belofte: {met} van {target} dagen deze week.",
+    "member": "{name} — Belofte: {met} van {target} dagen deze week.",
+    "open": "Bekijk de Belofte van {name}",
+    "sheet_title": "Belofte van {name}",
+    "promised": "{name} beloofde {days} dagen per week {minutes} minuten, tot {date}.",
+    "stopped": "{name} heeft de Belofte gestopt.",
+    "completed": "{name} rondde de Belofte af.",
+    "days": "Dagen tot nu"
+  },
+  "compare": {
+    "title": "Minuten vergelijken",
+    "off": "Minuten vergelijken staat uit. Zet het aan in Ik; je ziet alleen leden die het ook aanzetten.",
+    "row": "{name}: vandaag {today} min, deze week {week} min",
+    "none": "Nog niemand anders heeft minuten vergelijken aan.",
+    "link": "Minuten vergelijken"
+  },
+  "actions": {
+    "invite": "Nodig uit",
+    "duel": "Daag uit voor duel",
+    "leave": "Squad verlaten",
+    "leave_title": "Squad verlaten?",
+    "leave_text": "Je telt vanaf morgen niet meer mee in deze squad. Je punten en je Belofte blijven.",
+    "leave_confirm": "Verlaten",
+    "stay": "Blijven"
+  },
+  "invite": {
+    "title": "Uitnodigen",
+    "text": "Ik focus met Rewarded in een squad. Telefoon weg, squad aan. Doe je mee?",
+    "validity": "Deze link is 7 dagen geldig, voor hoogstens 5 vrienden.",
+    "preview": "Voorbeeld van je bericht",
+    "share": "Deel via WhatsApp",
+    "copy": "Kopieer link",
+    "copied": "Link gekopieerd.",
+    "no_share": "Delen via je telefoon werkt hier niet. Kopieer de link en plak hem in WhatsApp."
+  },
+  "report": {
+    "menu": "Naam melden",
+    "title": "Naam melden",
+    "text": "Is deze squadnaam ongepast? Een mens van Rewarded kijkt ernaar.",
+    "reason": "Waarom?",
+    "offensive": "Beledigend of kwetsend",
+    "personal_data": "Bevat persoonsgegevens",
+    "impersonation": "Doet zich voor als iemand anders",
+    "other": "Iets anders",
+    "send": "Meld deze naam",
+    "sent": "Dank je. We kijken naar de naam.",
+    "status_pending": "Deze naam wordt nagekeken."
+  }
+}

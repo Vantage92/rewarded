@@ -1,0 +1,144 @@
+{
+  "welcome": {
+    "title": "Welkom",
+    "invited_squad": "{name} nodigt je uit voor squad {squad}",
+    "invited": "{name} nodigt je uit voor Rewarded",
+    "promise": "Leg je telefoon weg, focus samen met je squad, en word beloond voor wat je toch al moest doen.",
+    "promise_desktop": "Focus samen met je squad.",
+    "claim": "Rewarded telt je focustijd zolang de app zichtbaar op je scherm openstaat. Ga je naar een andere app of tabblad, of gaat je scherm uit, dan stopt de sessie.",
+    "reward": "Na vijf uur focus kun je punten inwisselen bij partners. Geen geld.",
+    "visibility": "Je squad ziet of je nu focust, hoe lang je sessie nog loopt en of je je dagdoel haalde. Je focusminuten en punten zien ze niet, tenzij je zelf minuten vergelijken aanzet. Stille modus verbergt je status; je telt wel mee voor de squaddag.",
+    "age": "Rewarded is er vanaf 16 jaar.",
+    "join": "Doe mee",
+    "how": "Hoe telt Rewarded?",
+    "invalid": "Deze uitnodiging is niet meer geldig. Vraag {name} om een nieuwe.",
+    "invalid_anon": "Deze uitnodiging is niet meer geldig. Vraag om een nieuwe.",
+    "closed_pilot": "In de pilot kom je binnen met een uitnodiging van een vriend of je vereniging. Zonder uitnodiging kun je op de wachtlijst.",
+    "waitlist": "Naar de wachtlijst",
+    "have_account": "Al een account? Inloggen",
+    "in_app": "Liever in je eigen browser? Open de link daar; je uitnodiging blijft staan."
+  },
+  "how": {
+    "title": "Hoe telt Rewarded?",
+    "phone": "Op je telefoon: scherm omlaag op tafel, Rewarded blijft aan.",
+    "laptop": "Op je laptop: Rewarded open in een zichtbaar tabblad. Je telefoon zien we daar niet, die leg je zelf weg.",
+    "ok": "Begrepen"
+  },
+  "email": {
+    "title": "Je e-mailadres",
+    "intro": "Je logt in met een link of een code per mail. Een wachtwoord heb je niet nodig.",
+    "email": "E-mailadres",
+    "first_name": "Voornaam",
+    "last_name": "Achternaam",
+    "send": "Stuur link",
+    "invalid": "Dit e-mailadres klopt niet. Controleer het.",
+    "first_name_required": "Vul je voornaam in.",
+    "rate_limited": "Probeer het over een minuut opnieuw.",
+    "invite_required": "In de pilot heb je een uitnodiging nodig. Je kunt op de wachtlijst.",
+    "failed": "Dat lukte niet. Probeer het opnieuw."
+  },
+  "login": {
+    "title": "Inloggen",
+    "intro": "Vul je e-mailadres in. Je krijgt een link en een code van 6 cijfers.",
+    "new": "Nieuw hier? Je komt binnen via een uitnodiging."
+  },
+  "inbox": {
+    "title": "Check je mail",
+    "sent_to": "We stuurden een mail naar {email}.",
+    "instruction": "Tik op de link in de mail, of typ hier de code van 6 cijfers uit dezelfde mail.",
+    "validity": "De link en de code werken 15 minuten.",
+    "code": "Code van 6 cijfers",
+    "email": "E-mailadres",
+    "go": "Ga verder",
+    "resend": "Opnieuw sturen",
+    "resend_wait": "Opnieuw sturen kan over {count, plural, one {# seconde} other {# seconden}}.",
+    "resent": "We stuurden een nieuwe mail.",
+    "other": "Ander adres",
+    "code_invalid": "Deze code klopt niet. Controleer de mail of vraag een nieuwe.",
+    "code_expired": "Deze code is verlopen. Vraag een nieuwe aan.",
+    "too_many": "Te veel pogingen. Vraag een nieuwe code aan.",
+    "code_format": "Een code heeft 6 cijfers."
+  },
+  "confirm": {
+    "title": "Inloggen",
+    "intro": "Tik op de knop om in te loggen op dit toestel.",
+    "button": "Inloggen",
+    "invalid": "Deze link werkt niet meer. Vraag een nieuwe aan of gebruik de code uit de mail.",
+    "missing": "Deze link is niet compleet. Open hem opnieuw vanuit de mail.",
+    "again": "Nieuwe link aanvragen"
+  },
+  "age": {
+    "title": "Je geboortedatum",
+    "intro": "Rewarded is er vanaf 16 jaar. We vragen je geboortedatum om te bepalen welke onderdelen je ziet.",
+    "privacy": "We bewaren of je 16–17 of 18+ bent. Ben je jonger dan 18, dan bewaren we ook de dag waarop je 18 wordt, zodat je dan automatisch overstapt.",
+    "legend": "Geboortedatum",
+    "day": "Dag",
+    "month": "Maand",
+    "year": "Jaar",
+    "first_name": "Voornaam",
+    "next": "Verder",
+    "invalid": "Deze datum bestaat niet. Controleer dag, maand en jaar.",
+    "confirm_title": "Volgens deze datum ben je {age}. Klopt dat?",
+    "confirm_yes": "Ja, dat klopt",
+    "confirm_edit": "Datum aanpassen",
+    "too_young_title": "Rewarded is er vanaf 16 jaar.",
+    "too_young": "We hebben niets van je bewaard."
+  },
+  "silent": {
+    "title": "Wat je squad ziet",
+    "body": "Je squad ziet standaard niet wanneer jij focust. Wil je dat wel, zet het hier aan. Je kunt het altijd veranderen in Ik.",
+    "switch": "Laat mijn squad zien wanneer ik focus",
+    "next": "Verder"
+  },
+  "consent": {
+    "title": "Onderzoek, voorwaarden en privacy",
+    "pilot": "Dit is een pilot. We testen twee bonusregels die evenveel opleveren; jouw squad krijgt er één, door loting. Je punten per minuut zijn voor iedereen gelijk. Sommige onderdelen krijg je op een ander moment dan anderen. De doelbonus stopt aan het einde van de laatste tentamenweek van je instelling. Je kunt altijd stoppen en je gegevens laten verwijderen.",
+    "research": "Rewarded is in deze pilot ook een onderzoek. Door loting krijg je een van twee bonusregels die evenveel opleveren, een van twee momenten voor de Belofte, soms een extra uitnodiging om een squad te maken, en mogelijk een rustperiode zonder nieuwe punten vanaf het einde van je tentamenweken tot en met de tentamenperiode van april; die kan ook in tentamenweken vallen. Wil je dan toch punten verdienen, dan kan dat altijd, en je blijft in het onderzoek. Je minuutpunten zijn voor iedereen gelijk. De catalogus is klein: je ziet elke week hoeveel beloningen er zijn voor hoeveel studenten. Afmelden voor het onderzoek kan altijd in Ik; je punten blijven.",
+    "group": "Vanaf de dag dat je je groep hoort, hoort die groep bij jou, ook als je van squad wisselt.",
+    "minor": "Jij krijgt altijd de gewone bonusregel en blijft punten verdienen, ook in een squad die een tijd geen punten verdient.",
+    "signals_title": "Welke signalen we loggen",
+    "signals": "Per sessie: wanneer ze begon en eindigde volgens onze server, of Rewarded zichtbaar was, of je scherm aan bleef, je verbinding en een toestelnummer dat we zelf maken. Geen locatie, geen camera en niets uit andere apps. Zo kunnen we eerlijk tellen en misbruik vinden.",
+    "terms": "Ik ga akkoord met de gebruiksvoorwaarden",
+    "privacy": "Ik heb de privacyverklaring gelezen",
+    "terms_link": "Gebruiksvoorwaarden",
+    "privacy_link": "Privacyverklaring",
+    "accept": "Akkoord",
+    "both": "Zet beide vinkjes aan om verder te gaan."
+  },
+  "goal": {
+    "title": "Je dagdoel",
+    "intro": "Hoeveel minuten wil je per dag focussen? Je kunt het later veranderen.",
+    "label": "Dagdoel",
+    "small": "Begin liever klein",
+    "next": "Verder",
+    "brake_title": "Begin liever klein?",
+    "brake_body": "Je kunt je doel later verhogen.",
+    "brake_keep": "Toch {count} minuten",
+    "brake_small": "Kies 25 minuten",
+    "terms_outdated": "De voorwaarden zijn bijgewerkt. Laad de pagina opnieuw en lees ze nog eens.",
+    "failed": "Je account kon niet worden gemaakt. Probeer het opnieuw."
+  },
+  "dnd": {
+    "title": "Niet storen",
+    "why": "Een inkomend gesprek of een geopende melding stopt je sessie. Zet daarom Niet storen aan als je gaat focussen.",
+    "ios": "iPhone: veeg het bedieningspaneel open en tik op Focus, dan Niet storen.",
+    "android": "Android: veeg van boven naar beneden en tik op Niet storen.",
+    "laptop": "Laptop: zet meldingen tijdelijk uit, of laat Rewarded in een zichtbaar venster staan.",
+    "connection": "Valt de verbinding langer dan 5 minuten weg, dan stopt je sessie.",
+    "on": "Ik zet het aan",
+    "later": "Later"
+  },
+  "practice": {
+    "title": "Oefensessie",
+    "body": "Eén minuut. Start, en ga dan even naar een andere app. Zo zie je wat een afgebroken sessie is. Oefenen telt nergens mee.",
+    "start": "Start oefening",
+    "skip": "Overslaan"
+  },
+  "first": {
+    "title": "Je eerste sessie",
+    "squad": "Je squad {name} wacht op je.",
+    "body": "Start je eerste sessie van 25 minuten.",
+    "start": "Start",
+    "later": "Later vandaag"
+  }
+}

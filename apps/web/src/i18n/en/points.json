@@ -1,0 +1,121 @@
+{
+  "title": "Points",
+  "no_points": {
+    "text": "You have the mode without points on. Points and the catalogue are hidden; your points keep running in the background, so you lose nothing.",
+    "link": "Go to Me"
+  },
+  "balance": {
+    "title": "Balance",
+    "available": "Available",
+    "available_value": "{count, plural, one {# point} other {# points}}",
+    "pending_a": "Being reviewed",
+    "pending_b": "Weekly budget (not yet safe) and what is being reviewed",
+    "referral": "Referral, not yet released",
+    "why": "Why am I seeing this?",
+    "pending_list": "See which sessions are being reviewed",
+    "unit": "{count, plural, one {point} other {points}}"
+  },
+  "earn_in": {
+    "label": "Earn-in period",
+    "value": "{value} of {max} minutes",
+    "remaining": "{count, plural, one {# more minute} other {# more minutes}} of focus, then you can redeem. Your points are already waiting.",
+    "explain": "Your first redemption is possible after five hours of focus. That way the catalogue goes to people who make it a habit.",
+    "hold": "Your first redemption is possible from {date}. We take a short look, as we do for everyone.",
+    "weekly": "You already redeemed something this week. You can redeem again on Monday. Your points stay.",
+    "ready": "You can redeem."
+  },
+  "catalog": {
+    "title": "Catalogue",
+    "disclaimer": "Points give access to the catalogue while stock lasts. Points are not money and do not entitle you to any particular reward.",
+    "week": "This week {released, plural, one {# reward} other {# rewards}} for {eligible, plural, one {# student} other {# students}} who may redeem.",
+    "empty": "The catalogue opens once partners have committed their rewards. Your points already count.",
+    "list": "Rewards",
+    "collective": "Together with your squad or club",
+    "partner": "From {partner}",
+    "price": "{count, plural, one {# point} other {# points}}",
+    "stock": "{count} left today",
+    "sold_out_today": "Gone for today. More of this week's stock comes tomorrow.",
+    "sold_out_week": "Gone for this week.",
+    "view": "View {title}",
+    "not_enough": "You have {available} available points; this costs {price}."
+  },
+  "redeem": {
+    "title": "Redeem",
+    "terms": "Terms",
+    "cost": "Deducted",
+    "after": "Available afterwards",
+    "referral_rule": "At most half may come from referral points.",
+    "confirm": "Redeem for {count, plural, one {# point} other {# points}}",
+    "busy": "Working…",
+    "nothing_taken": "Nothing was deducted."
+  },
+  "blocked": {
+    "EARN_IN_REQUIRED": "{minutes, plural, one {# more minute} other {# more minutes}} of focus, then you can redeem. Your points are already waiting.",
+    "FIRST_REDEEM_HOLD": "Your first redemption is possible from {date}. We take a short look, as we do for everyone.",
+    "WEEKLY_CAP": "You already redeemed something this week. You can redeem again on Monday. Your points stay.",
+    "MONTHLY_CAP": "You have reached the maximum of rewards for this month. From {date} it works again. Your points stay.",
+    "OUT_OF_STOCK": "This one just ran out. Nothing was deducted.",
+    "INSUFFICIENT_POINTS": "You have {available} available points; this costs {price}. Points in your weekly budget or under review don't count yet.",
+    "REFERRAL_SHARE_EXCEEDED": "At most half may come from referral points. Nothing was deducted.",
+    "soon": "soon"
+  },
+  "phone": {
+    "title": "Confirm your mobile number",
+    "why": "At your first redemption you confirm one mobile number. That way everyone has one account.",
+    "stored": "We store a hashed version of your number and that it is a mobile number. We don't store the number itself.",
+    "number": "Mobile number",
+    "number_hint": "With country code, for example +31612345678",
+    "send": "Send code",
+    "code": "Code from the text message",
+    "confirm": "Confirm",
+    "sent": "We sent a six-digit code.",
+    "invalid_number": "Enter your number with country code, like +31612345678.",
+    "type_not_allowed": "We can't use this number. Use the number of your own mobile phone.",
+    "in_use": "This number already belongs to another account. Not right? Ask via Help; a person will look at it."
+  },
+  "voucher": {
+    "title": "Your code",
+    "how": "Show this code or enter it at {partner}.",
+    "copy": "Copy code",
+    "copied": "Copied.",
+    "mail": "Your code is also in your email.",
+    "broken": "Doesn't work",
+    "broken_title": "Code not working?",
+    "broken_text": "Within two working days you get a new code or your points back.",
+    "broken_note": "What went wrong? (optional)",
+    "broken_send": "Report it",
+    "broken_sent": "Your report is in. You'll hear from us within two working days.",
+    "list": "Your codes",
+    "status": "{status, select, reserved {Ready to use} delivered {Ready to use} replaced {Replaced by a new code} refunded {Points refunded} other {}}"
+  },
+  "ledger": {
+    "title": "History",
+    "link": "See your points history",
+    "empty": "No points yet. After your first completed session they show up here.",
+    "more": "Load more",
+    "type": "{type, select, earn_session {Focus session} goal_bonus {Goal bonus} goal_budget_grant {Weekly budget} goal_budget_secure {Weekly budget secured} goal_budget_lapse {Weekly budget lapsed} redeem {Redeemed} redeem_refund {Refunded} release_flag {Released after review} reverse {Reversed after review} adjust {Correction} referral_pending {Referral, not yet released} referral_vest {Referral released} referral_lapse {Referral not released} expire {Expired} other {Entry}}",
+    "status": "{status, select, available {available} pending {pending} unvested {not yet released} redeemed {redeemed} expired {expired} reversed {reversed} lapsed {lapsed} other {}}"
+  },
+  "bonus": {
+    "title": "The bonus rule",
+    "intro": "In the pilot we use two bonus rules that pay out the same. Your minute points are the same for everyone: 1 point per minute that counted.",
+    "yours_a": "Your squad has the rule 'per goal met +20'; the other one is 'weekly budget'.",
+    "yours_b": "Your squad has the rule 'weekly budget'; the other one is 'per goal met +20'.",
+    "none": "No goal bonus applies right now. Your minute points carry on as usual.",
+    "rule_a": "Meet your daily goal and you get 20 extra points, available right away.",
+    "rule_b": "On Monday your weekly budget is 140 points. Every day you meet your goal, you secure 20 of them. A missed goal lets 20 of the weekly budget lapse; we never take anything from your available points.",
+    "joker": "The joker protects your squad streak, not the goal bonus.",
+    "night": "Sessions that start between 01:00 and 04:00 count for points and your daily goal, but without goal bonus.",
+    "exam": "On an exam day your daily goal doesn't count. With the 'weekly budget' rule that day quietly drops out of the budget.",
+    "season": "The goal bonus stops at the end of the last exam week of your institution. You'll see that in advance."
+  },
+  "plus": {
+    "title": "Plus",
+    "text": "Plus is coming, €2.99 per month. Want a message when it's ready?",
+    "now": "Plus doesn't do anything yet.",
+    "yes": "Let me know",
+    "no": "No",
+    "thanks": "Thanks. We'll let you know.",
+    "declined": "Fine. You won't hear about it again."
+  }
+}

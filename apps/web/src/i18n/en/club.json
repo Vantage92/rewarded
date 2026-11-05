@@ -1,0 +1,70 @@
+{
+  "title": "Club",
+  "empty": {
+    "text": "No club yet. With your board's code or QR you become a member and your sessions count for the ranking.",
+    "action": "Enter code"
+  },
+  "join": {
+    "title": "Join your club",
+    "code": "Club code",
+    "code_hint": "4 to 12 letters or digits, from your board or the QR.",
+    "privacy": "Your club only sees group figures, never your hours.",
+    "submit": "Link",
+    "linked": "You are linked to {club}. Your sessions count from now on.",
+    "pending": "Your link is being checked briefly.",
+    "invalid": "We don't know this code. Please check it.",
+    "already": "You are already linked to a club."
+  },
+  "mine": "Your club: {club}",
+  "pending": "Your link to {club} is being checked briefly.",
+  "period": {
+    "club_warmup": "Warm-up ranking: no prize, for the honour.",
+    "club_prize": "Prize period: {from} to {to}.",
+    "dates": "{from} to {to}"
+  },
+  "board": {
+    "title": "Club ranking",
+    "pool": "Pool {pool, select, lt150 {up to 150 members} 150_500 {150 to 500 members} gt500 {more than 500 members} other {}}",
+    "provisional": "Provisional",
+    "final": "Final",
+    "provisional_note": "Provisional until the fraud check and the sample are done.",
+    "rank": "{rank}.",
+    "members": "{count} members · {source, select, institution {declared to the institution} board_grant {board grant} faculty {confirmed by the faculty} self {self-declared} other {}}",
+    "rate": "Participation rate {rate}",
+    "intensity": "avg. {min} min per active member per day",
+    "no_prize": "Takes part for the honour, not for the main prize.",
+    "own": "you",
+    "empty": "No ranking yet. It appears from 15 linked members per club.",
+    "none": "No club challenge is running right now."
+  },
+  "prize": {
+    "title": "Prizes",
+    "earned": "Earned",
+    "item": "{description}",
+    "collective": "Collective prize for the club",
+    "individual": "Performance challenge"
+  },
+  "how": {
+    "title": "How do we count?",
+    "rate": "The participation rate is the number of linked members who met their daily goal on at least 3 days in a week, divided by the club's member count (or the number of linked members, if that is higher).",
+    "intensity": "The second figure is the average number of minutes per active member per day, up to 300 minutes. No prize depends on it.",
+    "anchor": "In the prize weeks only members with a confirmed institution email address or a confirmed mobile number count.",
+    "members": "The member count comes from an external source and is shown next to each club.",
+    "exam": "A joker or exam day does not count as a daily goal met."
+  },
+  "anchor": {
+    "text": "Count in the prize weeks: confirm your university or college email address.",
+    "action": "Confirm your institution email"
+  },
+  "challenges": {
+    "title": "Performance challenges",
+    "open": "View {title}"
+  },
+  "leave": {
+    "action": "Unlink from your club",
+    "title": "Unlink?",
+    "text": "Your sessions then no longer count for your club. This week you stay in the denominator.",
+    "confirm": "Unlink",
+    "cancel": "Stay linked"
+  }
+}

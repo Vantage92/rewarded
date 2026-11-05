@@ -1,5 +1,5 @@
-// Stub (WP-0). Owner: WP-9 (architecture §12.1). Replace the placeholder with the real screens.
+// Duel (UX §3.4 Q4; architecture §9.1 /duel, R2). Owner: WP-9.
 import type { RouteObject } from 'react-router';
-import { Placeholder } from '../../app/Placeholder.tsx';
+import { DuelScreen } from './DuelScreen.tsx';
 
-export const routes: RouteObject[] = [{ path: 'duel/*', element: <Placeholder feature="duels" owner="WP-9" /> }];
+export const routes: RouteObject[] = [{ path: 'duel', element: <DuelScreen /> }];

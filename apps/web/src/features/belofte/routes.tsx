@@ -1,5 +1,5 @@
-// Stub (WP-0). Owner: WP-9 (architecture §12.1). Replace the placeholder with the real screens.
+// De Belofte (UX §3.4 Q5/Q6, §4.10; architecture §9.1 /belofte, R2). Owner: WP-9.
 import type { RouteObject } from 'react-router';
-import { Placeholder } from '../../app/Placeholder.tsx';
+import { BelofteScreen } from './BelofteScreen.tsx';
 
-export const routes: RouteObject[] = [{ path: 'belofte/*', element: <Placeholder feature="belofte" owner="WP-9" /> }];
+export const routes: RouteObject[] = [{ path: 'belofte', element: <BelofteScreen /> }];

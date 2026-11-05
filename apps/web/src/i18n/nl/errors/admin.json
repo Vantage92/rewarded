@@ -1,0 +1,8 @@
+{
+  "mfa_required": "Bevestig eerst je tweede factor (code uit je authenticator-app).",
+  "mfa_invalid": "Deze code klopt niet of is verlopen. Probeer de nieuwe code uit je app.",
+  "reason_required": "Kies een redencode uit de lijst of geef een reden op.",
+  "four_eyes_required": "Hiervoor is een tweede beheerder nodig. Je verzoek staat klaar voor bevestiging.",
+  "age_check_required": "Voor deze prijs is eerst een leeftijdscontrole nodig.",
+  "board_member_conflict": "Een bestuurslid van een deelnemende vereniging kan geen ambassadeur zijn."
+}

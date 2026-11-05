@@ -1,5 +1,11 @@
-// Stub (WP-0). Owner: WP-9 (architecture §12.1). Replace the placeholder with the real screens.
+// Beloningen (UX §2.1 tab 4, §3.6; architecture §9.1 /punten, /punten/catalogus, /punten/geschiedenis). Owner: WP-9.
 import type { RouteObject } from 'react-router';
-import { Placeholder } from '../../app/Placeholder.tsx';
+import { BonusRuleScreen, LedgerScreen } from './OtherScreens.tsx';
+import { PointsScreen } from './PointsScreen.tsx';
 
-export const routes: RouteObject[] = [{ path: 'punten/*', element: <Placeholder feature="points" owner="WP-9" /> }];
+export const routes: RouteObject[] = [
+  { path: 'punten', element: <PointsScreen /> },
+  { path: 'punten/catalogus', element: <PointsScreen /> },
+  { path: 'punten/geschiedenis', element: <LedgerScreen /> },
+  { path: 'punten/bonusregel', element: <BonusRuleScreen /> },
+];

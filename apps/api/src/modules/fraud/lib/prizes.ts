@@ -9,12 +9,13 @@ import type { Db } from '../../../db/types.ts';
 import type { ModuleDeps } from '../../../module.ts';
 import type { AdminActor } from '../../../services/flags.ts';
 import { prizeCeiling, type PrizeCandidate, type PrizeRecord, type PrizeService, type PrizeSpec } from '../../../services/prizes.ts';
-import { sampleSeedOf } from './install.ts';
+import { sampleSeedOf } from './seed.ts';
 import { eventFor, hasTables, idsOf, parseJson } from './util.ts';
 
 export interface PrizeRow {
   id: string;
-  kind: PrizeKind;
+  /** `drawn` only exists as an empty place in the CHECK (architecture §7). */
+  kind: PrizeKind | 'drawn';
   tier: 'main' | 'threshold' | null;
   reward_kind: 'in_kind' | 'service';
   challenge_id: string | null;
@@ -47,7 +48,7 @@ function toRecord(r: PrizeRow): PrizeRecord {
   return {
     id: r.id,
     challengeId: r.challenge_id ?? '',
-    kind: r.kind,
+    kind: r.kind === 'drawn' ? 'earned_collective' : r.kind,
     ...(r.tier ? { tier: r.tier } : {}),
     rewardKind: r.reward_kind,
     valueCents: r.value_cents,

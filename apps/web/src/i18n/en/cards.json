@@ -1,0 +1,38 @@
+{
+  "title": "Card",
+  "make": {
+    "intro": "Your card shows your focus time, and if you like your first name and your streak. Sharing earns nothing; it's just fun.",
+    "first_name": "First name",
+    "streak": "Squad streak",
+    "squad_name": "Squad name",
+    "squad_name_off": "Your squad name is off on cards. Turn it on in Me; all members have to allow it.",
+    "duration": "Focus time is always on the card.",
+    "never": "Points, rewards and rankings never appear on a card.",
+    "format": "Format",
+    "story": "9:16",
+    "square": "Square",
+    "create": "Make card",
+    "busy": "Working…",
+    "preview": "Preview of your card",
+    "share": "Share",
+    "save": "Save",
+    "revoke": "Withdraw card",
+    "revoked": "The card has been withdrawn. The QR now shows that it is no longer available.",
+    "under_review": "This session is still being reviewed. After that you can make a card of it.",
+    "no_share": "Sharing doesn't work here. Save the card and share it yourself.",
+    "file_name": "rewarded-card.png",
+    "share_title": "My focus time"
+  },
+  "verify": {
+    "title": "Focus card",
+    "streak": "Squad streak: {count, plural, one {# day} other {# days}}",
+    "statement": "This focus time of {duration} minutes was visible on the screen of one browser. That does not show that no other device was used, nor what was learned.",
+    "statement_session": "This session of {duration} minutes on {date} was visible on the screen of one browser. That does not show that no other device was used, nor what was learned.",
+    "statement_streak": "These {duration} minutes of focus from {from} to {to} were visible on the screen of one browser. That does not show that no other device was used, nor what was learned.",
+    "statement_week": "These {duration} minutes of focus from {from} to {to} were visible on the screen of one browser. That does not show that no other device was used, nor what was learned.",
+    "statement_belofte": "These {duration} minutes of focus from {from} to {to} were visible on the screen of one browser. That does not show that no other device was used, nor what was learned.",
+    "of": "Card of {name}",
+    "unavailable": "This card is no longer available.",
+    "focus_too": "Focus too"
+  }
+}

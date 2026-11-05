@@ -1,0 +1,111 @@
+{
+  "title": "Profiel",
+  "kit": {
+    "day_status": "{day}: {status, select, met {gehaald} provisional {voorlopig gehaald} other {niet gehaald}}"
+  },
+  "me": {
+    "name": "Naam",
+    "squad": "Squad",
+    "club": "Vereniging",
+    "none": "Geen",
+    "age": "Leeftijd",
+    "age_band": "{band, select, 16_17 {16 of 17 jaar} 18_plus {18 jaar of ouder} other {}}"
+  },
+  "goal": {
+    "title": "Dagdoel",
+    "label": "Dagdoel in minuten",
+    "from_tomorrow": "Een nieuw dagdoel geldt vanaf morgen. Je dag loopt tot 04:00.",
+    "saved": "Je dagdoel wordt {minutes} minuten vanaf {date}.",
+    "overreach": "Begin liever klein. 90 of 120 minuten per dag is veel in je eerste week. Weet je het zeker?",
+    "overreach_confirm": "Ja, {minutes} minuten",
+    "overreach_cancel": "Toch kleiner"
+  },
+  "settings": {
+    "title": "Schakelaars",
+    "compare": "Minuten vergelijken",
+    "compare_desc": "Je ziet de minuten van squadleden die het ook aanzetten, en zij die van jou.",
+    "silent": "Stille modus",
+    "silent_desc": "Je squad ziet niet of je nu focust. Je telt wel mee voor de squaddag.",
+    "silent_minor": "Voor 16- en 17-jarigen staat stille modus standaard aan.",
+    "squad_name_cards": "Squadnaam op kaarten",
+    "squad_name_cards_desc": "Alleen als alle leden het toestaan.",
+    "no_points": "Modus zonder punten",
+    "no_points_desc": "Punten, catalogus en bonusmeldingen zijn verborgen. Je punten lopen op de achtergrond door, zodat je niets verliest.",
+    "reminders": "Herinnering per e-mail",
+    "reminders_desc": "Hoogstens één mail per dag, alleen als je dagdoel nog open staat.",
+    "saved": "Opgeslagen."
+  },
+  "research": {
+    "title": "Onderzoek",
+    "participate": "Meedoen aan het onderzoek",
+    "participate_desc": "Afmelden kan altijd, zonder verlies van punten.",
+    "opted_out": "Je doet niet meer mee aan het onderzoek. Je punten blijven staan.",
+    "confirm_title": "Niet meer meedoen aan het onderzoek?",
+    "confirm_text": "Je doet niet meer mee aan het onderzoek. Vanaf morgen heb je de gewone bonusregel en verdien je gewoon punten. Je punten blijven staan. Opnieuw aanmelden kan tijdens de pilot niet.",
+    "confirm": "Afmelden",
+    "cancel": "Blijf meedoen"
+  },
+  "institution": {
+    "title": "Instellingsmail",
+    "intro": "Studeer je aan een hogeschool of universiteit? Bevestig je mailadres van de instelling.",
+    "fingerprint": "We bewaren dat je het bevestigde, het domein en een versleutelde vingerafdruk van het adres, zodat één adres maar één account kan bevestigen. Het adres zelf bewaren we niet.",
+    "confirmed": "Bevestigd: {domain}",
+    "email": "Mailadres van je instelling",
+    "send": "Stuur code",
+    "code": "Code uit de mail",
+    "confirm": "Bevestig",
+    "sent": "We stuurden een code naar dat adres.",
+    "in_use": "Dit adres is al door een ander account bevestigd. Klopt dat niet? Vraag het via Hulp; een mens kijkt ernaar.",
+    "domain": "Dit domein staat niet op de lijst van pilotinstellingen."
+  },
+  "links": {
+    "title": "Meer",
+    "privacy": "Privacy en gegevens",
+    "terms": "Alle voorwaarden",
+    "plus": "Plus",
+    "referral": "Je persoonlijke link",
+    "how": "Hoe we tellen",
+    "help": "Hulp"
+  },
+  "privacy": {
+    "title": "Privacy en gegevens",
+    "logged": "Wat we vastleggen: sessietijden, of Rewarded zichtbaar op je scherm stond, of je scherm aan bleef, signalen van je toestel tijdens een sessie, je lidmaatschappen, een gehasht IP-adres, je browsertype en een toestel-id. Vanaf je eerste verzilvering ook een gehasht telefoonnummer. Geen locatie, geen camera.",
+    "retention": "Hoe lang: IP-hash en browsertype 30 dagen; ruwe sessiesignalen 90 dagen, daarna een samenvatting per sessie; besluiten in het auditlog 2 jaar.",
+    "age": "We bewaren of je 16–17 of 18+ bent. Ben je jonger dan 18, dan bewaren we ook de dag waarop je 18 wordt, zodat je dan automatisch overstapt.",
+    "download": "Download je gegevens",
+    "download_done": "Je gegevens staan in een bestand.",
+    "file_name": "rewarded-gegevens.json",
+    "delete": "Verwijder account",
+    "delete_title": "Account verwijderen?",
+    "delete_text": "Je account en je gegevens worden verwijderd. Je punten vervallen en komen niet terug. Typ VERWIJDER om te bevestigen.",
+    "delete_label": "Typ VERWIJDER",
+    "delete_confirm": "Verwijder mijn account",
+    "delete_cancel": "Niet verwijderen",
+    "deleted": "Je account is verwijderd."
+  },
+  "terms": {
+    "title": "Alle voorwaarden",
+    "ratio": "1 punt per minuut van een voltooide sessie die telde. Vast, voor iedereen gelijk.",
+    "cap": "Punten tot 300 minuten per dag. Meer focus telt voor je dagdoel, maar levert die dag geen punten op.",
+    "earn_in": "Verzilveren kan na 300 minuten focus, met daarna een wachttijd van 7 dagen voor je eerste verzilvering.",
+    "weekly": "Je kunt één keer per week verzilveren.",
+    "catalog": "Punten geven toegang tot de catalogus zolang de voorraad strekt. Punten zijn geen geld en geven geen recht op een bepaalde beloning.",
+    "season": "De doelbonus stopt aan het einde van de laatste tentamenweek van je instelling.",
+    "night": "Sessies die tussen 01:00 en 04:00 starten, tellen zonder doelbonus.",
+    "exam": "Hoogstens 3 tentamendagen per week; op een tentamendag telt je dagdoel niet mee.",
+    "verification": "Een minuut telt als Rewarded zichtbaar op je scherm stond. Meer kunnen we op het web niet zien.",
+    "challenge": "Verenigingsprijzen en prestatiechallenges zijn verdiend: wie de prestatie levert, krijgt de prijs. Winnaars controleren we vóór uitreiking."
+  },
+  "referral": {
+    "title": "Je persoonlijke link",
+    "explain": "Begint een vriend via jouw link en doet hij binnen 7 dagen drie sessies van 25 minuten? Dan krijgen jullie allebei 150 punten. Geen geld. Delen zelf levert niets op. Hoogstens de helft van een beloning kan uit referralpunten komen, en hoogstens 5 vrienden per maand tellen mee.",
+    "share": "Deel je link",
+    "copy": "Kopieer link",
+    "share_text": "Ik focus met Rewarded. Telefoon weg, squad aan. Doe je mee?",
+    "progress": "{name}: {done} van 3 sessies, nog {days, plural, one {# dag} other {# dagen}}",
+    "lapsed": "{name}: niet vrijgekomen.",
+    "none": "Nog niemand begon via je link.",
+    "off": "De persoonlijke link staat nu niet aan."
+  },
+  "plus_link": "Plus komt eraan"
+}

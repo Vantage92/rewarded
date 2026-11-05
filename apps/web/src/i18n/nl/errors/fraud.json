@@ -1,0 +1,10 @@
+{
+  "already_reported": "Je hebt dit al gemeld. We kijken ernaar en laten het je weten.",
+  "already_appealed": "Je hebt hier al beroep tegen aangetekend. Een andere beheerder beslist binnen 5 werkdagen.",
+  "appeal_window_closed": "Beroep kan tot 14 dagen na het besluit. Die termijn is voorbij.",
+  "same_reviewer": "Dit besluit moet een andere beheerder nemen dan degene die het eerste besluit nam.",
+  "no_eligible_reviewer": "Geen beschikbare beheerder die niet bij het eerste besluit betrokken was; het beroep wacht op een derde persoon.",
+  "sample_required": "Eerst moet de steekproef klaar zijn: elk item heeft een oordeel nodig.",
+  "domain_not_allowed": "Dit adres hoort niet bij een deelnemende hogeschool of universiteit.",
+  "institution_email_in_use": "Dit instellingsadres is al door een ander account bevestigd. Neem contact op via Hulp als dat niet klopt."
+}

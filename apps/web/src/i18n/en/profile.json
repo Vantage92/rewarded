@@ -1,0 +1,111 @@
+{
+  "title": "Profile",
+  "kit": {
+    "day_status": "{day}: {status, select, met {met} provisional {provisionally met} other {not met}}"
+  },
+  "me": {
+    "name": "Name",
+    "squad": "Squad",
+    "club": "Club",
+    "none": "None",
+    "age": "Age",
+    "age_band": "{band, select, 16_17 {16 or 17 years} 18_plus {18 years or older} other {}}"
+  },
+  "goal": {
+    "title": "Daily goal",
+    "label": "Daily goal in minutes",
+    "from_tomorrow": "A new daily goal applies from tomorrow. Your day runs until 04:00.",
+    "saved": "Your daily goal becomes {minutes} minutes from {date}.",
+    "overreach": "Better start small. 90 or 120 minutes a day is a lot in your first week. Are you sure?",
+    "overreach_confirm": "Yes, {minutes} minutes",
+    "overreach_cancel": "Smaller after all"
+  },
+  "settings": {
+    "title": "Switches",
+    "compare": "Compare minutes",
+    "compare_desc": "You see the minutes of squad members who turn it on too, and they see yours.",
+    "silent": "Silent mode",
+    "silent_desc": "Your squad doesn't see whether you are focusing now. You still count for the squad day.",
+    "silent_minor": "For 16- and 17-year-olds silent mode is on by default.",
+    "squad_name_cards": "Squad name on cards",
+    "squad_name_cards_desc": "Only if all members allow it.",
+    "no_points": "Mode without points",
+    "no_points_desc": "Points, catalogue and bonus messages are hidden. Your points keep running in the background, so you lose nothing.",
+    "reminders": "Email reminder",
+    "reminders_desc": "At most one email a day, only if your daily goal is still open.",
+    "saved": "Saved."
+  },
+  "research": {
+    "title": "Research",
+    "participate": "Take part in the research",
+    "participate_desc": "You can opt out any time, without losing points.",
+    "opted_out": "You no longer take part in the research. Your points stay.",
+    "confirm_title": "Stop taking part in the research?",
+    "confirm_text": "You no longer take part in the research. From tomorrow you have the regular bonus rule and you earn points as usual. Your points stay. Signing up again is not possible during the pilot.",
+    "confirm": "Opt out",
+    "cancel": "Keep taking part"
+  },
+  "institution": {
+    "title": "Institution email",
+    "intro": "Studying at a university or college? Confirm your institution email address.",
+    "fingerprint": "We store that you confirmed it, the domain and an encrypted fingerprint of the address, so one address can confirm only one account. We don't store the address itself.",
+    "confirmed": "Confirmed: {domain}",
+    "email": "Email address of your institution",
+    "send": "Send code",
+    "code": "Code from the email",
+    "confirm": "Confirm",
+    "sent": "We sent a code to that address.",
+    "in_use": "This address has already been confirmed by another account. Not right? Ask via Help; a person will look at it.",
+    "domain": "This domain is not on the list of pilot institutions."
+  },
+  "links": {
+    "title": "More",
+    "privacy": "Privacy and data",
+    "terms": "All terms",
+    "plus": "Plus",
+    "referral": "Your personal link",
+    "how": "How we count",
+    "help": "Help"
+  },
+  "privacy": {
+    "title": "Privacy and data",
+    "logged": "What we record: session times, whether Rewarded was visible on your screen, whether your screen stayed on, signals from your device during a session, your memberships, a hashed IP address, your browser type and a device id. From your first redemption also a hashed phone number. No location, no camera.",
+    "retention": "How long: IP hash and browser type 30 days; raw session signals 90 days, then a summary per session; decisions in the audit log 2 years.",
+    "age": "We store whether you are 16–17 or 18+. If you are under 18, we also store the day you turn 18, so you then switch automatically.",
+    "download": "Download your data",
+    "download_done": "Your data is in a file.",
+    "file_name": "rewarded-data.json",
+    "delete": "Delete account",
+    "delete_title": "Delete your account?",
+    "delete_text": "Your account and your data are deleted. Your points lapse and don't come back. Type VERWIJDER to confirm.",
+    "delete_label": "Type VERWIJDER",
+    "delete_confirm": "Delete my account",
+    "delete_cancel": "Don't delete",
+    "deleted": "Your account has been deleted."
+  },
+  "terms": {
+    "title": "All terms",
+    "ratio": "1 point per minute of a completed session that counted. Fixed, the same for everyone.",
+    "cap": "Points up to 300 minutes a day. More focus counts for your daily goal, but earns no points that day.",
+    "earn_in": "Redeeming is possible after 300 minutes of focus, followed by a waiting period of 7 days before your first redemption.",
+    "weekly": "You can redeem once a week.",
+    "catalog": "Points give access to the catalogue while stock lasts. Points are not money and do not entitle you to any particular reward.",
+    "season": "The goal bonus stops at the end of the last exam week of your institution.",
+    "night": "Sessions that start between 01:00 and 04:00 count without goal bonus.",
+    "exam": "At most 3 exam days a week; on an exam day your daily goal doesn't count.",
+    "verification": "A minute counts when Rewarded was visible on your screen. That is all we can see on the web.",
+    "challenge": "Club prizes and performance challenges are earned: whoever delivers the performance gets the prize. We check winners before handing out."
+  },
+  "referral": {
+    "title": "Your personal link",
+    "explain": "If a friend starts via your link and does three sessions of 25 minutes within 7 days, you both get 150 points. No money. Sharing itself earns nothing. At most half of a reward can come from referral points, and at most 5 friends per month count.",
+    "share": "Share your link",
+    "copy": "Copy link",
+    "share_text": "I'm focusing with Rewarded. Phones down, squad up. Join me?",
+    "progress": "{name}: {done} of 3 sessions, {days, plural, one {# day} other {# days}} left",
+    "lapsed": "{name}: not released.",
+    "none": "Nobody has started via your link yet.",
+    "off": "The personal link is not switched on right now."
+  },
+  "plus_link": "Plus is coming"
+}

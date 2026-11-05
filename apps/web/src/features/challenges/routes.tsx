@@ -1,5 +1,5 @@
-// Stub (WP-0). Owner: WP-9 (architecture §12.1). Replace the placeholder with the real screens.
+// Prestatiechallenge (UX §3.5 V3; architecture §9.1 /challenges/:id, R3). Owner: WP-9.
 import type { RouteObject } from 'react-router';
-import { Placeholder } from '../../app/Placeholder.tsx';
+import { ChallengeScreen } from './ChallengeScreen.tsx';
 
-export const routes: RouteObject[] = [{ path: 'challenges/:id', element: <Placeholder feature="challenges" owner="WP-9" /> }];
+export const routes: RouteObject[] = [{ path: 'challenges/:id', element: <ChallengeScreen /> }];

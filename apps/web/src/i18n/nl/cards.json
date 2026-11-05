@@ -1,0 +1,38 @@
+{
+  "title": "Kaart",
+  "make": {
+    "intro": "Je kaart toont je focustijd, en als je dat wilt je voornaam en je streak. Delen levert niets op; het is gewoon leuk.",
+    "first_name": "Voornaam",
+    "streak": "Squadstreak",
+    "squad_name": "Squadnaam",
+    "squad_name_off": "Je squadnaam staat uit op kaarten. Dat zet je aan in Ik; alle leden moeten het toestaan.",
+    "duration": "Focustijd staat altijd op de kaart.",
+    "never": "Punten, beloningen en ranglijsten komen nooit op een kaart.",
+    "format": "Formaat",
+    "story": "9:16",
+    "square": "Vierkant",
+    "create": "Maak kaart",
+    "busy": "Bezig…",
+    "preview": "Voorbeeld van je kaart",
+    "share": "Delen",
+    "save": "Opslaan",
+    "revoke": "Kaart intrekken",
+    "revoked": "De kaart is ingetrokken. De QR toont nu dat ze niet meer beschikbaar is.",
+    "under_review": "Deze sessie wordt nog nagekeken. Daarna kun je er een kaart van maken.",
+    "no_share": "Delen werkt hier niet. Sla de kaart op en deel hem zelf.",
+    "file_name": "rewarded-kaart.png",
+    "share_title": "Mijn focustijd"
+  },
+  "verify": {
+    "title": "Focuskaart",
+    "streak": "Squadstreak: {count, plural, one {# dag} other {# dagen}}",
+    "statement": "Deze focustijd van {duration} minuten stond zichtbaar op het scherm van één browser. Dat bewijst niet dat er geen ander apparaat gebruikt is en ook niet wat er geleerd is.",
+    "statement_session": "Deze sessie van {duration} minuten op {date} stond zichtbaar op het scherm van één browser. Dat bewijst niet dat er geen ander apparaat gebruikt is en ook niet wat er geleerd is.",
+    "statement_streak": "Deze {duration} minuten focus van {from} tot en met {to} stonden zichtbaar op het scherm van één browser. Dat bewijst niet dat er geen ander apparaat gebruikt is en ook niet wat er geleerd is.",
+    "statement_week": "Deze {duration} minuten focus van {from} tot en met {to} stonden zichtbaar op het scherm van één browser. Dat bewijst niet dat er geen ander apparaat gebruikt is en ook niet wat er geleerd is.",
+    "statement_belofte": "Deze {duration} minuten focus van {from} tot en met {to} stonden zichtbaar op het scherm van één browser. Dat bewijst niet dat er geen ander apparaat gebruikt is en ook niet wat er geleerd is.",
+    "of": "Kaart van {name}",
+    "unavailable": "Deze kaart is niet meer beschikbaar.",
+    "focus_too": "Focus ook"
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "title": "Challenge",
+  "not_found": "Deze challenge bestaat niet (meer).",
+  "period": "{from} tot en met {to}",
+  "seats": "{count, plural, =0 {Alle plaatsen zijn vergeven.} one {Nog # plaats} other {Nog # plaatsen}}",
+  "prize": "Wie de prestatie levert, verdient {prize}. Geen race: elke plaats heeft een prijs.",
+  "earned": "Verdiend. Winnaars controleren we vóór uitreiking.",
+  "enroll": "Schrijf je in",
+  "enrolled": "Je doet mee.",
+  "seat": "Je hebt plaats {seat}.",
+  "full": "Alle plaatsen zijn vergeven.",
+  "closed": "Inschrijven kan alleen vóór de start.",
+  "progress": "Je voortgang",
+  "day": "{date}: {minutes} min",
+  "day_met": "gehaald",
+  "day_open": "nog niet",
+  "status": {
+    "enrolled": "Je doet mee. Elke dag telt.",
+    "achieved": "Behaald. We controleren nu, daarna volgt de levering.",
+    "verified": "Verdiend en gecontroleerd. De levering volgt binnen 14 dagen.",
+    "failed": "Deze keer niet behaald. Er komt een volgende challenge.",
+    "rejected": "Na controle konden we deze prestatie niet toekennen. Je ziet de reden bij Ik, Meldingen en beroepen, en je kunt binnen 14 dagen beroep instellen.",
+    "withdrawn": "Je hebt je teruggetrokken."
+  },
+  "back": "Naar je vereniging"
+}

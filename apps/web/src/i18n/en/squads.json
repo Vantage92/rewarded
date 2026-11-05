@@ -1,0 +1,97 @@
+{
+  "title": "Squad",
+  "empty": {
+    "text": "No squad yet. Squads keep it up better.",
+    "create": "Create squad"
+  },
+  "visibility": "Your squad sees whether you are focusing now, how long your session still runs and whether you met your daily goal. They don't see your focus minutes and points, unless you turn on comparing minutes yourself. Silent mode hides your status; you still count for the squad day.",
+  "create": {
+    "title": "Create squad",
+    "intro": "Focus together. Squads keep it up better.",
+    "name": "Name of your squad",
+    "name_hint": "2 to 40 characters. Anyone who sees the name can report it.",
+    "club": "Link the squad to {club}",
+    "submit": "Create squad",
+    "busy": "Working…",
+    "rejected": "Choose another name."
+  },
+  "streak": {
+    "label": "Squad streak",
+    "value": "{count, plural, =0 {No streak yet} one {# day} other {# days}}",
+    "building": "{count, plural, one {# more friend} other {# more friends}} needed. Meanwhile you just focus.",
+    "frozen": "You have fewer than 3 active members. The streak pauses until there are 3 again.",
+    "recovery": "Get your streak back with two days in a row.",
+    "recovery_detail": "If you do, the streak is back at {count, plural, one {# day} other {# days}}."
+  },
+  "today": {
+    "line": "Today: {met} of {active} active members met their daily goal.",
+    "success": "The squad day is a success.",
+    "needed": "A successful squad day needs {needed}."
+  },
+  "presence": {
+    "line": "{live} of {active} focusing now",
+    "remaining": "Someone is focusing now ({count, plural, one {# minute} other {# minutes}} left)",
+    "label": "Who is focusing now"
+  },
+  "members": {
+    "label": "Squad members",
+    "met": "Daily goal met",
+    "open": "Not yet",
+    "paused_title": "On pause",
+    "paused": "{name} is on pause",
+    "paused_label": "Members on pause"
+  },
+  "joker": {
+    "available": "Joker this week: still available.",
+    "used": "Joker this week: used. You counted for the squad day."
+  },
+  "belofte": {
+    "own": "Your Promise: {met} of {target} days this week.",
+    "member": "{name} — Promise: {met} of {target} days this week.",
+    "open": "View {name}'s Promise",
+    "sheet_title": "{name}'s Promise",
+    "promised": "{name} promised {days} days a week, {minutes} minutes, until {date}.",
+    "stopped": "{name} has stopped the Promise.",
+    "completed": "{name} completed the Promise.",
+    "days": "Days so far"
+  },
+  "compare": {
+    "title": "Compare minutes",
+    "off": "Comparing minutes is off. Turn it on in Me; you only see members who turned it on too.",
+    "row": "{name}: today {today} min, this week {week} min",
+    "none": "Nobody else has comparing minutes on yet.",
+    "link": "Compare minutes"
+  },
+  "actions": {
+    "invite": "Invite",
+    "duel": "Challenge to a duel",
+    "leave": "Leave squad",
+    "leave_title": "Leave the squad?",
+    "leave_text": "From tomorrow you no longer count in this squad. Your points and your Promise stay.",
+    "leave_confirm": "Leave",
+    "stay": "Stay"
+  },
+  "invite": {
+    "title": "Invite",
+    "text": "I'm focusing with Rewarded in a squad. Phones down, squad up. Join me?",
+    "validity": "This link is valid for 7 days, for at most 5 friends.",
+    "preview": "Preview of your message",
+    "share": "Share via WhatsApp",
+    "copy": "Copy link",
+    "copied": "Link copied.",
+    "no_share": "Sharing from your phone doesn't work here. Copy the link and paste it into WhatsApp."
+  },
+  "report": {
+    "menu": "Report name",
+    "title": "Report name",
+    "text": "Is this squad name inappropriate? A person at Rewarded will look at it.",
+    "reason": "Why?",
+    "offensive": "Offensive or hurtful",
+    "personal_data": "Contains personal data",
+    "impersonation": "Pretends to be someone else",
+    "other": "Something else",
+    "send": "Report this name",
+    "sent": "Thanks. We'll look at the name.",
+    "status_pending": "This name is being reviewed."
+  }
+}

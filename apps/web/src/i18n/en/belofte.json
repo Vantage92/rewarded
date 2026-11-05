@@ -1,0 +1,47 @@
+{
+  "title": "The Promise",
+  "offer": {
+    "early": "The goal bonus stops soon. Would you like to promise yourself something for the next two weeks?",
+    "second": "Your exams start next week. Would you like to promise yourself something for the next two weeks?",
+    "late": "Would you like to promise yourself something for the next two weeks?",
+    "view": "View",
+    "none": "There is no Promise waiting for you right now. You get the offer at a fixed moment; after that you can start a Promise yourself.",
+    "disabled": "The Promise is not switched on yet."
+  },
+  "form": {
+    "days": "Days per week",
+    "minutes": "Minutes per day",
+    "witnesses": "Witnesses",
+    "witness_squad": "My squad",
+    "witness_none": "Nobody",
+    "no_squad": "Without a squad your Promise has no witnesses.",
+    "suggestion": "Suggestion based on what you actually did in the last 14 days: {days} days a week, {minutes} minutes.",
+    "witness_info": "Your squad sees your Promise and per day whether you kept it. They don't see your minutes and points.",
+    "no_points": "There are no points attached.",
+    "submit": "Promise it",
+    "later": "Not now",
+    "later_done": "Fine. The offer stays here."
+  },
+  "current": {
+    "summary": "You promised {days} days a week, {minutes} minutes, until {date}.",
+    "witnesses_squad": "Your squad is your witness.",
+    "witnesses_none": "Your Promise has no witnesses.",
+    "week": "This week: {met} of {days} days.",
+    "days": "Your days",
+    "stop": "Stop your Promise",
+    "stopped": "Promise stopped. Your squad only sees that it stopped."
+  },
+  "reflection": {
+    "title": "Two weeks done",
+    "result": "You kept your Promise on {met} of {target} days.",
+    "renew": "Two more weeks?",
+    "adjust": "Adjust",
+    "stop": "Stop",
+    "stake": "Would you, for a next Promise, put in an amount that goes to a charity if you don't keep it? There is no payment function now; we're only asking.",
+    "stake_yes": "Yes",
+    "stake_no": "No",
+    "stake_unsure": "Don't know",
+    "done": "Thanks. You can always make a new Promise.",
+    "renewed": "Your Promise runs for two more weeks."
+  }
+}

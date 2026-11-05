@@ -66,7 +66,8 @@ export const VisibilityEventKind = z.enum([
 export const PointsStatus = z.enum(['available', 'pending', 'none']);
 
 // Fraud and review (architecture §3.2, spec §6).
-export const FlagCode = z.enum(['H1', 'H2', 'H3', 'H4', 'H5', 'H6', 'H7', 'H8', 'H9', 'H10', 'H11', 'USER_REPORT', 'NAME_REPORT', 'SAMPLE', 'OUTAGE']);
+// H12 (spec §6.3, after round 2) added by WP-6; an extension, so existing values keep their meaning.
+export const FlagCode = z.enum(['H1', 'H2', 'H3', 'H4', 'H5', 'H6', 'H7', 'H8', 'H9', 'H10', 'H11', 'H12', 'USER_REPORT', 'NAME_REPORT', 'SAMPLE', 'OUTAGE']);
 export const FlagSubjectType = z.enum(['session', 'account', 'squad', 'club']);
 export const FlagStatus = z.enum(['open', 'released', 'rejected', 'blocked', 'closed']);
 export const FlagDecision = z.enum(['release', 'reject', 'block']);

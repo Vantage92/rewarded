@@ -83,8 +83,32 @@ Vaste momenten waarop de DPIA opnieuw wordt bekeken. De herbeoordeling van de FG
 | 7 | Vóór de eerste ambassadeur | Gegevens van ambassadeurs in het register, met de fiscale bewaartermijn | Founder, fiscalist | Privacyverklaring bijlage #17 |
 | 8 | Bij elke wijziging van een verwerking in de bouw | Dit register bijwerken | WP-6 | Architectuur §10.5 |
 
+## 5. Stand van de bouw (WP-6, 5 november 2026)
+
+Wat de code nu doet, per verwerking uit §2, zodat de opsteller van de DPIA ziet wat er technisch vastligt. Bron: `apps/api/migrations/0080_fraud_queue.sql`, `0300_fraud_admin_privacy.sql`, `packages/core/src/fraud/retention.ts` en `apps/api/src/modules/fraud/lib/{retention,privacy}.ts`. Waar dit afwijkt van §2, gaat §2 (en daarmee de architectuur) voor; de afwijking staat erbij.
+
+| Verwerking | Tabellen in de bouw | Bewaartermijn zoals gebouwd (dagafsluiting stap 11) | Opmerking |
+|---|---|---|---|
+| Fraudebestrijding: markeringen en besluiten | `fraud_flag`, `fraud_flag_session` (koppelt sessie én account) | Bewijs gereduceerd tot codes en drempelwaarden 14 dagen na het besluit, of pas na het besluit op een lopend beroep; rij 2 jaar na het besluit; open markeringen blijven | Bij `DELETE /me`: open markeringen `closed` met `account_deleted`, onderwerp en koppelingen weg, bewijs gereduceerd |
+| Beroep | `appeal` | Tekst 90 dagen na het besluit; rij 2 jaar | Bij `DELETE /me`: open beroep gesloten, `user_id` en tekst leeg |
+| Geblokkeerde nummers en instellingsadressen | `blocked_phone_hash`, `blocked_institution_hash` (zonder `user_id`) | 2 jaar na de bevestigde blokkade (`expires_at`) | Overleven `DELETE /me`, zodat H8 en de uniekheidscontrole blijven werken |
+| Instellingsanker | `user.institution_email_hash` (unieke index), `user.institution_reconfirm_due`, `institution_verification` (lopende code), `institution_domain` (domeinlijst) | Code: 15 minuten geldig, rij weg na 24 uur; HMAC zolang het account bestaat | **Afwijking:** de HMAC gebruikt nu de e-mailpepper met een domeinscheider (`inst|…`), omdat `pepper_inst` nog niet in de geheimenmap van WP-3 zit; vóór 4 januari omzetten (zie `sleutelbeheer.md`). Het adres zelf wordt nergens bewaard |
+| Steekproef | `fraud_sample`, `fraud_sample_item` | Item 2 jaar na het oordeel; de schatting per week blijft | Trekking reproduceerbaar uit de seed (HMAC-SHA256); bij `DELETE /me`: `user_id` en controles leeg |
+| Schadesignalen S1–S4 | `harm_signal` (met de armen op het moment van het signaal), `harm_week` (alleen tellingen) | Tot 15 juni 2027, daarna geaggregeerd in `research_aggregate` en verwijderd | Geen fraudegevolg, geen markering; het team ziet alleen tellingen per arm en code |
+| Supportlabel "welzijn" (S4) | `support_ticket.label`, `assigned_to` | Tekst 90 dagen na afhandeling; label blijft als telling | Alleen `assigned_to` ziet label en tekst in de beheeromgeving |
+| Verdiende prijzen | `prize`, `prize_delivery_contact` | Naam en adres 30 dagen na levering | Leeftijdscontrole: alleen uitkomst, datum en controleur; de soort document wordt niet opgeslagen |
+| Ambassadeurs | `ambassador`, `ambassador_payout` | **In te vullen** (fiscale bewaartermijn) | Alleen een `name_ref`, geen persoonsgegevens van de ambassadeur zelf |
+| Eventlog na 15 juni 2027 | `event_week_aggregate` | Ruwe events geaggregeerd naar week, naam, arm, kanaal en release, daarna verwijderd | Datum vast in `core/fraud/retention.ts`; schuift een aprilvenster, dan schuift die datum mee (nieuwe parameterversie) |
+| Netwerkgegevens | `ip_hash`, `net_class` op sessies, inloglinks, registratie, verenigingskoppelingen en wachtlijst | 30 dagen, dan leeg | **Afwijking:** `focus_session.ua_class` en `device_id` zijn verplichte kolommen (WP-4); de UA-klasse gaat na 30 dagen naar `other`, het toestel-id blijft tot het account of de toestelrij weg is. Op te lossen in WP-4 |
+| Auditlog | `audit_log` | 2 jaar, via een benoemde regel (`audit_retention`); recentere rijen blijven onwijzigbaar | De triggers van WP-3 blijven; alleen rijen ouder dan de afkapdatum mogen weg |
+
+**Export (`GET /me/export`).** Eén JSON-bestand met een sectie per module die een exporter registreerde (nu: profiel, sessies, punten, verzilveringen, telefoon, squads, duels, verenigingen, challenges, Belofte, kaarten, referral, herinneringen, markeringen met besluiten en beroepen, schadesignalen, prijzen, instellingsanker en supporttickets). Gegevens van anderen staan er niet in.
+
+**Verwijdering (`DELETE /me`, en door beheer alleen met vier ogen).** Eén transactie over alle erasers per module; daarna de rijen van WP-3 (gebruiker, inlog, toestellen, idempotentie, wachtlijst) en de events: nieuw willekeurig pseudoniem, nieuw willekeurig squad-id per verwijderde gebruiker, en de id's uit de eigenschappen weg. De verwijdertest scant alle tabellen en kolommen op het oude id, het e-mailadres en het pseudoniem.
+
 ## Wijzigingslog
 
 | Ronde | Datum | Wijziging |
 |---|---|---|
+| WP-6 | 5 november 2026 | §5 toegevoegd: stand van de bouw per verwerking, met de twee afwijkingen (pepper voor het instellingsadres, verplichte kolommen van WP-4) en de nieuwe tabellen (`harm_week`, `institution_domain`, `institution_verification`, `event_week_aggregate`, `research_aggregate`, `audit_retention`). Versie 0.2. |
 | ronde 2 (eindredactie) | 5 november 2026 | Eerste aanzet, opgesteld in de eindredactie van ronde 2 omdat businessplan §9, spec §4.10, architectuur §10.5 en de privacyverklaring naar een DPIA-aanzet en DPIA-checklist verwijzen (founder J8, J9) en `docs/dpia/` nog niet bestond. Alleen samengesteld uit de bestaande stukken; belangenafweging, art. 9-uitzondering, verwerkers en ondertekening staan als **in te vullen**. Versie 0.1. |

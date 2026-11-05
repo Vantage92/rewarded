@@ -1,0 +1,144 @@
+{
+  "welcome": {
+    "title": "Welcome",
+    "invited_squad": "{name} invites you to squad {squad}",
+    "invited": "{name} invites you to Rewarded",
+    "promise": "Put your phone down, focus with your squad, and get rewarded for what you had to do anyway.",
+    "promise_desktop": "Focus together with your squad.",
+    "claim": "Rewarded counts your focus time as long as the app is open and visible on your screen. If you go to another app or tab, or your screen turns off, the session stops.",
+    "reward": "After five hours of focus you can exchange points with partners. No money.",
+    "visibility": "Your squad sees whether you are focusing now, how long your session still runs and whether you reached your daily goal. They do not see your focus minutes or points, unless you turn on comparing minutes yourself. Silent mode hides your status; you still count for the squad day.",
+    "age": "Rewarded is for people aged 16 and over.",
+    "join": "Join",
+    "how": "How does Rewarded count?",
+    "invalid": "This invitation is no longer valid. Ask {name} for a new one.",
+    "invalid_anon": "This invitation is no longer valid. Ask for a new one.",
+    "closed_pilot": "In the pilot you get in with an invitation from a friend or your association. Without an invitation you can join the waiting list.",
+    "waitlist": "To the waiting list",
+    "have_account": "Already have an account? Log in",
+    "in_app": "Prefer your own browser? Open the link there; your invitation stays."
+  },
+  "how": {
+    "title": "How does Rewarded count?",
+    "phone": "On your phone: screen down on the table, Rewarded stays on.",
+    "laptop": "On your laptop: Rewarded open in a visible tab. We cannot see your phone there, so put it away yourself.",
+    "ok": "Got it"
+  },
+  "email": {
+    "title": "Your email address",
+    "intro": "You log in with a link or a code by email. You do not need a password.",
+    "email": "Email address",
+    "first_name": "First name",
+    "last_name": "Last name",
+    "send": "Send link",
+    "invalid": "This email address is not right. Check it.",
+    "first_name_required": "Fill in your first name.",
+    "rate_limited": "Try again in a minute.",
+    "invite_required": "In the pilot you need an invitation. You can join the waiting list.",
+    "failed": "That did not work. Try again."
+  },
+  "login": {
+    "title": "Log in",
+    "intro": "Fill in your email address. You get a link and a 6-digit code.",
+    "new": "New here? You get in through an invitation."
+  },
+  "inbox": {
+    "title": "Check your mail",
+    "sent_to": "We sent an email to {email}.",
+    "instruction": "Tap the link in the email, or type the 6-digit code from the same email here.",
+    "validity": "The link and the code work for 15 minutes.",
+    "code": "6-digit code",
+    "email": "Email address",
+    "go": "Continue",
+    "resend": "Send again",
+    "resend_wait": "You can send again in {count, plural, one {# second} other {# seconds}}.",
+    "resent": "We sent a new email.",
+    "other": "Other address",
+    "code_invalid": "This code is not right. Check the email or ask for a new one.",
+    "code_expired": "This code has expired. Ask for a new one.",
+    "too_many": "Too many attempts. Ask for a new code.",
+    "code_format": "A code has 6 digits."
+  },
+  "confirm": {
+    "title": "Log in",
+    "intro": "Tap the button to log in on this device.",
+    "button": "Log in",
+    "invalid": "This link no longer works. Ask for a new one or use the code from the email.",
+    "missing": "This link is incomplete. Open it again from the email.",
+    "again": "Ask for a new link"
+  },
+  "age": {
+    "title": "Your date of birth",
+    "intro": "Rewarded is for people aged 16 and over. We ask your date of birth to decide which parts you see.",
+    "privacy": "We keep whether you are 16–17 or 18+. If you are under 18, we also keep the day you turn 18, so you switch over automatically.",
+    "legend": "Date of birth",
+    "day": "Day",
+    "month": "Month",
+    "year": "Year",
+    "first_name": "First name",
+    "next": "Next",
+    "invalid": "This date does not exist. Check day, month and year.",
+    "confirm_title": "According to this date you are {age}. Is that right?",
+    "confirm_yes": "Yes, that is right",
+    "confirm_edit": "Change the date",
+    "too_young_title": "Rewarded is for people aged 16 and over.",
+    "too_young": "We have kept nothing about you."
+  },
+  "silent": {
+    "title": "What your squad sees",
+    "body": "By default your squad does not see when you focus. If you want them to, turn it on here. You can always change it under Me.",
+    "switch": "Let my squad see when I focus",
+    "next": "Next"
+  },
+  "consent": {
+    "title": "Research, terms and privacy",
+    "pilot": "This is a pilot. We test two bonus rules that yield the same; your squad gets one, by lot. Your points per minute are the same for everyone. Some parts reach you at a different moment than others. The goal bonus stops at the end of your institution's last exam week. You can always stop and have your data deleted.",
+    "research": "In this pilot Rewarded is also a study. By lot you get one of two bonus rules that yield the same, one of two moments for the Pledge, sometimes an extra invitation to form a squad, and possibly a rest period without new points from the end of your exam weeks up to and including the April exam period; it may also fall in exam weeks. If you still want to earn points then, you always can, and you stay in the study. Your minute points are the same for everyone. The catalogue is small: each week you see how many rewards there are for how many students. You can always opt out of the study under Me; your points stay.",
+    "group": "From the day you hear your group, that group belongs to you, also if you switch squads.",
+    "minor": "You always get the standard bonus rule and keep earning points, also in a squad that earns no points for a while.",
+    "signals_title": "Which signals we log",
+    "signals": "Per session: when it started and ended according to our server, whether Rewarded was visible, whether your screen stayed on, your connection and a device number we create ourselves. No location, no camera and nothing from other apps. That way we can count fairly and find abuse.",
+    "terms": "I agree to the terms of use",
+    "privacy": "I have read the privacy statement",
+    "terms_link": "Terms of use",
+    "privacy_link": "Privacy statement",
+    "accept": "Agree",
+    "both": "Tick both boxes to continue."
+  },
+  "goal": {
+    "title": "Your daily goal",
+    "intro": "How many minutes do you want to focus per day? You can change it later.",
+    "label": "Daily goal",
+    "small": "Better start small",
+    "next": "Next",
+    "brake_title": "Better start small?",
+    "brake_body": "You can raise your goal later.",
+    "brake_keep": "Still {count} minutes",
+    "brake_small": "Choose 25 minutes",
+    "terms_outdated": "The terms were updated. Reload the page and read them again.",
+    "failed": "Your account could not be created. Try again."
+  },
+  "dnd": {
+    "title": "Do Not Disturb",
+    "why": "An incoming call or an opened notification stops your session. So turn on Do Not Disturb when you start focusing.",
+    "ios": "iPhone: open Control Centre and tap Focus, then Do Not Disturb.",
+    "android": "Android: swipe down from the top and tap Do Not Disturb.",
+    "laptop": "Laptop: turn off notifications for now, or keep Rewarded in a visible window.",
+    "connection": "If the connection drops for more than 5 minutes, your session stops.",
+    "on": "I will turn it on",
+    "later": "Later"
+  },
+  "practice": {
+    "title": "Practice session",
+    "body": "One minute. Start, and then briefly go to another app. That way you see what a stopped session is. Practice does not count anywhere.",
+    "start": "Start practice",
+    "skip": "Skip"
+  },
+  "first": {
+    "title": "Your first session",
+    "squad": "Your squad {name} is waiting for you.",
+    "body": "Start your first 25-minute session.",
+    "start": "Start",
+    "later": "Later today"
+  }
+}

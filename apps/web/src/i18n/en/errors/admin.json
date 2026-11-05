@@ -1,0 +1,8 @@
+{
+  "mfa_required": "Confirm your second factor first (code from your authenticator app).",
+  "mfa_invalid": "This code is wrong or has expired. Try the new code from your app.",
+  "reason_required": "Choose a reason code from the list or give a reason.",
+  "four_eyes_required": "This needs a second admin. Your request is waiting for confirmation.",
+  "age_check_required": "This prize needs an age check first.",
+  "board_member_conflict": "A board member of a participating association cannot be an ambassador."
+}

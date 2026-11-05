@@ -1,0 +1,10 @@
+{
+  "already_reported": "You already reported this. We are looking into it and will let you know.",
+  "already_appealed": "You already appealed this. Another admin decides within 5 working days.",
+  "appeal_window_closed": "You can appeal up to 14 days after the decision. That period has passed.",
+  "same_reviewer": "Another admin than the one who made the first decision has to decide this.",
+  "no_eligible_reviewer": "No available admin who was not involved in the first decision; the appeal waits for a third person.",
+  "sample_required": "The sample has to be finished first: every item needs a judgement.",
+  "domain_not_allowed": "This address does not belong to a participating university or university of applied sciences.",
+  "institution_email_in_use": "This institution address has already been confirmed by another account. Contact us via Help if that is wrong."
+}

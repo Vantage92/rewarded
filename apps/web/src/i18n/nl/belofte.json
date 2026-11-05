@@ -1,0 +1,47 @@
+{
+  "title": "De Belofte",
+  "offer": {
+    "early": "De doelbonus stopt binnenkort. Wil je jezelf iets beloven voor de komende twee weken?",
+    "second": "Volgende week beginnen je tentamens. Wil je jezelf iets beloven voor de komende twee weken?",
+    "late": "Wil je jezelf iets beloven voor de komende twee weken?",
+    "view": "Bekijk",
+    "none": "Er staat nu geen Belofte voor je klaar. Je krijgt het aanbod op een vast moment; daarna kun je zelf een Belofte starten.",
+    "disabled": "De Belofte staat nog niet aan."
+  },
+  "form": {
+    "days": "Dagen per week",
+    "minutes": "Minuten per dag",
+    "witnesses": "Getuigen",
+    "witness_squad": "Mijn squad",
+    "witness_none": "Niemand",
+    "no_squad": "Zonder squad heeft je Belofte geen getuigen.",
+    "suggestion": "Voorstel op basis van wat je de afgelopen 14 dagen echt deed: {days} dagen per week, {minutes} minuten.",
+    "witness_info": "Je squad ziet je Belofte en per dag of je hem haalde. Je minuten en punten zien ze niet.",
+    "no_points": "Er hangen geen punten aan.",
+    "submit": "Beloof het",
+    "later": "Niet nu",
+    "later_done": "Prima. Het aanbod blijft hier staan."
+  },
+  "current": {
+    "summary": "Je beloofde {days} dagen per week {minutes} minuten, tot en met {date}.",
+    "witnesses_squad": "Je squad is getuige.",
+    "witnesses_none": "Je Belofte heeft geen getuigen.",
+    "week": "Deze week: {met} van {days} dagen.",
+    "days": "Je dagen",
+    "stop": "Stop je Belofte",
+    "stopped": "Belofte gestopt. Je squad ziet alleen dat hij gestopt is."
+  },
+  "reflection": {
+    "title": "Twee weken voorbij",
+    "result": "Je haalde je Belofte op {met} van {target} dagen.",
+    "renew": "Nog twee weken?",
+    "adjust": "Aanpassen",
+    "stop": "Stoppen",
+    "stake": "Zou je bij een volgende Belofte een bedrag inzetten dat naar een goed doel gaat als je hem niet haalt? Er is nu geen betaalfunctie; we vragen het alleen.",
+    "stake_yes": "Ja",
+    "stake_no": "Nee",
+    "stake_unsure": "Weet ik niet",
+    "done": "Dank je. Je kunt altijd een nieuwe Belofte maken.",
+    "renewed": "Je Belofte loopt nog twee weken."
+  }
+}

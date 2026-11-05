@@ -1,0 +1,121 @@
+{
+  "title": "Punten",
+  "no_points": {
+    "text": "Je hebt de modus zonder punten aan. Punten en catalogus zijn verborgen; je punten lopen op de achtergrond door, zodat je niets verliest.",
+    "link": "Naar Ik"
+  },
+  "balance": {
+    "title": "Saldo",
+    "available": "Beschikbaar",
+    "available_value": "{count, plural, one {# punt} other {# punten}}",
+    "pending_a": "Wordt nagekeken",
+    "pending_b": "Weekbudget (nog niet veilig) en wat wordt nagekeken",
+    "referral": "Referral, nog niet vrij",
+    "why": "Waarom zie ik dit?",
+    "pending_list": "Bekijk welke sessies worden nagekeken",
+    "unit": "{count, plural, one {punt} other {punten}}"
+  },
+  "earn_in": {
+    "label": "Inverdienperiode",
+    "value": "{value} van {max} minuten",
+    "remaining": "Nog {count, plural, one {# minuut} other {# minuten}} focus, dan kun je verzilveren. Je punten staan al klaar.",
+    "explain": "Je eerste verzilvering kan na vijf uur focus. Zo gaat de catalogus naar mensen die er een gewoonte van maken.",
+    "hold": "Je eerste verzilvering kan vanaf {date}. We kijken kort mee, zoals bij iedereen.",
+    "weekly": "Je verzilverde deze week al iets. Maandag kun je weer verzilveren. Je punten blijven staan.",
+    "ready": "Je kunt verzilveren."
+  },
+  "catalog": {
+    "title": "Catalogus",
+    "disclaimer": "Punten geven toegang tot de catalogus zolang de voorraad strekt. Punten zijn geen geld en geven geen recht op een bepaalde beloning.",
+    "week": "Deze week {released, plural, one {# beloning} other {# beloningen}} voor {eligible, plural, one {# student} other {# studenten}} die mogen verzilveren.",
+    "empty": "De catalogus opent zodra partners hun beloningen hebben vastgelegd. Je punten tellen al.",
+    "list": "Beloningen",
+    "collective": "Samen met je squad of vereniging",
+    "partner": "Van {partner}",
+    "price": "{count, plural, one {# punt} other {# punten}}",
+    "stock": "Vandaag nog {count}",
+    "sold_out_today": "Vandaag op. Morgen komt er weer een deel bij.",
+    "sold_out_week": "Deze week op.",
+    "view": "Bekijk {title}",
+    "not_enough": "Je hebt {available} beschikbare punten; dit kost {price}."
+  },
+  "redeem": {
+    "title": "Verzilveren",
+    "terms": "Voorwaarden",
+    "cost": "Gaat af",
+    "after": "Beschikbaar daarna",
+    "referral_rule": "Hoogstens de helft mag uit referralpunten komen.",
+    "confirm": "Verzilver voor {count, plural, one {# punt} other {# punten}}",
+    "busy": "Bezig…",
+    "nothing_taken": "Er is niets afgeschreven."
+  },
+  "blocked": {
+    "EARN_IN_REQUIRED": "Nog {minutes, plural, one {# minuut} other {# minuten}} focus, dan kun je verzilveren. Je punten staan al klaar.",
+    "FIRST_REDEEM_HOLD": "Je eerste verzilvering kan vanaf {date}. We kijken kort mee, zoals bij iedereen.",
+    "WEEKLY_CAP": "Je verzilverde deze week al iets. Maandag kun je weer verzilveren. Je punten blijven staan.",
+    "MONTHLY_CAP": "Je zit aan het maximum aan beloningen voor deze maand. Vanaf {date} kan het weer. Je punten blijven staan.",
+    "OUT_OF_STOCK": "Deze is net op. Er is niets afgeschreven.",
+    "INSUFFICIENT_POINTS": "Je hebt {available} beschikbare punten; dit kost {price}. Punten in je weekbudget of die worden nagekeken, tellen nog niet mee.",
+    "REFERRAL_SHARE_EXCEEDED": "Hoogstens de helft mag uit referralpunten komen. Er is niets afgeschreven.",
+    "soon": "binnenkort"
+  },
+  "phone": {
+    "title": "Je mobiele nummer bevestigen",
+    "why": "Bij je eerste verzilvering bevestig je één mobiel nummer. Zo heeft iedereen één account.",
+    "stored": "We bewaren een gehashte versie van je nummer en dat het een mobiel nummer is. Het nummer zelf bewaren we niet.",
+    "number": "Mobiel nummer",
+    "number_hint": "Met landcode, bijvoorbeeld +31612345678",
+    "send": "Stuur code",
+    "code": "Code uit de sms",
+    "confirm": "Bevestig",
+    "sent": "We stuurden een code van zes cijfers.",
+    "invalid_number": "Vul je nummer in met landcode, zoals +31612345678.",
+    "type_not_allowed": "Dit nummer kunnen we niet gebruiken. Gebruik het nummer van je eigen mobiele telefoon.",
+    "in_use": "Dit nummer hoort al bij een ander account. Klopt dat niet? Vraag het via Hulp; een mens kijkt ernaar."
+  },
+  "voucher": {
+    "title": "Je code",
+    "how": "Laat deze code zien of vul hem in bij {partner}.",
+    "copy": "Kopieer code",
+    "copied": "Gekopieerd.",
+    "mail": "Je code staat ook in je mail.",
+    "broken": "Werkt niet",
+    "broken_title": "Werkt je code niet?",
+    "broken_text": "Binnen twee werkdagen krijg je een nieuwe code of je punten terug.",
+    "broken_note": "Wat ging er mis? (optioneel)",
+    "broken_send": "Meld het",
+    "broken_sent": "Je melding is binnen. Binnen twee werkdagen hoor je van ons.",
+    "list": "Je codes",
+    "status": "{status, select, reserved {Klaar om te gebruiken} delivered {Klaar om te gebruiken} replaced {Vervangen door een nieuwe code} refunded {Punten teruggeboekt} other {}}"
+  },
+  "ledger": {
+    "title": "Geschiedenis",
+    "link": "Bekijk je puntengeschiedenis",
+    "empty": "Nog geen punten. Na je eerste voltooide sessie staan ze hier.",
+    "more": "Meer laden",
+    "type": "{type, select, earn_session {Focussessie} goal_bonus {Doelbonus} goal_budget_grant {Weekbudget} goal_budget_secure {Weekbudget veilig} goal_budget_lapse {Weekbudget vervallen} redeem {Verzilverd} redeem_refund {Teruggeboekt} release_flag {Vrijgegeven na controle} reverse {Teruggedraaid na controle} adjust {Correctie} referral_pending {Referral, nog niet vrij} referral_vest {Referral vrijgekomen} referral_lapse {Referral niet vrijgekomen} expire {Vervallen} other {Mutatie}}",
+    "status": "{status, select, available {beschikbaar} pending {in afwachting} unvested {nog niet vrij} redeemed {verzilverd} expired {vervallen} reversed {teruggedraaid} lapsed {vervallen} other {}}"
+  },
+  "bonus": {
+    "title": "De bonusregel",
+    "intro": "In de pilot werken we met twee bonusregels die evenveel opleveren. Je minuutpunten zijn voor iedereen gelijk: 1 punt per minuut die telde.",
+    "yours_a": "Jouw squad heeft de regel 'per gehaald doel +20'; de andere is 'weekbudget'.",
+    "yours_b": "Jouw squad heeft de regel 'weekbudget'; de andere is 'per gehaald doel +20'.",
+    "none": "Er geldt nu geen doelbonus. Je minuutpunten lopen gewoon door.",
+    "rule_a": "Haal je je dagdoel, dan krijg je er 20 punten bij, direct beschikbaar.",
+    "rule_b": "Op maandag staat je weekbudget op 140 punten. Elke dag dat je je doel haalt, zet je er 20 veilig. Een gemist doel laat 20 uit het weekbudget vervallen; uit je beschikbare punten halen we nooit iets weg.",
+    "joker": "De joker beschermt je squadstreak, niet de doelbonus.",
+    "night": "Sessies die tussen 01:00 en 04:00 starten, tellen voor punten en je dagdoel, maar zonder doelbonus.",
+    "exam": "Op een tentamendag telt je dagdoel niet mee. In de regel 'weekbudget' valt die dag stil uit het budget.",
+    "season": "De doelbonus stopt aan het einde van de laatste tentamenweek van je instelling. Dat zie je vooraf."
+  },
+  "plus": {
+    "title": "Plus",
+    "text": "Plus komt eraan, €2,99 per maand. Wil je bericht als het zover is?",
+    "now": "Plus doet nu nog niets.",
+    "yes": "Laat het me weten",
+    "no": "Nee",
+    "thanks": "Dank je. We laten het je weten.",
+    "declined": "Prima. Je hoort er verder niets over."
+  }
+}

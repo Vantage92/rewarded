@@ -1,0 +1,70 @@
+{
+  "title": "Vereniging",
+  "empty": {
+    "text": "Nog geen vereniging. Met de code of QR van je bestuur word je lid en tellen je sessies mee voor de ranglijst.",
+    "action": "Code invoeren"
+  },
+  "join": {
+    "title": "Lid worden van je vereniging",
+    "code": "Verenigingscode",
+    "code_hint": "4 tot 12 letters of cijfers, van je bestuur of de QR.",
+    "privacy": "Je vereniging ziet alleen groepscijfers, nooit jouw uren.",
+    "submit": "Koppel",
+    "linked": "Je bent gekoppeld aan {club}. Je sessies tellen vanaf nu mee.",
+    "pending": "Je koppeling wordt even nagekeken.",
+    "invalid": "Deze code kennen we niet. Kijk hem even na.",
+    "already": "Je bent al aan een vereniging gekoppeld."
+  },
+  "mine": "Je vereniging: {club}",
+  "pending": "Je koppeling aan {club} wordt even nagekeken.",
+  "period": {
+    "club_warmup": "Aanloopklassement: zonder prijs, om de eer.",
+    "club_prize": "Prijsperiode: {from} tot en met {to}.",
+    "dates": "{from} tot en met {to}"
+  },
+  "board": {
+    "title": "Ranglijst van verenigingen",
+    "pool": "Poule {pool, select, lt150 {tot 150 leden} 150_500 {150 tot 500 leden} gt500 {meer dan 500 leden} other {}}",
+    "provisional": "Voorlopig",
+    "final": "Definitief",
+    "provisional_note": "Voorlopig tot de fraudecontrole en de steekproef klaar zijn.",
+    "rank": "{rank}.",
+    "members": "{count} leden · {source, select, institution {opgave aan de instelling} board_grant {bestuursbeurs} faculty {bevestiging van de faculteit} self {eigen opgave} other {}}",
+    "rate": "Deelnamegraad {rate}",
+    "intensity": "gem. {min} min per actief lid per dag",
+    "no_prize": "Doet mee om de eer, niet om de hoofdprijs.",
+    "own": "jullie",
+    "empty": "Er staat nog geen stand. Die verschijnt vanaf 15 gekoppelde leden per vereniging.",
+    "none": "Er loopt nu geen verenigingschallenge."
+  },
+  "prize": {
+    "title": "Prijzen",
+    "earned": "Verdiend",
+    "item": "{description}",
+    "collective": "Collectieve prijs voor de vereniging",
+    "individual": "Prestatiechallenge"
+  },
+  "how": {
+    "title": "Hoe rekenen we?",
+    "rate": "De deelnamegraad is het aantal gekoppelde leden dat in een week op minstens 3 dagen zijn dagdoel haalde, gedeeld door het ledental van de vereniging (of het aantal gekoppelde leden, als dat hoger is).",
+    "intensity": "Het tweede cijfer is het gemiddelde aantal minuten per actief lid per dag, tot 300 minuten. Daar hangt geen prijs aan.",
+    "anchor": "In de prijsweken tellen alleen leden mee met een bevestigd instellingsmailadres of een bevestigd mobiel nummer.",
+    "members": "Het ledental komt uit een externe bron en staat bij elke vereniging.",
+    "exam": "Een joker of tentamendag telt niet als gehaald dagdoel."
+  },
+  "anchor": {
+    "text": "Tel mee in de prijsweken: bevestig je mailadres van je hogeschool of universiteit.",
+    "action": "Bevestig je instellingsmail"
+  },
+  "challenges": {
+    "title": "Prestatiechallenges",
+    "open": "Bekijk {title}"
+  },
+  "leave": {
+    "action": "Ontkoppel van je vereniging",
+    "title": "Ontkoppelen?",
+    "text": "Je sessies tellen dan niet meer mee voor je vereniging. Deze week blijf je in de noemer staan.",
+    "confirm": "Ontkoppel",
+    "cancel": "Blijf gekoppeld"
+  }
+}
