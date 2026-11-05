@@ -1,7 +1,7 @@
 // F2 (UX §3.3, §4.2 step 2): the one-time checklist, the chosen length, the end signal with its
 // switch, and [Begin]. The tap on [Begin] unlocks the audio for the end tone.
 import type { PlannedMin } from '@rewarded/core/session';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Banner, Button, Card, Switch } from '../../../design/index.ts';
 import { isErrorCode, messageKey } from '@rewarded/contracts/errors';
 import { useT } from '../../../i18n/index.tsx';
@@ -20,9 +20,6 @@ export function PrepareView({ store, minutes, practice = false, startError, firs
   const { t } = useT();
   const [tone, setTone] = useState(true);
   const [busy, setBusy] = useState(false);
-  useEffect(() => {
-    if (startError) setBusy(false);
-  }, [startError]);
   const begin = () => {
     store.unlockSignal();
     setBusy(true);

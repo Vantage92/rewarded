@@ -18,6 +18,7 @@ import {
   type PlannedMin,
 } from '@rewarded/core/session';
 import { mergeItems, Outbox } from '../../../platform/outbox.ts';
+import { requestPersistence } from '../../../platform/storage.ts';
 import { newIdempotencyKey, retry, RetryCancelled, uuid, type RetryHandle } from '../../../platform/transport.ts';
 import type { Platform } from '../../../platform/index.ts';
 import type { PageSignal } from '../../../platform/visibility.ts';
@@ -1241,7 +1242,7 @@ export class SessionStore {
     this.resolving?.cancel();
     this.resolving = null;
     if (s !== 'completed') void this.pf.wakeLock.release();
-    if (s === 'completed' && !this.practice) void import('../../../platform/storage.ts').then((m) => m.requestPersistence());
+    if (s === 'completed' && !this.practice) void requestPersistence();
     const id = this.ctx.sessionId;
     this.lastEvSeq = this.persisted?.evSeq ?? this.lastEvSeq;
     void this.clearPersisted(id);

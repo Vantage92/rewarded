@@ -24,6 +24,7 @@ export function HomeScreen() {
   const hasSquad = Boolean(me.data?.squad);
   const presence = usePresence(signedIn && hasSquad);
   const [length, setLength] = useState<SessionLengthMin>(25);
+  const [now] = useState(() => Date.now());
   useEffect(() => {
     setSessionUser(me.data?.user?.id ?? null);
   }, [me.data?.user?.id]);
@@ -38,7 +39,6 @@ export function HomeScreen() {
     return <Navigate to="/focus" replace />;
   }
 
-  const now = Date.now();
   const local = toLocalParts(now);
   const minutesOfDay = local.hour * 60 + local.minute;
   const night = minutesOfDay >= 60 && minutesOfDay < 240;

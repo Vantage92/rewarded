@@ -80,14 +80,14 @@ describe('abort screen F6 per code (spec §4.1 "Wat telt als afgebroken", UX §6
   });
 
   it('UX §4.3: "Klopt dit niet?" opens the sheet with the copy and choices of the code', async () => {
-    const report = vi.fn(() => ({ flag_id: '01F00000000000000000000001' }));
+    const report = vi.fn<(input: { body: unknown }) => { flag_id: string }>(() => ({ flag_id: '01F00000000000000000000001' }));
     wrap(<AbortedView result={result('heartbeat_gap')} abortsToday={1} onRestart={() => undefined} onShorter={() => undefined} />, { 'sessions.report': report });
     fireEvent.click(screen.getByRole('button', { name: 'Klopt dit niet?' }));
     expect(screen.getByRole('dialog').textContent).toMatch(/Een mens kijkt of we je sessie kunnen herstellen, meestal binnen 3 werkdagen\./);
     fireEvent.click(screen.getByRole('radio', { name: 'Batterij leeg' }));
     fireEvent.click(screen.getByRole('button', { name: 'Versturen' }));
     await waitFor(() => expect(report).toHaveBeenCalled());
-    const call = (report.mock.calls[0] as unknown as [{ body: { text: string } }])[0];
+    const call = report.mock.calls[0]![0] as { body: { text: string } };
     expect(call.body.text).toBe('[battery]');
   });
 
@@ -115,7 +115,7 @@ describe('abort screen F6 per code (spec §4.1 "Wat telt als afgebroken", UX §6
   });
 
   it('UX O9: the practice abort is labelled "Oefening" and has no report', () => {
-    const go = vi.fn();
+    const go = vi.fn<() => void>();
     wrap(<AbortedView result={result('hidden', { practice: true, plannedMin: 1 })} abortsToday={0} onRestart={() => undefined} onShorter={() => undefined} onContinue={go} />);
     expect(screen.getByText('Oefening')).toBeTruthy();
     expect(screen.queryByRole('button', { name: 'Klopt dit niet?' })).toBeNull();
@@ -126,7 +126,7 @@ describe('abort screen F6 per code (spec §4.1 "Wat telt als afgebroken", UX §6
 
 describe('overreach brake (spec §4.4 "Overmoedrem", UX O7)', () => {
   it('spec §4.4: default 25; 25 and 50 go straight through', () => {
-    const submit = vi.fn();
+    const submit = vi.fn<(minutes: number, confirmed: boolean) => void>();
     wrap(<GoalPicker onSubmit={submit} />);
     expect(screen.getByRole('radio', { name: '25 min' }).getAttribute('aria-checked')).toBe('true');
     fireEvent.click(screen.getByRole('radio', { name: '50 min' }));
@@ -136,7 +136,7 @@ describe('overreach brake (spec §4.4 "Overmoedrem", UX O7)', () => {
   });
 
   it.each([90, 120] as const)('spec §4.4: %i in the first 7 days asks "Begin liever klein?"; keeping it confirms', (min) => {
-    const submit = vi.fn();
+    const submit = vi.fn<(minutes: number, confirmed: boolean) => void>();
     wrap(<GoalPicker onSubmit={submit} />);
     fireEvent.click(screen.getByRole('radio', { name: `${min} min` }));
     expect(screen.getByText('Begin liever klein')).toBeTruthy();
@@ -148,7 +148,7 @@ describe('overreach brake (spec §4.4 "Overmoedrem", UX O7)', () => {
   });
 
   it('spec §4.4: choosing small from the sheet submits 25 without the confirmation', () => {
-    const submit = vi.fn();
+    const submit = vi.fn<(minutes: number, confirmed: boolean) => void>();
     wrap(<GoalPicker onSubmit={submit} />);
     fireEvent.click(screen.getByRole('radio', { name: '120 min' }));
     fireEvent.click(screen.getByRole('button', { name: 'Verder' }));
@@ -157,7 +157,7 @@ describe('overreach brake (spec §4.4 "Overmoedrem", UX O7)', () => {
   });
 
   it('spec §4.4: after 7 days there is no brake', () => {
-    const submit = vi.fn();
+    const submit = vi.fn<(minutes: number, confirmed: boolean) => void>();
     wrap(<GoalPicker daysSinceRegistration={7} onSubmit={submit} />);
     fireEvent.click(screen.getByRole('radio', { name: '90 min' }));
     fireEvent.click(screen.getByRole('button', { name: 'Verder' }));
@@ -168,7 +168,7 @@ describe('overreach brake (spec §4.4 "Overmoedrem", UX O7)', () => {
 describe('login with code (UX O4, architecture §10.1)', () => {
   it('UX O4: a wrong code says so without counting attempts; a good one goes to the age check', async () => {
     updateDraft({ email: 'mila@example.org' });
-    const code = vi.fn((input: { body: unknown }) => {
+    const code = vi.fn<(input: { body: unknown }) => { next: '/onboarding' }>((input) => {
       if ((input.body as { code: string }).code !== '123456') throw mockError('CODE_INVALID');
       return { next: '/onboarding' as const };
     });
@@ -212,7 +212,7 @@ describe('age check (spec §3.1 step 5, UX O5)', () => {
 
   it('UX O5: below 16 asks for confirmation first; after it, O5b and nothing kept', async () => {
     updateDraft({ firstName: 'Sem' });
-    const onboarding = vi.fn(() => {
+    const onboarding = vi.fn<() => never>(() => {
       throw mockError('AGE_BELOW_MINIMUM');
     });
     wrap(<AgeStep />, { 'me.onboarding': onboarding }, '/age');
@@ -256,9 +256,9 @@ describe('waiting list hook test (product plan §4 "Wachtlijsttest")', () => {
   });
 
   it('signing up sends source, consent version and an Idempotency-Key, and reports the arm', async () => {
-    const join = vi.fn(() => ({}));
-    const exposure = vi.fn();
-    const signup = vi.fn();
+    const join = vi.fn<() => Record<string, never>>(() => ({}));
+    const exposure = vi.fn<(arm: string, utm: object) => void>();
+    const signup = vi.fn<(arm: string, withFriends: boolean, utm: object) => void>();
     setHookReporter({ exposure, signup });
     const { api } = wrap(<WaitlistPage />, { 'waitlist.join': join }, '/wachtlijst?hook=F&bron=card');
     fireEvent.change(screen.getByLabelText('E-mailadres'), { target: { value: 'sanne@example.org' } });

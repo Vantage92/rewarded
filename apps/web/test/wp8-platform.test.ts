@@ -40,7 +40,7 @@ describe('transport (architecture §4.7 "Wat de client doet")', () => {
   });
 
   it('an API error is a definitive answer: no repeat', async () => {
-    const attempt = vi.fn(async () => {
+    const attempt = vi.fn<() => Promise<never>>(async () => {
       throw new ApiClientError(409, { code: 'SESSION_CLOSED', message_key: 'errors.sessions.session_closed' });
     });
     const handle = retry(attempt, systemTimers);

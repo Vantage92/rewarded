@@ -1,0 +1,178 @@
+/* Admin environment (spec §4.11): functional, internal, design-system tokens only (UX §2.1). */
+.shell[data-chrome='bare'] .shell-main:has(.rw-wide) {
+  max-width: 1200px;
+}
+.adm-head {
+  margin-bottom: var(--space-4);
+}
+.adm-intro,
+.adm-meta {
+  color: var(--color-text-muted);
+}
+.adm-demo {
+  background: var(--color-pause-soft);
+  color: var(--color-pause-text);
+  border-radius: var(--radius-card);
+  padding: var(--space-2) var(--space-3);
+}
+.adm-frame {
+  display: grid;
+  gap: var(--space-5);
+}
+@media (min-width: 960px) {
+  .adm-frame {
+    grid-template-columns: 220px minmax(0, 1fr);
+  }
+}
+.adm-nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1);
+}
+@media (min-width: 960px) {
+  .adm-nav ul {
+    flex-direction: column;
+  }
+}
+.adm-nav a {
+  display: block;
+  min-height: 44px;
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-card);
+  color: var(--color-text);
+  text-decoration: none;
+}
+.adm-nav a[aria-current='page'] {
+  background: var(--color-primary-soft);
+  color: var(--color-primary-text);
+  font-weight: 600;
+}
+.adm-section-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: var(--space-3);
+}
+.adm-card,
+.adm-block,
+.adm-gate {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-card);
+  padding: var(--space-4);
+  margin-block: var(--space-4);
+}
+.adm-block .adm-block {
+  border: 0;
+  padding: 0;
+}
+.adm-form {
+  margin-block: var(--space-3);
+}
+.adm-grid {
+  display: grid;
+  gap: 0 var(--space-4);
+}
+@media (min-width: 720px) {
+  .adm-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+.adm-textarea {
+  min-height: 96px;
+  padding-block: var(--space-2);
+}
+.adm-check {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: 44px;
+}
+.adm-check input {
+  inline-size: 20px;
+  block-size: 20px;
+}
+.adm-check .field-hint {
+  flex-basis: 100%;
+}
+.adm-fieldset {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-card);
+  margin-block: var(--space-3);
+}
+.adm-table-wrap {
+  overflow-x: auto;
+  margin-block: var(--space-3);
+}
+.adm-table {
+  border-collapse: collapse;
+  inline-size: 100%;
+}
+.adm-table caption {
+  text-align: start;
+  font-weight: 600;
+  padding-block: var(--space-2);
+}
+.adm-table th,
+.adm-table td {
+  border-bottom: 1px solid var(--color-border);
+  padding: var(--space-2);
+  text-align: start;
+  vertical-align: top;
+}
+.adm-dl {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: var(--space-3);
+  margin: var(--space-3) 0;
+}
+.adm-dl dt {
+  font-size: var(--font-size-label);
+  color: var(--color-text-muted);
+}
+.adm-dl dd {
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+.adm-kpis dd {
+  font-size: var(--font-size-title-m);
+  font-weight: 650;
+}
+.adm-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  align-items: end;
+}
+.adm-days {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+  gap: var(--space-2);
+}
+.adm-alarm {
+  border-inline-start: 4px solid var(--color-danger);
+  background: var(--color-pause-soft);
+  color: var(--color-text);
+  padding: var(--space-3);
+  border-radius: var(--radius-card);
+  font-weight: 600;
+}
+.adm-notice {
+  color: var(--color-primary-text);
+  font-weight: 600;
+}
+.adm-empty {
+  color: var(--color-text-muted);
+}
+.adm-quote {
+  border-inline-start: 3px solid var(--color-border-strong);
+  margin: var(--space-2) 0;
+  padding-inline-start: var(--space-3);
+}
+.adm-secret code {
+  overflow-wrap: anywhere;
+}

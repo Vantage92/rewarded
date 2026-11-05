@@ -8,7 +8,21 @@ import { SessionStore, type SessionSnapshot } from './store.ts';
 
 const StoreContext = createContext<SessionStore | null>(null);
 const stores = new WeakMap<WebApi, SessionStore>();
+const live = new Set<SessionStore>();
 let currentUser: string | null = null;
+
+/**
+ * For the service worker update (architecture §9.4, app/sw-register.ts `canActivate`): a new version
+ * may only activate while no session runs. Wire it in main.tsx:
+ * `registerServiceWorker({ canActivate: canActivateUpdate })`.
+ */
+export function canActivateUpdate(): boolean {
+  for (const s of live) {
+    const phase = s.getSnapshot().phase;
+    if (phase !== 'idle' && phase !== 'loading' && phase !== 'other_tab' && phase !== 'completed' && phase !== 'aborted') return false;
+  }
+  return true;
+}
 
 /** The user id once /me is known, so the device_id is cached per user (§4.2). */
 export function setSessionUser(id: string | null): void {
@@ -21,7 +35,8 @@ function storeFor(web: WebApi): SessionStore {
     // In mock mode a beacon cannot reach the mock; the store then resolves through the client.
     store = new SessionStore({ api: web.api, platform: browserPlatformOnce('/api/v1', web.mode === 'http'), userKey: () => currentUser });
     stores.set(web, store);
-    if (testModeEnabled()) {
+    live.add(store);
+    if ((import.meta.env.DEV || import.meta.env.VITE_TEST_HOOKS === '1') && testModeEnabled()) {
       const hooks = installTestHooks();
       const s = store;
       hooks.session = () => {

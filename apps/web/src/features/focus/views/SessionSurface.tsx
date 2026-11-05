@@ -1,6 +1,7 @@
 // The screens of a session after [Begin]: F3/F4 running, F3e end signal, F5 completed, F6 aborted.
 // Shared by /focus and the practice session in the onboarding (O9). Renders null when idle.
 import { CURRENT_PARAMS } from '@rewarded/core/params';
+import { useState } from 'react';
 import { focusDayOf } from '@rewarded/core/time';
 import { useT } from '../../../i18n/index.tsx';
 import { useApiQuery } from '../../../lib/api/index.ts';
@@ -21,7 +22,7 @@ export interface SessionSurfaceProps {
 }
 
 function useAbortsToday(enabled: boolean): number {
-  const day = focusDayOf(Date.now(), CURRENT_PARAMS);
+  const [day] = useState(() => focusDayOf(Date.now(), CURRENT_PARAMS));
   const list = useApiQuery('sessions.list', { query: { from: day, to: day } }, { enabled, retry: false });
   return (list.data?.items ?? []).filter((s) => s.status === 'aborted' && !s.is_practice).length;
 }

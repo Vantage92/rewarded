@@ -2,6 +2,7 @@
 // per fixed code, why there are no points, and the way back. Without blame.
 import type { AbortReason } from '@rewarded/core/session';
 import { useEffect, useRef, useState } from 'react';
+import { useLatest } from '../../../design/components/useLatest.ts';
 import { Banner, Button } from '../../../design/index.ts';
 import { useT } from '../../../i18n/index.tsx';
 import { minutesHeld, reportIsProminent, shorterLength } from '../copy.ts';
@@ -23,8 +24,9 @@ export interface AbortedViewProps {
 export function AbortedView({ result, abortsToday, onRestart, onShorter, onContinue, onRecovery }: AbortedViewProps) {
   const { t, time } = useT();
   const [reporting, setReporting] = useState(false);
-  const shownAt = useRef(Date.now());
+  const shownAt = useRef(0);
   const chose = useRef(false);
+  const recovery = useLatest(onRecovery);
   const code: AbortReason = result.abortReason ?? 'hidden';
   const minutes = minutesHeld(result.elapsedS);
   const at = result.stoppedAt ? time(result.stoppedAt) : null;
@@ -36,13 +38,16 @@ export function AbortedView({ result, abortsToday, onRestart, onShorter, onConti
     onRecovery?.(action, seconds());
     go();
   };
-  useEffect(
-    () => () => {
+  useEffect(() => {
+    const since = Date.now();
+    shownAt.current = since;
+    const choice = chose;
+    const report = recovery;
+    return () => {
       // Leaving without a choice counts as "weg" (UX §4.3 step 3).
-      if (!chose.current) onRecovery?.('weg', seconds());
-    },
-    [],
-  );
+      if (!choice.current) report.current?.('weg', Math.round((Date.now() - since) / 1000));
+    };
+  }, [recovery]);
   const body = t(`focus:aborted.${code}`, { time: at ?? '', minutes });
   return (
     <section className="focus-stack" aria-labelledby="aborted-title">

@@ -53,7 +53,8 @@ let browserPlatform: Platform | null = null;
 /** The browser platform (one per page). Installs the test hooks first when test mode is on. */
 export function browserPlatformOnce(apiBase = '/api/v1', useBeacon = true): Platform {
   if (browserPlatform) return browserPlatform;
-  if (testModeEnabled()) installTestHooks();
+  // The env check stays inline so the production build drops the hooks entirely.
+  if ((import.meta.env.DEV || import.meta.env.VITE_TEST_HOOKS === '1') && testModeEnabled()) installTestHooks();
   const visibility = createVisibilitySource(systemClock);
   const onBeforeUnload = (e: BeforeUnloadEvent) => {
     e.preventDefault();
