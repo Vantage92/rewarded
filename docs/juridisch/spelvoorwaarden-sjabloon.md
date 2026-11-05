@@ -1,12 +1,12 @@
 # Rewarded — Spelvoorwaarden promotioneel kansspel (sjabloon, niet in gebruik)
 
-*Sjabloon van het juridische team, stand 4 november 2026, versie 0.3 (ronde 2). **Dit is geen juridisch advies.** Dit sjabloon is alleen bedoeld voor het geval dat trekkingen ooit aangaan. **Trekkingen staan uit en de trekkingsmodule wordt niet gebouwd** (founder-reactie, besluit 3, S9 en J4). Gebaseerd op `docs/pitch/ronde-1-jurist.md` (must-fix 4 en 6), `docs/pitch/ronde-2-jurist.md` (J4 opgelost; should-fix 6 en 12), `docs/pitch/ronde-2-founder-reactie.md` (J6, J12), `docs/research/02-businessmodel-juridisch-unit-economics.md` (§2.1, §2.2, §2.6) en `docs/research/05-productspecificatie.md` (versie 1.1, §3.9).*
+*Sjabloon van het juridische team, stand 5 november 2026, versie 0.3 (ronde 2). **Dit is geen juridisch advies.** Dit sjabloon is alleen bedoeld voor het geval dat trekkingen ooit aangaan. **Trekkingen staan uit en de trekkingsmodule wordt niet gebouwd** (founder-reactie, besluit 3, S9 en J4). Gebaseerd op `docs/pitch/ronde-1-jurist.md` (must-fix 4 en 6), `docs/pitch/ronde-2-jurist.md` (J4 opgelost; should-fix 6 en 12), `docs/pitch/ronde-2-founder-reactie.md` (J6, J12), `docs/research/02-businessmodel-juridisch-unit-economics.md` (§2.1, §2.2, §2.6) en `docs/research/05-productspecificatie.md` (versie 1.1, §3.9).*
 
 ## Voordat dit sjabloon ooit wordt gebruikt
 
 Dit sjabloon mag pas worden ingevuld en gepubliceerd als **alle** onderstaande voorwaarden schriftelijk vastliggen. Dat is de beslisregel uit de founder-reactie (J4): **geen schriftelijke advocatenopinie plus geen expliciete, schriftelijke reactie van de Kansspelautoriteit betekent dat trekkingen uit blijven. Stilte is nee.**
 
-| # | Voorwaarde | Status op 4 november 2026 |
+| # | Voorwaarde | Status op 5 november 2026 |
 |---|---|---|
 | 1 | Schriftelijke advocatenopinie over de gekozen structuur (**vraag advocaat** 12) | Niet aangevraagd voor trekkingen; staat in de vragenlijst |
 | 2 | Expliciete, schriftelijke reactie van de Kansspelautoriteit op de voorgelegde structuur | Niet voorgelegd. De Ksa geeft voor zover bekend geen bindende rulings op promotionele kansspelen (**niet geverifieerd**, jurist must-fix 4) |
@@ -147,7 +147,7 @@ Rewarded verandert deze spelvoorwaarden tijdens het spel niet ten nadele van de 
 
 ## Bijlage voor de advocaat: herkomst per onderdeel
 
-| Onderdeel (jurist must-fix 6; spec 1.1 §3.9) | Paragraaf |
+| Onderdeel (jurist must-fix 6; spec 1.2 §3.9) | Paragraaf |
 |---|---|
 | Organisator | §1 |
 | Looptijd | §2 |
@@ -160,7 +160,7 @@ Rewarded verandert deze spelvoorwaarden tijdens het spel niet ten nadele van de 
 | Verklaring dat Apple geen sponsor is (Apple 5.3.2) | §1.3 |
 | Structuur: één spel per jaar, ≤ 20 trekkingen, pot < €100.000 (founder J4) | Voorafgaand, §2.3, §5.1 |
 
-**Verhouding tot de bouwdocumenten.** Spec 1.1 (§3.9) en architectuur 1.2 (§7) bouwen geen trekkingen; de vlag `draws` en een lege plek in het datamodel blijven. Komen trekkingen ooit terug, dan volgens beide documenten alleen als één promotioneel spel per jaar met hooguit twintig trekkingen en een pot onder €100.000, zoals dit sjabloon. Een reeks kleine spellen van hoogstens €4.500 staat in geen enkel huidig document meer.
+**Verhouding tot de bouwdocumenten.** Spec 1.2 (§3.9) en architectuur 1.3 (§7) bouwen geen trekkingen; de vlag `draws` en een lege plek in het datamodel blijven. Komen trekkingen ooit terug, dan volgens beide documenten alleen als één promotioneel spel per jaar met hooguit twintig trekkingen en een pot onder €100.000, zoals dit sjabloon. Een reeks kleine spellen van hoogstens €4.500 staat in geen enkel huidig document meer.
 
 ## Wijzigingslog
 
@@ -168,4 +168,5 @@ Rewarded verandert deze spelvoorwaarden tijdens het spel niet ten nadele van de 
 |---|---|---|
 | ronde 1 | 5 november 2026 | Eerste sjabloon, opgesteld na pitchronde 1 (jurist must-fix 4 en 6; founder-besluiten J4, J6, S9 en besluit 3). Niet in gebruik: trekkingen staan uit en de module wordt niet gebouwd. |
 | ronde 1 (eindredactie) | 5 november 2026 | Verouderde verwijzingen naar spec §4.7, de beheeromgeving en architectuur §10.6 vervangen door de huidige stand (spec 1.1 §3.9, architectuur 1.2 §7: geen trekkingen in de bouw). Inhoud van het sjabloon ongewijzigd. Versie 0.2. |
-| ronde 2 | 4 november 2026 | Herzien volgens `docs/pitch/ronde-2-founder-reactie.md` en `docs/pitch/ronde-2-jurist.md`. De jurist geeft J4 (trekkingen) als opgelost; het sjabloon blijft een sjabloon. Statustabel bijgewerkt en aangevuld met voorwaarde 6 (rechtspersoon, J6) en 7 (Google Play-beleid primair lezen vóór de Android-bouw, J12). Nieuw voorstel: geen trekking zolang er een onderzoek met geloote groepen loopt. §1.3 en §3.2 aangevuld met de bronverwijzingen. Inhoud van de spelvoorwaarden zelf (18+, gratis, Apple-verklaring, commit-reveal) ongewijzigd. Versie 0.3. |
+| ronde 2 | 5 november 2026 | Herzien volgens `docs/pitch/ronde-2-founder-reactie.md` en `docs/pitch/ronde-2-jurist.md`. De jurist geeft J4 (trekkingen) als opgelost; het sjabloon blijft een sjabloon. Statustabel bijgewerkt en aangevuld met voorwaarde 6 (rechtspersoon, J6) en 7 (Google Play-beleid primair lezen vóór de Android-bouw, J12). Nieuw voorstel: geen trekking zolang er een onderzoek met geloote groepen loopt. §1.3 en §3.2 aangevuld met de bronverwijzingen. Inhoud van de spelvoorwaarden zelf (18+, gratis, Apple-verklaring, commit-reveal) ongewijzigd. Versie 0.3. |
+| ronde 2 (eindredactie) | 5 november 2026 | Verwijzingen naar de bouwdocumenten bijgewerkt naar spec 1.2 (§3.9) en architectuur 1.3 (§7), die nog steeds geen trekkingen bouwen (J11). Inhoud van het sjabloon ongewijzigd. Kopregel en ronde-2-regel gedateerd op 5 november, de datum van de founder-reactie. |

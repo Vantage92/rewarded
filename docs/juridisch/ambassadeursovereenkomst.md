@@ -1,6 +1,6 @@
 # Rewarded — Overeenkomst met campusambassadeurs (concept voor de advocaat)
 
-*Concept van het juridische team, stand 4 november 2026, versie 0.1 (ronde 2, nieuw). **Dit is geen juridisch advies.** Dit is een concepttekst die de advocaat en de fiscalist nog moeten beoordelen. Gebaseerd op `docs/pitch/ronde-2-jurist.md` (should-fix 5), het besluit in `docs/pitch/ronde-2-founder-reactie.md` (J5: "18+, geen geldclaims, herkenbaarheid van reclame, terugvordering bij fraude, fiscale behandeling laten toetsen; concept in docs/juridisch"), `docs/pitch/ronde-1-founder-reactie.md` (J3), `docs/01-businessplan.md` §7, `docs/02-productplan.md` §4 en `docs/research/05-productspecificatie.md` §4.9.*
+*Concept van het juridische team, stand 5 november 2026, versie 0.1 (ronde 2, nieuw). **Dit is geen juridisch advies.** Dit is een concepttekst die de advocaat en de fiscalist nog moeten beoordelen. Gebaseerd op `docs/pitch/ronde-2-jurist.md` (should-fix 5), het besluit in `docs/pitch/ronde-2-founder-reactie.md` (J5: "18+, geen geldclaims, herkenbaarheid van reclame, terugvordering bij fraude, fiscale behandeling laten toetsen; concept in docs/juridisch"), `docs/pitch/ronde-1-founder-reactie.md` (J3), `docs/01-businessplan.md` §7, `docs/02-productplan.md` §4 en `docs/research/05-productspecificatie.md` §4.9.*
 
 *Waarom dit document er is. Ambassadeurs zijn de enige plek waar Rewarded geld aan studenten betaalt: tot €200 per ambassadeur per maand, buiten de app (jurist ronde 2, should-fix 5). Dat vraagt een schriftelijke afspraak.*
 
@@ -19,7 +19,7 @@
 
 1. Je vertelt studenten over Rewarded en krijgt een vergoeding per student die echt meedoet.
 2. Je zegt nooit dat je met Rewarded geld verdient, en je laat bij elke post zien dat het reclame is.
-3. Je bent 18 of ouder en geen bestuurslid van een vereniging die meedoet om een prijs.
+3. Je bent 18 of ouder en geen bestuurslid van een vereniging die meedoet aan de challenges van Rewarded, ook niet als die vereniging alleen in het klassement meedoet.
 4. Je krijgt je vergoeding pas na een controle. Blijkt later dat er gefraudeerd is via jouw code, dan kan Rewarded die vergoeding terugvragen.
 5. Je ziet nooit wie er via jouw code binnenkwam, alleen hoeveel.
 
@@ -35,7 +35,7 @@
 
 2.1 De ambassadeur is **18 jaar of ouder**. Rewarded controleert dat bij het tekenen, **zonder een kopie van een identiteitsbewijs te bewaren**: alleen de uitkomst, de datum en wie controleerde. [Bron: founder-reactie ronde 2, J5; dezelfde werkwijze als bij 18+-prijzen, spec §4.7.]
 
-2.2 De ambassadeur is **geen bestuurslid** van een studievereniging die meedoet aan de Blokk-challenge of de aprilchallenge om een prijs, en wordt dat ook niet zolang deze overeenkomst loopt. Wordt hij het toch, dan meldt hij dat direct en eindigt deze overeenkomst. [Bron: founder-reactie ronde 1, J3; challengevoorwaarden A12.]
+2.2 De ambassadeur is **geen bestuurslid** van een deelnemende vereniging: een studievereniging die met een code meedoet aan de Blokk-challenge of de aprilchallenge, ook als ze alleen in het klassement staat en niet om een prijs meedingt. Hij wordt dat ook niet zolang deze overeenkomst loopt. Wordt hij het toch, dan meldt hij dat direct en eindigt deze overeenkomst. [Bron: founder-reactie ronde 1, J3; ronde 2, J5; businessplan §7 en spec §4.9 ("deelnemende vereniging"); challengevoorwaarden A12.]
 
 2.3 De ambassadeur werkt niet voor Rewarded in een andere rol (bijvoorbeeld als pilotbeheerder). [**Voorstel**: wie de steekproef doet, mag niet zelf per gebruiker betaald worden.]
 
@@ -153,4 +153,5 @@ Op deze overeenkomst is Nederlands recht van toepassing. Een geschil proberen pa
 
 | Ronde | Datum | Wijziging |
 |---|---|---|
-| ronde 2 | 4 november 2026 | Nieuw concept, opgesteld na pitchronde 2 op basis van jurist should-fix 5 en founder-besluit J5, met de bestaande ambassadeursregel uit ronde 1 (J3). Nog niet door de advocaat of de fiscalist beoordeeld. Versie 0.1. |
+| ronde 2 | 5 november 2026 | Nieuw concept, opgesteld na pitchronde 2 op basis van jurist should-fix 5 en founder-besluit J5, met de bestaande ambassadeursregel uit ronde 1 (J3). Nog niet door de advocaat of de fiscalist beoordeeld. Versie 0.1. |
+| ronde 2 (eindredactie) | 5 november 2026 | Gelijkgetrokken met het businessplan §7, spec §4.9 en architectuur (`ambassador`) na een onafhankelijke samenhangcontrole: in de samenvatting en §2.2 geldt het verbod voor bestuursleden van elke deelnemende vereniging, niet alleen van een vereniging die om een prijs meedoet (J3 ronde 1, J5). Kopregel en ronde-2-regel gedateerd op 5 november, de datum van de founder-reactie. |

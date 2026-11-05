@@ -1,4 +1,4 @@
-# Rewarded — Pitch (v3, 4 november 2026, herzien na pitchronde 2)
+# Rewarded — Pitch (v3, 5 november 2026, herzien na pitchronde 2)
 
 *Voor het kritische team. Onderbouwing: `docs/01-businessplan.md` (v3), `docs/02-productplan.md`, de rapporten in `docs/research/` en de besluiten van de founder in `docs/pitch/ronde-1-founder-reactie.md` en `docs/pitch/ronde-2-founder-reactie.md`. Wat hieronder "aanname" heet, is nog niet getoetst; rekensommen zijn van het strategieteam; wat alleen via zoekresultaten is gezien, staat zo gemarkeerd.*
 
@@ -44,7 +44,7 @@ Trekkingen worden niet gebouwd; ze zijn een optie na toetsing. De inzetlaag (een
 
 Het product is gespecificeerd tot op regel- en parameterniveau (`docs/research/05-productspecificatie.md`), met een UX-ontwerp, mockups en een architectuur waarin de server de scheidsrechter is; elke vereniging krijgt de tentamenkalender van haar instelling als parameter. Drie releases vóór het lanceringsbesluit (2 december, 16 december, 5 januari). De MVP wordt gebouwd met AI-ondersteunde ontwikkeling: de founder bouwt R1–R3 in november en december zelf. De toewijzings- en grootboekcode wordt vóór de A/A-controle bevroren en onafhankelijk gereviewd; een freelance senior engineer voor de toesteltest komt er als de eigen middelen dat toelaten. Die bouw valt vóór de begroting van deze ronde, die in januari 2027 begint.
 
-**Deelnemersbescherming.** De pilot is een gerandomiseerd experiment op jongeren in hun drukste weken. Deelname is geïnformeerd, met opt-out zonder verlies van punten. 16- en 17-jarigen zitten in arm A, buiten de rustperiode-arm, met live aanwezigheid standaard uit. Een korte welzijnsmeting loopt bij instroom, bij de reflectie en na het seizoen, en vanaf week 2 meten we bij iedereen wekelijks twee items (stress, ervaren druk). Arm B stopt op die meting of op de schadesignalen, met een vooraf vastgelegde correctie voor herhaald kijken en een minimum van 40 deelnemers per arm. Vóór de uitbreiding geldt een absolute schadegrens (werkhypothese: schadesignalen bij minder dan 2% van de wekelijks actieven). Een tentamendag schort het dagdoel op. Geen marketing op sociale schaamte. We vragen een lichte ethische toets aan via een partneruniversiteit.
+**Deelnemersbescherming.** De pilot is een gerandomiseerd experiment op jongeren in hun drukste weken. Deelname is geïnformeerd, met opt-out zonder verlies van punten. 16- en 17-jarigen zitten in arm A, buiten de rustperiode-arm, met live aanwezigheid standaard uit. Een korte welzijnsmeting loopt bij instroom, bij de reflectie en na het seizoen, en vanaf week 2 meten we bij iedereen die daar apart toestemming voor geeft, ook bij 16- en 17-jarigen, wekelijks twee items (stress, ervaren druk). Arm B stopt op die meting of op de schadesignalen, met een vooraf vastgelegde correctie voor herhaald kijken en een minimum van 40 deelnemers per arm. Vóór de uitbreiding geldt een absolute schadegrens (werkhypothese: schadesignalen bij minder dan 2% van de wekelijks actieven). Een tentamendag schort het dagdoel op. Geen marketing op sociale schaamte. We vragen een lichte ethische toets aan via een partneruniversiteit.
 
 ## Waarom nu
 
@@ -120,8 +120,8 @@ De pilot is een **verkennende pilot met één redelijk gepowerde vergelijking**.
 
 - **H1 — Squadeffect.** "Solo-gebruikers die een sterke uitnodiging krijgen om een squad te vormen, vormen vaker een squad en zijn vaker op dag 7 actief."
 - **H2 — Meer gehaalde dagdoelen tijdens het seizoen.** "Meer gehaalde dagdoelen tijdens het seizoen met een slinkend weekbudget (arm B) dan met gewone bijschrijving (arm A)." We claimen daarmee geen betere retentie. Dit is de ene redelijk gepowerde vergelijking.
-- **H3 — Nawerking na het einde van de doelbonus (verkennend).** "Na het einde van de doelbonus focussen studenten in de volgende tentamenperiode vaker als ze bij de aankondiging van de stop van de bonus een Belofte aangeboden kregen (H3a), en als ze na het seizoen gewoon punten bleven verdienen of juist niet (H3b, zie richting)." H3 is verkennend tot de poweranalyse anders laat zien.
-- **H4 — Fraude blijft beheersbaar (operationeel).** "Het geschatte aandeel frauduleuze accounts uit de onafhankelijke steekproef blijft onder 5%."
+- **H3 — Nawerking na het einde van de doelbonus (verkennend).** "Na het einde van de doelbonus focussen studenten in de volgende tentamenperiode vaker als ze bij de aankondiging van de stop van de bonus een Belofte aangeboden kregen (H3a), en als ze tot en met die tentamenperiode punten bleven verdienen of juist niet (H3b, zie richting)." H3 is verkennend tot de poweranalyse anders laat zien.
+- **H4 — Fraude blijft beheersbaar (operationeel).** "Het geschatte aandeel frauduleuze accounts uit de onafhankelijke steekproef blijft onder 5%, ook aan de bovenkant van het betrouwbaarheidsinterval."
 
 **H2 draagt geen bedrijfsbesluit.** Het bedrijfsbesluit rust op de bindende voorwaarden voor tranche 2, de stopregels en de verkennende uitkomsten (H3 en het squadeffect).
 
@@ -164,7 +164,7 @@ Wat in de pilot en de uitbreiding live gaat, kan zonder vergunning: punten en ca
 - **Eerdere ervaring in verkopen** (aan wie, welke omvang): [in te vullen door de founder]
 - **Waarom deze founder voor dit probleem:** [in te vullen door de founder]
 
-**Capaciteit van november tot het lanceringsbesluit.** Tot januari 2027 doet de founder het werk grotendeels alleen. Daarom is er een capaciteitsplan in uren per week per taak (businessplan §10; schatting van het strategieteam, aanname, met urenregistratie vanaf 4 november). In de drukste weken (november) schat het team de founder op ongeveer 35–47 uur per week, waarvan ongeveer de helft AI-ondersteunde bouw; juridisch werk, gesprekken en pilotbeheer staan apart begroot. Vanaf 2 december neemt een **pilotbeheerder** (freelance of student-assistent, 10–15 uur per week, werkhypothese €1.500 per maand uit eigen middelen) het beheer, de fraudesteekproef en de fraudewachtrij over. Wordt het te veel, dan schuift eerst de bouwscope van R3, nooit de steekproef, de DPIA, de opinie-poorten of de codereview.
+**Capaciteit van november tot het lanceringsbesluit.** Tot januari 2027 doet de founder het werk grotendeels alleen. Daarom is er een capaciteitsplan in uren per week per taak (businessplan §10; schatting van het strategieteam, aanname, met urenregistratie vanaf 4 november). In de drukste weken (november) schat het team de founder op ongeveer 35–47 uur per week, waarvan ongeveer de helft AI-ondersteunde bouw; juridisch werk, gesprekken en pilotbeheer staan apart begroot. Vanaf 2 december neemt een **pilotbeheerder** (freelance of student-assistent, 10–15 uur per week, werkhypothese €1.500 per maand uit eigen middelen) het beheer, de fraudesteekproef en de fraudewachtrij over, tot en met het laatste aprilvenster, omdat de steekproef zo lang loopt (aanname: het besluit noemt geen einddatum; rekensom ca. €9.000, businessplan §10). Wordt het te veel, dan schuift eerst de bouwscope van R3, nooit de steekproef, de DPIA, de opinie-poorten of de codereview.
 
 **Begroting vóór de ronde.** De kosten van november en december (pilotbeheerder, het deel van de pilotprijzen vóór januari, de advocaat, de rechtspersoon, de verplichte review van de experiment- en grootboekcode, eventueel een freelance engineer, de statisticus) komen uit eigen middelen van de founder. Bedrag: **[invulkader, door de founder in te vullen]**; de posten staan in businessplan §10. Schieten de eigen middelen tekort, dan draait de pilot in één stad.
 
@@ -200,10 +200,10 @@ De begroting rekent met nul omzet en dekt 21 maanden, tot en met september 2028:
 
 - **(a)** Minstens één intentieverklaring is vóór 1 mei 2027 omgezet in een getekende opdracht.
 - **(b)** Elke intentieverklaring noemt minstens €8 per seat per tentamenperiode (of €24 per seat per jaar) en minstens 150 seats; minstens één betaler hangt niet af van een aandringend bestuur.
-- **(c)** Minstens 20% van de januari-actieven heeft in 1–14 februari minstens twee sessiedagen per week (valt dat venster bij een instelling nog in de tentamen- of herkansingsweken, dan bevestigt de founder vóór 2 december het na-seizoensvenster van die instelling).
+- **(c)** Minstens 20% van de januari-actieven heeft in 1–14 februari minstens twee sessiedagen per week; overlapt dat venster bij een instelling met haar laatste tentamenweek of haar herkansingen, dan meten we (c) daar in het na-seizoensvenster na de herkansingen (kalender per instelling, besluit 1; het getal blijft).
 - **(d)** Minstens 25% van de januari-actieven keert in het aprilvenster terug.
 - **(e)** D7 van het go/no-go-cohort ≥ 25%, met hoogstens één herhaling in de zone 15–25%.
-- **(f)** Bij een nulresultaat op H3 wordt tranche 2 beperkt tot €180.000 voor B2B2C en wordt de native bouw uitgesteld tot er bewijs is. Rekensom van het strategieteam: in dat geval loopt de runway tot ongeveer mei 2028, twee maanden na het punt in plaats van zes; er is dan ongeveer €75.000 extra besparing of een kleiner punt nodig (open punt founder).
+- **(f)** Bij een nulresultaat op H3 wordt tranche 2 beperkt tot €180.000 voor B2B2C en wordt de native bouw uitgesteld tot er bewijs is. Rekensom van het strategieteam: in dat geval loopt de runway tot ongeveer mei 2028, twee maanden na het punt in plaats van zes; er is dan ongeveer €75.000 extra besparing of een eerder punt nodig. De eis van zes maanden runway na het punt geldt ook dan; welke posten dalen, beslist de founder uiterlijk bij het bedrijfsbesluit (open punt).
 
 **Drie scenario's** (nul omzet in de begroting):
 
@@ -243,7 +243,7 @@ D7 onder 15%, of na één herhaling nog onder 25%: geen uitbreiding en geen twee
 - Bouw van R1–R3 door de founder vóór de begroting eerlijk benoemd (M5).
 - Belofte-aanbod op 11 januari; rustperiode van 19 januari tot en met 31 maart; ambassadeurs op het instellingsanker met een plafond als werkhypothese (G1, J3).
 
-**Ronde 2 — 4 november 2026.** Herzien na pitchronde 2 volgens de bindende besluiten in `docs/pitch/ronde-2-founder-reactie.md`, gelijkgetrokken met `docs/01-businessplan.md` v3. Versie v3.
+**Ronde 2 — 5 november 2026.** Herzien na pitchronde 2 volgens de bindende besluiten in `docs/pitch/ronde-2-founder-reactie.md`, gelijkgetrokken met `docs/01-businessplan.md` v3. Versie v3.
 
 - Nieuwe sectie "Wat er sinds ronde 2 veranderde": kalender per instelling, gecontroleerde uitbreiding in plaats van een open lancering, rustperiode tot en met het aprilvenster, bindende tranche-2-voorwaarden (besluiten 1–3, MF1, MF2). De term "publieke lancering" is verdwenen (S1).
 - Go/no-go-tabel herschreven: lanceringsbesluit na de laatste tentamenweek van het laatste pilotcohort, D7 ≥ 25% als vaste lat met hoogstens één herhaling, fraude op de bovengrens van het interval, kosten als pilottotaal, schadegrens; rij "Gecontroleerde uitbreiding" in plaats van de lancering; commercieel criterium met ondergrens voor prijs en seats (MF1, MF5, G3, G-S2, G-S7, J4).
@@ -254,3 +254,10 @@ D7 onder 15%, of na één herhaling nog onder 25%: geen uitbreiding en geen twee
 - Pad naar een bedrijf van betekenis: landen met een verenigingskanaal en wat €5 miljoen ARR vraagt; de EU/VK-marktomvang verwijderd als argument (S3). Prijs per actieve student met de Yondr-referentie (S2); definitie actieve seat (S5); Plus-drempel van 5% (S7); verlengen op inputs als vraag (S8).
 - "H2 draagt geen bedrijfsbesluit" letterlijk opgenomen (G-S10); hypothese-uitleg bijgewerkt naar Belofte zeven dagen vóór de bonusstop, rustperiode tot en met het aprilvenster, gescheiden uitstap, H3 primair binair (besluit 3, J2, G-S9); deelnemersbescherming met wekelijkse meting, stopregel met correctie en minimum-n (G4); ITT als hoofdresultaat, reactivering van squads, pauze van hersamenstelling (G-S1, G-S6); onafhankelijke analist (G-S11); codebevriezing en review (G-S12).
 - Juridisch: rechtspersoon vóór 18 november en vragen 2 en 3 direct naar de advocaat (J6, J7); ambassadeurscontract (J5); "geverifieerd" vervangen door "getelde focus" en "focustijd die telde" (J3); samenspanning met één laptop in de risicotabel (J1); catalogusschaarste (J10); geen Plus-nepdeur in een app-build (J12).
+
+**Ronde 2, eindredactie — 5 november 2026.** Gelijkgetrokken met de voorregistratie, het businessplan v3 en de besluiten in `docs/pitch/ronde-2-founder-reactie.md` na een onafhankelijke samenhangcontrole. Kopregel en ronde-2-log gedateerd op 5 november, de datum van de founder-reactie.
+
+- H3 en H4 nu letterlijk als in de voorregistratie §4: "tot en met die tentamenperiode punten bleven verdienen" (besluit 3) en "ook aan de bovenkant van het betrouwbaarheidsinterval" (J4).
+- Voorwaarde (c): venster per instelling volgens besluit 1; voorwaarde (f): de eis van zes maanden runway geldt ook dan, de keuze van de posten blijft bij de founder (MF1, MF2).
+- Pilotbeheerder tot en met het laatste aprilvenster uit eigen middelen (aanname; MF3).
+- Wekelijkse twee items voor iedereen met aparte toestemming, ook 16- en 17-jarigen (G4).
