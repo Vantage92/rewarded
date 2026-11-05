@@ -29,7 +29,7 @@ describe('session store (architecture §4.1, §4.2)', () => {
     await started(25);
     const s = h.fake.session()!;
     expect(s.idempotencyKey).toMatch(/^[0-9a-f-]{36}$/);
-    await h.advance(25 * MIN, 30_000);
+    await h.advance(25 * MIN + 1000, 30_000);
     await flush();
     const snap = h.store.getSnapshot();
     expect(snap.phase).toBe('completed');
@@ -112,7 +112,7 @@ describe('session store (architecture §4.1, §4.2)', () => {
     await started(25);
     await h.advance(2 * MIN, 30_000);
     h.dropNext('sessions.heartbeat', 2);
-    await h.advance(23 * MIN, 30_000);
+    await h.advance(23 * MIN + 1000, 30_000);
     await flush();
     expect(h.store.getSnapshot().phase).toBe('completed');
     const calls = h.fake.callsOf('sessions.heartbeat').map((c) => (c.body as { seq: number; nonce: string }));

@@ -190,6 +190,8 @@ export class SessionStore {
   private hiddenAtMono: number | null = null;
   private signalResult: { played: boolean; vibrated: boolean } | null = null;
   private disposed = false;
+  /** ev_seq counter kept after the stored copy is cleared (claim-delay event after the end). */
+  private lastEvSeq = 0;
 
   constructor({ api, platform, userKey }: SessionStoreOptions) {
     this.api = api;
@@ -411,6 +413,7 @@ export class SessionStore {
     this.result = null;
     this.endSignal = false;
     this.stopQueued = false;
+    this.hiddenAtMono = null;
     this.emit();
   }
 
@@ -859,7 +862,7 @@ export class SessionStore {
       if (signal.kind === 'visible') void this.pf.wakeLock.request();
       return;
     }
-    if (s === 'aborted_local' && (signal.kind === 'visible' || signal.kind === 'pageshow')) {
+    if ((s === 'aborted_local' || s === 'aborted') && (signal.kind === 'visible' || signal.kind === 'pageshow')) {
       // Back after an abort: log how long the page was hidden (return_after_abort, §4.1).
       if (this.hiddenAtMono !== null && this.ctx.sessionId) {
         const hiddenS = Math.max(0, Math.round((signal.mono - this.hiddenAtMono) / 1000));
@@ -954,10 +957,13 @@ export class SessionStore {
     this.endSignal = false;
     const id = this.ctx.sessionId;
     const nonce = this.ctx.nonce;
-    if (id && nonce && this.persisted) {
+    if (id && nonce) {
+      const evSeq = Math.max(this.persisted?.evSeq ?? 0, this.lastEvSeq) + 1;
+      this.lastEvSeq = evSeq;
+      if (this.persisted) this.persisted.evSeq = evSeq;
       const item: OutboxItem = {
         type: 'visibility',
-        ev_seq: ++this.persisted.evSeq,
+        ev_seq: evSeq,
         kind: 'first_interaction_after_end',
         mono_ms: this.pf.clock.monoNow(),
         client_ts: Math.round(this.pf.clock.wallNow()),
@@ -1237,6 +1243,7 @@ export class SessionStore {
     if (s !== 'completed') void this.pf.wakeLock.release();
     if (s === 'completed' && !this.practice) void import('../../../platform/storage.ts').then((m) => m.requestPersistence());
     const id = this.ctx.sessionId;
+    this.lastEvSeq = this.persisted?.evSeq ?? this.lastEvSeq;
     void this.clearPersisted(id);
   }
 
