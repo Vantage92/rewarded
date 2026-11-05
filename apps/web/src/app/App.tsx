@@ -1,13 +1,24 @@
 import { RouterProvider, type createBrowserRouter } from 'react-router';
-import { I18nProvider, type Locale } from '../i18n/index.tsx';
+import '../design/components.css';
+import type { ThemePreference } from '../design/theme.tsx';
+import type { Locale } from '../i18n/index.tsx';
+import type { WebApi } from '../lib/api/web.ts';
+import { AppProviders } from './providers.tsx';
 
 type AppRouter = ReturnType<typeof createBrowserRouter>;
 
-/** Providers around the router. TanStack Query and the session store are added by WP-7 and WP-8. */
-export function App({ router, locale }: { router: AppRouter; locale?: Locale }) {
+export interface AppProps {
+  router: AppRouter;
+  locale?: Locale;
+  theme?: ThemePreference;
+  api?: WebApi;
+}
+
+/** Providers around the router. The session store is added by WP-8 inside features/focus. */
+export function App({ router, locale, theme, api }: AppProps) {
   return (
-    <I18nProvider {...(locale ? { locale } : {})}>
+    <AppProviders {...(locale ? { locale } : {})} {...(theme ? { theme } : {})} {...(api ? { api } : {})}>
       <RouterProvider router={router} />
-    </I18nProvider>
+    </AppProviders>
   );
 }

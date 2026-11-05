@@ -41,6 +41,8 @@ export const WaitlistSource = z.enum(['landing', 'card', 'club_qr', 'ambassador'
 export const WaitlistPriority = z.enum(['group', 'club', 'card', 'none']);
 
 // Sessions (architecture §3.2, spec §4.1).
+/** Daily goal and Belofte minutes: 25 / 50 / 90 / 120 (spec §3.1 step 9, §4.4, §4.12). */
+export const GoalMinutes = z.union([z.literal(25), z.literal(50), z.literal(90), z.literal(120)]);
 export const PlannedMin = z.union([z.literal(1), z.literal(25), z.literal(50), z.literal(90)]);
 export const SessionStatus = z.enum(['active', 'completed', 'aborted']);
 export const AbortReason = z.enum(['hidden', 'heartbeat_gap', 'user_stop', 'second_session', 'late_end']);
@@ -197,6 +199,7 @@ export type NetClass = z.output<typeof NetClass>;
 export type InviteSource = z.output<typeof InviteSource>;
 export type WaitlistSource = z.output<typeof WaitlistSource>;
 export type WaitlistPriority = z.output<typeof WaitlistPriority>;
+export type GoalMinutes = z.output<typeof GoalMinutes>;
 export type PlannedMin = z.output<typeof PlannedMin>;
 export type SessionStatus = z.output<typeof SessionStatus>;
 export type AbortReason = z.output<typeof AbortReason>;

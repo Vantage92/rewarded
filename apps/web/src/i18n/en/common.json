@@ -1,15 +1,66 @@
 {
   "app": {
     "name": "Rewarded",
-    "skip_to_content": "Skip to content"
+    "skip_to_content": "Skip to content",
+    "update_ready": "A new version is ready. It starts after your session."
   },
   "nav": {
     "label": "Main menu",
-    "home": "Today",
     "focus": "Focus",
     "squad": "Squad",
+    "club": "Club",
+    "rewards": "Rewards",
+    "me": "Me",
+    "home": "Today",
     "points": "Points",
-    "profile": "Profile"
+    "profile": "Profile",
+    "dot": "Something is waiting for you"
+  },
+  "offline": {
+    "banner": "No connection. Anything that needs the server is paused for now.",
+    "action_disabled": "Unavailable without a connection."
+  },
+  "errors": {
+    "internal": "We couldn't load this. Your data is safe.",
+    "retry": "Try again"
+  },
+  "actions": {
+    "close": "Close",
+    "cancel": "Cancel",
+    "back": "Back"
+  },
+  "toast": {
+    "region": "Notifications"
+  },
+  "sheet": {
+    "close": "Close",
+    "handle": "Drag down to close"
+  },
+  "form": {
+    "optional": "optional",
+    "error": "Note: {message}"
+  },
+  "loading": "Loading…",
+  "theme": {
+    "label": "Appearance",
+    "system": "System",
+    "light": "Light",
+    "dark": "Dark"
+  },
+  "language": {
+    "label": "Language",
+    "nl": "Nederlands",
+    "en": "English"
+  },
+  "timer": {
+    "remaining_min": "{count, plural, one {# minute} other {# minutes}} left",
+    "remaining_sec": "{count, plural, one {# second} other {# seconds}} left",
+    "done": "Session done.",
+    "unit_min": "min"
+  },
+  "progress": {
+    "minutes": "{value} of {max} min",
+    "minutes_long": "{value} of {max} minutes"
   },
   "placeholder": {
     "coming": "This screen arrives in a later work package ({owner})."
@@ -33,6 +84,16 @@
     "draws": "Chance",
     "profile": "Profile",
     "board": "Board",
-    "admin": "Admin"
+    "admin": "Admin",
+    "welcome": "Welcome to Rewarded",
+    "invite": "Invitation",
+    "club_code": "Link your club",
+    "login": "Log in",
+    "auth": "Log in",
+    "how_we_count": "How we count",
+    "survey": "Short survey",
+    "help": "Help",
+    "unsubscribe": "Unsubscribe",
+    "verify": "Check a card"
   }
 }

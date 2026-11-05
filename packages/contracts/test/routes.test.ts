@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { z } from 'zod';
 import { ERROR_CODES, ROUTE_IDS, StartSessionRequest, matchRoute, requestExamples, responseExamples, routes, buildPath, type RouteDef } from '../src/index.ts';
+import { devRoutes } from '../src/dev.ts';
 import { SECTION_8_2_ENDPOINTS } from './endpoints.ts';
 
 const all = ROUTE_IDS.map((id) => [id, routes[id] as RouteDef] as const);
@@ -45,43 +46,36 @@ function looseObjects(schema: z.ZodType, path = '$', seen = new Set<unknown>()):
 
 describe('route registry (architecture §8.2)', () => {
   it('§8.2: every endpoint in the document has exactly one route definition', () => {
-    const registered = all.map(([, r]) => `${r.method} ${r.path}`);
+    const registered = [...all, ...Object.values(devRoutes).map((r) => ['dev', r] as const)].map(([, r]) => `${r.method} ${r.path}`);
     expect(new Set(registered).size).toBe(registered.length);
     expect([...registered].sort()).toEqual([...SECTION_8_2_ENDPOINTS].sort());
   });
 
-  it('§8.2: every route has a response schema, a success status and a module', () => {
-    for (const [id, r] of all) {
-      expect(r.response, id).toBeDefined();
-      expect(r.status.length, id).toBeGreaterThan(0);
-      expect(r.module, id).toMatch(/^[a-z_]+$/);
-      expect(r.spec, id).toMatch(/§/);
-    }
+  it('§8.2: every route has a response schema, a success status, a module and a spec reference', () => {
+    const bad = all.filter(([, r]) => !r.response || r.status.length === 0 || !/^[a-z_]+$/.test(r.module) || !r.spec.includes('§')).map(([id]) => id);
+    expect(bad).toEqual([]);
   });
 
-  it('§8.2: mutating routes with a request body in the table have a body schema; GET routes never do', () => {
-    for (const [id, r] of all) if (r.method === 'GET') expect(r.body, id).toBeUndefined();
+  it('§8.2: GET routes never take a body; the mutating routes of the table that carry one have a body schema', () => {
+    expect(all.filter(([, r]) => r.method === 'GET' && r.body).map(([id]) => id)).toEqual([]);
     const needsBody = ['POST /sessions', 'POST /sessions/:id/heartbeats', 'POST /sessions/:id/end', 'POST /redemptions', 'POST /events', 'DELETE /me', 'POST /onboarding'];
-    for (const ep of needsBody) {
-      const r = all.find(([, d]) => `${d.method} ${d.path}` === ep)?.[1];
-      expect(r?.body, ep).toBeDefined();
-    }
+    const missing = needsBody.filter((ep) => !all.find(([, d]) => `${d.method} ${d.path}` === ep)?.[1].body);
+    expect(missing).toEqual([]);
   });
 
   it('§8.2: path parameters and their schema agree', () => {
+    const bad: string[] = [];
     for (const [id, r] of all) {
-      const names = [...r.path.matchAll(/:([a-z_]+)/g)].map((m) => m[1]);
-      if (names.length === 0) {
-        expect(r.params, id).toBeUndefined();
-        continue;
-      }
-      const shape = (r.params as unknown as { _zod: { def: { shape: Record<string, unknown> } } })._zod.def.shape;
-      expect(Object.keys(shape).sort(), id).toEqual([...names].sort());
+      const names = [...r.path.matchAll(/:([a-z_]+)/g)].map((m) => m[1]).sort();
+      const shape = r.params ? (r.params as unknown as { _zod: { def: { shape: Record<string, unknown> } } })._zod.def.shape : {};
+      if (JSON.stringify(Object.keys(shape).sort()) !== JSON.stringify(names)) bad.push(id);
     }
+    expect(bad).toEqual([]);
   });
 
   it('§8.2: every listed error code exists and has an owning module', () => {
-    for (const [id, r] of all) for (const code of r.errors) expect(ERROR_CODES[code]?.module, `${id} ${code}`).toBeTruthy();
+    const bad = all.flatMap(([id, r]) => r.errors.filter((c) => !ERROR_CODES[c]?.module).map((c) => `${id} ${c}`));
+    expect(bad).toEqual([]);
   });
 
   it('§10.3: every object schema (params, query, body, response) rejects unknown fields', () => {
@@ -101,25 +95,30 @@ describe('route registry (architecture §8.2)', () => {
   });
 
   it('§10.3: request examples pass, and the same body with an extra field is refused', () => {
+    const bad: string[] = [];
     for (const [id, ex] of Object.entries(requestExamples) as [keyof typeof requestExamples, { body?: unknown; params?: unknown; query?: unknown }][]) {
       const r: RouteDef = routes[id];
-      if (ex.params !== undefined) expect(r.params?.safeParse(ex.params).success, `${id} params`).toBe(true);
-      if (ex.query !== undefined) expect(r.query?.safeParse(ex.query).success, `${id} query`).toBe(true);
-      if (ex.body !== undefined) {
-        const ok = r.body!.safeParse(ex.body);
-        expect(ok.success, `${id} body ${JSON.stringify(ok.error?.issues)}`).toBe(true);
-        expect(r.body!.safeParse({ ...(ex.body as object), unexpected_field: 1 }).success, `${id} strict`).toBe(false);
+      for (const part of ['params', 'query', 'body'] as const) {
+        const value = ex[part];
+        if (value === undefined) continue;
+        const schema = r[part];
+        const res = schema?.safeParse(value);
+        if (!res?.success) bad.push(`${id}.${part} ${JSON.stringify(res?.error?.issues)}`);
+        if (part === 'body' && schema?.safeParse({ ...(value as object), unexpected_field: 1 }).success) bad.push(`${id} accepts unknown field`);
       }
     }
+    expect(bad).toEqual([]);
   });
 
   it('§11 contract: response examples pass their schema and fail with an extra field', () => {
+    const bad: string[] = [];
     for (const [id, ex] of Object.entries(responseExamples)) {
       const r: RouteDef = routes[id as keyof typeof routes];
       const res = r.response.safeParse(ex);
-      expect(res.success, `${id} ${JSON.stringify(res.error?.issues)}`).toBe(true);
-      expect(r.response.safeParse({ ...(ex as object), unexpected_field: 1 }).success, `${id} strict`).toBe(false);
+      if (!res.success) bad.push(`${id} ${JSON.stringify(res.error.issues)}`);
+      if (r.response.safeParse({ ...(ex as object), unexpected_field: 1 }).success) bad.push(`${id} accepts unknown field`);
     }
+    expect(bad).toEqual([]);
   });
 
   it('arch §4.3 step 5: practice holds exactly when planned_min is 1', () => {
@@ -132,7 +131,13 @@ describe('route registry (architecture §8.2)', () => {
   });
 
   it('arch §8.2: idempotent routes require the Idempotency-Key header', () => {
-    for (const id of ['waitlist.join', 'sessions.start', 'redemptions.create', 'squads.create', 'challenges.enroll'] as const) expect(routes[id].idempotencyKey).toBe('required');
+    const ids = ['waitlist.join', 'sessions.start', 'redemptions.create', 'squads.create', 'challenges.enroll'] as const;
+    expect(ids.map((id) => routes[id].idempotencyKey)).toEqual(ids.map(() => 'required'));
+  });
+
+  it('arch §10.3: the main registry holds no dev route (they live in @rewarded/contracts/dev)', () => {
+    expect(all.filter(([, r]) => r.path.startsWith('/dev/') || r.auth.includes('dev')).map(([id]) => id)).toEqual([]);
+    expect(Object.keys(devRoutes).length).toBe(5);
   });
 
   it('arch §7: no draw routes exist', () => {

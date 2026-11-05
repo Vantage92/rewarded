@@ -1,12 +1,12 @@
 // Public surface of @rewarded/contracts: zod schemas per API module, error codes, event taxonomy,
-// route registry, typed API client and mock client. Owner: WP-2 (architecture §12.1); frozen as contracts-v1.
+// route registry, typed API client and mock client.
+// The dev routes are not exported here: use '@rewarded/contracts/dev' (dev build and tests only). Owner: WP-2 (architecture §12.1); frozen as contracts-v1.
 export * from './common.ts';
 export * from './errors.ts';
 export * from './route.ts';
 export * from './events.ts';
 export * from './auth.ts';
 export * from './waitlist.ts';
-export * from './dev.ts';
 export * from './sessions.ts';
 export * from './points.ts';
 export * from './catalog.ts';

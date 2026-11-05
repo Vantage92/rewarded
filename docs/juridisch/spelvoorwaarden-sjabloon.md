@@ -1,22 +1,26 @@
 # Rewarded — Spelvoorwaarden promotioneel kansspel (sjabloon, niet in gebruik)
 
-*Sjabloon van het juridische team, stand 5 november 2026, versie 0.2. **Dit is geen juridisch advies.** Dit sjabloon is alleen bedoeld voor het geval dat trekkingen ooit aangaan. **Trekkingen staan uit en de trekkingsmodule wordt niet gebouwd** (founder-reactie, besluit 3, S9 en J4). Gebaseerd op `docs/pitch/ronde-1-jurist.md` (must-fix 4 en 6), `docs/research/02-businessmodel-juridisch-unit-economics.md` (§2.1, §2.2, §2.6) en `docs/research/05-productspecificatie.md` (versie 1.1, §3.9).*
+*Sjabloon van het juridische team, stand 4 november 2026, versie 0.3 (ronde 2). **Dit is geen juridisch advies.** Dit sjabloon is alleen bedoeld voor het geval dat trekkingen ooit aangaan. **Trekkingen staan uit en de trekkingsmodule wordt niet gebouwd** (founder-reactie, besluit 3, S9 en J4). Gebaseerd op `docs/pitch/ronde-1-jurist.md` (must-fix 4 en 6), `docs/pitch/ronde-2-jurist.md` (J4 opgelost; should-fix 6 en 12), `docs/pitch/ronde-2-founder-reactie.md` (J6, J12), `docs/research/02-businessmodel-juridisch-unit-economics.md` (§2.1, §2.2, §2.6) en `docs/research/05-productspecificatie.md` (versie 1.1, §3.9).*
 
 ## Voordat dit sjabloon ooit wordt gebruikt
 
 Dit sjabloon mag pas worden ingevuld en gepubliceerd als **alle** onderstaande voorwaarden schriftelijk vastliggen. Dat is de beslisregel uit de founder-reactie (J4): **geen schriftelijke advocatenopinie plus geen expliciete, schriftelijke reactie van de Kansspelautoriteit betekent dat trekkingen uit blijven. Stilte is nee.**
 
-| # | Voorwaarde | Status op 5 november 2026 |
+| # | Voorwaarde | Status op 4 november 2026 |
 |---|---|---|
 | 1 | Schriftelijke advocatenopinie over de gekozen structuur (**vraag advocaat** 12) | Niet aangevraagd voor trekkingen; staat in de vragenlijst |
 | 2 | Expliciete, schriftelijke reactie van de Kansspelautoriteit op de voorgelegde structuur | Niet voorgelegd. De Ksa geeft voor zover bekend geen bindende rulings op promotionele kansspelen (**niet geverifieerd**, jurist must-fix 4) |
 | 3 | Toets door de fiscalist van de vrijstelling in art. 4 Wet op de kansspelbelasting en de samentelling van prijzen in art. 4 lid 2 op de gekozen structuur | Niet gedaan. Het bedrag van de vrijstelling in art. 4 lid 1 is **niet geverifieerd** (jurist, verificatie en beperkingen) |
 | 4 | Besluit van de founder | Niet genomen; trekkingen zijn buiten deze ronde |
-| 5 | Trekkingsmodule gebouwd en getest (commit-reveal, beacon, terugvalregel, reservewinnaars) | Niet gebouwd; alleen een lege plek in datamodel en vlag |
+| 5 | Trekkingsmodule gebouwd en getest (commit-reveal, beacon, terugvalregel, reservewinnaars) | Niet gebouwd; alleen een lege plek in datamodel en vlag. De jurist bevestigde in ronde 2 dat `draws` altijd uit staat en geen route heeft |
+| 6 | Rechtspersoon die organisator kan zijn | Nog niet opgericht; actie founder vóór 18 november 2026 (founder-reactie ronde 2, J6) |
+| 7 | Google Play-beleid voor prijzen en kansspelen primair gelezen, als er een Android-app komt | Niet gedaan; in geen enkele sessie primair gelezen (jurist ronde 2, should-fix 12) |
 
 **Structuur die dit sjabloon aanneemt.** Eén promotioneel kansspel per jaar voor Rewarded, met **hoogstens twintig trekkingen** en een **totale prijzenpot onder €100.000**, volgens art. 2 van de Gedragscode promotionele kansspelen 2014 zoals weergegeven in WODC 2024 (rapport 02 §2.2). **Niet** een reeks kleine spellen van hoogstens €4.500 elk: de jurist wijst die af omdat de Ksa zo'n opdeling volgens WODC als ondermijning van het vergunningenstelsel ziet. De Gedragscode staat niet in de BWB en is in deze sessies alleen via WODC 2024 gelezen (**niet geverifieerd** in de primaire tekst).
 
 **Wat dit sjabloon niet oplost.** Het risico dat trekkingen in de app een "zelfstandige activiteit" worden in plaats van een promotie van de focus-dienst (rapport 02 §2.2; jurist must-fix 4). Dat is een ontwerpvraag: trekkingen staan nooit op het startscherm, in uitnodigingen, op kaarten of in de promotiekit. [Spec 1.1 bouwt geen trekkingen (§3.9) en legt deze regel daarom nog niet vast; als de module ooit komt, neemt het productteam hem op.]
+
+**Geen trekking tijdens een onderzoek met groepen.** [**Voorstel**, nieuw in ronde 2.] Zolang er een onderzoek loopt waarin het lot bepaalt welke regels iemand krijgt (gebruiksvoorwaarden §6, tot en met het aprilvenster), organiseert Rewarded geen trekking. Een kansprijs naast een rustperiode zonder punten maakt de vraag of de toewijzing een kansbepaling is (vraag advocaat 3b) alleen maar lastiger.
 
 *Leeswijzer. Hieronder staat de tekst zoals een deelnemer hem zou lezen, in gewone taal. Tussen vierkante haken staat wat per spel moet worden ingevuld. Markeringen: **aanname**, **voorstel**, **niet geverifieerd**, **vraag advocaat**.*
 
@@ -38,7 +42,7 @@ Dit sjabloon mag pas worden ingevuld en gepubliceerd als **alle** onderstaande v
 
 1.2 Een partner kan een prijs leveren, maar is nooit organisator. [Apple 5.3.1: "Sweepstakes and contests must be sponsored by the developer of the app."]
 
-1.3 **Apple is geen sponsor van dit spel en is er op geen enkele manier bij betrokken.** [Apple 5.3.2, letterlijk in rapport 02 §2.6: "Official rules for sweepstakes, contests, and raffles must be presented in the app and make clear that Apple is not a sponsor or involved in the activity in any manner." Voor een Android-versie: dezelfde zin voor Google, als het Play-beleid dat vraagt; dat beleid is **niet geverifieerd** op de primaire pagina.]
+1.3 **Apple is geen sponsor van dit spel en is er op geen enkele manier bij betrokken.** [Apple 5.3.2, letterlijk in rapport 02 §2.6: "Official rules for sweepstakes, contests, and raffles must be presented in the app and make clear that Apple is not a sponsor or involved in the activity in any manner." Voor een Android-versie: dezelfde zin voor Google, als het Play-beleid dat vraagt; dat beleid is **niet geverifieerd** op de primaire pagina en moet vóór de Android-bouw primair worden gelezen (jurist ronde 2, should-fix 12; voorwaarde 7).]
 
 ### 2. Looptijd en trekkingen
 
@@ -62,7 +66,7 @@ Dit sjabloon mag pas worden ingevuld en gepubliceerd als **alle** onderstaande v
 - dit spel apart hebt aangezet onder [plek in de app]; en
 - in de periode van een trekking je weekdoel hebt gehaald: op minstens 5 van de 7 dagen je dagdoel, waarbij een rustdag-joker niet telt.
 
-3.2 Voor 16- en 17-jarigen bestaat dit spel niet. Ze zien het niet in de app.
+3.2 Voor 16- en 17-jarigen bestaat dit spel niet. Ze zien het niet in de app. [De Gedragscode vraagt bij minderjarigen "grote zorgvuldigheid en terughoudendheid" en toestemming van een ouder (art. 6, via WODC 2024; **niet geverifieerd** in de primaire tekst). Het team kiest daarom voor 18+ zonder uitzondering.]
 
 3.3 Medewerkers van Rewarded, hun teamaccounts en de mensen die de trekking uitvoeren, doen niet mee.
 
@@ -164,3 +168,4 @@ Rewarded verandert deze spelvoorwaarden tijdens het spel niet ten nadele van de 
 |---|---|---|
 | ronde 1 | 5 november 2026 | Eerste sjabloon, opgesteld na pitchronde 1 (jurist must-fix 4 en 6; founder-besluiten J4, J6, S9 en besluit 3). Niet in gebruik: trekkingen staan uit en de module wordt niet gebouwd. |
 | ronde 1 (eindredactie) | 5 november 2026 | Verouderde verwijzingen naar spec §4.7, de beheeromgeving en architectuur §10.6 vervangen door de huidige stand (spec 1.1 §3.9, architectuur 1.2 §7: geen trekkingen in de bouw). Inhoud van het sjabloon ongewijzigd. Versie 0.2. |
+| ronde 2 | 4 november 2026 | Herzien volgens `docs/pitch/ronde-2-founder-reactie.md` en `docs/pitch/ronde-2-jurist.md`. De jurist geeft J4 (trekkingen) als opgelost; het sjabloon blijft een sjabloon. Statustabel bijgewerkt en aangevuld met voorwaarde 6 (rechtspersoon, J6) en 7 (Google Play-beleid primair lezen vóór de Android-bouw, J12). Nieuw voorstel: geen trekking zolang er een onderzoek met geloote groepen loopt. §1.3 en §3.2 aangevuld met de bronverwijzingen. Inhoud van de spelvoorwaarden zelf (18+, gratis, Apple-verklaring, commit-reveal) ongewijzigd. Versie 0.3. |

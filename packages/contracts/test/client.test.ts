@@ -42,7 +42,7 @@ describe('typed API client (architecture §8.1)', () => {
 
   it('refuses a response with unknown fields', async () => {
     const api = createApiClient({ fetch: fakeFetch(200, { available: 1, pending: 0, referral_unvested: 0, earn_in_min: 0, earn_in_required: 300, secret: 1 }, []) });
-    await expect(api.call('points.balance')).rejects.toThrow();
+    await expect(api.call('points.balance')).rejects.toThrow(/secret|Unrecognized/);
   });
 
   it('returns undefined for 204 routes', async () => {

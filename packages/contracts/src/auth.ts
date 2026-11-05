@@ -11,6 +11,7 @@ import {
   ExperimentUnit,
   FeatureFlags,
   FocusDay,
+  GoalMinutes,
   Instant,
   Locale,
   NoContent,
@@ -23,8 +24,8 @@ import {
 import { defineRoutes } from './route.ts';
 
 const SixDigitCode = z.string().regex(/^\d{6}$/);
-/** Daily goal in minutes (spec §4.2; overreach brake asks for confirmation above the suggestion). */
-export const DailyGoalMin = z.number().int().min(10).max(600);
+/** Daily goal in minutes (spec §4.4: 25 / 50 / 90 / 120; overreach brake asks for confirmation). */
+export const DailyGoalMin = GoalMinutes;
 
 export const MagicLinkRequest = z.strictObject({ email: Email, locale: Locale, invite_token: Token.optional() });
 export const ConfirmLinkRequest = z.strictObject({ token: Token });

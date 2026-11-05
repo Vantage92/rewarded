@@ -35,7 +35,7 @@ describe('event taxonomy (spec §7.1)', () => {
   it('spec §7.1: server event properties are validated', () => {
     const props = parseEventProps('session_aborted', { session_id: '01JC0000000000000000000030', reden: 'hidden', verstreken_s: 600, device_class: 'ios_safari', wakelock_state: 'released' });
     expect(props.reden).toBe('hidden');
-    expect(() => parseEventProps('session_aborted', { session_id: '01JC0000000000000000000030', reden: 'bored', verstreken_s: 1 })).toThrow();
-    expect(() => parseEventProps('plus_interest', { extra: 1 })).toThrow();
+    expect(() => parseEventProps('session_aborted', { session_id: '01JC0000000000000000000030', reden: 'bored', verstreken_s: 1 })).toThrow(/reden|Invalid/);
+    expect(() => parseEventProps('plus_interest', { extra: 1 })).toThrow(/extra|Unrecognized/);
   });
 });

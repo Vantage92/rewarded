@@ -1,13 +1,17 @@
 {
+  "id": "/",
   "name": "Rewarded",
   "short_name": "Rewarded",
+  "description": "Focus samen met je squad.",
   "lang": "nl",
+  "dir": "ltr",
   "start_url": "/?bron=pwa",
   "scope": "/",
   "display": "standalone",
   "orientation": "portrait",
   "background_color": "#F7F6F2",
   "theme_color": "#2B5A4E",
+  "categories": ["education", "productivity"],
   "icons": [
     { "src": "/icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
     { "src": "/icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },

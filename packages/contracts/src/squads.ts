@@ -1,6 +1,6 @@
 // /api/v1/squads (architecture §6.3, §6.4, §8.2 "Squads, uitnodigingen en duels").
 import { z } from 'zod';
-import { FocusDay, IdParam, Instant, Minutes, NonNegInt, Ref, ShortText, SquadNameStatus, SquadStatus, Ulid } from './common.ts';
+import { FocusDay, GoalMinutes, IdParam, Instant, Minutes, NonNegInt, Ref, ShortText, SquadNameStatus, SquadStatus, Ulid } from './common.ts';
 import { InviteDto } from './invites.ts';
 import { defineRoutes } from './route.ts';
 
@@ -33,8 +33,8 @@ export const CompareResponse = z.strictObject({
 });
 export const WitnessBelofte = z.strictObject({
   first_name: ShortText,
-  days_per_week: z.number().int().min(1).max(7),
-  min_per_day: Minutes,
+  days_per_week: z.number().int().min(3).max(7),
+  min_per_day: GoalMinutes,
   start_day: FocusDay,
   end_day: FocusDay,
   status: z.enum(['active', 'completed', 'stopped']),

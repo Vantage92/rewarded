@@ -1,15 +1,66 @@
 {
   "app": {
     "name": "Rewarded",
-    "skip_to_content": "Naar de inhoud"
+    "skip_to_content": "Naar de inhoud",
+    "update_ready": "Er staat een nieuwe versie klaar. Die start na je sessie."
   },
   "nav": {
     "label": "Hoofdmenu",
-    "home": "Vandaag",
     "focus": "Focus",
     "squad": "Squad",
+    "club": "Vereniging",
+    "rewards": "Beloningen",
+    "me": "Ik",
+    "home": "Vandaag",
     "points": "Punten",
-    "profile": "Profiel"
+    "profile": "Profiel",
+    "dot": "Er staat iets voor je klaar"
+  },
+  "offline": {
+    "banner": "Geen verbinding. Wat de server nodig heeft, staat even uit.",
+    "action_disabled": "Staat uit zonder verbinding."
+  },
+  "errors": {
+    "internal": "Dit konden we niet ophalen. Je gegevens zijn veilig.",
+    "retry": "Opnieuw"
+  },
+  "actions": {
+    "close": "Sluiten",
+    "cancel": "Annuleren",
+    "back": "Terug"
+  },
+  "toast": {
+    "region": "Meldingen"
+  },
+  "sheet": {
+    "close": "Sluiten",
+    "handle": "Sleep omlaag om te sluiten"
+  },
+  "form": {
+    "optional": "optioneel",
+    "error": "Let op: {message}"
+  },
+  "loading": "Laden…",
+  "theme": {
+    "label": "Weergave",
+    "system": "Systeem",
+    "light": "Licht",
+    "dark": "Donker"
+  },
+  "language": {
+    "label": "Taal",
+    "nl": "Nederlands",
+    "en": "English"
+  },
+  "timer": {
+    "remaining_min": "Nog {count, plural, one {# minuut} other {# minuten}}",
+    "remaining_sec": "Nog {count, plural, one {# seconde} other {# seconden}}",
+    "done": "Sessie klaar.",
+    "unit_min": "min"
+  },
+  "progress": {
+    "minutes": "{value} van {max} min",
+    "minutes_long": "{value} van {max} minuten"
   },
   "placeholder": {
     "coming": "Dit scherm komt in een volgend werkpakket ({owner})."
@@ -33,6 +84,16 @@
     "draws": "Kans",
     "profile": "Profiel",
     "board": "Bestuur",
-    "admin": "Beheer"
+    "admin": "Beheer",
+    "welcome": "Welkom bij Rewarded",
+    "invite": "Uitnodiging",
+    "club_code": "Vereniging koppelen",
+    "login": "Inloggen",
+    "auth": "Inloggen",
+    "how_we_count": "Hoe we tellen",
+    "survey": "Korte vragenlijst",
+    "help": "Hulp",
+    "unsubscribe": "Afmelden",
+    "verify": "Kaart controleren"
   }
 }

@@ -12,22 +12,19 @@ describe('error codes (architecture §8.1, §8.3, §12.3)', () => {
 
   it('§8.3: each code has the HTTP status of its row', () => {
     const allowed: Record<string, number[]> = { '400/422': [400, 422], '401': [401], '403': [403], '404': [404], '409': [409], '410': [410], '429': [429], '500/503': [500, 503] };
-    for (const [row, codes] of Object.entries(SECTION_8_3_CODES))
-      for (const code of codes) expect(allowed[row], code).toContain(ERROR_CODES[code as ErrorCode].http);
+    const bad = Object.entries(SECTION_8_3_CODES).flatMap(([row, codes]) => codes.filter((c) => !allowed[row]?.includes(ERROR_CODES[c as ErrorCode].http)));
+    expect(bad).toEqual([]);
   });
 
   it('§12.3: every code has one owning module and a message key in that namespace', () => {
-    for (const code of ERROR_CODE_LIST) {
-      const mod = ERROR_CODES[code].module;
-      expect(API_MODULES).toContain(mod);
-      expect(messageKey(code)).toBe(`errors.${mod}.${code.toLowerCase()}`);
-    }
+    const bad = ERROR_CODE_LIST.filter((c) => !(API_MODULES as readonly string[]).includes(ERROR_CODES[c].module) || messageKey(c) !== `errors.${ERROR_CODES[c].module}.${c.toLowerCase()}`);
+    expect(bad).toEqual([]);
     expect(messageKey('WEEKLY_CAP')).toBe('errors.redemptions.weekly_cap');
     expect(messageKey('INTERNAL')).toBe('errors.common.internal');
   });
 
   it('§12.3: the shared codes of WP-3 live in errors/common', () => {
-    for (const code of ['VALIDATION_FAILED', 'RATE_LIMITED', 'AUTH_REQUIRED', 'INTERNAL'] as const) expect(ERROR_CODES[code].module).toBe('common');
+    expect((['VALIDATION_FAILED', 'RATE_LIMITED', 'AUTH_REQUIRED', 'INTERNAL'] as const).map((c) => ERROR_CODES[c].module)).toEqual(['common', 'common', 'common', 'common']);
   });
 
   it('§8.2: every code except the middleware ones is used by at least one route', () => {

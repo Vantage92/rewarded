@@ -10,12 +10,12 @@ const renderAt = (path: string, locale: 'nl' | 'en' = 'nl') =>
   render(<App router={createMemoryRouter(routes, { initialEntries: [path] })} locale={locale} />);
 
 describe('app shell', () => {
-  it('renders header, home placeholder and bottom navigation', () => {
+  it('renders header, home placeholder and the five tabs of UX §2.1', () => {
     renderAt('/');
     expect(screen.getByRole('banner').textContent).toBe('Rewarded');
     expect(screen.getByRole('heading', { level: 1 }).textContent).toBe('Vandaag');
     const nav = screen.getByRole('navigation', { name: 'Hoofdmenu' });
-    expect([...nav.querySelectorAll('a')].map((a) => a.textContent)).toEqual(['Vandaag', 'Focus', 'Squad', 'Punten', 'Profiel']);
+    expect([...nav.querySelectorAll('a')].map((a) => a.textContent)).toEqual(['Focus', 'Squad', 'Vereniging', 'Beloningen', 'Ik']);
   });
 
   it('switches language', () => {
@@ -24,10 +24,11 @@ describe('app shell', () => {
   });
 
   it('loads every feature from architecture §2', () => {
-    expect(featureNames).toEqual([
+    // arrayContaining: WP-9 adds features/survey later without editing this test.
+    expect(featureNames).toEqual(expect.arrayContaining([
       'admin', 'belofte', 'board', 'cards', 'challenges', 'club', 'draws', 'duels',
       'focus', 'onboarding', 'points', 'profile', 'squads', 'waitlist',
-    ]);
+    ]));
   });
 
   it.each([

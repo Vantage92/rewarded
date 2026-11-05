@@ -1,4 +1,25 @@
-/* Base styles on semantic tokens only (architecture §9.7). WP-7 owns this file. */
+/* Base styles and app shell on semantic tokens only (architecture §9.7, UX §2.2, §5.3–5.4). Owner: WP-7. */
+
+/* Layout and motion constants (UX §2.2, §5.7). Not colours, so they live here and not in tokens.json. */
+:root {
+  --shell-tabbar-height: 64px;
+  --shell-sidebar-width: 232px;
+  --shell-content-max: 720px;
+  --shell-panel-width: 480px;
+  --touch-min: 48px;
+  --motion-fast: 150ms;
+  --motion-base: 200ms;
+  --motion-slow: 250ms;
+  --motion-ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --motion-fast: 0ms;
+    --motion-base: 100ms;
+    --motion-slow: 100ms;
+  }
+}
+
 *,
 *::before,
 *::after {
@@ -6,6 +27,7 @@
 }
 html {
   font-family: var(--font-body);
+  font-size: 100%;
   background: var(--color-bg);
   color: var(--color-text);
   -webkit-text-size-adjust: 100%;
@@ -14,59 +36,221 @@ body {
   margin: 0;
   min-height: 100dvh;
   background: var(--color-bg);
+  font-size: var(--font-size-body);
+  line-height: var(--font-line-body);
+}
+h1 {
+  font-size: var(--font-size-title-l);
+  line-height: var(--font-line-title-l);
+  font-weight: var(--font-weight-title-l);
+  margin: var(--space-4) 0 var(--space-3);
+}
+h2 {
+  font-size: var(--font-size-title-m);
+  line-height: var(--font-line-title-m);
+  font-weight: var(--font-weight-title-m);
+  margin: 0 0 var(--space-2);
+}
+a {
+  color: var(--color-primary-text);
 }
 :focus-visible {
   outline: 2px solid var(--color-focus-ring);
   outline-offset: 2px;
 }
+.visually-hidden {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
 .skip-link {
   position: absolute;
   left: -9999px;
+  z-index: 100;
+  background: var(--color-surface);
+  color: var(--color-text);
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-card);
 }
 .skip-link:focus {
   left: var(--space-4);
   top: var(--space-4);
 }
+
+/* Shell: phone first; header, content, bottom tab bar (UX §2.2). */
 .shell {
   display: flex;
   flex-direction: column;
   min-height: 100dvh;
-  max-width: 640px;
-  margin: 0 auto;
 }
 .shell-header {
-  padding: var(--space-4);
+  padding: var(--space-4) var(--space-4) 0;
   font-weight: 700;
-  font-size: 1.25rem;
+  font-size: var(--font-size-title-m);
+  line-height: var(--font-line-title-m);
+}
+.shell-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
 }
 .shell-main {
   flex: 1;
-  padding: 0 var(--space-4) var(--space-5);
+  width: 100%;
+  max-width: var(--shell-content-max);
+  margin: 0 auto;
+  padding: 0 var(--space-4) calc(var(--shell-tabbar-height) + var(--space-5) + env(safe-area-inset-bottom));
+  /* Sticky tab bar never hides the focused element (WCAG 2.4.11). */
+  scroll-padding-bottom: calc(var(--shell-tabbar-height) + env(safe-area-inset-bottom));
+}
+html {
+  scroll-padding-bottom: calc(var(--shell-tabbar-height) + env(safe-area-inset-bottom));
+}
+.shell-main:focus {
+  /* Focus moves here after a navigation for screen readers; no ring on the whole page. */
+  outline: none;
 }
 .shell-nav {
-  position: sticky;
+  position: fixed;
+  left: 0;
+  right: 0;
   bottom: 0;
-  display: flex;
-  justify-content: space-around;
+  z-index: 20;
   background: var(--color-surface);
   border-top: 1px solid var(--color-border);
   padding-bottom: env(safe-area-inset-bottom);
 }
-.shell-nav a {
-  min-width: 44px;
-  min-height: 44px;
+.shell-nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
   display: flex;
+  height: var(--shell-tabbar-height);
+}
+.shell-nav li {
+  flex: 1;
+  display: flex;
+}
+.tab {
+  position: relative;
+  flex: 1;
+  min-width: var(--touch-min);
+  min-height: var(--touch-min);
+  display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: var(--space-2) var(--space-3);
+  gap: 2px;
   color: var(--color-text-muted);
   text-decoration: none;
-  font-size: 0.8125rem;
-  font-weight: 600;
+  font-size: var(--font-size-label);
+  line-height: var(--font-line-label);
+  font-weight: var(--font-weight-label);
 }
-.shell-nav a[aria-current='page'] {
-  color: var(--color-primary);
+.tab svg {
+  width: 24px;
+  height: 24px;
 }
+.tab[aria-current='page'] {
+  color: var(--color-primary-text);
+}
+/* 3 px bar above the icon so the state does not depend on colour alone (WCAG 1.4.1). */
+.tab[aria-current='page']::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 25%;
+  right: 25%;
+  height: 3px;
+  border-radius: 0 0 3px 3px;
+  background: var(--color-primary);
+}
+.tab-dot {
+  position: absolute;
+  top: 8px;
+  right: calc(50% - 18px);
+  width: 8px;
+  height: 8px;
+  border-radius: var(--radius-pill);
+  background: var(--color-primary);
+}
+
+/* Laptop from 960 px: the same five items as a 232 px sidebar, content up to 720 px (UX §2.2). */
+@media (min-width: 960px) {
+  .shell[data-chrome='full'] {
+    flex-direction: row;
+  }
+  .shell-nav {
+    position: sticky;
+    top: 0;
+    bottom: auto;
+    order: -1;
+    width: var(--shell-sidebar-width);
+    flex: 0 0 var(--shell-sidebar-width);
+    height: 100dvh;
+    border-top: 0;
+    border-right: 1px solid var(--color-border);
+    padding: calc(var(--space-7) + var(--space-4)) var(--space-3) var(--space-4);
+  }
+  .shell-nav ul {
+    flex-direction: column;
+    height: auto;
+    gap: var(--space-1);
+  }
+  .tab {
+    flex-direction: row;
+    justify-content: flex-start;
+    gap: var(--space-3);
+    padding: 0 var(--space-3);
+    border-radius: var(--radius-card);
+    font-size: var(--font-size-body);
+  }
+  .tab[aria-current='page'] {
+    background: var(--color-primary-soft);
+  }
+  .tab[aria-current='page']::before {
+    top: 25%;
+    bottom: 25%;
+    left: 0;
+    right: auto;
+    width: 3px;
+    height: auto;
+    border-radius: 0 3px 3px 0;
+  }
+  .tab-dot {
+    position: static;
+    margin-left: auto;
+  }
+  .shell[data-chrome='full'] .shell-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: var(--shell-sidebar-width);
+    padding: var(--space-5) var(--space-5) 0;
+    z-index: 21;
+  }
+  .shell-main {
+    padding: var(--space-5) var(--space-5) var(--space-7);
+    scroll-padding-bottom: 0;
+  }
+  html {
+    scroll-padding-bottom: 0;
+  }
+}
+
+/* Session (immersive) and bare chrome: no tab bar or sidebar (UX §2.2 Sessiemodus). */
+.shell[data-chrome='immersive'] .shell-main,
+.shell[data-chrome='bare'] .shell-main {
+  padding-bottom: var(--space-5);
+}
+
 .placeholder {
   background: var(--color-surface);
   border-radius: var(--radius-card);

@@ -1,4 +1,6 @@
-// Registry of every endpoint of architecture §8.2, keyed by a stable route id.
+// Registry of every endpoint of architecture §8.2, keyed by a stable route id. The dev routes are
+// kept out on purpose (import them from '@rewarded/contracts/dev'), so the production bundle never
+// contains them (architecture §10.3).
 import { adminRoutes } from './admin.ts';
 import { authRoutes } from './auth.ts';
 import { belofteRoutes } from './belofte.ts';
@@ -6,7 +8,6 @@ import { cardRoutes } from './cards.ts';
 import { catalogRoutes } from './catalog.ts';
 import { challengeRoutes } from './challenges.ts';
 import { clubRoutes } from './clubs.ts';
-import { devRoutes } from './dev.ts';
 import { drawRoutes } from './draws.ts';
 import { duelRoutes } from './duels.ts';
 import { eventRoutes } from './events.ts';
@@ -53,7 +54,6 @@ export const routes = {
   ...supportRoutes,
   ...adminRoutes,
   ...drawRoutes,
-  ...devRoutes,
 } as const;
 
 export type Routes = typeof routes;

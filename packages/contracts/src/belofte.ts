@@ -1,10 +1,11 @@
 // /api/v1/belofte and /api/v1/beloftes (architecture §8.2; spec §3.12, §4.12: no ledger entry on a Belofte).
 import { z } from 'zod';
-import { BelofteReflectionAction, BelofteStatus, BelofteTrigger, BelofteWitnesses, FocusDay, IdParam, Minutes, StakeInterest, Ulid } from './common.ts';
+import { BelofteReflectionAction, BelofteStatus, BelofteTrigger, BelofteWitnesses, FocusDay, GoalMinutes, IdParam, Minutes, StakeInterest, Ulid } from './common.ts';
 import { defineRoutes } from './route.ts';
 
-const DaysPerWeek = z.number().int().min(1).max(7);
-const MinPerDay = z.number().int().min(10).max(600);
+/** Spec §4.12: 3–7 days per week; 25 / 50 / 90 / 120 minutes per day. */
+const DaysPerWeek = z.number().int().min(3).max(7);
+const MinPerDay = GoalMinutes;
 export const BelofteOfferResponse = z.strictObject({
   offer: z.strictObject({ suggested_days: DaysPerWeek, suggested_min: MinPerDay, trigger: BelofteTrigger }).optional(),
 });

@@ -20,6 +20,7 @@ import {
   FlagCode,
   FlagDecision,
   FocusDay,
+  GoalMinutes,
   HarmCode,
   Instant,
   InviteSource,
@@ -79,7 +80,7 @@ const Card = o({ card_id: Ulid, aanleiding: CardKind, velden_aan: z.array(z.enum
 const Toggle = o({ aan: z.boolean() });
 const Pause = o({ squad_id: Ulid, dagen_inactief: NonNegInt });
 const Appeal = o({ object_id: Ulid, uitkomst: AppealOutcome.optional() });
-const Suggestion = o({ voorgesteld: PosInt, huidig: PosInt });
+const Suggestion = o({ voorgesteld: GoalMinutes, huidig: GoalMinutes });
 
 export const EVENT_TAXONOMY = {
   // Invitations and registration
@@ -113,7 +114,7 @@ export const EVENT_TAXONOMY = {
   rest_period_notice_shown: client(o({ arm_rest: ArmRest })),
   arm_switched: server(o({ factor: ExperimentFactor, van: z.string().max(16), naar: z.string().max(16), reden: ArmSwitchReason })),
   practice_completed: server(Empty),
-  daily_goal_set: server(o({ minuten: PosInt, bron: z.enum(['onboarding', 'voorstel', 'zelf']), overmoed_bevestigd: z.boolean() })),
+  daily_goal_set: server(o({ minuten: GoalMinutes, bron: z.enum(['onboarding', 'voorstel', 'zelf']), overmoed_bevestigd: z.boolean() })),
   goal_suggestion_shown: client(Suggestion),
   goal_suggestion_accepted: server(Suggestion),
 
@@ -177,7 +178,7 @@ export const EVENT_TAXONOMY = {
 
   // Belofte
   belofte_offered: client(o({ trigger: z.enum(['vroeg', 'laat', 'buiten_experiment']), squadstatus: z.union([SquadStatus, z.literal('geen')]) })),
-  belofte_made: server(o({ dagen_per_week: z.number().int().min(1).max(7), min_per_dag: PosInt, getuigen: BelofteWitnesses, verhouding_tot_historie: z.number().nonnegative().nullable() })),
+  belofte_made: server(o({ dagen_per_week: z.number().int().min(3).max(7), min_per_dag: GoalMinutes, getuigen: BelofteWitnesses, verhouding_tot_historie: z.number().nonnegative().nullable() })),
   belofte_day_result: server(o({ gehaald: z.boolean() })),
   belofte_reflection: server(o({ actie: BelofteReflectionAction, stake_interest: StakeInterest.optional() })),
   belofte_stopped: server(o({ dag: FocusDay })),
