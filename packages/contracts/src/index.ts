@@ -1,11 +1,12 @@
-// Public surface of @rewarded/contracts: zod schemas per API module, error codes, event taxonomy.
-// Owner: WP-2 (architecture §12.1). Frozen on day 2 as tag contracts-v1.
+// Public surface of @rewarded/contracts: zod schemas per API module, error codes, event taxonomy,
+// route registry, typed API client and mock client. Owner: WP-2 (architecture §12.1); frozen as contracts-v1.
+export * from './common.ts';
 export * from './errors.ts';
+export * from './route.ts';
 export * from './events.ts';
 export * from './auth.ts';
 export * from './waitlist.ts';
 export * from './dev.ts';
-export * from './events.ts';
 export * from './sessions.ts';
 export * from './points.ts';
 export * from './catalog.ts';
@@ -21,9 +22,14 @@ export * from './belofte.ts';
 export * from './cards.ts';
 export * from './referral.ts';
 export * from './reminders.ts';
+export * from './surveys.ts';
 export * from './fraud.ts';
 export * from './draws.ts';
 export * from './privacy.ts';
 export * from './kpi.ts';
 export * from './support.ts';
 export * from './admin.ts';
+export * from './routes.ts';
+export * from './client.ts';
+export * from './mock.ts';
+export * from './examples.ts';

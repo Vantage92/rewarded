@@ -1,0 +1,68 @@
+{
+  "$schema": "../../node_modules/oxlint/configuration_schema.json",
+  "extends": ["../../.oxlintrc.json"],
+  "overrides": [
+    {
+      "files": ["src/**"],
+      "rules": {
+        "no-restricted-imports": [
+          "error",
+          {
+            "patterns": [
+              { "group": ["node:*", "bun:*", "deno:*"], "message": "packages/core may not use Node or runtime APIs (architecture §2)." },
+              {
+                "group": [
+                  "assert", "assert/*", "async_hooks", "buffer", "child_process", "cluster", "console", "crypto", "dgram", "diagnostics_channel", "dns", "dns/*",
+                  "events", "fs", "fs/*", "http", "http2", "https", "inspector", "module", "net", "os", "path", "path/*", "perf_hooks", "process",
+                  "querystring", "readline", "repl", "sqlite", "stream", "stream/*", "string_decoder", "timers", "timers/*", "tls", "tty", "url", "util", "util/*",
+                  "v8", "vm", "wasi", "worker_threads", "zlib"
+                ],
+                "message": "Node built-ins are not allowed in core (architecture §2)."
+              },
+              {
+                "group": ["react", "react/*", "react-dom", "react-dom/*", "react-router", "react-router-dom", "hono", "hono/*", "better-sqlite3", "idb", "@tanstack/*", "@rewarded/api", "@rewarded/api/*", "@rewarded/web", "@rewarded/web/*", "@rewarded/contracts", "@rewarded/contracts/*"],
+                "message": "core stays free of UI, HTTP, storage and contracts (contracts depends on core, never the reverse; architecture §2)."
+              }
+            ]
+          }
+        ],
+        "no-restricted-globals": [
+          "error",
+          { "name": "window", "message": "No DOM in core (architecture §2)." },
+          { "name": "self", "message": "No DOM in core (architecture §2)." },
+          { "name": "document", "message": "No DOM in core (architecture §2)." },
+          { "name": "navigator", "message": "No DOM in core (architecture §2)." },
+          { "name": "location", "message": "No DOM in core (architecture §2)." },
+          { "name": "history", "message": "No DOM in core (architecture §2)." },
+          { "name": "localStorage", "message": "No DOM in core (architecture §2)." },
+          { "name": "sessionStorage", "message": "No DOM in core (architecture §2)." },
+          { "name": "indexedDB", "message": "No DOM in core (architecture §2)." },
+          { "name": "fetch", "message": "No I/O in core (architecture §2)." },
+          { "name": "XMLHttpRequest", "message": "No I/O in core (architecture §2)." },
+          { "name": "WebSocket", "message": "No I/O in core (architecture §2)." },
+          { "name": "crypto", "message": "No platform crypto or randomness in core; take a Random or a seed (architecture §2)." },
+          { "name": "process", "message": "No Node APIs in core (architecture §2)." },
+          { "name": "Buffer", "message": "No Node APIs in core (architecture §2)." },
+          { "name": "global", "message": "No Node APIs in core (architecture §2)." },
+          { "name": "require", "message": "No Node APIs in core (architecture §2)." },
+          { "name": "module", "message": "No Node APIs in core (architecture §2)." },
+          { "name": "__dirname", "message": "No Node APIs in core (architecture §2)." },
+          { "name": "__filename", "message": "No Node APIs in core (architecture §2)." },
+          { "name": "setTimeout", "message": "No timers in core; pass time in (architecture §2)." },
+          { "name": "setInterval", "message": "No timers in core; pass time in (architecture §2)." },
+          { "name": "setImmediate", "message": "No timers in core; pass time in (architecture §2)." },
+          { "name": "requestAnimationFrame", "message": "No timers in core; pass time in (architecture §2)." },
+          { "name": "performance", "message": "No clocks in core; pass time in (architecture §2)." }
+        ],
+        "no-restricted-properties": [
+          "error",
+          { "object": "Date", "property": "now", "message": "No Date.now() in core: take a Clock or a timestamp (architecture §2)." },
+          { "object": "Math", "property": "random", "message": "No Math.random() in core: take a Random or a seed (architecture §2)." },
+          { "object": "globalThis", "property": "process", "message": "No Node APIs in core (architecture §2)." },
+          { "object": "globalThis", "property": "window", "message": "No DOM in core (architecture §2)." },
+          { "object": "globalThis", "property": "document", "message": "No DOM in core (architecture §2)." }
+        ]
+      }
+    }
+  ]
+}

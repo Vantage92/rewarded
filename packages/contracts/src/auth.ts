@@ -1,2 +1,145 @@
-// Stub (WP-0). Request and response schemas for /api/v1/auth; owner WP-2.
-export {};
+// /api/v1/auth and the profile routes under /me (architecture §8.2 "Wachtlijst, auth, onboarding en profiel").
+import { z } from 'zod';
+import {
+  AgeBand,
+  ArmBelofte,
+  ArmBonus,
+  ArmPrompt,
+  ArmRest,
+  Email,
+  Empty,
+  ExperimentUnit,
+  FeatureFlags,
+  FocusDay,
+  Instant,
+  Locale,
+  NoContent,
+  ShortText,
+  SquadStatus,
+  Token,
+  Ulid,
+  VersionTag,
+} from './common.ts';
+import { defineRoutes } from './route.ts';
+
+const SixDigitCode = z.string().regex(/^\d{6}$/);
+/** Daily goal in minutes (spec §4.2; overreach brake asks for confirmation above the suggestion). */
+export const DailyGoalMin = z.number().int().min(10).max(600);
+
+export const MagicLinkRequest = z.strictObject({ email: Email, locale: Locale, invite_token: Token.optional() });
+export const ConfirmLinkRequest = z.strictObject({ token: Token });
+export const LoginCodeRequest = z.strictObject({ email: Email, code: SixDigitCode });
+export const LoginResponse = z.strictObject({ next: z.enum(['/onboarding', '/']) });
+
+export const UserSettings = z.strictObject({
+  compare_opt_in: z.boolean(),
+  silent_mode: z.boolean(),
+  squad_name_on_cards: z.boolean(),
+  no_points_mode: z.boolean(),
+  email_reminders: z.boolean(),
+  locale: Locale,
+});
+export const MeUser = z.strictObject({
+  id: Ulid,
+  first_name: ShortText,
+  last_name: ShortText.nullable(),
+  email: Email,
+  locale: Locale,
+  is_team: z.boolean(),
+  is_admin: z.boolean(),
+  daily_goal_min: DailyGoalMin,
+  phone_verified: z.boolean(),
+  institution_domain: z.string().max(253).nullable(),
+  research_opted_out: z.boolean(),
+  created_at: Instant,
+});
+export const MeSquad = z.strictObject({ id: Ulid, name: ShortText, status: SquadStatus });
+export const MeClub = z.strictObject({ id: Ulid, name: ShortText, status: z.enum(['linked', 'pending_admin']) });
+export const MeResponse = z.strictObject({
+  /** null while the session is `pre` (login confirmed, onboarding not done). */
+  user: MeUser.nullable(),
+  age_band: AgeBand.nullable(),
+  settings: UserSettings.nullable(),
+  squad: MeSquad.optional(),
+  club: MeClub.optional(),
+  flags: FeatureFlags,
+  onboarding_complete: z.boolean(),
+});
+
+export const OnboardingRequest = z.strictObject({
+  first_name: ShortText,
+  last_name: ShortText.optional(),
+  /** Used for the age check only; never stored (architecture §3.1). */
+  birth_date: z.iso.date(),
+  terms_version: VersionTag,
+  privacy_version: VersionTag,
+  research_info_version: VersionTag,
+  daily_goal_min: DailyGoalMin,
+  confirm_overreach: z.boolean().optional(),
+  silent_mode: z.boolean().optional(),
+});
+export const ExperimentAssignmentDto = z.strictObject({
+  unit: ExperimentUnit,
+  arm_bonus: ArmBonus,
+  arm_belofte: ArmBelofte,
+  arm_rest: ArmRest,
+  arm_prompt: ArmPrompt,
+  block: z.string().max(64),
+});
+export const OnboardingResponse = z.strictObject({ user: MeUser, assignment: ExperimentAssignmentDto });
+
+export const SettingsPatch = z
+  .strictObject({
+    compare_opt_in: z.boolean().optional(),
+    silent_mode: z.boolean().optional(),
+    squad_name_on_cards: z.boolean().optional(),
+    no_points_mode: z.boolean().optional(),
+    email_reminders: z.boolean().optional(),
+    locale: Locale.optional(),
+  })
+  .refine((v) => Object.keys(v).length > 0, { message: 'empty_patch' });
+export const SettingsResponse = z.strictObject({ settings: UserSettings });
+
+export const ResearchOptOutRequest = z.strictObject({ confirm: z.literal(true) });
+export const ResearchOptOutResponse = z.strictObject({ opted_out_at: Instant, effective_from_day: FocusDay });
+
+export const authRoutes = defineRoutes({
+  'auth.magicLink': {
+    module: 'auth', method: 'POST', path: '/auth/magic-link', auth: ['public'],
+    body: MagicLinkRequest, response: Empty, responseKind: 'json', status: [202],
+    errors: ['VALIDATION_FAILED', 'RATE_LIMITED', 'INVITE_REQUIRED'], spec: 'arch §8.2, §10.1',
+  },
+  'auth.confirm': {
+    module: 'auth', method: 'POST', path: '/auth/confirm', auth: ['public'],
+    body: ConfirmLinkRequest, response: LoginResponse, responseKind: 'json', status: [200],
+    errors: ['LINK_INVALID', 'LINK_EXPIRED'], spec: 'arch §8.2, §10.1',
+  },
+  'auth.code': {
+    module: 'auth', method: 'POST', path: '/auth/code', auth: ['public'],
+    body: LoginCodeRequest, response: LoginResponse, responseKind: 'json', status: [200],
+    errors: ['CODE_INVALID', 'CODE_EXPIRED', 'TOO_MANY_ATTEMPTS'], spec: 'arch §8.2, §10.1',
+  },
+  'auth.logout': {
+    module: 'auth', method: 'POST', path: '/auth/logout', auth: ['student', 'pre'],
+    response: NoContent, responseKind: 'empty', status: [204], errors: [], spec: 'arch §8.2',
+  },
+  'me.get': {
+    module: 'auth', method: 'GET', path: '/me', auth: ['student', 'pre'],
+    response: MeResponse, responseKind: 'json', status: [200], errors: ['AUTH_REQUIRED'], spec: 'arch §8.2',
+  },
+  'me.onboarding': {
+    module: 'auth', method: 'POST', path: '/onboarding', auth: ['pre'],
+    body: OnboardingRequest, response: OnboardingResponse, responseKind: 'json', status: [201],
+    errors: ['AGE_BELOW_MINIMUM', 'TERMS_OUTDATED', 'VALIDATION_FAILED', 'OVERREACH_CONFIRM_REQUIRED'], spec: 'arch §8.2, spec §3.1',
+  },
+  'me.settings': {
+    module: 'auth', method: 'PATCH', path: '/me/settings', auth: ['student'],
+    body: SettingsPatch, response: SettingsResponse, responseKind: 'json', status: [200],
+    errors: ['VALIDATION_FAILED'], spec: 'arch §8.2, spec §4.10',
+  },
+  'me.researchOptOut': {
+    module: 'auth', method: 'POST', path: '/me/research-opt-out', auth: ['student'],
+    body: ResearchOptOutRequest, response: ResearchOptOutResponse, responseKind: 'json', status: [200],
+    errors: ['ALREADY_OPTED_OUT'], spec: 'arch §8.2, spec §7.3',
+  },
+});
