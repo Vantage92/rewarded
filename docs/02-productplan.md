@@ -88,3 +88,20 @@ Ontwerp, maten en analyses worden vóór 2 december voorgeregistreerd; een stati
 ## 9. Wat vóór 2 december buiten de bouw geregeld moet zijn
 
 Advocatenopinie over verdiende prijzen op deelnamegraad, de verliesarm, "zolang de voorraad strekt" en de vervaldatum; voorlegging van de trekkingsstructuur aan de Kansspelautoriteit; DPIA inclusief de rol van de vereniging en de bewaartermijnen; verwerkersovereenkomsten voor e-mail en sms; getekende partnerbijdragen of mijn eigen pilotbudget als dekking van de catalogus; toesteltest van Wake Lock en zichtbaarheid op minstens één iPhone (Safari en Home Screen-app) en twee Android-toestellen; de merkentoets; de voorregistratie; en de bevestiging van de tentamenweken per vereniging.
+
+## 10. Aanvullende besluiten na de tegenlezing van UX en architectuur (5 november 2026)
+
+| Punt | Besluit |
+|---|---|
+| Live aanwezigheid in de squad standaard aan | Ja, ook voor 16- en 17-jarigen; de stille modus staat één tik verderop en wordt in de onboarding genoemd. |
+| Eindsignaal van de sessie | Standaard aan (toon plus licht eindscherm), zodat de student merkt dat de sessie klaar is en de claimvertraging eerlijke gebruikers niet markeert. |
+| Dagafsluiting | Eén definitieve run om 05:45 met een respijt voor sessies die over 04:00 heen lopen; de focusdag blijft 04:00–04:00. |
+| Bestuurscijfers | Werving per dag, afgerond op vijftallen en alleen bij minstens vijf leden; kwaliteit per week. |
+| Campusnetwerken en heuristieken | De uitzondering voor campusnetwerken geldt via netwerkklassen (CIDR-lijsten die we vóór 25 november bij de instellingen opvragen) en wordt uitgebreid naar mobiele CGNAT-bereiken en de heuristieken H7 en H10, om valse markeringen op campus te voorkomen. |
+| Magic link | Token in het URL-fragment, verbruikt met een tik, plus een code van zes cijfers als terugval voor toestellen waar de link in een andere browsercontext opent. |
+| Teamomvang | We plannen met drie ontwikkelaars; met twee gelden de extra schrappingen uit de architectuur (minimale beheer-UI, KPI's als script). |
+| Herinneringsmail | Eén per dag, standaard 19:30, door de gebruiker uit te zetten. |
+| Loting | Commit-reveal plus een openbare externe beacon na de sluiting; de jurist beoordeelt of dat volstaat in de spelvoorwaarden. |
+| Derde beoordelaar bij beroep | Een extern adviseur (jurist) als derde beoordelaar na een bevestigde blokkade; vastleggen in de DPIA vóór 2 december. |
+| Wachtlijst | Tot de wachtlijst-API live is (uiterlijk 12 november) loopt de aanmelding via een eenvoudig formulier dat we importeren; de A/B-toewijzing begint pas met de eigen pagina. |
+| Partnerkortingen in de catalogus | Alleen als de jurist bevestigt dat een korting op een specifiek product geen vrij besteedbaar tegoed is; anders alleen vouchers voor een specifiek product of een fysieke beloning. |
