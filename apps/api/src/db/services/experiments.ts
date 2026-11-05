@@ -164,18 +164,17 @@ export class SqlExperimentService implements ExperimentService {
     for (const s of switches) {
       if (s.factor === 'bonus' || s.factor === 'belofte' || s.factor === 'rest' || s.factor === 'prompt') (arms as unknown as Record<string, string>)[s.factor] = s.to;
     }
-    const optedOut = ctx.optedOut || switches.length > 0 && this.hasOptOut(ctx.userId);
+    // The opt-out takes effect from the next focus day (spec §4.10); the switch rows carry that day.
+    const optOut = this.db.get<{ effective_from_day: string | null }>("SELECT effective_from_day FROM arm_switch WHERE user_id = ? AND reason = 'opt_out' LIMIT 1", [ctx.userId]);
+    const optedOut = optOut ? optOut.effective_from_day === null || optOut.effective_from_day <= today : ctx.optedOut;
     if (ctx.ageBand === '16_17' || optedOut) {
       arms.bonus = 'A';
       arms.rest = 'continue';
     }
     if (optedOut) arms.belofte = 'early';
-    if (this.armBStoppedFrom() !== null && this.armBStoppedFrom()! <= today) arms.bonus = 'A';
+    const stoppedFrom = this.armBStoppedFrom();
+    if (stoppedFrom !== null && stoppedFrom <= today) arms.bonus = 'A';
     return arms;
-  }
-
-  private hasOptOut(userId: string): boolean {
-    return this.db.get("SELECT 1 AS x FROM arm_switch WHERE user_id = ? AND reason = 'opt_out'", [userId]) !== undefined;
   }
 
   /** First focus day without arm B, or null while arm B runs. */

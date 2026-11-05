@@ -49,6 +49,8 @@ export interface MigrateOptions {
   clock: Clock;
   /** Tolerate applied versions that no longer exist on disk (switching branches in dev). */
   allowMissing?: boolean;
+  /** Apply only these versions (tests of one work package). */
+  only?: (version: string) => boolean;
 }
 
 export interface MigrationStatus {
@@ -85,11 +87,11 @@ export function migrate(db: Db, opts: MigrateOptions): { applied: string[] } {
   const done = new Map(
     db.all<{ version: string; checksum: string }>('SELECT version, checksum FROM schema_migration').map((r) => [r.version, r.checksum]),
   );
-  const all = loadMigrations(opts.dir);
+  const all = loadMigrations(opts.dir).filter((m) => opts.only?.(m.version) ?? true);
   for (const m of all) {
     if (migrationOwner(m.version) === undefined) throw new Error(`Migration ${m.version}_${m.name} is outside every work-package range`);
   }
-  if (!opts.allowMissing) {
+  if (!opts.allowMissing && !opts.only) {
     const onDisk = new Set(all.map((m) => m.version));
     const missing = [...done.keys()].filter((v) => !onDisk.has(v));
     if (missing.length > 0) throw new Error(`Applied migrations missing on disk: ${missing.join(', ')}`);

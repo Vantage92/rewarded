@@ -1,19 +1,19 @@
 # Rewarded — Spelvoorwaarden promotioneel kansspel (sjabloon, niet in gebruik)
 
-*Sjabloon van het juridische team, stand 5 november 2026, versie 0.3 (ronde 2). **Dit is geen juridisch advies.** Dit sjabloon is alleen bedoeld voor het geval dat trekkingen ooit aangaan. **Trekkingen staan uit en de trekkingsmodule wordt niet gebouwd** (founder-reactie, besluit 3, S9 en J4). Gebaseerd op `docs/pitch/ronde-1-jurist.md` (must-fix 4 en 6), `docs/pitch/ronde-2-jurist.md` (J4 opgelost; should-fix 6 en 12), `docs/pitch/ronde-2-founder-reactie.md` (J6, J12), `docs/research/02-businessmodel-juridisch-unit-economics.md` (§2.1, §2.2, §2.6) en `docs/research/05-productspecificatie.md` (versie 1.1, §3.9).*
+*Sjabloon van het juridische team, stand 4 november 2026, versie 0.4 (ronde 3). **Dit is geen juridisch advies.** Dit sjabloon is alleen bedoeld voor het geval dat trekkingen ooit aangaan. **Trekkingen staan uit en de trekkingsmodule wordt niet gebouwd** (founder-reactie, besluit 3, S9 en J4). Gebaseerd op `docs/pitch/ronde-1-jurist.md` (must-fix 4 en 6), `docs/pitch/ronde-2-jurist.md` (J4 opgelost; should-fix 6 en 12), `docs/pitch/ronde-2-founder-reactie.md` (J6, J12), `docs/research/02-businessmodel-juridisch-unit-economics.md` (§2.1, §2.2, §2.6), `docs/research/05-productspecificatie.md` (versie 1.1, §3.9) en `docs/pitch/ronde-3-jurist.md` (kansspelbelasting en app-storeregels). De founder-reactie van ronde 3 verandert niets aan trekkingen.*
 
 ## Voordat dit sjabloon ooit wordt gebruikt
 
 Dit sjabloon mag pas worden ingevuld en gepubliceerd als **alle** onderstaande voorwaarden schriftelijk vastliggen. Dat is de beslisregel uit de founder-reactie (J4): **geen schriftelijke advocatenopinie plus geen expliciete, schriftelijke reactie van de Kansspelautoriteit betekent dat trekkingen uit blijven. Stilte is nee.**
 
-| # | Voorwaarde | Status op 5 november 2026 |
+| # | Voorwaarde | Status op 4 november 2026 |
 |---|---|---|
 | 1 | Schriftelijke advocatenopinie over de gekozen structuur (**vraag advocaat** 12) | Niet aangevraagd voor trekkingen; staat in de vragenlijst |
 | 2 | Expliciete, schriftelijke reactie van de Kansspelautoriteit op de voorgelegde structuur | Niet voorgelegd. De Ksa geeft voor zover bekend geen bindende rulings op promotionele kansspelen (**niet geverifieerd**, jurist must-fix 4) |
-| 3 | Toets door de fiscalist van de vrijstelling in art. 4 Wet op de kansspelbelasting en de samentelling van prijzen in art. 4 lid 2 op de gekozen structuur | Niet gedaan. Het bedrag van de vrijstelling in art. 4 lid 1 is **niet geverifieerd** (jurist, verificatie en beperkingen) |
+| 3 | Toets door de fiscalist van het tarief (art. 5), de vrijstelling in art. 4 Wet op de kansspelbelasting en de samentelling van prijzen in art. 4 lid 2 op de gekozen structuur | Niet gedaan. Het bedrag van de vrijstelling in art. 4 lid 1 is **niet geverifieerd** (jurist, verificatie en beperkingen). Het tarief: zie §5.3 |
 | 4 | Besluit van de founder | Niet genomen; trekkingen zijn buiten deze ronde |
 | 5 | Trekkingsmodule gebouwd en getest (commit-reveal, beacon, terugvalregel, reservewinnaars) | Niet gebouwd; alleen een lege plek in datamodel en vlag. De jurist bevestigde in ronde 2 dat `draws` altijd uit staat en geen route heeft |
-| 6 | Rechtspersoon die organisator kan zijn | Nog niet opgericht; actie founder vóór 18 november 2026 (founder-reactie ronde 2, J6) |
+| 6 | Rechtspersoon die organisator kan zijn | Actie founder vóór 18 november 2026 (founder-reactie ronde 2, J6); op 4 november **niet te controleren** of die er is (jurist ronde 3, verificatie) |
 | 7 | Google Play-beleid voor prijzen en kansspelen primair gelezen, als er een Android-app komt | Niet gedaan; in geen enkele sessie primair gelezen (jurist ronde 2, should-fix 12) |
 
 **Structuur die dit sjabloon aanneemt.** Eén promotioneel kansspel per jaar voor Rewarded, met **hoogstens twintig trekkingen** en een **totale prijzenpot onder €100.000**, volgens art. 2 van de Gedragscode promotionele kansspelen 2014 zoals weergegeven in WODC 2024 (rapport 02 §2.2). **Niet** een reeks kleine spellen van hoogstens €4.500 elk: de jurist wijst die af omdat de Ksa zo'n opdeling volgens WODC als ondermijning van het vergunningenstelsel ziet. De Gedragscode staat niet in de BWB en is in deze sessies alleen via WODC 2024 gelezen (**niet geverifieerd** in de primaire tekst).
@@ -86,7 +86,7 @@ Dit sjabloon mag pas worden ingevuld en gepubliceerd als **alle** onderstaande v
 
 5.2 Prijzen zijn nooit geld, nooit vrij besteedbaar tegoed en niet om te wisselen voor geld.
 
-5.3 **Kansspelbelasting** betaalt Rewarded. Jij betaalt niets. [Art. 5 Wet op de kansspelbelasting, toestand 1 januari 2026: tarief 37,8%; neemt de organisator de belasting voor zijn rekening, dan wordt de prijs vermenigvuldigd met 100/62,2 (rapport 02 §2.2, door de jurist in de BWB bevestigd). Of en hoe de vrijstelling van art. 4 van toepassing is en hoe art. 4 lid 2 de prijzen samentelt: fiscalist, voorwaarde 3.]
+5.3 **Kansspelbelasting** betaalt Rewarded. Jij betaalt niets. [Art. 5 Wet op de kansspelbelasting, toestand 1 januari 2026: "1 De belasting bedraagt 37,8 percent." en lid 2: neemt degene die de prijs verschuldigd is de belasting voor zijn rekening, dan wordt de prijs "met 100/62,2 vermenigvuldigd" (rapport 02 §2.2). De jurist bevestigde dit in ronde 1 in de BWB; in ronde 3 gaf de BWB-tool hem alleen de toestand van 1 januari 2025 (34,2%, factor 100/65,8), en hij markeerde het percentage daarom als niet door hem bevestigd. Het juridische team heeft op 4 november 2026 de toestand van 1 januari 2026 (geldig vanaf 2026-01-01, zonder einddatum) zelf in de BWB opgehaald (BWBR0002359, artikel 5) en de tekst hierboven gelezen: 37,8% en 100/62,2 kloppen voor 2026. Voor het jaar van een eventueel spel controleert de fiscalist het tarief opnieuw. Of en hoe de vrijstelling van art. 4 van toepassing is en hoe art. 4 lid 2 de prijzen samentelt: fiscalist, voorwaarde 3.]
 
 ### 6. Hoe de winnaars worden bepaald
 
@@ -109,9 +109,9 @@ Dit sjabloon mag pas worden ingevuld en gepubliceerd als **alle** onderstaande v
 
 - dat alle sessies die meetelden voor je weekdoel niet zijn afgekeurd;
 - dat je telefoonnummer is bevestigd;
-- dat er geen overlap is in netwerk of telefoonnummer met andere winnende accounts;
+- dat er geen overlap is in netwerk, telefoonnummer of instellingsadres met andere winnende accounts, en geen sessies die tegelijk liepen met die van andere accounts op hetzelfde netwerk en soort toestel (signaal H12, gebruiksvoorwaarden §8.2);
 - dat je 18 of ouder bent, **zonder een kopie van je identiteitsbewijs te bewaren en zonder je BSN** [**vraag advocaat** 8];
-- dat een medewerker heeft gekeken.
+- dat een medewerker heeft gekeken die geen persoonlijk belang heeft bij jou (`geheimhoudingsverklaring-pilotbeheerder.md`).
 
 7.2 Voldoe je niet aan de voorwaarden, dan gaat de prijs naar de eerste reservewinnaar. Je krijgt de reden en kunt binnen 14 dagen in beroep, zoals in de gebruiksvoorwaarden §8.6.
 
@@ -170,3 +170,4 @@ Rewarded verandert deze spelvoorwaarden tijdens het spel niet ten nadele van de 
 | ronde 1 (eindredactie) | 5 november 2026 | Verouderde verwijzingen naar spec §4.7, de beheeromgeving en architectuur §10.6 vervangen door de huidige stand (spec 1.1 §3.9, architectuur 1.2 §7: geen trekkingen in de bouw). Inhoud van het sjabloon ongewijzigd. Versie 0.2. |
 | ronde 2 | 5 november 2026 | Herzien volgens `docs/pitch/ronde-2-founder-reactie.md` en `docs/pitch/ronde-2-jurist.md`. De jurist geeft J4 (trekkingen) als opgelost; het sjabloon blijft een sjabloon. Statustabel bijgewerkt en aangevuld met voorwaarde 6 (rechtspersoon, J6) en 7 (Google Play-beleid primair lezen vóór de Android-bouw, J12). Nieuw voorstel: geen trekking zolang er een onderzoek met geloote groepen loopt. §1.3 en §3.2 aangevuld met de bronverwijzingen. Inhoud van de spelvoorwaarden zelf (18+, gratis, Apple-verklaring, commit-reveal) ongewijzigd. Versie 0.3. |
 | ronde 2 (eindredactie) | 5 november 2026 | Verwijzingen naar de bouwdocumenten bijgewerkt naar spec 1.2 (§3.9) en architectuur 1.3 (§7), die nog steeds geen trekkingen bouwen (J11). Inhoud van het sjabloon ongewijzigd. Kopregel en ronde-2-regel gedateerd op 5 november, de datum van de founder-reactie. |
+| ronde 3 | 4 november 2026 | Bijgewerkt na `docs/pitch/ronde-3-jurist.md` en `docs/pitch/ronde-3-founder-reactie.md`; trekkingen blijven uit en het sjabloon blijft een sjabloon. §5.3: het tarief van 37,8% en de factor 100/62,2 zijn door het juridische team in de BWB nagelezen (toestand 1 januari 2026), omdat de jurist ze in ronde 3 niet kon bevestigen; fiscalist controleert opnieuw voor het jaar van het spel. Statustabel: datum, voorwaarde 3 (tarief) en 6 (rechtspersoon niet te controleren). §7.1: overlap ook op instellingsadres en H12 als overlap van sessies (should-fix 1 en 2); controle door een medewerker zonder belang (should-fix 6). 18+, gratis deelname, Apple-verklaring en commit-reveal ongewijzigd. Versie 0.4. |

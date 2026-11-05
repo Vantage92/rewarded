@@ -1,6 +1,6 @@
 # Rewarded — Challengevoorwaarden (concept voor de advocaat)
 
-*Concept van het juridische team, stand 5 november 2026, versie 0.3 (ronde 2). **Dit is geen juridisch advies.** Dit is een concepttekst die de advocaat nog moet beoordelen en die pas geldt als de founder hem vaststelt. Gebaseerd op `docs/pitch/ronde-1-jurist.md` (must-fix 2 en 6), `docs/pitch/ronde-2-jurist.md` (should-fix 1, 3, 4, 5, 10 en 11), de besluiten in `docs/pitch/ronde-1-founder-reactie.md` (J1, J2, J3, J6, JS2, en de aanvulling van 5 november) en `docs/pitch/ronde-2-founder-reactie.md` (besluiten 1–3; J1, J3, J4, J5, J6, J10, J11; MF3, MF5), `docs/02-productplan.md` (§3, §4) en `docs/research/05-productspecificatie.md` (§3.8, §4.3, §4.6, §4.7, §6). Uiterlijk 18 november 2026 naar de advocaat.*
+*Concept van het juridische team, stand 4 november 2026, versie 0.4 (ronde 3). **Dit is geen juridisch advies.** Dit is een concepttekst die de advocaat nog moet beoordelen en die pas geldt als de founder hem vaststelt. Gebaseerd op `docs/pitch/ronde-1-jurist.md` (must-fix 2 en 6), `docs/pitch/ronde-2-jurist.md` (should-fix 1, 3, 4, 5, 10 en 11), de besluiten in `docs/pitch/ronde-1-founder-reactie.md` (J1, J2, J3, J6, JS2, en de aanvulling van 5 november) en `docs/pitch/ronde-2-founder-reactie.md` (besluiten 1–3; J1, J3, J4, J5, J6, J10, J11; MF3, MF5), `docs/pitch/ronde-3-jurist.md` (should-fix 1, 2, 6 en 7) en `docs/pitch/ronde-3-founder-reactie.md` (jurist: alle should-fixes; gedragswetenschapper MF3 en S6), `docs/02-productplan.md` (§3, §4) en `docs/research/05-productspecificatie.md` (§3.8, §4.3, §4.6, §4.7, §6). Uiterlijk 18 november 2026 naar de advocaat.*
 
 *Leeswijzer. Deze voorwaarden gelden naast de gebruiksvoorwaarden (`gebruiksvoorwaarden.md`). Deel A gaat over de verenigingschallenge (de Blokk-challenge in januari en de aprilchallenge), deel B over individuele prestatiechallenges. Markeringen: **aanname**, **voorstel**, **werkhypothese**, **niet geverifieerd** en **vraag advocaat** (genummerd zoals in `vragen-advocatenopinie.md`). Tussen vierkante haken staat wat nog moet worden ingevuld. "De kalender van de instelling" is de pilotkalender uit de gebruiksvoorwaarden §1.5.*
 
@@ -18,7 +18,16 @@
 
 **1. Organisator.** De organisator van elke challenge is [naam rechtspersoon, KvK-nummer, adres: **in te vullen**] ("Rewarded"). Een vereniging, faculteit of partner kan een prijs betalen of leveren, maar is nooit organisator. Klachten en vragen gaan naar Rewarded: [e-mailadres: **in te vullen**]. [De rechtspersoon moet vóór 18 november 2026 bestaan; founder-reactie ronde 2, J6.]
 
-**2. Wie meedoet.** Iedereen met een Rewarded-account van 16 jaar of ouder, tenzij de financier van een prijs 18+ eist; dat staat dan bij de challenge. Medewerkers van Rewarded (ook de pilotbeheerder), campusambassadeurs en hun teamaccounts tellen niet mee. Voor de verenigingschallenge doe je mee als je je account met de code van je vereniging hebt gekoppeld. [Ambassadeurs niet meetellen is een **voorstel**; zie `ambassadeursovereenkomst.md` §3.]
+**2. Wie meedoet, en wie controleert.** Iedereen met een Rewarded-account van 16 jaar of ouder, tenzij de financier van een prijs 18+ eist; dat staat dan bij de challenge. Medewerkers van Rewarded (ook de pilotbeheerder), campusambassadeurs en hun teamaccounts tellen niet mee. Voor de verenigingschallenge doe je mee als je je account met de code van je vereniging hebt gekoppeld. [Ambassadeurs niet meetellen is een **voorstel**; zie `ambassadeursovereenkomst.md` §3.]
+
+De pilotbeheerder doet de steekproeven (A8) en leest mee bij een besluit over diskwalificatie (A9.2). Daarom geldt voor de pilotbeheerder:
+
+- hij is geen lid en geen bestuurslid van een deelnemende vereniging;
+- hij is geen campusambassadeur van Rewarded;
+- hij doet zelf niet mee aan de pilot;
+- heeft hij bij een bepaald lid, een bepaalde vereniging of een bepaald item een persoonlijk belang (bijvoorbeeld een vriend, huisgenoot of familielid, of een vereniging waarvan hij eerder lid was), dan meldt hij dat vóórdat hij aan dat item begint, en doet iemand anders dat item.
+
+[Bron: jurist ronde 3, should-fix 6; founder-reactie ronde 3, jurist ("de pilotbeheerder is geen lid van een deelnemende vereniging, geen ambassadeur en geen deelnemer"). De voorbeelden van een persoonlijk belang zijn een **voorstel**. De afspraak staat in `geheimhoudingsverklaring-pilotbeheerder.md`.]
 
 **3. Prijzen.** Elke prijs is een beloning in natura, een voucher voor één product of dienst, of iets voor de vereniging of de squad. Een prijs is **nooit geld, nooit vrij besteedbaar tegoed** en nooit om te wisselen voor geld. Bij elke challenge staat vooraf: wat de prijs is, de waarde in natura, wie de prijs betaalt (de financier) en wanneer hij wordt geleverd.
 
@@ -42,7 +51,7 @@ Studieverenigingen strijden in de tentamenweken om de hoogste deelnamegraad. De 
 
 ### A2. Periodes
 
-De periodes hangen af van de tentamenkalender van de instelling waaraan de vereniging verbonden is. Welke kalender geldt, staat in de overeenkomst met de vereniging (`overeenkomst-verenigingen.md` §1). [Bron: founder-reactie ronde 2, besluit 1.]
+De periodes hangen af van de tentamenkalender die Rewarded voor de vereniging vastlegt: die van de instelling waaraan de vereniging verbonden is, en waar de tentamenweken per faculteit verschillen, die van de faculteit van de vereniging. Welke kalender geldt, staat in de overeenkomst met de vereniging (`overeenkomst-verenigingen.md` §1). [Bron: founder-reactie ronde 2, besluit 1; ronde 3, G-MF3 (kalender per vereniging als bron van T, N en A) en G-S6 (A per faculteit).]
 
 | Periode | Wanneer | Prijs |
 |---|---|---|
@@ -53,6 +62,7 @@ De periodes hangen af van de tentamenkalender van de instelling waaraan de veren
 
 - Een vereniging doet alleen mee om een prijs als beide weken van haar prijsperiode na de vakantiepauze vallen. [**Voorstel**: anders is de vergelijking met andere verenigingen niet eerlijk. Founder-reactie ronde 2, G1: verenigingen kiezen waarvan de kalender past, en zeggen dat expliciet.]
 - Rewarded maakt de prijsperiode van elke vereniging bekend vóór het aanloopklassement begint. Daarna verandert ze niet meer.
+- **Als de pilot later start.** De pilot start op 2 december 2026, uiterlijk op 9 december; lukt dat niet, dan op 4 januari 2027 (gebruiksvoorwaarden §1.4). Start de pilot op 4 januari, dan is er geen aanloopklassement in december. [**Aanname**: de januariprijsperiode van een vereniging blijft dan staan als beide weken op of na 4 januari vallen; anders doet die vereniging in januari niet om een prijs mee en alleen aan de aprilchallenge. Dat volgt uit de regel hierboven over de vakantiepauze, maar is niet door de founder besloten. De voorregistratie legt de gevolgen van de schuifregel vast; deze tekst volgt vóór de bekendmaking.]
 
 [**Niet geverifieerd**: de tentamenkalenders van de pilotinstellingen. Volgens zoekresultaten loopt periode 2 van de Universiteit Utrecht tot 7 februari 2027 en beginnen de tentamens in Groningen op 18 januari 2027. Bevestiging uiterlijk 18 november 2026 (actie founder).]
 
@@ -84,10 +94,12 @@ A4.2 De score van een vereniging in de prijsperiode is het gemiddelde van de dee
 
 A4.3 **Identiteitsanker.** Een lid telt in de prijsperiode alleen mee in de teller als het:
 
-- een e-mailadres van een hogeschool of universiteit heeft bevestigd (we bewaren alleen dat het bevestigd is en het domein, geen kopie of hash van het adres); of
+- een e-mailadres van een hogeschool of universiteit heeft bevestigd. We bewaren dat het bevestigd is, het domein en een versleutelde vingerafdruk van het adres, niet het adres zelf. **Eén instellingsadres kan maar één account verankeren**; of
 - een mobiel telefoonnummer heeft bevestigd met een sms-code (geen virtueel nummer of internetnummer).
 
 Een lid zonder anker blijft in de noemer. Elk van beide is genoeg; een telefoonnummer is dus niet nodig naast een bevestigde instellingsmail. Een lid kan het anker tot het einde van de prijsperiode toevoegen; het telt dan voor de weken waarin het anker er al was. Het anker telt in elke week van de prijsperiode die eindigt na het moment van bevestigen, dus ook in de week waarin het lid het bevestigt, maar niet terug in eerdere weken. [Bron: jurist ronde 2, should-fix 11; founder-reactie ronde 2, J11. Vastgelegd in spec §4.6 en architectuur §6.2.] [Bron: founder-reactie ronde 1, J2.]
+
+[Ronde 3: het instellingsanker is uniek per adres. Zonder vingerafdruk kon één student met één instellingsadres tien of veertig accounts verankeren, en dan beschermt het anker de teller niet (jurist ronde 3, should-fix 1). Founder-reactie ronde 3: HMAC per adres vóór 4 januari 2027, het begin van de vroegste prijsperiode; alleen de HMAC en het domein bewaard. Het telefoonnummer was al uniek per account (gebruiksvoorwaarden §5.3). **Voorstel**: een instellingsanker dat vóór de invoering is bevestigd, telt in de prijsperiode alleen als het lid het vóór 4 januari opnieuw heeft bevestigd (gebruiksvoorwaarden §8.4).]
 
 A4.4 **Vertrekken.** Wie tijdens een week zijn koppeling met de vereniging verbreekt, blijft die week in de noemer.
 
@@ -138,11 +150,11 @@ A8.2 **Verplichte steekproef.** Bij elke vereniging die volgens de voorlopige ui
 2. is het telefoonnummer een mobiel nummer;
 3. past het sessiepatroon bij een echte gebruiker;
 4. **toestelvergelijking**: passen het toestel en het soort browser van de sessies bij die van de registratie en het inloggen van dat lid;
-5. **gelijktijdige sessies** (signaal H12): liepen er sessies van meerdere accounts tegelijk vanaf hetzelfde netwerk en hetzelfde soort toestel, gestart binnen twee minuten van elkaar;
-6. een kort bericht aan het lid met de vraag zijn vereniging en squad te bevestigen. Heeft het lid een instellingsmail bevestigd, dan vragen we die opnieuw te bevestigen met een code; het adres zelf bewaren we niet;
+5. **gelijktijdige sessies** (signaal H12): liepen er sessies van meerdere accounts tegelijk vanaf hetzelfde netwerk en hetzelfde soort toestel, gemeten over de hele duur van de sessies, ongeacht wanneer ze begonnen [**werkhypothese** van de jurist: minstens 3 accounts met minstens 40 minuten overlap op minstens 2 dagen per week, met de sessies op een computer apart bekeken; de drempel volgt uit de red-teamdag];
+6. een kort bericht aan het lid met de vraag zijn vereniging en squad te bevestigen. Heeft het lid een instellingsmail bevestigd, dan vragen we die opnieuw te bevestigen met een code; het adres zelf bewaren we niet, maar met de vingerafdruk (A4.3) zien we of het hetzelfde adres is als bij de eerste bevestiging;
 7. aan elk lid in de steekproef de vraag om vanaf de eigen telefoon één oefensessie van één minuut te starten; die oefensessie telt alleen als controle. [Bron: voorregistratie §7.3 en spec §4.6; bij verschil over maten en controles geldt de voorregistratie.]
 
-[Bron: founder-reactie ronde 1, J2; ronde 2, J1 (H12, toestelvergelijking, oefensessie) en J4 (contact via het instellingsadres). **Voorstel**: het lid heeft [5 werkdagen] om te reageren.]
+[Bron: founder-reactie ronde 1, J2; ronde 2, J1 (H12, toestelvergelijking, oefensessie) en J4 (contact via het instellingsadres); ronde 3, jurist should-fix 1 (vingerafdruk) en 2 (H12 op overlap: "vrijwel tegelijk beginnen" wordt "tegelijk lopen"). **Voorstel**: het lid heeft [5 werkdagen] om te reageren.]
 
 A8.3 **Wat de steekproef kan opleveren.**
 
@@ -170,9 +182,9 @@ A9.2 **Hoor en wederhoor.** Voordat we een vereniging diskwalificeren:
 
 1. sturen we de contactpersoon in het bestuur een schriftelijk bericht met wat we hebben gevonden en waarom we diskwalificatie overwegen, zonder persoonsgegevens van individuele leden die het bestuur niet al kent;
 2. kan het bestuur binnen **5 werkdagen** schriftelijk reageren en uitleg of bewijs aanleveren; op verzoek voeren we ook een gesprek;
-3. beslist een medewerker van Rewarded die niet bij de steekproef betrokken was, en leest een tweede medewerker mee (vier ogen). Het besluit is schriftelijk gemotiveerd.
+3. beslist een medewerker van Rewarded die niet bij de steekproef betrokken was, en leest een tweede medewerker mee (vier ogen). Het besluit is schriftelijk gemotiveerd. Wie meeleest, heeft geen belang bij de vereniging (Algemeen 2). Heeft de pilotbeheerder bij deze vereniging een belang gemeld, dan leest hij niet mee, en leest een andere persoon mee die geheimhouding heeft afgesproken en geen belang heeft [**in te vullen**; niet de externe beoordelaar, want die beslist over het beroep].
 
-[**Voorstel** voor de termijn van 5 werkdagen; **vraag advocaat** 4a. Ronde 2: versie 0.2 liet "twee medewerkers die niet bij de steekproef betrokken waren" beslissen. Met de founder en één pilotbeheerder (founder-reactie ronde 2, MF3) zijn die er niet: de pilotbeheerder doet de steekproef. Voorstel: de founder beslist, de pilotbeheerder leest mee, en het beroep gaat naar een externe beoordelaar (A9.3).]
+[**Voorstel** voor de termijn van 5 werkdagen; **vraag advocaat** 4a. Ronde 2: versie 0.2 liet "twee medewerkers die niet bij de steekproef betrokken waren" beslissen. Met de founder en één pilotbeheerder (founder-reactie ronde 2, MF3) zijn die er niet: de pilotbeheerder doet de steekproef. Voorstel: de founder beslist, de pilotbeheerder leest mee, en het beroep gaat naar een externe beoordelaar (A9.3). Ronde 3: de onafhankelijkheid van wie meeleest (jurist ronde 3, should-fix 6). Een pilotbeheerder die lid is van een deelnemende vereniging, zou de diskwalificatie aanvechtbaar maken.]
 
 A9.3 **Beroep.** Het bestuur kan binnen **5 werkdagen** na het besluit in beroep. Een externe beoordelaar (een jurist die niet voor het team werkt en geheimhouding heeft afgesproken) beslist binnen **5 werkdagen**, gemotiveerd. [**Voorstel**; dezelfde externe beoordelaar als in de gebruiksvoorwaarden §8.6, productplan §10.]
 
@@ -217,7 +229,7 @@ A14.1 **Wat anders is.** De aprilchallenge werkt zoals A1 tot en met A13, met de
 
 A14.2 **Bekendmaking.** We maken de periodes, poules, drempel en prijzen van de aprilchallenge uiterlijk [**voorstel**: vier weken] vóór het eerste aprilvenster bekend. De regels zelf staan vanaf de eerste dag in deze voorwaarden.
 
-A14.3 **Ledental.** Het ledental van januari blijft gelden, tenzij de vereniging vóór de bekendmaking een nieuwere externe bron aanlevert. Een nieuw ledental is dan voor de hele aprilchallenge vast. [**Voorstel**.]
+A14.3 **Ledental.** Vóór de bekendmaking van de aprilchallenge (A14.2) vraagt Rewarded **zelf** bij elke vereniging het actuele externe ledental op, bij een bron uit A3.1. Dat is geen keuze van de vereniging: het nieuwe getal geldt, of het nu hoger of lager is dan in januari. Het ledental staat daarna voor de hele aprilchallenge vast en openbaar op de ranglijst (A3.3). Is er vóór de bekendmaking geen actueel extern getal te krijgen, dan blijft het januarigetal gelden. [Bron: jurist ronde 3, should-fix 7: "Maak het daarom geen keuze van de vereniging" (een bestuur levert alleen een nieuw getal aan als dat lager is); founder-reactie ronde 3, jurist: "Rewarded vraagt het externe ledental zelf op vóór de aprilchallenge". De terugval op het januarigetal is een **voorstel**; de noemer blijft het hoogste van het ledental en het aantal gekoppelde leden (A4.1). **Aanname**: de instellingen werken mee aan een tweede opvraag in het voorjaar; **niet geverifieerd**.]
 
 A14.4 **Gelijk voor iedereen in het onderzoek.** De aprilchallenge is voor de rustperiodegroep en de doorlopende groep van het onderzoek precies dezelfde: de maatstaf is de deelnamegraad, geen punten (A4.7), en de prijs is voor de vereniging. [Bron: founder-reactie ronde 2, besluit 3.]
 
@@ -302,7 +314,16 @@ Zolang de rustperiode van het onderzoek loopt (gebruiksvoorwaarden §6.4), biede
 | MF3: één pilotbeheerder, besluit met vier ogen | A9.2 |
 | MF5: post aprilchallenge | A6, A14.1 |
 
-**Niet in deze voorwaarden, wel nodig in de bouw** (productteam, ter informatie; stand spec 1.2 en architectuur 1.3, na de eindredactie van 5 november 2026): prijsperiode per vereniging uit de tentamenkalender als parameter (spec §4.6 en §4.13; architectuur §3.4 en §6.2); H12 als heuristiek (spec §6.3; architectuur §4.5); toestelvergelijking, oefensessie en herbevestiging van de instellingsmail als stappen in de verplichte steekproef (spec §4.6, §4.7 en §6.7; architectuur §6.5); anker per lid per week (A4.3; spec §4.6, architectuur §6.2); de aprilchallenge als tweede challenge met eigen periode en budgetpost (spec §4.6; architectuur §6.2); geen prestatiechallenges voor het onderzoekscohort tijdens de rustperiode (B7; spec §3.16 en §4.6, als voorstel tot de founder beslist). Nog na te gaan in de bouw: de voorlopige uitslag per poule pas na de laatste prijsperiode in die poule (A8.1) en de status "gediskwalificeerd" op de ranglijst (A9.4).
+| Besluit van de founder of punt van de jurist (ronde 3) | Paragraaf |
+|---|---|
+| Jurist should-fix 1: instellingsanker uniek per adres (HMAC), vóór 4 januari | A4.3, A8.2 punt 6 |
+| Jurist should-fix 2: H12 op overlap over de hele sessieduur | A8.2 punt 5 |
+| Jurist should-fix 6: pilotbeheerder onafhankelijk, melding van belang per item | Algemeen 2, A9.2 |
+| Jurist should-fix 7: Rewarded vraagt het externe ledental zelf op vóór de aprilchallenge | A14.3 |
+| G-MF3: kalender per vereniging; schuifregel voor de start | A2 |
+| G-S6: aprilvenster per faculteit | A2 |
+
+**Niet in deze voorwaarden, wel nodig in de bouw** (productteam, ter informatie; stand spec 1.2 en architectuur 1.3, na de eindredactie van 5 november 2026): prijsperiode per vereniging uit de tentamenkalender als parameter (spec §4.6 en §4.13; architectuur §3.4 en §6.2); H12 als heuristiek (spec §6.3; architectuur §4.5); toestelvergelijking, oefensessie en herbevestiging van de instellingsmail als stappen in de verplichte steekproef (spec §4.6, §4.7 en §6.7; architectuur §6.5); anker per lid per week (A4.3; spec §4.6, architectuur §6.2); de aprilchallenge als tweede challenge met eigen periode en budgetpost (spec §4.6; architectuur §6.2); geen prestatiechallenges voor het onderzoekscohort tijdens de rustperiode (B7; spec §3.16 en §4.6, als voorstel tot de founder beslist). Nog na te gaan in de bouw: de voorlopige uitslag per poule pas na de laatste prijsperiode in die poule (A8.1) en de status "gediskwalificeerd" op de ranglijst (A9.4). Nieuw na ronde 3 (stand 4 november 2026; spec en architectuur nog niet herzien): `institution_email_hash` met unieke index vóór 4 januari en de herbevestiging van bestaande ankers (A4.3); H12 als overlap over de sessieduur (A8.2; spec §6.3, architectuur §4.5); de melding van een belang door de pilotbeheerder per steekproefitem, met overdracht van dat item (Algemeen 2); een taak "extern ledental opvragen" per vereniging vóór de bekendmaking van de aprilchallenge (A14.3).
 
 ## Wijzigingslog
 
@@ -312,3 +333,4 @@ Zolang de rustperiode van het onderzoek loopt (gebruiksvoorwaarden §6.4), biede
 | ronde 1 (eindredactie) | 5 november 2026 | Gelijkgetrokken met de aanvulling van de founder van 5 november en spec 1.1. Versie 0.2. |
 | ronde 2 | 5 november 2026 | Herzien volgens `docs/pitch/ronde-2-founder-reactie.md` en `docs/pitch/ronde-2-jurist.md`. A2 prijsperiode per vereniging uit de tentamenkalender van de instelling, alleen verenigingen waarvan beide weken na de vakantiepauze vallen (besluit 1, G1). A4.2, A5.3, A8.1, A10.2 score per eigen prijsperiode, verschillende kalenders in één poule, uitslag per poule (besluit 1). A4.7 en A14 aprilchallenge, gelijk voor beide onderzoeksgroepen, punten tellen niet, post aprilchallenge (besluit 3, MF5). A8.2 toestelvergelijking, H12, oefensessie en herbevestiging instellingsmail in de steekproef; A8.3 gelijkgetrokken met gebruiksvoorwaarden §8.3; A8.4 en A9.1 sessies draaien voor een ander lid, ook met toestemming (J1, J4, J11). A9.2 besluit met vier ogen in plaats van twee niet-betrokken medewerkers (MF3). A7 dekking bij gedeelde eerste plaats (J10). Algemeen 7 en A11 "focustijd die telde" (J3). A12 verwijzing naar de ambassadeursovereenkomst (J5). Algemeen 1 rechtspersoon (J6). Algemeen 8 Google Play (J12). B7 geen prestatiechallenges in de rustperiode (voorstel). Versie 0.3. |
 | ronde 2 (eindredactie) | 5 november 2026 | Gelijkgetrokken met spec 1.2, architectuur 1.3, de voorregistratie (ronde 2) en `docs/pitch/ronde-2-founder-reactie.md` na een onafhankelijke samenhangcontrole. A2: prijsperiode als de twee focusweken die eindigen op T, de zondag van de laatste tentamenweek, zodat ze samenvalt met de bonusstop op maandag 04:00 (besluit 1). A4.3: aanname over het anker per week vervangen door de regel uit spec §4.6 (J11). A8.2 punt 7: oefensessie bij elk steekproeflid, zoals voorregistratie §7.3 (J1). A12: geen bestuurslid van een deelnemende vereniging, ook als die alleen in het klassement meedoet (J3 ronde 1, J5). B7: verwijzing naar de stukken waarin het voorstel nu staat. Bijlage bijgewerkt naar spec 1.2 en architectuur 1.3. Kopregel en ronde-2-regel gedateerd op 5 november, de datum van de founder-reactie. |
+| ronde 3 | 4 november 2026 | Herzien volgens `docs/pitch/ronde-3-founder-reactie.md` (alle should-fixes van de jurist overgenomen) en `docs/pitch/ronde-3-jurist.md` ("Wat beslist in de voorwaarden moet staan"). Algemeen 2: onafhankelijkheid van de pilotbeheerder met melding van een belang per item (should-fix 6). A2: kalender per vereniging, per faculteit waar die verschilt (G-MF3, G-S6); gevolg van de schuifregel voor het aanloopklassement, met een aanname voor de januariprijsperiode. A4.3: instellingsanker uniek per adres met een versleutelde vingerafdruk, herbevestiging van bestaande ankers vóór 4 januari als voorstel (should-fix 1). A8.2: H12 als overlap over de hele sessieduur met de werkhypothese van de jurist; herbevestiging met de vingerafdruk (should-fix 1 en 2). A9.2: wie meeleest heeft geen belang (should-fix 6). A14.3: Rewarded vraagt het externe ledental zelf op vóór de aprilchallenge, geen keuze van de vereniging (should-fix 7). Bijlage aangevuld. Versie 0.4. |

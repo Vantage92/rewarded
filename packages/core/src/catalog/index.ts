@@ -78,3 +78,26 @@ export function coverageShortfall(eligibleUsers: number, releasedNextWeek: numbe
 export function scheduleChangeAllowed(locked: boolean, currentWeekTotal: number, newWeekTotal: number): boolean {
   return !locked || newWeekTotal >= currentWeekTotal;
 }
+
+/** ISO week key `YYYY-Www` of a Monday (contracts WeekKey); core week keys are the Monday date. */
+export function isoWeekKey(monday: string): string {
+  const [y, m, d] = monday.split('-').map(Number) as [number, number, number];
+  const date = new Date(Date.UTC(y, m - 1, d));
+  const dow = date.getUTCDay() || 7;
+  date.setUTCDate(date.getUTCDate() + 4 - dow); // Thursday of this ISO week
+  const year = date.getUTCFullYear();
+  const week = Math.ceil(((date.getTime() - Date.UTC(year, 0, 1)) / 86_400_000 + 1) / 7);
+  return `${year}-W${String(week).padStart(2, '0')}`;
+}
+
+/** Monday date of an ISO week key `YYYY-Www`. */
+export function mondayOfIsoWeek(key: string): string {
+  const m = /^(\d{4})-W(\d{2})$/.exec(key);
+  if (!m) throw new RangeError(`invalid ISO week ${key}`);
+  const year = Number(m[1]);
+  const week = Number(m[2]);
+  const jan4 = new Date(Date.UTC(year, 0, 4));
+  const dow = jan4.getUTCDay() || 7;
+  const monday = new Date(jan4.getTime() + ((week - 1) * 7 - (dow - 1)) * 86_400_000);
+  return monday.toISOString().slice(0, 10);
+}

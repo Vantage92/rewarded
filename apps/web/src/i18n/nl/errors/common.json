@@ -1,0 +1,12 @@
+{
+  "validation_failed": "Er klopt iets niet in wat je invulde. Kijk het even na.",
+  "auth_required": "Log eerst in om verder te gaan.",
+  "forbidden": "Dit kun je met dit account niet doen.",
+  "csrf_invalid": "Je sessie is verlopen. Herlaad de pagina en probeer het opnieuw.",
+  "not_found": "Dit konden we niet vinden.",
+  "feature_disabled": "Dit staat nu nog niet aan.",
+  "idempotency_conflict": "Dit verzoek is al eens met andere gegevens verstuurd. Probeer het opnieuw.",
+  "rate_limited": "Even rustig aan: probeer het over een paar minuten opnieuw.",
+  "internal": "Er ging iets mis aan onze kant. Je gegevens zijn veilig.",
+  "maintenance": "We zijn even bezig met onderhoud. Probeer het straks opnieuw."
+}

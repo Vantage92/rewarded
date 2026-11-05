@@ -1,6 +1,6 @@
 # Rewarded — Overeenkomst met campusambassadeurs (concept voor de advocaat)
 
-*Concept van het juridische team, stand 5 november 2026, versie 0.1 (ronde 2, nieuw). **Dit is geen juridisch advies.** Dit is een concepttekst die de advocaat en de fiscalist nog moeten beoordelen. Gebaseerd op `docs/pitch/ronde-2-jurist.md` (should-fix 5), het besluit in `docs/pitch/ronde-2-founder-reactie.md` (J5: "18+, geen geldclaims, herkenbaarheid van reclame, terugvordering bij fraude, fiscale behandeling laten toetsen; concept in docs/juridisch"), `docs/pitch/ronde-1-founder-reactie.md` (J3), `docs/01-businessplan.md` §7, `docs/02-productplan.md` §4 en `docs/research/05-productspecificatie.md` §4.9.*
+*Concept van het juridische team, stand 4 november 2026, versie 0.2 (ronde 3). **Dit is geen juridisch advies.** Dit is een concepttekst die de advocaat en de fiscalist nog moeten beoordelen. Gebaseerd op `docs/pitch/ronde-2-jurist.md` (should-fix 5), het besluit in `docs/pitch/ronde-2-founder-reactie.md` (J5: "18+, geen geldclaims, herkenbaarheid van reclame, terugvordering bij fraude, fiscale behandeling laten toetsen; concept in docs/juridisch"), `docs/pitch/ronde-1-founder-reactie.md` (J3), `docs/01-businessplan.md` §7, `docs/02-productplan.md` §4 en `docs/research/05-productspecificatie.md` §4.9. Ronde 3: `docs/pitch/ronde-3-jurist.md` (should-fix 1, 7 en 9, en "Wat GO breekt") en `docs/pitch/ronde-3-founder-reactie.md` (jurist: alle should-fixes).*
 
 *Waarom dit document er is. Ambassadeurs zijn de enige plek waar Rewarded geld aan studenten betaalt: tot €200 per ambassadeur per maand, buiten de app (jurist ronde 2, should-fix 5). Dat vraagt een schriftelijke afspraak.*
 
@@ -20,7 +20,7 @@
 1. Je vertelt studenten over Rewarded en krijgt een vergoeding per student die echt meedoet.
 2. Je zegt nooit dat je met Rewarded geld verdient, en je laat bij elke post zien dat het reclame is.
 3. Je bent 18 of ouder en geen bestuurslid van een vereniging die meedoet aan de challenges van Rewarded, ook niet als die vereniging alleen in het klassement meedoet.
-4. Je krijgt je vergoeding pas na een controle. Blijkt later dat er gefraudeerd is via jouw code, dan kan Rewarded die vergoeding terugvragen.
+4. Je krijgt je vergoeding pas nadat Rewarded vijf van de studenten die via jouw code meetellen heeft gecontroleerd. Blijkt later dat er gefraudeerd is via jouw code, dan kan Rewarded die vergoeding terugvragen.
 5. Je ziet nooit wie er via jouw code binnenkwam, alleen hoeveel.
 
 ### 1. Wat de ambassadeur doet
@@ -63,12 +63,19 @@
 
 - zich via de ambassadeurscode heeft aangemeld;
 - op zijn 14e dag minstens vijf voltooide sessies heeft;
-- een instellingsanker heeft (een bevestigd e-mailadres van een hogeschool of universiteit; een telefoonnummer alleen is niet genoeg); en
-- niet als verdacht is aangemerkt in de steekproef.
+- een instellingsanker heeft (een bevestigd e-mailadres van een hogeschool of universiteit; een telefoonnummer alleen is niet genoeg). Eén instellingsadres kan maar één account verankeren (gebruiksvoorwaarden §8.4); en
+- niet als verdacht is aangemerkt in de wekelijkse steekproef of in de gerichte steekproef vóór uitbetaling (§4.3).
 
 [Bron: founder-reactie ronde 1, J3; spec §4.9.]
 
-4.3 **Wanneer er betaald wordt.** Rewarded betaalt de vergoeding pas als de wekelijkse steekproef over de week waarin de 14e dag van die studenten viel, is afgerond. Rewarded betaalt [**voorstel**: één keer per maand, uiterlijk op de 15e van de volgende maand] op het rekeningnummer van de ambassadeur.
+4.3 **Wanneer er betaald wordt.**
+
+1. *Gerichte steekproef.* Vóór elke uitbetaling kiest Rewarded willekeurig **vijf studenten** die in die periode via de code van de ambassadeur meetellen (of allemaal, als het er minder dan vijf zijn), en controleert die licht: instellingsadres, telefoonnummer, sessiepatroon, de toestelvergelijking en gelijktijdige sessies, zoals bij de prijssteekproef (challengevoorwaarden A8.2). Een student in deze steekproef die niet te bevestigen is, telt niet mee voor de vergoeding. Zijn er aanwijzingen dat de ambassadeur zelf betrokken is, dan geldt §5.
+2. *Wekelijkse steekproef.* Daarnaast moet de wekelijkse steekproef over de week waarin de 14e dag van die studenten viel, zijn afgerond.
+3. *Uniek instellingsanker.* Rewarded betaalt geen vergoeding zolang de controle dat één instellingsadres maar één account kan verankeren, niet werkt (de vingerafdruk van het adres, gebruiksvoorwaarden §8.4).
+4. *Betaling.* Daarna betaalt Rewarded [**voorstel**: één keer per maand, uiterlijk op de 15e van de volgende maand] op het rekeningnummer van de ambassadeur.
+
+[Bron: jurist ronde 3, should-fix 7 ("trek vóór elke uitbetaling per ambassadeur een steekproef van vijf meegetelde accounts (of allemaal bij minder dan vijf)"); founder-reactie ronde 3, jurist. Punt 3 volgt uit "Wat GO breekt" van de jurist ("als de ambassadeursvergoeding wordt uitbetaald terwijl het anker niet uniek is"); de founder plant de vingerafdruk vóór 4 januari 2027. Punt 3 als voorwaarde in de overeenkomst is een **voorstel** van het juridische team. De ambassadeur ziet niet welke studenten in de steekproef zaten (§4.4).]
 
 4.4 **Wat de ambassadeur ziet.** Per maand alleen het aantal studenten dat meetelt, het aantal dat (nog) niet meetelt, en het bedrag. Nooit namen, e-mailadressen of andere gegevens van studenten. [Bron: privacyverklaring §4 en §6.4.]
 
@@ -76,9 +83,11 @@
 
 4.6 **Belasting.** [**Open, voor de fiscalist**: of Rewarded over de vergoeding loonheffing moet inhouden, of de vergoeding moet opgeven als uitbetaling aan derden, of dat de ambassadeur haar zelf aangeeft. **Niet geverifieerd** welke route hier geldt. Tot dat besluit staat in deze overeenkomst niet wie de belasting afdraagt. Als loonheffing geldt, heeft Rewarded wettelijk ook het BSN van de ambassadeur nodig (**niet geverifieerd**). **Vraag advocaat** 14b.]
 
+4.7 **Geen betaling zonder fiscale route.** Rewarded betaalt geen vergoeding zolang de fiscalist de route niet heeft gekozen en deze overeenkomst niet getekend is. Tot dan kan de ambassadeur zijn code gebruiken om te laten zien hoeveel studenten via hem komen, zonder vergoeding. [Bron: jurist ronde 3, should-fix 9 ("geen betaalde ambassadeurs zonder fiscale route en getekende overeenkomst" ook in businessplan §9); founder-reactie ronde 3, jurist: overgenomen. Dat was in ronde 2 alleen de standaarduitkomst in de vragenlijst (vraag 14).]
+
 ### 5. Fraude en terugvordering
 
-5.1 Rewarded kijkt mee of studenten die via een ambassadeurscode komen echt zijn, met dezelfde controles als voor alle accounts (gebruiksvoorwaarden §8).
+5.1 Rewarded kijkt mee of studenten die via een ambassadeurscode komen echt zijn, met dezelfde controles als voor alle accounts (gebruiksvoorwaarden §8) en met de gerichte steekproef vóór elke uitbetaling (§4.3).
 
 5.2 **Terugvordering.** Stelt Rewarded na een eerlijke procedure vast dat de ambassadeur zelf nepaccounts heeft gemaakt, accounts heeft laten meedraaien of studenten heeft betaald om zich aan te melden (§3.6, §3.7), dan:
 
@@ -90,7 +99,7 @@
 
 1. krijgt de ambassadeur een schriftelijk bericht met wat Rewarded heeft gevonden, zonder gegevens van individuele studenten die hij niet al kent;
 2. kan de ambassadeur binnen 5 werkdagen schriftelijk reageren;
-3. beslist een medewerker van Rewarded die niet bij de controle betrokken was, gemotiveerd;
+3. beslist een medewerker van Rewarded die niet bij de controle betrokken was, gemotiveerd; de pilotbeheerder, die de controle doet, is zelf nooit ambassadeur (§2.3);
 4. kan de ambassadeur binnen 5 werkdagen in beroep bij de externe beoordelaar (dezelfde als in gebruiksvoorwaarden §8.6).
 
 [**Voorstel**; dezelfde opbouw als challengevoorwaarden A9.]
@@ -146,8 +155,11 @@ Op deze overeenkomst is Nederlands recht van toepassing. Een geschil proberen pa
 | Terugvordering bij vastgestelde fraude | §5 |
 | Fiscale behandeling laten toetsen | §4.6 |
 | Vergoeding, plafond en wanneer een student meetelt (J3, ronde 1) | §4.1, §4.2 |
+| Gerichte steekproef van vijf accounts vóór elke uitbetaling (ronde 3, should-fix 7) | §4.3, §5.1 |
+| Geen uitbetaling zolang het instellingsanker niet uniek is (ronde 3, should-fix 1 en "Wat GO breekt") | §4.2, §4.3 punt 3 |
+| Geen betaalde ambassadeurs zonder fiscale route en getekende overeenkomst (ronde 3, should-fix 9) | §4.7 |
 
-**Wat het productteam en de founder nog moeten regelen.** De telling per ambassadeur bestaat al in de spec (§4.9); nodig zijn nog: een maandoverzicht met alleen aantallen voor de ambassadeur; de controle bij het aanmaken van een code dat de ambassadeur geen bestuurslid is (spec §4.9: "de beheerder controleert dat"); de promotiekit voor ambassadeurs met de reclame-vermelding; en de keuze van de fiscalist.
+**Wat het productteam en de founder nog moeten regelen.** De telling per ambassadeur bestaat al in de spec (§4.9); nodig zijn nog: een maandoverzicht met alleen aantallen voor de ambassadeur; de controle bij het aanmaken van een code dat de ambassadeur geen bestuurslid is (spec §4.9: "de beheerder controleert dat"); de promotiekit voor ambassadeurs met de reclame-vermelding; en de keuze van de fiscalist. Na ronde 3 ook: de gerichte steekproef van vijf accounts per ambassadeur vóór elke uitbetaling als taak in de beheeromgeving, en een blokkade op uitbetaling zolang `institution_email_hash` niet live is (stand 4 november 2026: nog niet in spec en architectuur).
 
 ## Wijzigingslog
 
@@ -155,3 +167,4 @@ Op deze overeenkomst is Nederlands recht van toepassing. Een geschil proberen pa
 |---|---|---|
 | ronde 2 | 5 november 2026 | Nieuw concept, opgesteld na pitchronde 2 op basis van jurist should-fix 5 en founder-besluit J5, met de bestaande ambassadeursregel uit ronde 1 (J3). Nog niet door de advocaat of de fiscalist beoordeeld. Versie 0.1. |
 | ronde 2 (eindredactie) | 5 november 2026 | Gelijkgetrokken met het businessplan §7, spec §4.9 en architectuur (`ambassador`) na een onafhankelijke samenhangcontrole: in de samenvatting en §2.2 geldt het verbod voor bestuursleden van elke deelnemende vereniging, niet alleen van een vereniging die om een prijs meedoet (J3 ronde 1, J5). Kopregel en ronde-2-regel gedateerd op 5 november, de datum van de founder-reactie. |
+| ronde 3 | 4 november 2026 | Herzien volgens `docs/pitch/ronde-3-founder-reactie.md` en `docs/pitch/ronde-3-jurist.md`. §4.2 instellingsanker uniek per adres (should-fix 1). §4.3 gerichte steekproef van vijf accounts vóór elke uitbetaling, geen uitbetaling zolang het anker niet uniek is (should-fix 7; "Wat GO breekt"). Nieuwe §4.7 geen betaling zonder fiscale route en getekende overeenkomst (should-fix 9). §5.1 en §5.3 aangevuld. Samenvatting regel 4 aangepast. Bijlage aangevuld. Versie 0.2. |

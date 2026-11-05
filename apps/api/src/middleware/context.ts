@@ -61,3 +61,14 @@ export interface RequestVars {
 }
 
 export type AppEnv = { Variables: RequestVars };
+
+/** HttpConfig from the environment: APP_ORIGIN, TRUST_PROXY=1, RELEASE. Secure cookies on https. */
+export function httpConfigFromEnv(env: NodeJS.ProcessEnv, fallback: HttpConfig = DEFAULT_HTTP_CONFIG): HttpConfig {
+  const appOrigin = env.APP_ORIGIN || fallback.appOrigin;
+  return {
+    appOrigin,
+    trustProxy: env.TRUST_PROXY === '1' || (env.TRUST_PROXY === undefined && fallback.trustProxy),
+    secureCookies: appOrigin.startsWith('https://'),
+    release: env.RELEASE || fallback.release,
+  };
+}

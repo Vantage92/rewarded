@@ -1,6 +1,6 @@
 # Rewarded — Overeenkomst met studieverenigingen (concept voor de advocaat)
 
-*Concept van het juridische team, stand 5 november 2026, versie 0.3 (ronde 2). **Dit is geen juridisch advies.** Dit is een concepttekst die de advocaat nog moet beoordelen. Gebaseerd op `docs/pitch/ronde-1-jurist.md` (must-fix 2 en 5, punt 4), `docs/pitch/ronde-2-jurist.md` (should-fix 1, 3, 6 en 10), de besluiten in `docs/pitch/ronde-1-founder-reactie.md` (J2, J3, J5, J6, S7, G4) en `docs/pitch/ronde-2-founder-reactie.md` (besluiten 1–3; G1; J1, J3, J6, J10; MF5), `docs/02-productplan.md` (§4) en `docs/research/05-productspecificatie.md` (§4.6, §4.10). Deze overeenkomst is ook de vorm van een "schriftelijke toezegging" van een vereniging in de zin van S7: ledental, promotieverplichting en contactpersoon.*
+*Concept van het juridische team, stand 4 november 2026, versie 0.4 (ronde 3). **Dit is geen juridisch advies.** Dit is een concepttekst die de advocaat nog moet beoordelen. Gebaseerd op `docs/pitch/ronde-1-jurist.md` (must-fix 2 en 5, punt 4), `docs/pitch/ronde-2-jurist.md` (should-fix 1, 3, 6 en 10), de besluiten in `docs/pitch/ronde-1-founder-reactie.md` (J2, J3, J5, J6, S7, G4) en `docs/pitch/ronde-2-founder-reactie.md` (besluiten 1–3; G1; J1, J3, J6, J10; MF5), `docs/pitch/ronde-3-jurist.md` (should-fix 6 en 7) en `docs/pitch/ronde-3-founder-reactie.md` (jurist; gedragswetenschapper MF3 en S6), `docs/02-productplan.md` (§4) en `docs/research/05-productspecificatie.md` (§4.6, §4.10). Deze overeenkomst is ook de vorm van een "schriftelijke toezegging" van een vereniging in de zin van S7: ledental, promotieverplichting en contactpersoon.*
 
 *Leeswijzer. Kort en in gewone taal, zodat een bestuur van studenten hem zonder jurist kan lezen en tekenen. Eén exemplaar per vereniging. Markeringen: **aanname**, **voorstel**, **werkhypothese**, **niet geverifieerd**, **vraag advocaat** (genummerd zoals in `vragen-advocatenopinie.md`). Tussen vierkante haken staat wat per vereniging moet worden ingevuld. Rewarded tekent pas als de rechtspersoon bestaat (actie founder vóór 18 november 2026; founder-reactie ronde 2, J6).*
 
@@ -25,7 +25,7 @@
 
 1.1 De vereniging doet mee aan de Blokk-challenge en de aprilchallenge volgens de challengevoorwaarden (`challengevoorwaarden.md`, deel A), die bij deze overeenkomst horen.
 
-1.2 **De kalender van de vereniging.** De data van de challenge, en van het onderzoek voor de leden, volgen de tentamenkalender van de instelling van de vereniging:
+1.2 **De kalender van de vereniging.** De data van de challenge, en van het onderzoek voor de leden, volgen de tentamenkalender die Rewarded voor deze vereniging vastlegt: die van haar instelling, en waar de tentamenweken per faculteit verschillen, die van haar faculteit. Deze kalender is de enige bron van die data. [Bron: founder-reactie ronde 3, G-MF3 ("tentamenkalender per vereniging wordt de bron van T, N en A") en G-S6 (A per faculteit).]
 
 | Gegeven | Waarde voor deze vereniging |
 |---|---|
@@ -34,6 +34,7 @@
 | Laatste tentamenweek van de periode die in januari of begin februari 2027 eindigt | [van … tot …] |
 | Prijsperiode januari (de twee weken die eindigen met die tentamenweek) | [week 1: …; week 2: …] |
 | Aprilvenster (tentamenperiode in het voorjaar van 2027) | [van … tot …] |
+| Herkansingen van eerdere periodes die in het aprilvenster vallen | [weken, of "geen"] [Ze veranderen niets aan de challenge, maar tellen niet mee in de meting van het onderzoek; founder-reactie ronde 3, G-S6] |
 
 1.3 **Verklaring van het bestuur.** Het bestuur verklaart:
 
@@ -43,6 +44,8 @@
 Past de kalender niet (bijvoorbeeld omdat leden bij verschillende faculteiten met verschillende tentamenweken zitten), dan zegt het bestuur dat vóór ondertekening. Rewarded en de vereniging kijken dan samen of meedoen zinvol is. [Bron: founder-reactie ronde 2, besluit 1 en G1: "verenigingen kiezen waarvan de kalender past en dat expliciet zeggen". De kalenders worden uiterlijk 18 november 2026 bevestigd; **niet geverifieerd**: de kalenders van de pilotinstellingen zijn alleen via zoekresultaten gezien.]
 
 1.4 Na ondertekening veranderen de data in §1.2 niet meer, tenzij beide partijen dat schriftelijk afspreken vóór de start van het aanloopklassement.
+
+1.4a **Start van de pilot.** De pilot start op 2 december 2026, uiterlijk op 9 december. Lukt dat niet, dan start hij op 4 januari 2027 en is er geen aanloopklassement in december (challengevoorwaarden A2). Rewarded laat de vereniging de startdatum weten vóór de eerste uitnodiging. [Bron: founder-reactie ronde 3, G-MF3 (schuifregel) en investeerder MF2.]
 
 1.5 Rewarded levert gratis: de app voor de leden, een verenigingscode, een promotiekit, een bestuursdashboard met groepscijfers, en de prijzen uit §5.
 
@@ -85,7 +88,9 @@ Past de kalender niet (bijvoorbeeld omdat leden bij verschillende faculteiten me
 
 4.2 Ledental: [aantal] leden, volgens [bron, datum].
 
-4.3 Het ledental staat **openbaar** op de ranglijst naast de naam van de vereniging. Het verandert niet meer tijdens de januarichallenge. Voor de aprilchallenge mag de vereniging vóór de bekendmaking van die challenge een nieuwere externe bron aanleveren (challengevoorwaarden A14.3).
+4.3 Het ledental staat **openbaar** op de ranglijst naast de naam van de vereniging. Het verandert niet meer tijdens de januarichallenge.
+
+4.3a **Ledental voor april.** Vóór de bekendmaking van de aprilchallenge vraagt Rewarded zelf het actuele externe ledental op, bij de bron uit §4.1. De vereniging werkt daaraan mee en geeft daarvoor met deze overeenkomst toestemming. Het nieuwe getal geldt voor de aprilchallenge, ook als het hoger of lager is dan in januari (challengevoorwaarden A14.3). [Bron: jurist ronde 3, should-fix 7; founder-reactie ronde 3, jurist. Dit vervangt de regel uit ronde 2 dat de vereniging zelf kon kiezen of ze een nieuwe bron aanlevert.]
 
 4.4 Zonder externe bron doet de vereniging mee aan het klassement, maar niet om de hoofdprijs (challengevoorwaarden A3.4).
 
@@ -146,6 +151,8 @@ Past de kalender niet (bijvoorbeeld omdat leden bij verschillende faculteiten me
 
 8.3 Een bestuurslid van de vereniging is geen campusambassadeur van Rewarded zolang de vereniging meedoet aan de challenges van Rewarded, ook als ze alleen in het klassement staat en niet om een prijs meedingt. [Bron: founder-reactie ronde 1, J3; ambassadeursovereenkomst §2.]
 
+8.4 **Wie de controle doet.** De steekproef doet de pilotbeheerder van Rewarded. Die is geen lid of bestuurslid van een deelnemende vereniging, geen ambassadeur en geen deelnemer, en meldt het als hij bij deze vereniging een persoonlijk belang heeft; dan doet iemand anders de controle (challengevoorwaarden Algemeen 2). Kent het bestuur zo'n belang, dan meldt het dat aan Rewarded. [Bron: jurist ronde 3, should-fix 6; founder-reactie ronde 3, jurist. De laatste zin is een **voorstel**.]
+
 ### 9. Duur en einde
 
 9.1 Deze overeenkomst loopt van ondertekening tot [**voorstel**: 30 dagen na de definitieve uitslag van de aprilchallenge, uiterlijk 30 juni 2027]. [Ronde 2: was 31 mei 2027. Met de rustperiode tot en met het aprilvenster en de aprilchallenge per instelling (besluit 3) kan de definitieve uitslag later vallen. De einddatum moet worden getoetst zodra de aprilvensters bekend zijn.]
@@ -200,6 +207,13 @@ Past de kalender niet (bijvoorbeeld omdat leden bij verschillende faculteiten me
 | J6: rechtspersoon vóór ondertekening | Leeswijzer, partijen |
 | J10: schaarste in de promotie | §3.4, §6.3 |
 
+| Besluit of punt uit ronde 3 | Paragraaf |
+|---|---|
+| G-MF3: kalender per vereniging als enige bron; schuifregel voor de start | §1.2, §1.4a |
+| G-S6: aprilvenster per faculteit; herkansingen apart vermeld | §1.2 |
+| Jurist should-fix 7: Rewarded vraagt het externe ledental zelf op vóór april | §4.3a |
+| Jurist should-fix 6: onafhankelijke pilotbeheerder | §8.4 |
+
 **Wat niet in deze overeenkomst staat.** Een betaald challengepakket, seats of een intentieverklaring van een budgethouder. Dat is een andere overeenkomst met een andere partij (faculteit, studentenwelzijn of werkgever) en valt buiten de opdracht van het juridische team in deze ronde. Voor als die overeenkomst er komt, noteren we uit ronde 2: contracten per tentamenperiode of semester met een prijs per periode (MF2), en in contract, dashboard en voorregistratie dezelfde definitie van een "actieve seat": een seat met minstens twee sessiedagen per week in de tentamenperiode (S5). Cijfers in dat contract heten "focustijd die telde", met het verificatieniveau (J3).
 
 ## Wijzigingslog
@@ -210,3 +224,4 @@ Past de kalender niet (bijvoorbeeld omdat leden bij verschillende faculteiten me
 | ronde 1 (eindredactie) | 5 november 2026 | §1.3: de begrotingspost voor de prijzen benoemd. Versie 0.2. |
 | ronde 2 | 5 november 2026 | Herzien volgens `docs/pitch/ronde-2-founder-reactie.md` en `docs/pitch/ronde-2-jurist.md`. Nieuwe §1.2–1.4: tentamenkalender van de instelling als parameter, met verklaring van het bestuur dat de kalender past (besluit 1, G1). Aprilchallenge toegevoegd in §1, §5 en §6, met de post aprilchallenge (besluit 3, MF5). §2.4 dashboard met "focustijd die telde" en verificatieniveau (J3). §3.3 geen druk om in of uit het onderzoek te stappen (voorstel). §3.4 geen "geverifieerde studie-inzet", eerlijk over de catalogus (J3, J10). Nieuwe §3.5 geen sessies voor andere leden (J1). §5.5 terugvalvariant. §6.3 promotiekit noemt schaarste en het onderzoek (J10, J2). §8 steekproef met toestelvergelijking, H12 en oefensessie (J1). §9.1 einddatum naar uiterlijk 30 juni 2027 (voorstel). Rechtspersoon als voorwaarde voor ondertekening (J6). Notitie voor een latere B2B-overeenkomst (MF2, S5, J3). Versie 0.3. |
 | ronde 2 (eindredactie) | 5 november 2026 | §8.3 gelijkgetrokken met het businessplan §7, spec §4.9 en ambassadeursovereenkomst §2.2: geen ambassadeur zolang de vereniging deelneemt, ook zonder prijs (J3 ronde 1, J5). Kopregel en ronde-2-regel gedateerd op 5 november, de datum van de founder-reactie. |
+| ronde 3 | 4 november 2026 | Herzien volgens `docs/pitch/ronde-3-founder-reactie.md` en `docs/pitch/ronde-3-jurist.md`. §1.2 kalender per vereniging als enige bron, per faculteit waar die verschilt, met een regel voor herkansingen in het aprilvenster (G-MF3, G-S6). Nieuwe §1.4a startdatum volgens de schuifregel (G-MF3, investeerder MF2). Nieuwe §4.3a: Rewarded vraagt het externe ledental zelf op vóór de aprilchallenge, met toestemming van de vereniging (should-fix 7). Nieuwe §8.4 onafhankelijke pilotbeheerder (should-fix 6). Rol, geen herleiding, geen ledenlijst, aggregaten, prijs, promotieverplichting en contactpersoon ongewijzigd. Bijlage aangevuld. Versie 0.4. |

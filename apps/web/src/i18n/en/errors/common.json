@@ -1,0 +1,12 @@
+{
+  "validation_failed": "Something in what you entered isn't right. Please check it.",
+  "auth_required": "Sign in first to continue.",
+  "forbidden": "You can't do this with this account.",
+  "csrf_invalid": "Your session expired. Reload the page and try again.",
+  "not_found": "We couldn't find this.",
+  "feature_disabled": "This isn't switched on yet.",
+  "idempotency_conflict": "This request was already sent with other details. Please try again.",
+  "rate_limited": "Easy does it: try again in a few minutes.",
+  "internal": "Something went wrong on our side. Your data is safe.",
+  "maintenance": "We're doing some maintenance. Please try again shortly."
+}
