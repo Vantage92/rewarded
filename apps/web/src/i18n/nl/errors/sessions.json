@@ -1,0 +1,7 @@
+{
+  "invalid_duration": "Kies een sessie van 25, 50 of 90 minuten.",
+  "session_closed": "Deze sessie is al afgesloten. We laten je zien hoe ze eindigde.",
+  "session_not_aborted": "Je kunt alleen een melding doen over een sessie die stopte.",
+  "session_not_restorable": "Deze sessie kan niet worden hersteld.",
+  "nonce_invalid": "Je sessie loopt ergens anders verder. Open hem opnieuw op dit toestel."
+}

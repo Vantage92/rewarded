@@ -5,15 +5,16 @@ import { classifyClose, classifyHeartbeat } from '@rewarded/core/session';
 import { DomainError, StartSessionRequest, routes, type HeartbeatResponse, type RouteDef } from '@rewarded/contracts';
 import { z } from 'zod';
 import { idsFor, sha256 } from '../../db/ids.ts';
+import { adminActor } from '../../db/services/audit.ts';
 import type { Db } from '../../db/types.ts';
 import type { AuthState } from '../../middleware/context.ts';
 import { csrfValueMatches } from '../../middleware/csrf.ts';
 import { enforceRateLimit } from '../../middleware/rateLimit.ts';
 import { mount, reply } from '../../middleware/route.ts';
 import type { ApiModule, ModuleDeps } from '../../module.ts';
-import { installPointsServices } from '../points/services.ts';
-import { SessionEngine, newNonce, sessionDto, verdictDto } from './engine.ts';
-import { loadRow, SqlSessionRepository, storedVerdict, type SessionRow } from './repository.ts';
+import { installWp4Services } from '../points/services.ts';
+import { type SessionEngine, newNonce, sessionDto, verdictDto } from './engine.ts';
+import { loadRow, storedVerdict, type SessionRow } from './repository.ts';
 
 const P = CURRENT_PARAMS;
 
@@ -37,16 +38,9 @@ function closedError(r: SessionRow): DomainError {
 const StartBody = z.strictObject((StartSessionRequest as unknown as z.ZodObject<z.ZodRawShape>).shape) as unknown as z.ZodType<StartSessionRequest>;
 const startDef = { ...routes['sessions.start'], body: StartBody } satisfies RouteDef;
 
-/** Installs the SessionRepository and the engine once per Services object. */
+/** Installs the WP-4 services (ledger, user days, sessions) and returns the session engine. */
 export function installSessionServices(deps: ModuleDeps): SessionEngine {
-  installPointsServices(deps);
-  const holder = deps.services as unknown as { __wp4SessionEngine?: SessionEngine };
-  if (!holder.__wp4SessionEngine) {
-    const engine = new SessionEngine(deps);
-    holder.__wp4SessionEngine = engine;
-    (deps.services as Partial<ModuleDeps['services']>).sessions ??= new SqlSessionRepository(deps.db, (tx, id, reason, actor) => engine.restore(tx, id, reason, actor));
-  }
-  return holder.__wp4SessionEngine;
+  return installWp4Services(deps);
 }
 
 export const module: ApiModule = {
@@ -80,6 +74,7 @@ export const module: ApiModule = {
       startDef,
       ({ c, auth, body }) => {
         const user = userOf(auth);
+        if (auth.kind === 'user' && auth.user.status === 'blocked') throw new DomainError('ACCOUNT_BLOCKED');
         if (body.practice !== (body.planned_min === P.session.practice_min)) throw new DomainError('INVALID_DURATION');
         enforceRateLimit(c, { bucket: 'sessions:start', limit: 12, windowSec: 3600, key: 'user' });
         const device = db.get<{ id: string; ua_class: string }>('SELECT id, ua_class FROM device WHERE id = ? AND user_id = ?', [body.device_id, user.id]);
@@ -272,7 +267,7 @@ export const module: ApiModule = {
 
     mount(api, routes['admin.sessions.restore'], ({ auth, params, body }) => {
       if (auth.kind !== 'user') throw new DomainError('AUTH_REQUIRED');
-      const actor = `admin:${deps.platform.hasher.hash('audit', auth.user.id).slice(0, 24)}` as const;
+      const actor = adminActor(deps.platform.hasher, auth.user.id);
       return db.transaction(() => {
         const r = loadRow(db, params.id);
         if (!r) throw new DomainError('NOT_FOUND');
@@ -286,7 +281,7 @@ export const module: ApiModule = {
 
     mount(api, routes['admin.outages.create'], ({ auth, body }) => {
       if (auth.kind !== 'user') throw new DomainError('AUTH_REQUIRED');
-      const actor = `admin:${deps.platform.hasher.hash('audit', auth.user.id).slice(0, 24)}` as const;
+      const actor = adminActor(deps.platform.hasher, auth.user.id);
       return db.transaction(() => {
         const id = ids.ulid();
         const createdAt = deps.platform.clock.now().toISOString();

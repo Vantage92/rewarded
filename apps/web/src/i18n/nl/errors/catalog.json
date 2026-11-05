@@ -1,0 +1,9 @@
+{
+  "ceiling_exceeded": "Dit item kost meer dan het plafond van €5.",
+  "kind_not_allowed": "Deze soort beloning is niet toegestaan: geen geld, cadeaukaart of vrij tegoed.",
+  "document_required": "Leg eerst de factuur of het getekende contract vast.",
+  "declaration_required": "Leg eerst de verklaring van de partner vast.",
+  "cash_check_required": "Vink aan dat het item geen geld of vrij besteedbaar tegoed is.",
+  "coverage_insufficient": "Het vrije budget dekt dit niet.",
+  "price_immutable": "De puntenprijs ligt vast zodra een item gepubliceerd is."
+}

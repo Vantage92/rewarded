@@ -13,6 +13,12 @@ export interface MfaDeps {
   totpKey: string;
 }
 
+/** MfaDeps from the platform; refuses to run without a configured key (no silent dev fallback). */
+export function mfaDepsOf(platform: { clock: Clock; random: Random; totpKey?: string }): MfaDeps {
+  if (!platform.totpKey || platform.totpKey.length < 32) throw new Error('No TOTP key configured (platform.totpKey)');
+  return { clock: platform.clock, random: platform.random, totpKey: platform.totpKey };
+}
+
 /** Starts (or restarts, while not yet confirmed) enrolment; returns the data for the QR code. */
 export function enrollMfa(tx: Db, deps: MfaDeps, userId: string, account: string): { secret: string; otpauth_uri: string } {
   const existing = tx.get<{ enrolled_at: string | null }>('SELECT enrolled_at FROM admin_mfa WHERE user_id = ?', [userId]);

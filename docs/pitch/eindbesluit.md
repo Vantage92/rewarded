@@ -22,3 +22,12 @@ Alle juridische en fraudetechnische bezwaren zijn in drie rondes opgelost; de ju
 ## Wat de pitch is geworden
 
 Rewarded is de focus-app waarin studenten met hun squad en studievereniging hun telefoon wegleggen en beloond worden voor focustijd die telde. De beloning is een steiger naar een gewoonte, geen salaris: punten tegen een vaste ratio, direct bijgeschreven, inwisselbaar bij partners met belang bij studiesucces; verdiende prijzen op prestatie; geen pool, geen cash-out, geen trekkingen, geen inzet in deze ronde. Betaald wordt het door instellingen en verenigingen per tentamenperiode. De pilot in december en januari bewijst of studenten terugkomen, of de squad dat draagt, of fraude beheersbaar is en of iemand wil betalen; de meting in april bewijst of het gedrag blijft staan als de beloning rust.
+
+## Aanvulling na de laatste samenhangcontrole (5 november 2026)
+
+| Punt | Besluit |
+|---|---|
+| Waarde per punt en schaarste (gedragswetenschapper S4) | Wordt berekend zodra de prijslijst er is (uiterlijk 25 november); tot dan staat de inschatting van de eindredactie (circa één voucher van €3 per twee à drie gerechtigden over het seizoen) als werkhypothese in de voorregistratie. |
+| Circa €3.800 onbegroot in scenario 4 | Gaat naar de post juridisch en fiscaal (bandbreedte), niet naar de buffer. |
+| "Geannualiseerd" en ARR | De rapportage aan investeerders gebruikt gecontracteerde periodeomzet en herbestelratio; ARR blijft alleen als maat voor ambitie in de marktomvang, met die lezing erbij. |
+| D7 per registratieweekdag | Niet meer rapporteren; dag 6–8 volstaat. |

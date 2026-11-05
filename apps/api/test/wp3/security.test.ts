@@ -1,7 +1,7 @@
 // CSRF refusal (architecture §8.1, §10.3), security headers, the audit log that refuses UPDATE and
 // DELETE (§10.8), idempotency (§4.7, §5.4) and authorisation levels (§8.1); on both drivers.
 import { describe, expect, it } from 'vitest';
-import { Hono } from 'hono';
+import type { Context, Hono } from 'hono';
 import { DRIVERS, Client, ORIGIN, lastLogin, makeAdmin, register, seedInvite, wp3App } from './helpers.ts';
 import { adminActor, auditRef } from '../../src/db/services/audit.ts';
 import { csrfValueMatches } from '../../src/middleware/csrf.ts';
@@ -55,7 +55,7 @@ describe.each(DRIVERS)('CSRF on %s (arch §10.3)', (driver) => {
       register(api) {
         api.post('/sessions/:id/events', async (c) => {
           const b = (await c.req.json()) as { csrf?: string };
-          return c.json({ ok: csrfValueMatches(c as unknown as import('hono').Context<AppEnv>, b.csrf) });
+          return c.json({ ok: csrfValueMatches(c as unknown as Context<AppEnv>, b.csrf) });
         });
       },
     };
@@ -101,7 +101,7 @@ describe.each(DRIVERS)('audit log on %s (arch §10.8)', (driver) => {
       }),
     ).toThrow('decision failed');
     expect(t.db.get('SELECT count(*) AS n FROM audit_log')).toEqual({ n: 0 });
-    expect(() => t.wp3.audit.audit(t.db, { actor: 'system', action: 'Bad Action', objectType: 'x', objectRef: 'y' })).toThrow();
+    expect(() => t.wp3.audit.audit(t.db, { actor: 'system', action: 'Bad Action', objectType: 'x', objectRef: 'y' })).toThrow('Invalid audit action');
   });
 });
 

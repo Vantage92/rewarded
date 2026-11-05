@@ -41,7 +41,10 @@ describe.each(DRIVERS)('experiment service on %s', (driver) => {
     expect(t.db.transaction(() => ex.assign(t.db, { type: 'squad', id: 'squad-0', stratum: 'other|x' }))).toEqual(first);
     const counts = t.db.all<{ factor: string; arm: string; n: number }>('SELECT factor, arm, count(*) AS n FROM experiment_assignment GROUP BY factor, arm');
     for (const c of counts) expect(c.n).toBe(8);
-    expect(() => t.db.run("UPDATE experiment_assignment SET arm = 'X'")).toThrow();
+    expect(() => t.db.run("UPDATE experiment_assignment SET arm = 'X'")).toThrow(/locked/);
+    expect(() => t.db.run("UPDATE experiment_assignment SET arm = 'A' WHERE factor = 'bonus'")).toThrow(/locked/);
+    // The privacy eraser may replace the unit id (arch §10.7).
+    expect(t.db.run("UPDATE experiment_assignment SET unit_id = 'replaced' WHERE unit_id = 'squad-1'").changes).toBe(3);
   });
 
   it('§5.1: a minor in a squad with arm B and rest personally gets A and continue, logged as arm_switch minor', async () => {
@@ -109,15 +112,15 @@ describe.each(DRIVERS)('event writer on %s (arch §8.1)', (driver) => {
         t.wp3.events.event(t.db, 'practice_completed', {}, { pseudonym });
         throw new Error('domain change failed');
       }),
-    ).toThrow();
+    ).toThrow('domain change failed');
     expect(t.db.get('SELECT count(*) AS n FROM event')).toEqual({ n: before });
     t.db.transaction(() => t.wp3.events.event(t.db, 'practice_completed', {}, { pseudonym }));
     const row = t.db.get<Record<string, unknown>>("SELECT * FROM event WHERE name = 'practice_completed'")!;
-    expect(row).toMatchObject({ release: 'test', channel: 'other', cohort: 'experiment' });
+    expect(row).toMatchObject({ release: 'test', channel: 'squad_invite', cohort: 'experiment' });
     expect(row.arm_bonus === 'A' || row.arm_bonus === 'B').toBe(true);
     // Unknown fields or names are refused.
-    expect(() => t.wp3.events.event(t.db, 'practice_completed', { extra: 1 } as never, { pseudonym })).toThrow();
-    expect(() => t.wp3.events.event(t.db, 'session_completed' as never, {} as never, { pseudonym })).toThrow();
+    expect(() => t.wp3.events.event(t.db, 'practice_completed', { extra: 1 } as never, { pseudonym })).toThrow(/extra|Unrecognized/i);
+    expect(() => t.wp3.events.event(t.db, 'session_completed' as never, {} as never, { pseudonym })).toThrow(/session_completed|Unknown|invalid/i);
     expect(() => t.wp3.events.event(t.db, 'practice_completed', {}, {})).toThrow(/pseudonym/);
   });
 
@@ -146,6 +149,6 @@ describe.each(DRIVERS)('event writer on %s (arch §8.1)', (driver) => {
     t.db.run("INSERT INTO feature_flag (key, enabled, updated_at, updated_by) VALUES ('plus_door', 1, '2026-11-05', 'test')");
     expect((await c.post('/me/plus-interest')).status).toBe(204);
     expect(t.db.get("SELECT count(*) AS n FROM event WHERE name = 'plus_interest'")).toEqual({ n: 1 });
-    expect(() => t.db.run("INSERT INTO feature_flag (key, enabled, updated_at, updated_by) VALUES ('draws', 1, 'x', 'y')")).toThrow();
+    expect(() => t.db.run("INSERT INTO feature_flag (key, enabled, updated_at, updated_by) VALUES ('draws', 1, 'x', 'y')")).toThrow(/CHECK constraint/);
   });
 });

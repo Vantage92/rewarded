@@ -1,0 +1,7 @@
+{
+  "invalid_duration": "Pick a session of 25, 50 or 90 minutes.",
+  "session_closed": "This session has already ended. Here is how it ended.",
+  "session_not_aborted": "You can only report a session that stopped.",
+  "session_not_restorable": "This session cannot be restored.",
+  "nonce_invalid": "Your session continues somewhere else. Open it again on this device."
+}

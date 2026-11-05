@@ -87,7 +87,8 @@ export function accessLog(): MiddlewareHandler<AppEnv> {
       pattern = '*';
     }
     c.var.logger.log(c.res.status >= 500 ? 'error' : 'info', 'request', {
-      route: `${c.req.method} ${pattern === '*' || pattern === '/*' ? '/unmatched' : pattern.replace(/\/\*$/, '')}`,
+      // Only middleware matched (e.g. '/api/v1/*'): no route, so no concrete path in the log either.
+      route: `${c.req.method} ${pattern === '*' || pattern.endsWith('/*') ? '/unmatched' : pattern}`,
       status: c.res.status,
       duration_ms: c.var.clock.now().getTime() - start,
       request_id: c.var.requestId,

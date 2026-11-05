@@ -33,7 +33,14 @@ export const CatalogItem = z.strictObject({
   next_release: Instant.optional(),
   terms: z.string().max(2000),
 });
-export const CatalogResponse = z.strictObject({ items: z.array(CatalogItem) });
+/** Voucher pool of a budget (architecture §3.3, spec §4.3 Gescheiden posten). */
+export const BudgetPool = z.enum(['pilot', 'research', 'expansion']);
+/**
+ * Released stock of the week next to the students who may redeem (spec §3.4 step 2, founder J10,
+ * architecture §5.3 `released`/`eligible_users`). Optional: added after contracts-v1 (WP-4).
+ */
+export const CatalogWeek = z.strictObject({ week: WeekKey, released: NonNegInt, eligible_users: NonNegInt });
+export const CatalogResponse = z.strictObject({ items: z.array(CatalogItem), week: CatalogWeek.optional() });
 
 export const Partner = z.strictObject({ id: Ulid, name: ShortText, kind: PartnerKind, contact_ref: z.string().max(200).nullable() });
 export const PartnerCreateRequest = z.strictObject({ name: ShortText, kind: PartnerKind, contact_ref: z.string().max(200).optional() });
@@ -45,6 +52,8 @@ export const BudgetCreateRequest = z.strictObject({
   reward_pct: z.union([z.literal(20), z.literal(30), z.literal(100)]),
   document_ref: DocumentRef,
   booked_at: FocusDay,
+  /** Optional (added by WP-4): the pool of an own budget; default `pilot`. */
+  pool: BudgetPool.optional(),
 });
 export const BudgetCancelRequest = z.strictObject({ cancel_cents: z.number().int().min(1), reason_code: ReasonCode });
 export const Budget = z.strictObject({
@@ -59,6 +68,7 @@ export const Budget = z.strictObject({
   status: z.enum(['booked', 'cancelled']),
   allocated_cents: Cents,
   free_cents: Cents,
+  pool: BudgetPool.optional(),
 });
 export const BudgetResponse = z.strictObject({ budget: Budget });
 export const BudgetOverviewResponse = z.strictObject({
@@ -168,6 +178,8 @@ export const catalogRoutes = defineRoutes({
 // Inferred types (output side) for every schema above.
 export type CatalogItem = z.output<typeof CatalogItem>;
 export type CatalogResponse = z.output<typeof CatalogResponse>;
+export type CatalogWeek = z.output<typeof CatalogWeek>;
+export type BudgetPool = z.output<typeof BudgetPool>;
 export type Partner = z.output<typeof Partner>;
 export type PartnerCreateRequest = z.output<typeof PartnerCreateRequest>;
 export type PartnerListResponse = z.output<typeof PartnerListResponse>;

@@ -13,7 +13,7 @@ import { module as auth } from '../../src/modules/auth/index.ts';
 import { module as dev } from '../../src/modules/dev/index.ts';
 import { module as events } from '../../src/modules/events/index.ts';
 import { module as waitlist } from '../../src/modules/waitlist/index.ts';
-import { DEV_PEPPERS, DevClock, DevInbox, DevMailer, DevSmsSender, SeededRandom } from '../../src/platform/dev.ts';
+import { DEV_PEPPERS, DEV_TOTP_KEY, DevClock, DevInbox, DevMailer, DevSmsSender, SeededRandom } from '../../src/platform/dev.ts';
 import { MemoryLogger } from '../../src/platform/log.ts';
 import { DevNetClassifier } from '../../src/platform/net.ts';
 import { HmacHasher } from '../../src/platform/system.ts';
@@ -37,6 +37,7 @@ export function wp3App(driver: DriverName = 'better-sqlite3', opts: { start?: st
     hasher: new HmacHasher(DEV_PEPPERS),
     logger,
     net: new DevNetClassifier(),
+    totpKey: DEV_TOTP_KEY,
   };
   const http: HttpConfig = { appOrigin: ORIGIN, trustProxy: true, secureCookies: false, release: 'test' };
   const wp3 = createSqlServices(db, platform, { seed: 'test-seed-0000000000000000000000000000', seedVersion: 'test', release: 'test' });

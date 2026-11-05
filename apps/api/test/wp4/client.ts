@@ -11,8 +11,16 @@ export class FocusClient {
   key = '';
   plannedMin = 25;
   outbox: unknown[] = [];
+  // oxlint-disable-next-line typescript/no-explicit-any -- free-form JSON of the last response, read with toMatchObject
   last: { status: number; body: any } = { status: 0, body: undefined };
-  constructor(readonly h: Harness, readonly user: TestUser, readonly deviceId: string) {}
+  readonly h: Harness;
+  readonly user: TestUser;
+  readonly deviceId: string;
+  constructor(h: Harness, user: TestUser, deviceId: string) {
+    this.h = h;
+    this.user = user;
+    this.deviceId = deviceId;
+  }
 
   /** Moves server and device time forward together (the device clock stays in step). */
   advance(ms: number): void {
@@ -30,8 +38,12 @@ export class FocusClient {
     if (this.last.status < 300) {
       this.sessionId = this.last.body.session_id;
       this.nonce = this.last.body.nonce;
-      if (this.last.body.resumed) this.seq = 0;
-      else this.monoStart = this.mono;
+      // A new session starts a new nonce chain; a resumed one restarts seq too (architecture §4.7).
+      this.seq = 0;
+      if (!this.last.body.resumed) {
+        this.monoStart = this.mono;
+        this.outbox = [];
+      }
     }
     return this.last;
   }

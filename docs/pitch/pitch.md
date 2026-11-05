@@ -1,4 +1,4 @@
-# Rewarded — Pitch (v4, 4 november 2026, herzien na pitchronde 3)
+# Rewarded — Pitch (v4, 5 november 2026, herzien na pitchronde 3)
 
 *Voor het kritische team. Onderbouwing: `docs/01-businessplan.md` (v4), `docs/02-productplan.md`, de rapporten in `docs/research/` en de besluiten van de founder in `docs/pitch/ronde-1-founder-reactie.md` , `docs/pitch/ronde-2-founder-reactie.md` en `docs/pitch/ronde-3-founder-reactie.md`. Wat hieronder "aanname" heet, is nog niet getoetst; rekensommen zijn van het strategieteam; wat alleen via zoekresultaten is gezien, staat zo gemarkeerd.*
 
@@ -8,7 +8,7 @@ Rewarded laat studenten samen hun telefoon wegleggen en beloont hun focustijd me
 
 ## Wat er sinds ronde 3 veranderde
 
-1. **Geen gemeten nawerking is doorgerekend als vierde scenario.** Bij een beperkte tranche 2 blijft de verkoop staan; campus en creators gaan van €50.000 naar €15.000, de ontwerper naar projectbasis, infrastructuur en buffer omlaag, en de catalogus voor nieuwe gebruikers vervalt. Maand 7–21 passen dan in ca. €225.200, met zes maanden runway na het punt. De eerste native stap is Android UsageStats, vóór iOS.
+1. **Geen gemeten nawerking is doorgerekend als vierde scenario.** Bij een beperkte tranche 2 blijft de verkoop staan; campus en creators gaan van €50.000 naar €15.000, de ontwerper naar projectbasis, infrastructuur en buffer omlaag, en de catalogus voor nieuwe gebruikers vervalt. Maand 7–21 zijn dan begroot op ca. €221.400, binnen de beschikbare ca. €225.200, met een lagere buffer en zes maanden runway na het punt. De eerste native stap is Android UsageStats, vóór iOS.
 2. **De steigertoets beslist met vier vooraf vastgelegde uitkomsten** (steiger ondersteund, afhankelijkheid, verdringing, onbeslist), als non-inferioriteitstoets met marge, gevoeligheidstoets en Holm-correctie. Elke uitkomst heeft een vast gevolg voor tranche 2. "Nulresultaat" bestaat niet meer.
 3. **Strengere voorwaarden voor tranche 2.** Een echte koopbeslissing vóór 1 mei (≥ €4.000 of ≥ 500 seats bij een onafhankelijke betaler, of twee opdrachten), met één vooraf vastgelegde variant "te laat maar echt" tot 1 september. Januari-actieven worden bepaald vóór de aankondiging van de bonusstop, en (c) en (d) beslissen op de doorlopende arm.
 4. **Founder en eigen geld hebben een datum en een regel.** De founder vult zijn beschrijving in vóór 18 november; zonder ervaring met institutionele verkoop start de commerciële kracht in maand 1. Minstens €12.000 eigen middelen (werkhypothese) dekt de vier poorten; ontbreekt dat, dan schuift de pilotstart. De pilotbeheerder heeft één bron.
@@ -21,7 +21,7 @@ Rewarded laat studenten samen hun telefoon wegleggen en beloont hun focustijd me
 1. **De pilotkalender is per instelling.** De doelbonus stopt aan het einde van de laatste tentamenweek van de eigen instelling, het Belofte-aanbod komt zeven dagen eerder, het na-seizoensvenster ligt na de herkansingen. Het lanceringsbesluit valt pas als het laatste pilotcohort zijn tentamenweek heeft afgerond. De kalenders worden uiterlijk 18 november bevestigd.
 2. **Geen open lancering in januari, maar een gecontroleerde uitbreiding** naar meer verenigingen, op uitnodiging, tot wat het budget draagt (werkhypothese: hoogstens 3.000 maandelijks actieve gebruikers in semester 2; daarboven een wachtlijst).
 3. **De rustperiode loopt door tot en met het aprilvenster**, zodat de steigerhypothese in een periode met echte vraag wordt getoetst. De aprilchallenge is voor beide armen gelijk.
-4. **Tranche 2 heeft bindende, positieve voorwaarden in getallen**, waaronder een getekende opdracht vóór 1 mei 2027. Contracten zijn per tentamenperiode, de herhaalorder is de maat, de iOS-engineer komt pas bij tranche 2 en er is zes maanden runway na het financierbare punt.
+4. **Tranche 2 heeft bindende, positieve voorwaarden in getallen**, waaronder een getekende opdracht vóór 1 mei 2027. Contracten zijn per tentamenperiode, de herhaalorder is de maat, de senior engineer native (eerst Android UsageStats, daarna iOS) komt pas bij tranche 2 (niet zolang de native bouw is uitgesteld), en er is zes maanden runway na het financierbare punt.
 
 ## Wat er sinds ronde 1 veranderde (stand na ronde 2)
 
@@ -52,9 +52,9 @@ Vier onderdelen in de web-MVP, uitgewerkt in `docs/02-productplan.md`:
 
 Trekkingen worden niet gebouwd; ze zijn een optie na toetsing. Er is geen inzet met geld in dit plan. Rewarded verdient nooit aan falen.
 
-Het product is gespecificeerd tot op regel- en parameterniveau (`docs/research/05-productspecificatie.md`), met een UX-ontwerp, mockups en een architectuur waarin de server de scheidsrechter is; elke vereniging krijgt de tentamenkalender van haar instelling als parameter. Drie releases vóór het lanceringsbesluit (2 december, 16 december, 5 januari). De MVP wordt gebouwd met AI-ondersteunde ontwikkeling: de founder bouwt R1–R3 in november en december zelf. De toewijzings- en grootboekcode wordt vóór de A/A-controle bevroren en onafhankelijk gereviewd; een freelance senior engineer voor de toesteltest komt er als de eigen middelen dat toelaten. Die bouw valt vóór de begroting van deze ronde, die in januari 2027 begint.
+Het product is gespecificeerd tot op regel- en parameterniveau (`docs/research/05-productspecificatie.md`), met een UX-ontwerp, mockups en een architectuur waarin de server de scheidsrechter is; elke vereniging krijgt de tentamenkalender van haar instelling als parameter. Drie releases vóór het lanceringsbesluit (2 december, 16 december, 5 januari); in de januarivariant van de schuifregel gaan R1–R3 samen op 4 januari live. De MVP wordt gebouwd met AI-ondersteunde ontwikkeling: de founder bouwt R1–R3 in november en december zelf. De toewijzings- en grootboekcode wordt vóór de A/A-controle bevroren en onafhankelijk gereviewd; een freelance senior engineer voor de toesteltest komt er als de eigen middelen dat toelaten. Die bouw valt vóór de begroting van deze ronde, die in januari 2027 begint.
 
-**Deelnemersbescherming.** De pilot is een gerandomiseerd experiment op jongeren in hun drukste weken. Deelname is geïnformeerd, met opt-out zonder verlies van punten. 16- en 17-jarigen zitten in arm A, buiten de rustperiode-arm, met live aanwezigheid standaard uit. Een korte welzijnsmeting loopt bij instroom, bij de reflectie en na het seizoen, en vanaf week 2 meten we bij iedereen die daar apart toestemming voor geeft wekelijks twee items (stress, ervaren druk). 16- en 17-jarigen krijgen wekelijks alleen de vragen over studietijd en afleiding, zolang de advocaat niet positief heeft geantwoord dat het mag. In de rustarm bewaken we de schadesignalen tegenover de doorlopende arm, tot en met april; bij overschrijding gaat de vlag uit. Nieuwe leden van uitgenodigde verenigingen die in een rustsquad belanden, verdienen gewoon punten. Arm B stopt op die meting of op de schadesignalen, met een vooraf vastgelegde correctie voor herhaald kijken en een minimum van 40 deelnemers per arm. Vóór de uitbreiding geldt een absolute schadegrens (werkhypothese tot de ijking: schadesignalen bij minder dan 2% van de wekelijks actieven, per code gerapporteerd). Een tentamendag schort het dagdoel op. Geen marketing op sociale schaamte. We vragen een lichte ethische toets aan via een partneruniversiteit.
+**Deelnemersbescherming.** De pilot is een gerandomiseerd experiment op jongeren in hun drukste weken. Deelname is geïnformeerd, met opt-out zonder verlies van punten. 16- en 17-jarigen zitten in arm A, buiten de rustperiode-arm, met live aanwezigheid standaard uit. Een korte welzijnsmeting loopt bij instroom, bij de reflectie en na het seizoen, en vanaf week 2 meten we bij iedereen die daar apart toestemming voor geeft wekelijks twee items (stress, ervaren druk). 16- en 17-jarigen krijgen wekelijks alleen de vragen over studietijd en afleiding, zolang de advocaat niet positief heeft geantwoord dat het mag. In de rustarm bewaken we de schadesignalen tegenover de doorlopende arm, tot en met april; bij overschrijding gaat de vlag uit. Wie na de laatste tentamenweek van zijn instelling instroomt (uitbreidingscohort) en 16- en 17-jarigen verdienen in een rustsquad persoonlijk gewoon punten. Arm B stopt op die meting of op de schadesignalen, met een vooraf vastgelegde correctie voor herhaald kijken en een minimum van 40 deelnemers per arm. Vóór de uitbreiding geldt een absolute schadegrens (werkhypothese tot de ijking: schadesignalen bij minder dan 2% van de wekelijks actieven, per code gerapporteerd). Een tentamendag schort het dagdoel op. Geen marketing op sociale schaamte. We vragen een lichte ethische toets aan via een partneruniversiteit.
 
 ## Waarom nu
 
@@ -84,7 +84,7 @@ We beginnen met de **blokchallenge**: hbo- en wo-studenten in de tentamenperiode
 
 **De betaler** is niet de student en zelden de vereniging: 500 seats kosten bij onze prijshypothese €18.000 per jaar, wat een vereniging zelden zelf opbrengt. De waarschijnlijke betalers zijn een faculteit, studentenwelzijn of een werkgever die via een vereniging sponsort.
 
-**Marktomvang.** Bij €36 per seat per jaar (hypothese) is het theoretische plafond in Nederland (773.270 hbo- en wo-studenten, CBS) ongeveer €27,8 miljoen per jaar (rekensom). €1 miljoen ARR vraagt ongeveer 27.800 seats, 3,6% van alle Nederlandse studenten. De SAM van onderaf (aantal verenigingen en leden in Utrecht en Groningen, deel actief in de tentamenperiode) vraagt de founder vóór 1 december op; tot dan staat er geen getal. De SOM voor de komende 15 maanden is het financierbare punt: ≥ 2.500 seats, een gecontracteerde periodeomzet van ongeveer €22.500 per tentamenperiode (rekensom: 2.500 × ca. €9). We rapporteren periodeomzet en herbestelratio, geen geannualiseerd bedrag.
+**Marktomvang.** Bij €36 per seat per jaar (hypothese) is het theoretische plafond in Nederland (773.270 hbo- en wo-studenten, CBS) ongeveer €27,8 miljoen per jaar (rekensom). €1 miljoen ARR vraagt ongeveer 27.800 seats, 3,6% van alle Nederlandse studenten. De SAM van onderaf (aantal verenigingen en leden in Utrecht en Groningen, deel actief in de tentamenperiode) vraagt de founder vóór 1 december op; tot dan staat er geen getal. De SOM voor de komende 15 maanden is het financierbare punt: ≥ 2.500 seats, een gecontracteerde periodeomzet van ongeveer €22.500 per tentamenperiode (rekensom: 2.500 × ca. €9). We rapporteren periodeomzet en herbestelratio, geen geannualiseerd bedrag; ARR gebruiken we hieronder alleen als maat voor de ambitie, niet in de rapportage (lezing strategieteam, businessplan §3).
 
 **Pad naar een bedrijf van betekenis.** Het kanaal is de verenigingscultuur, niet het aantal studenten. Landen met een verenigingskanaal: Nederland, Vlaanderen, het Verenigd Koninkrijk (societies) en Duitsland (Fachschaften); dat het kanaal daar net zo werkt, is een aanname. €5 miljoen ARR vraagt bij €36 per seat ongeveer 139.000 seats, ongeveer 280 contracten van 500 seats; bij €24 per seat ongeveer 208.000 seats en 420 contracten (rekensommen). 139.000 seats is ongeveer 18% van alle Nederlandse hbo- en wo-studenten, het hele jaar betaald. In Nederland alleen is dat niet realistisch; het vraagt minstens één tweede land. Zonder tweede land is het realistische beeld een Nederlandse tool van €1–3 miljoen ARR, en dat zeggen we zo. Toetreding tot Vlaanderen, het VK en Duitsland valt buiten deze ronde. Wel toetsen we het tweede land goedkoop: in tranche 2 praten we met societies in het VK en kringen in Vlaanderen over kanaal en betaler.
 
@@ -139,14 +139,16 @@ De pilot is een **verkennende pilot met één redelijk gepowerde vergelijking**.
 
 Bij H3: de vroege arm krijgt het Belofte-aanbod zeven dagen vóór de bonusstop van de eigen instelling, de late arm na april. In de rustperiode-arm (H3b) verdient de helft van de squads vanaf de bonusstop van de eigen instelling tot en met het aprilvenster geen punten; de aprilchallenge, met collectieve prijzen op deelnamegraad, is voor beide armen gelijk; daarna verdient iedereen weer. Wie uit de rustperiode stapt, verdient weer punten zonder uit het onderzoek te stappen, en aan het begin van het aprilvenster tonen we die uitweg één keer opnieuw; uitstappen rapporteren we per arm als uitkomst. Dit alles onder voorbehoud van de advocaat. De primaire maat ligt in de tentamenperiode van april 2027 en is binair: minstens één sessiedag in het aprilvenster.
 
-**Hoe we de steigertoets lezen.** H3b is een non-inferioriteitstoets: de rustarm mag in april niet meer dan δ procentpunt onder de doorlopende arm liggen (werkhypothese δ = 10 procentpunten op de binaire maat; de statisticus stelt δ vast). Een gevoeligheidstoets in de eerste weken na de bonusstop laat zien of punten iets doen, en H3a en H3b worden met Holm gecorrigeerd. Vier uitkomsten liggen vóór 2 december vast in de voorregistratie, en de investeerder bevestigt de lezing:
+**Hoe we de steigertoets lezen.** H3b is een non-inferioriteitstoets: de rustarm mag in april niet meer dan δ procentpunt onder de doorlopende arm liggen (werkhypothese δ = 10 procentpunten op de binaire maat; de statisticus stelt δ vast). Een gevoeligheidstoets laat zien of punten iets doen, en H3a en H3b worden met Holm gecorrigeerd. Het venster van die toets is een voorstel van het productteam: de eerste twee weken na de bonusstop (T + 1 tot en met T + 14), met het na-seizoensvenster als gevoeligheidsanalyse; de founder besloot "in het na-seizoensvenster of de eerste twee weken na de bonusstop" en bevestigt de keuze vóór 2 december. Vier uitkomsten liggen vóór 2 december vast in de voorregistratie, en de investeerder bevestigt de lezing:
 
-| Uitkomst | Wanneer | Gevolg voor tranche 2 |
-|---|---|---|
-| Steiger ondersteund | Rustarm niet slechter binnen δ, en de gevoeligheidstoets is gehaald | Volle tranche, native volgens plan (eerst Android UsageStats, daarna iOS) |
-| Afhankelijkheid | Rustarm significant slechter | €180.000, native uitgesteld |
-| Verdringing | Rustarm significant beter | Volle tranche met een kleinere beloningslaag (omvang open, vóór 2 december); een signaal tegen het beloningsmodel, geen verdediging |
-| Onbeslist | Al het andere | €180.000; eerste native stap alleen Android UsageStats (lezing strategieteam, te bevestigen door de founder) |
+| Rangorde | Uitkomst | Wanneer | Gevolg voor tranche 2 |
+|---|---|---|---|
+| 1 | Verdringing | Rustarm significant beter | Volle tranche met een kleinere beloningslaag (omvang open, vóór 2 december); een signaal tegen het beloningsmodel, geen verdediging |
+| 2 | Afhankelijkheid | Rustarm significant slechter | €180.000, native uitgesteld |
+| 3 | Steiger ondersteund | Rustarm niet slechter binnen δ, en de gevoeligheidstoets is gehaald | Volle tranche, native volgens plan (eerst Android UsageStats, daarna iOS) |
+| 4 | Onbeslist | Al het andere: ook als de gevoeligheidstoets niet is gehaald, als het verschil in uitstap tussen de armen boven de vooraf vastgelegde drempel ligt, of als de rustarm vervalt | €180.000; eerste native stap alleen Android UsageStats (lezing strategieteam, te bevestigen door de founder) |
+
+Twee uitkomsten kunnen tegelijk waar zijn (een significant betere rustarm is ook "niet slechter"; een significant slechtere rustarm kan binnen δ blijven). Dan geldt de rangorde. Rangorde en de extra gevallen van "onbeslist" zijn een lezing van het productteam uit de voorregistratie (§4), die de founder en de investeerder vóór 2 december bevestigen; bij verschil geldt de voorregistratie.
 
 De poweranalyse levert per hypothese het kleinste detecteerbare effect. Is dat groter dan plausibel, dan heet de hypothese verkennend en hangt er geen besluit aan.
 
@@ -239,7 +241,7 @@ De begroting rekent met nul omzet en dekt 21 maanden, tot en met september 2028:
 | Basis | Een tentamenperiode in semester 2 van 2026/'27 | Haalbaar | Volgende ronde ophalen, zes maanden runway |
 | Verkoop twee keer zo lang | September 2027, per tentamenperiode | Haalbaar met een herhaalorder voor januari 2028 | Als basis, met minder marge in de tijd |
 | Budgetten 2027/'28 al verdeeld | September 2028 | Niet haalbaar | Geen getekende opdracht vóór 1 mei 2027: geen tranche 2, **stoppen**. Wel een opdracht, maar met start in september 2028: **overbruggen** alleen als er vóór maart 2028 opdrachten voor 2028/'29 liggen voor ≥ 2.500 seats, anders stoppen (voorstel strategieteam; besluit founder) |
-| Beperkte tranche 2 (afhankelijkheid, onbeslist, of "te laat maar echt") | Als basis of verkoop twee keer zo lang | Haalbaar, met de verkoop op volle sterkte | Zes maanden runway na het punt binnen ca. €225.200 voor maand 7–21 (zie hieronder) |
+| Beperkte tranche 2 (afhankelijkheid, onbeslist, of "te laat maar echt") | Als basis of verkoop twee keer zo lang | Haalbaar, met de verkoop op volle sterkte | Zes maanden runway na het punt; maand 7–21 begroot op ca. €221.400, binnen de beschikbare ca. €225.200 (zie hieronder) |
 
 **Scenario 4 per post** (maand 7–21; rekensommen en aannames strategieteam, businessplan §10). Beschikbaar: €180.000 plus het restant van tranche 1 (ca. €45.200), samen ca. €225.200.
 
@@ -252,8 +254,10 @@ De begroting rekent met nul omzet en dekt 21 maanden, tot en met september 2028:
 | Campus, ambassadeurs, creators (in totaal €15.000) | ca. €35.700 | ca. €700 |
 | Gratis laag (catalogus nieuwe gebruikers vervalt) | ca. €9.000 | ca. €1.400 |
 | Infrastructuur | €15.000 | €10.500 |
-| Buffer | €15.500 | ca. €17.600 |
-| **Totaal** | **ca. €300.200** | **ca. €225.200** |
+| Buffer (omlaag: ca. één maand burn) | €15.500 | ca. €13.800 |
+| **Totaal** | **ca. €300.200** | **ca. €221.400** |
+
+Van de beschikbare ca. €225.200 blijft ca. €3.800 onbegroot; dat geld gaat alleen met een besluit van de founder uit (voorstel strategieteam). Start de commerciële kracht in maand 1, dan vervalt dat deel en daalt de buffer naar ca. €10.100; de zes maanden blijven staan.
 
 **Verkoop twee keer zo lang, eerlijk gelezen.** Scenario 2 verdubbelt de tijd tot de eerste omzet, niet tot de handtekening; daarvoor hebben we geen data. Verdubbelt de verkoopcyclus zelf, dan halen we 19 januari en 1 mei niet en stoppen we met ca. €45.200. Dat is bewust. De enige vooraf vastgelegde uitzondering is "te laat maar echt": een getekende opdracht tussen 1 mei en 1 september telt voor een beperkte tranche (voorstel strategieteam: dezelfde €180.000 als in scenario 4, met tot de handtekening het uitgavenniveau van scenario 4).
 
@@ -306,7 +310,7 @@ D7 onder 15%, of na één herhaling nog onder 25%: geen uitbreiding en geen twee
 - Pilotbeheerder tot en met het laatste aprilvenster uit eigen middelen (aanname; MF3).
 - Wekelijkse twee items voor iedereen met aparte toestemming, ook 16- en 17-jarigen (G4).
 
-**Ronde 3 — 4 november 2026.** Herzien na pitchronde 3 volgens de bindende besluiten in `docs/pitch/ronde-3-founder-reactie.md`, gelijkgetrokken met `docs/01-businessplan.md` v4. Versie v4.
+**Ronde 3 — 5 november 2026.** Herzien na pitchronde 3 volgens de bindende besluiten in `docs/pitch/ronde-3-founder-reactie.md`, gelijkgetrokken met `docs/01-businessplan.md` v4. Versie v4.
 
 - Nieuwe sectie "Wat er sinds ronde 3 veranderde" met de zes besluiten.
 - Scenario (f) als vierde scenario met een begroting per post voor maand 7–21 binnen ca. €225.200 en zes maanden runway na het punt; verkoop blijft (investeerder MF1).
@@ -317,3 +321,12 @@ D7 onder 15%, of na één herhaling nog onder 25%: geen uitbreiding en geen twee
 - Salarisgevoeligheid; periodeomzet en herbestelratio in plaats van "geannualiseerd"; accountmanagement bij vier bestellingen; tweede land in tranche 2; Android UsageStats als eerste native stap (investeerder S2, S4, S6, S7).
 - Deelnemersbescherming en fraude: weekitems voor 16- en 17-jarigen alleen over studietijd en afleiding zonder positief antwoord op 9a, bewakingsregel rustarm, uitbreidingscohort doorlopend, uitweg in april herhaald, uniek instellingsanker, H12 op overlap, één fraudegrens, onafhankelijke pilotbeheerder, gerichte ambassadeurssteekproef en fiscale route (jurist; gedragswetenschapper S1, S5).
 - De inzetlaag uit de pitch gehaald: alleen nog "geen inzet met geld in dit plan" (jurist).
+
+**Ronde 3, eindredactie — 5 november 2026.** Gelijkgetrokken met het businessplan v4, de voorregistratie (ronde 3) en de spec (versie 1.3) na een onafhankelijke samenhangcontrole, volgens `docs/pitch/ronde-3-founder-reactie.md`. Kopregel en ronde-3-log gedateerd op 5 november, de datum van de founder-reactie.
+
+- Scenario 4 per post: de buffer gaat omlaag zoals het besluit zegt (investeerder MF1), van €15.500 naar ca. €13.800, in plaats van omhoog naar ca. €17.600; maand 7–21 begroot op ca. €221.400 binnen de beschikbare ca. €225.200 (rekensommen strategieteam, businessplan §10).
+- "Hoe we de steigertoets lezen": rangorde van de vier uitkomsten en de extra gevallen van onbeslist (differentiële uitstap, rustarm vervallen) uit de voorregistratie §4, als lezing productteam ter bevestiging door founder en investeerder vóór 2 december; het gevoeligheidsvenster T + 1 tot en met T + 14 als voorstel productteam gemarkeerd (gedragswetenschapper MF1).
+- De iOS-engineer in "Wat er sinds ronde 2 veranderde" vervangen door de senior engineer native, eerst Android UsageStats en daarna iOS, niet zolang de native bouw is uitgesteld (investeerder S7).
+- Releases: in de januarivariant gaan R1–R3 samen op 4 januari live (gedragswetenschapper MF3).
+- Deelnemersbescherming: het uitbreidingscohort en 16- en 17-jarigen verdienen in een rustsquad persoonlijk punten, in de woorden van het besluit (jurist; gedragswetenschapper S2).
+- Marktomvang: ARR alleen als ambitiemaat, niet in de rapportage (lezing strategieteam van investeerder S4).

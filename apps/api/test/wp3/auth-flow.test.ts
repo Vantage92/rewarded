@@ -5,7 +5,7 @@ import { DRIVERS, Client, ONBOARDING, lastLogin, register, seedInvite, userIdOf,
 type Err = { error: { code: string; message_key: string } };
 const code = (r: { body: unknown }) => (r.body as Err).error?.code;
 
-async function requestLink(t: TestApp, c: Client, email: string, invite?: string) {
+async function requestLink(_t: TestApp, c: Client, email: string, invite?: string) {
   return c.post('/auth/magic-link', { email, locale: 'nl', ...(invite ? { invite_token: invite } : {}) });
 }
 

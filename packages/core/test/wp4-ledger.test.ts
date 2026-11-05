@@ -37,7 +37,7 @@ function run(ledger: Ledger, sessions: DaySession[], o: { arm?: BonusArm | null;
     rev: o.rev ?? 1, params: LP, examDay: o.examDay ?? false, earnArm: o.earnArm ?? 'earn', ...(o.dayClosed !== undefined ? { dayClosed: o.dayClosed } : {}),
   };
   const res = reconcileDay(input);
-  for (const e of res.entries) expect(isValidPosting(e.type, e.postings), e.idempotencyKey).toBe(true);
+  for (const e of res.entries) expect({ key: e.idempotencyKey, valid: isValidPosting(e.type, e.postings) }).toEqual({ key: e.idempotencyKey, valid: true });
   ledger.entries.push(...res.entries);
   // Idempotent: the same input against the new journal yields nothing.
   expect(reconcileDay({ ...input, booked: bookedDayFrom(ledger.entries) }).entries).toEqual([]);

@@ -26,10 +26,10 @@ export const ORIGIN = 'http://localhost:5173';
 /** FakeFlagService with ULID-shaped ids (the contracts expect ULIDs; the fake numbers its flags). */
 export class UlidFlagService extends FakeFlagService {
   private static toUlid(id: string): string {
-    return `01JFLAG${id.replace(/\D/g, '').padStart(19, '0')}`;
+    return `01JFFFFF${id.replace(/\D/g, '').padStart(18, '0')}`;
   }
   private static fromUlid(id: string): string {
-    return id.startsWith('01JFLAG') ? `flag_${Number(id.slice(7))}` : id;
+    return id.startsWith('01JFFFFF') ? `flag_${Number(id.slice(8))}` : id;
   }
   override raise(tx: Parameters<FakeFlagService['raise']>[0], input: Parameters<FakeFlagService['raise']>[1]): string {
     return UlidFlagService.toUlid(super.raise(tx, input));
@@ -114,6 +114,7 @@ export interface CallResult<T = unknown> {
 }
 
 /** Calls the API as `user` with CSRF header and Origin. */
+// oxlint-disable-next-line typescript/no-explicit-any -- test bodies are free-form JSON read with toMatchObject
 export async function call<T = any>(h: Harness, user: TestUser | null, method: string, path: string, body?: unknown, headers: Record<string, string> = {}): Promise<CallResult<T>> {
   const res = await h.app.request(`/api/v1${path}`, {
     method,

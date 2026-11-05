@@ -25,6 +25,7 @@ const platform: Platform = {
   hasher: new HmacHasher(secrets.peppers),
   logger: stdoutLogger(clock),
   net: new CidrNetClassifier(CURRENT_PARAMS.net_classes),
+  totpKey: secrets.totpKey,
 };
 const http = httpConfigFromEnv(process.env, { appOrigin: 'http://localhost:5173', trustProxy: false, secureCookies: false, release: 'r1' });
 // Without the registered seed (voorregistratie §9.2) the assignment is marked provisional.

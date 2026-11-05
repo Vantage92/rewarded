@@ -1,0 +1,9 @@
+{
+  "already_in_squad": "You're already in a squad. Leave it first if you want to switch.",
+  "squad_full": "This squad is full: it fits six people.",
+  "not_in_squad": "You're not in a squad yet.",
+  "compare_opt_in_required": "Switch on \"Compare minutes\" yourself first, under Me.",
+  "invite_moment_not_allowed": "You can't create a new invite right now. You can again when a spot is free, at most once a week.",
+  "name_rejected": "We can't use this name. Pick another one.",
+  "not_eligible": "This isn't possible for your squad right now."
+}

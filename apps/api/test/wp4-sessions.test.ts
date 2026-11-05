@@ -120,6 +120,22 @@ describe('spec §4.1 Wat telt als afgebroken (integration)', () => {
     expect(balance(h, user.id).available).toBe(0);
   });
 
+  it.each([
+    ['Inkomend gesprek (the call app hides the page)', 'hidden'],
+    ['Laptop dichtgeklapt of venster geminimaliseerd', 'hidden'],
+    ['Herladen (pagehide, reported after the reload)', 'pagehide'],
+  ] as const)('§4.1 Randgeval %s: aborted with hidden, the streak is not touched', async (_name, kind) => {
+    const { h, user, c } = await setup();
+    await c.start(25);
+    await c.run(6 * MIN);
+    const ev = c.hidden(kind);
+    c.advance(20_000);
+    const r = await c.beat({ events: [ev] });
+    expect(r.body).toMatchObject({ status: 'aborted', abort_reason: 'hidden' });
+    expect(h.services.userDays.get(user.id, '2026-12-03')?.goalMet ?? false).toBe(false);
+    expect(balance(h, user.id).available).toBe(0);
+  });
+
   it('§4.1 the beacon needs the CSRF token in the body (architecture §8.1)', async () => {
     const { c } = await setup();
     await c.start(25);

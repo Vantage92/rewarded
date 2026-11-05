@@ -1,0 +1,5 @@
+{
+  "invite_invalid": "This invite doesn't exist. Ask your friend for a new link.",
+  "invite_expired": "This invite has expired. Ask for a new link.",
+  "invite_exhausted": "Enough people have used this invite already. Ask for a new link."
+}

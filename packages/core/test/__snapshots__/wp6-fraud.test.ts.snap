@@ -1,0 +1,46 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`spec §6.7 weekly sample: stratified and reproducible from the seed (architecture §6.5) > test vector: first items of a fixed draw 1`] = `
+[
+  [
+    "club_c",
+    "c1",
+    "032daaedbf4d7b9e",
+  ],
+  [
+    "club_c",
+    "c3",
+    "5008f45b7ba0d64e",
+  ],
+  [
+    "club_c",
+    "c0",
+    "7cb65ec256c50426",
+  ],
+  [
+    "club_c",
+    "c4",
+    "ac7c9ac43878804f",
+  ],
+  [
+    "club_c",
+    "c2",
+    "e85ba2933a3237e9",
+  ],
+  [
+    "club_d",
+    "d1",
+    "736fe607fbf64691",
+  ],
+  [
+    "club_d",
+    "d2",
+    "7f1edfbed754c39b",
+  ],
+  [
+    "club_d",
+    "d0",
+    "b477c23d265d6fc5",
+  ],
+]
+`;

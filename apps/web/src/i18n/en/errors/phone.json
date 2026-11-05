@@ -1,0 +1,5 @@
+{
+  "phone_not_verified": "Confirm your mobile number first; we ask for it at your first redemption.",
+  "phone_in_use": "This number already belongs to another account.",
+  "phone_type_not_allowed": "Use a mobile number. Landline, VoIP and virtual numbers do not work."
+}

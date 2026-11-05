@@ -66,9 +66,7 @@ const END25 = 25 * MIN;
 describe('evaluateSession — spec §4.1 Heartbeatgaten', () => {
   it('§4.1 interval ≤ 90 s counts: completed with verified = planned', () => {
     const v = evaluateSession(input());
-    expect(v.outcome).toBe('completed');
-    if (v.outcome === 'completed') expect(v.verifiedMin).toBe(25);
-    expect(v.flags).toEqual([]);
+    expect(v).toMatchObject({ outcome: 'completed', verifiedMin: 25, flags: [] });
   });
 
   it('§4.1 gap > 90 s and ≤ 5 min with a covering buffered log counts', () => {
@@ -207,7 +205,7 @@ describe('evaluateSession — spec §4.1 afbreekcodes en randgevallen', () => {
         const early = evaluateSession(at(T0 + dt));
         expect(evaluateSession(at(T0 + dt))).toEqual(early);
         const late = evaluateSession({ ...at(T0 + dt), now: T0 + dt + 30 * MIN });
-        if (early.outcome !== 'pending') expect(late.outcome).toBe(early.outcome);
+        expect(early.outcome === 'pending' || late.outcome === early.outcome).toBe(true);
       }),
       { numRuns: 150 },
     );

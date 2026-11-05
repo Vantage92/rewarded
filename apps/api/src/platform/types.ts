@@ -61,4 +61,6 @@ export interface Platform {
   logger?: Logger;
   /** Net class from the raw IP, in memory only (architecture §4.5); falls back to `other`. */
   net?: NetClassifier;
+  /** Key for the TOTP secrets in admin_mfa (architecture §10.8, §10.9); set by both servers. */
+  totpKey?: string;
 }

@@ -148,7 +148,9 @@ export class SqlExperimentService implements ExperimentService {
       prompt: (by.get('prompt')?.arm ?? 'na') as Arms['prompt'],
     };
     const first = rows[0]!;
-    return { unit: { ...unit }, arms, block: (by.get('bonus') ?? first).block, seedVersion: first.seed_version };
+    // The unit carries the stratum it was assigned in (the first assignment is locked).
+    const main = by.get('bonus') ?? first;
+    return { unit: { type: unit.type, id: unit.id, stratum: main.stratum }, arms, block: main.block, seedVersion: first.seed_version };
   }
 
   armsFor(ctx: UserArmContext): Arms {

@@ -1,0 +1,9 @@
+{
+  "ceiling_exceeded": "This item costs more than the €5 ceiling.",
+  "kind_not_allowed": "This kind of reward is not allowed: no money, gift card or open credit.",
+  "document_required": "Record the invoice or the signed contract first.",
+  "declaration_required": "Record the partner declaration first.",
+  "cash_check_required": "Tick that the item is not money or freely spendable credit.",
+  "coverage_insufficient": "The free budget does not cover this.",
+  "price_immutable": "The points price is fixed once an item is published."
+}

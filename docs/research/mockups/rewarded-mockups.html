@@ -222,8 +222,8 @@ button{cursor:pointer}
 </svg>
 
 <header class="page-head">
-  <h1>Rewarded — kernschermen web-MVP (versie 1.3, ronde 2)</h1>
-  <p>Mockups bij <code>docs/research/06-ux-ontwerp.md</code>. Negentien telefoonschermen op 390 × 844 px en het bestuursdashboard op laptopbreedte, in het lichte en het donkere thema van het designsysteem. Scroll horizontaal door de galerij.</p>
+  <h1>Rewarded — kernschermen web-MVP (versie 1.4, ronde 3)</h1>
+  <p>Mockups bij <code>docs/research/06-ux-ontwerp.md</code>. Tweeëntwintig telefoonschermen op 390 × 844 px en het bestuursdashboard op laptopbreedte, in het lichte en het donkere thema van het designsysteem. Scroll horizontaal door de galerij.</p>
   <p><strong>Alle namen, aantallen, verenigingen, partners en prijzen in deze mockups zijn fictief.</strong> Elk scherm draagt daarom de markering "Fictief". De mockups illustreren opmaak en semantiek, niet de werkelijke catalogus of uitkomsten.</p>
   <p>De mockups gebruiken echte knoppen, keuzerondjes (<code>role="radio"</code>), schakelaars (<code>role="switch"</code>) en <code>aria-current</code>, zodat bouwers de structuur kunnen overnemen. Waar een mockup toch afwijkt, zijn §5.5 en §5.8 van het ontwerpdocument bindend.</p>
   <div class="legend" aria-hidden="true">
@@ -279,7 +279,7 @@ button{cursor:pointer}
   </div>
   <div class="card stack" style="gap:6px">
    <p class="label">Dit is ook een onderzoek</p>
-   <p class="body">Door loting krijg je een van twee bonusregels die evenveel opleveren, een van twee momenten voor de Belofte, soms een extra uitnodiging om een squad te maken, en mogelijk een rustperiode zonder nieuwe punten vanaf het einde van je tentamenweken tot en met de tentamenperiode van april; die kan ook in tentamenweken vallen. Wil je dan toch punten verdienen, dan kan dat altijd, en je blijft in het onderzoek. Je punten per minuut zijn voor iedereen gelijk. De doelbonus stopt aan het einde van de laatste tentamenweek van je instelling, op 31 januari. De catalogus is klein: je ziet elke week hoeveel beloningen er zijn voor hoeveel studenten.</p>
+   <p class="body">Door loting krijg je een van twee bonusregels die evenveel opleveren, een van twee momenten voor de Belofte, soms een extra uitnodiging om een squad te maken, en mogelijk een rustperiode zonder nieuwe punten vanaf het einde van je tentamenweken tot en met de tentamenperiode van april; die kan ook in tentamenweken vallen. Wil je dan toch punten verdienen, dan kan dat altijd, en je blijft in het onderzoek. Je punten per minuut zijn voor iedereen gelijk. Vanaf de dag dat je je groep hoort, hoort die groep bij jou, ook als je van squad wisselt. De doelbonus stopt aan het einde van de laatste tentamenweek van je instelling, op 31 januari. De catalogus is klein: je ziet elke week hoeveel beloningen er zijn voor hoeveel studenten.</p>
    <p class="body"><strong>Afmelden voor het onderzoek kan altijd in Ik; je punten blijven.</strong> Stoppen en je gegevens laten verwijderen kan ook altijd.</p>
   </div>
   <label class="check"><input type="checkbox"><span>Ik ga akkoord met de <u>voorwaarden</u>.</span></label>
@@ -615,10 +615,62 @@ button{cursor:pointer}
     </div>
    </div>
   </div>
- </div><h2 id="h20"><span class="idx">20</span>Bestuursdashboard, tab Werving (D2), op laptopbreedte</h2><p class="note">Vijf tabbladen zoals spec 4.6 (D1–D5). De stand staat als kopregel op elk tabblad. Alleen aggregaten, met de grens bovenaan in gewone taal; aantallen afgerond op vijftallen, zodat verschilberekening met kennis van buitenaf lastig wordt. Geen namen, lijsten, tijdstippen, export of berichten.</p></section>
+ </div><h2 id="h20"><span class="idx">20</span>Bestuursdashboard, tab Werving (D2), op laptopbreedte</h2><p class="note">Vijf tabbladen zoals spec 4.6 (D1–D5). De stand staat als kopregel op elk tabblad. Alleen aggregaten, met de grens bovenaan in gewone taal; aantallen afgerond op vijftallen, zodat verschilberekening met kennis van buitenaf lastig wordt. Geen namen, lijsten, tijdstippen, export of berichten.</p></section><section class="item" aria-labelledby="h21"><div class="phone t-light " role="group" aria-label="Home met het herhaalbericht van de rustperiode op de eerste dag van april"><div class="statusbar"><span aria-hidden="true">9:12</span><span class="fict">Fictief</span><span class="sb-icons" aria-hidden="true"><span class="sig"><i style="height:4px"></i><i style="height:6px"></i><i style="height:8px"></i><i style="height:10px"></i></span><span class="bat"></span></span></div>
+ <div class="content with-tabs" style="gap:12px">
+  <div class="row between"><h1 class="title-l">Hoi Lotte</h1><span class="chip ok"><svg class="" aria-hidden="true" focusable="false"><use href="#i-flame"/></svg>Squadstreak dag 3</span></div>
+  <div class="card stack" style="gap:8px" role="region" aria-labelledby="f11h">
+   <p class="label" id="f11h">Rustperiode</p>
+   <p class="body">Van 1 februari tot en met 23 april verdient jouw squad geen nieuwe punten; wil je toch punten verdienen, tik dan op Ik wil weer punten verdienen, dan verdien je vanaf morgen weer en blijf je gewoon in het onderzoek. Je punten blijven staan en zijn in te wisselen. Focussen telt gewoon voor je dagdoel, je streak en je squad.</p>
+   <div class="row" style="gap:8px"><button type="button" class="btn secondary" style="flex:1">Ik wil weer punten verdienen</button><button type="button" class="btn secondary" style="flex:1">Sluiten</button></div>
+  </div>
+  <div class="card stack" style="gap:4px">
+   <p class="label muted">Dagdoel vandaag</p>
+   <p class="title-m num">0 van 50 min</p>
+   <p class="body">Deze week: 0 van de 7 dagen</p>
+  </div>
+  <div style="flex:1"></div>
+  <button type="button" class="btn primary" style="min-height:60px;font-size:19px">Start sessie van 50 min</button>
+ </div><nav class="tabbar" aria-label="Hoofdnavigatie"><a href="#" class="tab on" aria-current="page"><svg aria-hidden="true" focusable="false"><use href="#i-focus-f"/></svg>Focus</a><a href="#" class="tab"><svg aria-hidden="true" focusable="false"><use href="#i-squad"/></svg>Squad</a><a href="#" class="tab"><svg aria-hidden="true" focusable="false"><use href="#i-flag"/></svg>Vereniging</a><a href="#" class="tab"><svg aria-hidden="true" focusable="false"><use href="#i-gift"/></svg>Beloningen</a><a href="#" class="tab"><svg aria-hidden="true" focusable="false"><use href="#i-user"/></svg>Ik</a></nav></div><h2 id="h21"><span class="idx">21</span>Herhaalbericht in april (F11), rustgroep</h2><p class="note">Ronde 3 (jurist should-fix 4): op de eerste dag van het aprilvenster komt het rustperiodebericht één keer terug, in exact dezelfde woorden en met dezelfde knop als op T − 6. Het is een kaart, geen modaal; "Ik wil weer punten verdienen" en "Sluiten" zijn even groot, zodat de kaart niet duwt. Geen kop als "Herinnering", geen mail. De data zijn fictief.</p></section><section class="item" aria-labelledby="h22"><div class="phone t-light " role="group" aria-label="Overstappen uit de rustgroep naar een squad die punten verdient"><div class="statusbar"><span aria-hidden="true">18:40</span><span class="fict">Fictief</span><span class="sb-icons" aria-hidden="true"><span class="sig"><i style="height:4px"></i><i style="height:6px"></i><i style="height:8px"></i><i style="height:10px"></i></span><span class="bat"></span></span></div>
+ <div class="content" style="gap:12px;padding-top:14px">
+  <p class="title-l">Squad Bètablok</p>
+  <p class="body muted">Uitnodiging van Sam · 4 leden</p>
+ </div>
+ <div class="scrim" aria-hidden="true"></div>
+ <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="q9h">
+  <div class="grab" aria-hidden="true"></div>
+  <h1 class="title-m" id="q9h">Overstappen naar Bètablok?</h1>
+  <p class="body">Je zit in de groep die tot en met 23 april geen nieuwe punten verdient. Stap je over naar deze squad, dan verdien je vanaf morgen weer punten. Dat telt als "Ik wil weer punten verdienen": je blijft in het onderzoek en verliest niets.</p>
+  <div class="card soft row" style="align-items:flex-start;gap:10px"><svg class="ico sm" aria-hidden="true" focusable="false" style="margin-top:2px"><use href="#i-info"/></svg><p class="body">Je huidige squad ziet alleen dat je bent vertrokken. Je punten en je streakgeschiedenis blijven van jou.</p></div>
+  <button type="button" class="btn primary">Overstappen</button>
+  <button type="button" class="btn secondary">Annuleren</button>
+ </div></div><h2 id="h22"><span class="idx">22</span>Aansluiten bij een squad na de bekendmaking (Q9), overstap uit de rustgroep</h2><p class="note">Ronde 3 (G-S2): vanaf T − 6 hoort de groep bij de persoon. Een overstap naar een squad die punten verdient, is dan dezelfde keuze als "Ik wil weer punten verdienen", en dat staat er vóór de bevestiging. De twee andere varianten van Q9 (uitbreidingscohort of 16–17: "Jij verdient gewoon punten"; deelnemer uit de doorlopende groep: "Jij houdt je eigen groep") staan als copy in het ontwerpdocument §6.2. Geen aandringen in welke richting dan ook.</p></section><section class="item" aria-labelledby="h23"><div class="phone t-light " role="group" aria-label="Instellingsmail bevestigen"><div class="statusbar"><span aria-hidden="true">11:05</span><span class="fict">Fictief</span><span class="sb-icons" aria-hidden="true"><span class="sig"><i style="height:4px"></i><i style="height:6px"></i><i style="height:8px"></i><i style="height:10px"></i></span><span class="bat"></span></span></div>
+ <div class="content with-tabs" style="gap:12px">
+  <button type="button" class="topnav"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-back"/></svg>Ik</button>
+  <h1 class="title-l">Bevestig je instellingsmail</h1>
+  <p class="body muted">Studeer je aan een hogeschool of universiteit? Bevestig je mailadres van de instelling.</p>
+  <label class="field focus"><span class="caption">Mailadres van je instelling</span><input value="l.devries@students.example.nl"></label>
+  <div class="card soft row" style="align-items:flex-start;gap:10px"><svg class="ico sm" aria-hidden="true" focusable="false" style="margin-top:2px"><use href="#i-lock"/></svg><p class="body">We bewaren dat je het bevestigde, het domein en een versleutelde vingerafdruk van het adres, zodat één adres maar één account kan bevestigen. Het adres zelf bewaren we niet.</p></div>
+  <div class="card row" style="align-items:flex-start;gap:10px" role="alert"><svg class="ico sm" aria-hidden="true" focusable="false" style="margin-top:2px"><use href="#i-info"/></svg><p class="body">Dit adres is al door een ander account bevestigd. Klopt dat niet? Vraag het via Hulp; een mens kijkt ernaar.</p></div>
+  <div style="flex:1"></div>
+  <button type="button" class="btn primary">Stuur code</button>
+  <button type="button" class="link" style="margin-top:-6px">Hulp</button>
+ </div><nav class="tabbar" aria-label="Hoofdnavigatie"><a href="#" class="tab"><svg aria-hidden="true" focusable="false"><use href="#i-focus"/></svg>Focus</a><a href="#" class="tab"><svg aria-hidden="true" focusable="false"><use href="#i-squad"/></svg>Squad</a><a href="#" class="tab"><svg aria-hidden="true" focusable="false"><use href="#i-flag"/></svg>Vereniging</a><a href="#" class="tab"><svg aria-hidden="true" focusable="false"><use href="#i-gift"/></svg>Beloningen</a><a href="#" class="tab on" aria-current="page"><svg aria-hidden="true" focusable="false"><use href="#i-user-f"/></svg>Ik</a></nav></div><h2 id="h23"><span class="idx">23</span>Instellingsmail bevestigen (P1), adres al in gebruik</h2><p class="note">Ronde 3 (jurist should-fix 1): het instellingsanker is uniek per adres. De privacyregel zegt precies wat we bewaren, in dezelfde woorden als gebruiksvoorwaarden §8.4. Het scherm toont de melding die volgt als een ander account hetzelfde adres al bevestigde; de weg naar een mens staat ernaast. Het adres en het domein zijn fictief.</p></section>
 </main>
 <section class="changelog" aria-labelledby="wlog" style="max-width:860px;margin:32px auto;padding:0 16px;font:15px/1.5 system-ui,sans-serif">
  <h2 id="wlog">Wijzigingslog</h2>
+ <p><strong>Ronde 3, eindredactie — 5 november 2026 (versie 1.4).</strong> Gelijkgetrokken met spec 3.16, de voorregistratie en de gebruiksvoorwaarden na een onafhankelijke samenhangcontrole, volgens <code>docs/pitch/ronde-3-founder-reactie.md</code>.</p>
+ <ul>
+  <li>Schermen 21 en 22: de knoptekst van de uitweg is overal "Ik wil weer punten verdienen", in de woorden van het besluit van de founder en de voorregistratie (jurist should-fix 4).</li>
+ </ul>
+ <p><strong>Ronde 3 — 5 november 2026 (versie 1.4).</strong> Bijgewerkt volgens <code>docs/pitch/ronde-3-founder-reactie.md</code> (gedateerd 5 november) en het ontwerpdocument versie 1.4.</p>
+ <ul>
+  <li>Nieuw scherm 21: herhaalbericht van de rustperiode op de eerste dag van het aprilvenster (F11), één keer, in dezelfde woorden als op T − 6 (jurist should-fix 4).</li>
+  <li>Nieuw scherm 22: overstap uit de rustgroep naar een squad die punten verdient (Q9), met de uitleg dat dit telt als "Weer punten verdienen" (G-S2).</li>
+  <li>Nieuw scherm 23: instellingsmail met de versleutelde vingerafdruk en de melding bij een adres dat al in gebruik is (jurist should-fix 1).</li>
+  <li>O6: de groep hoort vanaf de bekendmaking bij de persoon (G-S2).</li>
+  <li>De data 1 februari, 23 april en 31 januari en het adres in scherm 23 zijn fictief, zoals alle namen en aantallen.</li>
+  <li>Nog niet als mockup uitgewerkt: P6, P7 (ook de variant voor 16–17), P8, het tweede Belofte-aanbod en de twee andere varianten van Q9; de tekst staat in het ontwerpdocument §3 en §6.2.</li>
+ </ul>
  <p><strong>Ronde 2 — 4 november 2026 (versie 1.3).</strong> Bijgewerkt volgens <code>docs/pitch/ronde-2-founder-reactie.md</code> en het ontwerpdocument versie 1.3.</p>
  <ul>
   <li>O6: onderzoeksuitleg met de rustperiode tot en met de tentamenperiode van april, de uitweg die in het onderzoek houdt en de schaarste van de catalogus; de bonusstop volgt de kalender van de instelling (besluit 1 en 3, J2, J10). De datum 31 januari in O6 en in het Belofte-aanbod is fictief, zoals alle namen en aantallen.</li>

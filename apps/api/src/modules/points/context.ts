@@ -8,6 +8,7 @@ import type { FocusDay } from '@rewarded/core/time';
 import { isFeatureEnabled } from '../../db/flags.ts';
 import type { Db } from '../../db/types.ts';
 import type { ModuleDeps } from '../../module.ts';
+import { poolOf, type Pool } from '../catalog/stock.ts';
 
 export interface UserProfile {
   id: string;
@@ -55,7 +56,7 @@ export interface DayContext {
   dayClosed: boolean;
 }
 
-export type Pool = 'pilot' | 'research' | 'expansion';
+export type { Pool } from '../catalog/stock.ts';
 
 export class PointsContext {
   readonly params: Params = CURRENT_PARAMS;
@@ -163,7 +164,6 @@ export class PointsContext {
 
   /** Voucher pool of a user (architecture §5.3): experiment until the bonus stop, then research; expansion. */
   pool(p: UserProfile, day: FocusDay): Pool {
-    if (p.cohort === 'expansion') return 'expansion';
-    return compareDays(day, this.params.goal_bonus.season.last_day) > 0 ? 'research' : 'pilot';
+    return poolOf(p.cohort, day);
   }
 }

@@ -8,7 +8,7 @@ import { devModules } from './modules.dev.gen.ts';
 import { createSqlServices } from './db/services/index.ts';
 import { startScheduler } from './jobs/scheduler.ts';
 import { httpConfigFromEnv } from './middleware/context.ts';
-import { DEV_EXPERIMENT_SEED, DEV_PEPPERS, DevClock, DevInbox, DevMailer, DevSmsSender } from './platform/dev.ts';
+import { DEV_EXPERIMENT_SEED, DEV_PEPPERS, DEV_TOTP_KEY, DevClock, DevInbox, DevMailer, DevSmsSender } from './platform/dev.ts';
 import { DevNetClassifier } from './platform/net.ts';
 import { CryptoRandom, HmacHasher, loadSecrets, stdoutLogger } from './platform/system.ts';
 import type { Platform } from './platform/types.ts';
@@ -32,6 +32,7 @@ const platform: Platform = {
   hasher: new HmacHasher(secrets?.peppers ?? DEV_PEPPERS),
   logger: stdoutLogger(clock),
   net: new DevNetClassifier(),
+  totpKey: secrets?.totpKey ?? DEV_TOTP_KEY,
 };
 const http = httpConfigFromEnv(process.env);
 // WP-3 services are real; the others stay fakes until their owners pass them in.
