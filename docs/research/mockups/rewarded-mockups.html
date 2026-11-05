@@ -6,6 +6,11 @@
 <title>Rewarded mockups</title>
 <style>
 /* ===== Designtokens (zie docs/research/06-ux-ontwerp.md §5.2) ===== */
+:root{
+  --session-bg:#000000; --session-text:#C9CED4; --session-muted:#8A929C;
+  --session-accent:#4E8F7B; --session-track:#1A1E23; --session-surface:#20262D;
+  --end-bg:#FFFFFF; --end-text:#1B1F24; --card-share-bg:#1E3530;
+}
 .t-light{
   --bg:#F7F6F2; --surface:#FFFFFF; --surface-2:#EFEDE7;
   --text:#1B1F24; --text-muted:#535B64; --text-disabled:#62686F;
@@ -13,7 +18,7 @@
   --live:#1D6B52; --pause-soft:#FBEFD6; --pause-text:#7A4E00;
   --kans-soft:#ECE9F7; --kans:#574A92; --danger:#A3322A;
   --border:#D9D6CE; --border-strong:#7D848C; --focus-ring:#1F4FD1;
-  --shadow:0 6px 24px rgba(27,31,36,.10);
+  --shadow-sheet:0 6px 24px rgba(27,31,36,.10);
 }
 .t-dark{
   --bg:#0E1114; --surface:#171B20; --surface-2:#20262D;
@@ -22,9 +27,10 @@
   --live:#6FD3AE; --pause-soft:#3A2E14; --pause-text:#F2C46B;
   --kans-soft:#2A2545; --kans:#B9AEF0; --danger:#F08A80;
   --border:#2C333B; --border-strong:#6E7782; --focus-ring:#8FB2FF;
-  --shadow:0 6px 24px rgba(0,0,0,.4);
+  --shadow-sheet:0 6px 24px rgba(0,0,0,.40);
 }
-.t-session{ --bg:#000000; --text:#C9CED4; --text-muted:#8A929C; }
+.t-session{ --bg:var(--session-bg); --text:var(--session-text); --text-muted:var(--session-muted); --surface:var(--session-bg); --surface-2:var(--session-surface); }
+.t-end{ --bg:var(--end-bg); --text:var(--end-text); --text-muted:#535B64; }
 
 *{box-sizing:border-box}
 html,body{margin:0}
@@ -32,51 +38,44 @@ body{
   font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
   background:#E4E2DC; color:#1B1F24; -webkit-font-smoothing:antialiased;
 }
+button,input,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:2px solid var(--focus-ring,#1F4FD1);outline-offset:2px}
 .page-head{max-width:1100px;padding:32px 32px 8px}
 .page-head h1{font-size:28px;line-height:34px;margin:0 0 8px}
-.page-head p{font-size:15px;line-height:22px;margin:0 0 8px;color:#3E454D;max-width:820px}
+.page-head p{font-size:15px;line-height:22px;margin:0 0 8px;color:#3E454D;max-width:860px}
 .legend{display:flex;gap:16px;flex-wrap:wrap;font-size:13px;color:#3E454D;margin-top:12px}
 .legend span{display:inline-flex;align-items:center;gap:6px}
 .sw{width:14px;height:14px;border-radius:4px;display:inline-block;border:1px solid rgba(0,0,0,.15)}
 
-.gallery{
-  display:flex;gap:56px;overflow-x:auto;padding:32px 40px 48px;
-  scroll-snap-type:x proximity; align-items:flex-start;
-}
-.item{flex:0 0 auto;width:390px;scroll-snap-align:start}
-.item.wide{width:1120px}
+.gallery{display:flex;gap:56px;overflow-x:auto;padding:32px 40px 48px;scroll-snap-type:x proximity;align-items:flex-start}
+.item{flex:0 0 auto;width:412px;scroll-snap-align:start}
+.item.wide{width:1130px}
 .item h2{font-size:17px;line-height:24px;margin:22px 0 4px}
 .item .idx{color:#535B64;font-weight:600;margin-right:6px}
 .item p.note{font-size:14px;line-height:20px;margin:0;color:#3E454D}
 
 /* ===== Telefoonframe ===== */
-.phone{
-  width:390px;height:844px;border-radius:46px;overflow:hidden;position:relative;
-  background:var(--bg);color:var(--text);
-  box-shadow:0 0 0 10px #15171A,0 0 0 11px #3a3d42,0 24px 48px rgba(0,0,0,.25);
-  margin:11px; display:flex;flex-direction:column;
-}
-.item .phone{margin:11px 0 0 11px}
-.laptop{
-  width:1100px;height:720px;border-radius:12px;overflow:hidden;position:relative;
-  background:var(--bg);color:var(--text);display:flex;
-  box-shadow:0 0 0 10px #15171A,0 24px 48px rgba(0,0,0,.25);margin:11px 0 0 11px;
-}
+.phone{width:390px;height:844px;border-radius:46px;overflow:hidden;position:relative;background:var(--bg);color:var(--text);
+  box-shadow:0 0 0 10px #15171A,0 0 0 11px #3a3d42,0 24px 48px rgba(0,0,0,.25);margin:11px 0 0 11px;display:flex;flex-direction:column}
+.laptop{width:1100px;height:720px;border-radius:12px;overflow:hidden;position:relative;background:var(--bg);color:var(--text);display:flex;
+  box-shadow:0 0 0 10px #15171A,0 24px 48px rgba(0,0,0,.25);margin:11px 0 0 11px}
 .statusbar{height:47px;flex:0 0 47px;display:flex;align-items:flex-end;justify-content:space-between;padding:0 30px 6px 34px;font-size:15px;font-weight:600}
 .statusbar .sb-icons{display:flex;gap:6px;align-items:center}
 .statusbar .bat{width:24px;height:11px;border:1.5px solid currentColor;border-radius:3px;position:relative;opacity:.9}
 .statusbar .bat:after{content:"";position:absolute;inset:1.5px;right:5px;background:currentColor;border-radius:1px}
 .statusbar .sig{display:flex;gap:2px;align-items:flex-end}
 .statusbar .sig i{width:3px;background:currentColor;border-radius:1px;display:block}
+.fict{font-size:11px;line-height:16px;font-weight:600;padding:1px 8px;border-radius:999px;background:var(--surface-2);color:var(--text-muted)}
 .content{flex:1;padding:8px 16px 0;display:flex;flex-direction:column;gap:12px;overflow:hidden}
 .content.with-tabs{padding-bottom:96px}
 
 /* Tabbalk */
 .tabbar{position:absolute;left:0;right:0;bottom:0;height:84px;background:var(--surface);border-top:1px solid var(--border);display:flex;justify-content:space-around;padding:8px 4px 20px}
-.tab{display:flex;flex-direction:column;align-items:center;gap:3px;font-size:12px;line-height:16px;font-weight:600;color:var(--text-muted);width:72px;min-height:48px}
+.tab{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;font-size:12px;line-height:16px;font-weight:600;color:var(--text-muted);width:72px;min-height:48px;text-decoration:none}
 .tab svg{width:24px;height:24px}
 .tab.on{color:var(--primary)}
-.tab .dot{position:absolute}
+.tab.on:before{content:"";position:absolute;top:-8px;left:18px;right:18px;height:3px;border-radius:0 0 3px 3px;background:var(--primary)}
 
 /* Typografie */
 .title-l{font-size:28px;line-height:34px;font-weight:700;margin:0;letter-spacing:-.2px}
@@ -84,24 +83,24 @@ body{
 .body-l{font-size:17px;line-height:24px;margin:0}
 .body{font-size:15px;line-height:22px;margin:0}
 .label{font-size:13px;line-height:18px;font-weight:600;margin:0}
-.nowrap,.card.row > .label{white-space:nowrap}
 .caption{font-size:12px;line-height:16px;margin:0;color:var(--text-muted)}
 .muted{color:var(--text-muted)}
 .num{font-variant-numeric:tabular-nums}
+.strong{font-weight:650}
 
 /* Componenten */
 .card{background:var(--surface);border-radius:12px;padding:16px;border:1px solid var(--border)}
 .card.soft{background:var(--surface-2);border-color:transparent}
 .card.status{background:var(--pause-soft);border-color:transparent;color:var(--pause-text)}
 .card.kans{background:var(--kans-soft);border-color:transparent}
-.card.mine{border:2px solid var(--primary)}
-.btn{display:flex;align-items:center;justify-content:center;gap:8px;min-height:52px;border-radius:999px;font-size:17px;font-weight:650;padding:0 20px;border:0;width:100%}
+.btn{display:flex;align-items:center;justify-content:center;gap:8px;min-height:52px;border-radius:999px;font-size:17px;font-weight:650;padding:0 20px;border:0;width:100%;background:none}
 .btn.primary{background:var(--primary);color:var(--on-primary)}
 .btn.secondary{background:transparent;color:var(--text);border:1.5px solid var(--border-strong)}
 .btn.kansbtn{background:transparent;color:var(--kans);border:1.5px solid var(--kans)}
-.btn.disabled{background:var(--surface-2);color:var(--text-disabled)}
+.btn[disabled]{background:var(--surface-2);color:var(--text-disabled);cursor:not-allowed}
 .btn.sm{min-height:48px;font-size:15px;width:auto}
-.link{color:var(--primary-text);font-weight:600;font-size:15px;text-decoration:underline;text-underline-offset:3px;text-align:center;padding:12px 0;display:block}
+.link{color:var(--primary-text);font-weight:600;font-size:15px;text-decoration:underline;text-underline-offset:3px;min-height:48px;width:100%;display:flex;align-items:center;justify-content:center;background:none;border:0;padding:0}
+.link.inline{display:inline;min-height:0;width:auto;font-size:inherit;padding:0}
 .chip{white-space:nowrap;display:inline-flex;align-items:center;gap:6px;border-radius:999px;padding:4px 10px;font-size:13px;line-height:18px;font-weight:600}
 .chip.ok{background:var(--primary-soft);color:var(--primary-text)}
 .chip.pause{background:var(--pause-soft);color:var(--pause-text)}
@@ -118,49 +117,63 @@ body{
 .avatars .avatar{margin-left:-8px;border:2px solid var(--surface)}
 .avatars .avatar:first-child{margin-left:0}
 .seg{display:flex;gap:8px}
-.seg div{flex:1;min-height:48px;border-radius:999px;border:1.5px solid var(--border-strong);display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:650}
-.seg div.on{background:var(--primary-soft);border-color:var(--primary);color:var(--primary-text)}
+.seg button{flex:1;min-height:48px;border-radius:999px;border:1.5px solid var(--border-strong);background:transparent;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:650;padding:0 4px}
+.seg button[aria-checked="true"]{background:var(--primary-soft);border-color:var(--primary);color:var(--primary-text)}
+.radiolist{display:flex;flex-direction:column}
+.radiolist button{display:flex;align-items:center;gap:12px;min-height:48px;border:0;border-bottom:1px solid var(--border);background:none;text-align:left;font-size:15px;padding:0}
+.radiolist button:last-child{border-bottom:0}
+.radiolist button:before{content:"";width:20px;height:20px;border-radius:50%;border:1.5px solid var(--border-strong);flex:0 0 auto;box-sizing:border-box}
+.radiolist button[aria-checked="true"]:before{border:6px solid var(--primary)}
 .bar{height:8px;border-radius:999px;background:var(--surface-2);overflow:hidden}
 .bar i{display:block;height:100%;background:var(--primary);border-radius:999px}
-.list .li{display:flex;align-items:center;gap:12px;min-height:60px;padding:8px 0;border-bottom:1px solid var(--border)}
+.list .li{display:flex;align-items:center;gap:12px;min-height:56px;padding:6px 0;border-bottom:1px solid var(--border)}
 .list .li:last-child{border-bottom:0}
 .li .grow{flex:1;min-width:0}
 .ico{width:24px;height:24px;flex:0 0 auto}
 .ico.sm{width:18px;height:18px}
 .field{border:1.5px solid var(--border-strong);border-radius:12px;min-height:56px;padding:6px 14px;display:flex;flex-direction:column;justify-content:center;background:var(--surface)}
 .field .caption{margin-bottom:2px}
-.field .v{font-size:20px;font-weight:600}
+.field input{border:0;background:none;font-size:20px;font-weight:600;padding:0;width:100%;outline:none}
 .field.focus{border:2px solid var(--focus-ring);box-shadow:0 0 0 3px rgba(31,79,209,.15)}
+.ta{border:1.5px solid var(--border-strong);border-radius:12px;min-height:64px;padding:10px 14px;background:var(--surface);width:100%;resize:none;font-size:15px}
 .steps{display:flex;gap:6px}
 .steps i{height:4px;flex:1;border-radius:4px;background:var(--surface-2)}
 .steps i.on{background:var(--primary)}
-.topnav{display:flex;align-items:center;gap:8px;min-height:44px;font-size:15px;font-weight:600;color:var(--text-muted)}
-.sheet{position:absolute;left:0;right:0;bottom:0;background:var(--surface);border-radius:20px 20px 0 0;padding:10px 16px 34px;box-shadow:0 -8px 32px rgba(0,0,0,.18);display:flex;flex-direction:column;gap:12px}
+.topnav{display:flex;align-items:center;gap:8px;min-height:48px;font-size:15px;font-weight:600;color:var(--text-muted);background:none;border:0;padding:0;align-self:flex-start}
+.sheet{position:absolute;left:0;right:0;bottom:0;background:var(--surface);border-radius:20px 20px 0 0;padding:10px 16px 30px;box-shadow:0 -8px 32px rgba(0,0,0,.18);display:flex;flex-direction:column;gap:10px}
 .scrim{position:absolute;inset:0;background:rgba(14,17,20,.45)}
 .grab{width:40px;height:5px;border-radius:3px;background:var(--border-strong);margin:0 auto 4px;opacity:.6}
 .kv{display:flex;justify-content:space-between;gap:12px;padding:10px 0;border-bottom:1px solid var(--border);font-size:15px;line-height:20px}
 .kv:last-child{border-bottom:0}
 .kv b{font-weight:650;text-align:right}
-.toggle{width:51px;height:31px;border-radius:999px;background:var(--surface-2);border:1.5px solid var(--border-strong);position:relative;flex:0 0 auto}
+.toggle{width:51px;height:31px;border-radius:999px;background:var(--surface-2);border:1.5px solid var(--border-strong);position:relative;flex:0 0 auto;padding:0}
 .toggle:after{content:"";position:absolute;top:2px;left:2px;width:24px;height:24px;border-radius:50%;background:var(--text-muted)}
-.toggle.on{background:var(--primary);border-color:var(--primary)}
-.toggle.on:after{left:22px;background:var(--on-primary)}
-.toggle.locked{opacity:.6}
+.toggle[aria-checked="true"]{background:var(--primary);border-color:var(--primary)}
+.toggle[aria-checked="true"]:after{left:22px;background:var(--on-primary)}
+.switchrow{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:52px;border-bottom:1px solid var(--border)}
+.switchrow:last-child{border-bottom:0}
+.check{display:flex;align-items:flex-start;gap:12px;min-height:48px;font-size:15px;line-height:22px;padding:4px 0}
+.check input{width:24px;height:24px;margin:0;flex:0 0 auto;accent-color:var(--primary)}
 .qr{width:100%;height:100%;display:block}
-.fict{position:absolute;top:52px;right:14px;font-size:11px;font-weight:600;padding:2px 8px;border-radius:999px;background:var(--surface-2);color:var(--text-muted)}
+.dots{display:flex;gap:6px;flex-wrap:wrap}
+.dots i{width:22px;height:22px;border-radius:50%;display:inline-block;border:1.5px solid var(--border-strong);font-style:normal}
+.dots i.y{background:var(--primary);border-color:var(--primary)}
+.dots i.p{background:repeating-linear-gradient(45deg,var(--surface-2),var(--surface-2) 3px,var(--border) 3px,var(--border) 6px)}
+.bonus{font-size:15px;line-height:22px;color:var(--text-muted);margin:0}
+.section-label{font-size:13px;line-height:18px;font-weight:600;color:var(--text-muted);margin:4px 0 0}
 
 /* Sessie */
 .session .content{align-items:center;text-align:center;justify-content:space-between;padding:12px 24px 40px}
 .ringwrap{position:relative;width:290px;height:290px}
 .ringwrap svg{width:290px;height:290px;transform:rotate(-90deg)}
 .ringwrap .center{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
-.display{font-size:64px;line-height:72px;font-weight:300;font-variant-numeric:tabular-nums;letter-spacing:-1px}
+.display{font-size:64px;line-height:72px;font-weight:300;font-variant-numeric:tabular-nums;letter-spacing:-1px;margin:0}
 
 /* Dashboard */
 .side{width:232px;background:var(--surface);border-right:1px solid var(--border);padding:20px 12px;display:flex;flex-direction:column;gap:4px}
-.side .brand{font-size:18px;font-weight:700;padding:4px 12px 16px}
-.side .nav{display:flex;align-items:center;gap:10px;min-height:44px;padding:0 12px;border-radius:10px;font-size:15px;font-weight:600;color:var(--text-muted)}
-.side .nav.on{background:var(--primary-soft);color:var(--primary-text)}
+.side .brand{font-size:18px;font-weight:700;padding:4px 12px 16px;margin:0}
+.side .nav{display:flex;align-items:center;gap:10px;min-height:48px;padding:0 12px;border-radius:10px;font-size:15px;font-weight:600;color:var(--text-muted);text-decoration:none}
+.side .nav[aria-current="page"]{background:var(--primary-soft);color:var(--primary-text)}
 .main{flex:1;padding:24px 32px;display:flex;flex-direction:column;gap:16px;overflow:hidden}
 .tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
 .tile .big{font-size:32px;line-height:38px;font-weight:700;font-variant-numeric:tabular-nums;margin-top:4px}
@@ -171,19 +184,26 @@ body{
 .xl{display:flex;gap:10px;font-size:12px;color:var(--text-muted)}
 .xl span{flex:1;text-align:center;white-space:nowrap}
 .grid2{display:grid;grid-template-columns:1.6fr 1fr;gap:16px}
+.standstrip{display:flex;gap:8px;flex-wrap:wrap}
 </style>
 </head>
 <body>
 
-<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
   <defs>
     <symbol id="i-focus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="12" width="18" height="7" rx="2"/><path d="M6 21h12"/><path d="M8 8l4-4 4 4"/><path d="M12 4v6"/></symbol>
+    <symbol id="i-focus-f" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="12" width="18" height="7" rx="2" fill="currentColor"/><path d="M6 21h12"/><path d="M8 8l4-4 4 4"/><path d="M12 4v6"/></symbol>
     <symbol id="i-squad" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="3"/><circle cx="5" cy="10" r="2.2"/><circle cx="19" cy="10" r="2.2"/><path d="M7 19c0-3 2.2-5 5-5s5 2 5 5"/><path d="M2 18c0-2 1.3-3.5 3-3.5"/><path d="M22 18c0-2-1.3-3.5-3-3.5"/></symbol>
+    <symbol id="i-squad-f" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="3"/><circle cx="5" cy="10" r="2.2"/><circle cx="19" cy="10" r="2.2"/><path d="M7 19c0-3 2.2-5 5-5s5 2 5 5z"/><path d="M2 18c0-2 1.3-3.5 3-3.5" fill="none"/><path d="M22 18c0-2-1.3-3.5-3-3.5" fill="none"/></symbol>
     <symbol id="i-flag" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M5 21V4"/><path d="M5 4h11l-2 4 2 4H5"/></symbol>
+    <symbol id="i-flag-f" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M5 21V4"/><path d="M5 4h11l-2 4 2 4H5z" fill="currentColor"/></symbol>
     <symbol id="i-gift" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="18" height="4" rx="1"/><path d="M5 12v8h14v-8"/><path d="M12 8v12"/><path d="M12 8c-2-3-5-3-5-1s3 1 5 1c2 0 5 1 5-1s-3-2-5 1z"/></symbol>
+    <symbol id="i-gift-f" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="18" height="4" rx="1" fill="currentColor"/><path d="M5 12v8h14v-8z" fill="currentColor"/><path d="M12 8c-2-3-5-3-5-1s3 1 5 1c2 0 5 1 5-1s-3-2-5 1z"/></symbol>
     <symbol id="i-user" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="10" r="3"/><path d="M6.5 18.5c1.2-2.2 3.2-3.5 5.5-3.5s4.3 1.3 5.5 3.5"/></symbol>
+    <symbol id="i-user-f" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9" fill="currentColor"/><circle cx="12" cy="10" r="3" stroke="var(--surface)"/><path d="M6.5 18.5c1.2-2.2 3.2-3.5 5.5-3.5s4.3 1.3 5.5 3.5" stroke="var(--surface)"/></symbol>
     <symbol id="i-flame" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21c-3.5 0-6-2.4-6-5.6 0-3.2 2.5-5 3.5-8.4 2 1.4 2.5 3 2.5 4.5 1-1 1.6-2.2 1.8-3.5 2.2 2 4.2 4.3 4.2 7.4 0 3.2-2.5 5.6-6 5.6z"/></symbol>
-    <symbol id="i-clover" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="9" r="3.2"/><circle cx="15" cy="9" r="3.2"/><circle cx="9" cy="15" r="3.2"/><circle cx="15" cy="15" r="3.2"/><path d="M15 15l4 5"/></symbol>
+    <symbol id="i-ticket" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7h18v3a2 2 0 000 4v3H3v-3a2 2 0 000-4z"/><path d="M15 7v10" stroke-dasharray="2 2.5"/></symbol>
+    <symbol id="i-joker" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"><circle cx="12" cy="12" r="8"/><path d="M8 12h8"/></symbol>
     <symbol id="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></symbol>
     <symbol id="i-pause" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M10 9v6M14 9v6"/></symbol>
     <symbol id="i-info" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></symbol>
@@ -191,439 +211,410 @@ body{
     <symbol id="i-back" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></symbol>
     <symbol id="i-chat" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20l1.4-4A8 8 0 1112 20a8 8 0 01-4-1.1z"/></symbol>
     <symbol id="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></symbol>
-    <symbol id="i-wifi" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"><path d="M2 9a15 15 0 0120 0M5 12.5a10 10 0 0114 0M8.5 16a5 5 0 017 0"/><circle cx="12" cy="19.5" r=".8" fill="currentColor"/></symbol>
+    <symbol id="i-bell" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M6 16V11a6 6 0 0112 0v5l1.5 2h-15z"/><path d="M10 20.5a2 2 0 004 0"/></symbol>
     <symbol id="i-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 018 0v3"/></symbol>
+    <symbol id="i-eye" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.6-6 10-6 10 6 10 6-3.6 6-10 6S2 12 2 12z"/><circle cx="12" cy="12" r="2.5"/></symbol>
     <symbol id="i-chart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></symbol>
+    <symbol id="i-people" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6"/><path d="M16 4.5a3 3 0 010 6M21 20c0-2.6-1.5-4.8-3.8-5.6"/></symbol>
     <symbol id="i-kit" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M8 14h8"/></symbol>
     <symbol id="i-shield" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v6c0 4.5-3.4 8-8 9-4.6-1-8-4.5-8-9V6z"/></symbol>
   </defs>
 </svg>
 
 <header class="page-head">
-  <h1>Rewarded — kernschermen web-MVP</h1>
-  <p>Mockups bij <code>docs/research/06-ux-ontwerp.md</code>. Elf telefoonschermen op 390 × 844 px en het bestuursdashboard op laptopbreedte, in het lichte en het donkere thema van het designsysteem. Scroll horizontaal door de galerij.</p>
-  <p><strong>Alle namen, aantallen, verenigingen, partners en prijzen in deze mockups zijn fictief.</strong> Ze illustreren de opmaak, niet de werkelijke catalogus of uitkomsten.</p>
-  <div class="legend">
+  <h1>Rewarded — kernschermen web-MVP (versie 1.1)</h1>
+  <p>Mockups bij <code>docs/research/06-ux-ontwerp.md</code>. Negentien telefoonschermen op 390 × 844 px en het bestuursdashboard op laptopbreedte, in het lichte en het donkere thema van het designsysteem. Scroll horizontaal door de galerij.</p>
+  <p><strong>Alle namen, aantallen, verenigingen, partners en prijzen in deze mockups zijn fictief.</strong> Elk scherm draagt daarom de markering "Fictief". De mockups illustreren opmaak en semantiek, niet de werkelijke catalogus of uitkomsten.</p>
+  <p>De mockups gebruiken echte knoppen, keuzerondjes (<code>role="radio"</code>), schakelaars (<code>role="switch"</code>) en <code>aria-current</code>, zodat bouwers de structuur kunnen overnemen. Waar een mockup toch afwijkt, zijn §5.5 en §5.8 van het ontwerpdocument bindend.</p>
+  <div class="legend" aria-hidden="true">
     <span><i class="sw" style="background:#2B5A4E"></i>primary (licht)</span>
     <span><i class="sw" style="background:#7FC4AE"></i>primary (donker)</span>
-    <span><i class="sw" style="background:#FBEFD6"></i>status: afgebroken, pauze, in afwachting</span>
+    <span><i class="sw" style="background:#FBEFD6"></i>status: afgebroken, weekbudget, wordt nagekeken</span>
     <span><i class="sw" style="background:#ECE9F7"></i>kans: alleen verlote prijzen</span>
     <span><i class="sw" style="background:#000"></i>sessiescherm</span>
+    <span><i class="sw" style="background:#FFF"></i>eindscherm</span>
   </div>
 </header>
-
 <main class="gallery">
-
-<!-- 1 WELKOM -->
-<section class="item">
-  <div class="phone t-light" role="img" aria-label="Welkomstscherm met uitnodiging van Sanne">
-    <div class="statusbar"><span>9:41</span><span class="sb-icons"><span class="sig"><i style="height:4px"></i><i style="height:6px"></i><i style="height:8px"></i><i style="height:10px"></i></span><span class="bat"></span></span></div>
-    <div class="content" style="gap:16px;padding-top:12px">
-      <div class="steps"><i class="on"></i><i></i><i></i><i></i><i></i><i></i></div>
-      <p class="label" style="font-size:18px;letter-spacing:.2px">Rewarded</p>
-      <div class="card row">
-        <div class="avatars"><div class="avatar">S</div><div class="avatar">M</div><div class="avatar">D</div></div>
-        <div><p class="body"><strong>Sanne</strong> nodigt je uit voor squad <strong>UB-ochtendploeg</strong></p><p class="caption">3 leden · Universiteit Utrecht</p></div>
-      </div>
-      <h1 class="title-l" style="font-size:34px;line-height:40px;margin-top:8px">Telefoon weg.<br>Squad aan.</h1>
-      <p class="body-l">Focus samen met je squad in de tentamenweken, en word beloond voor wat je toch al moest doen.</p>
-      <div class="card soft stack">
-        <div class="row" style="align-items:flex-start;gap:10px"><svg class="ico sm" style="margin-top:2px"><use href="#i-info"/></svg><p class="body">Rewarded telt je focustijd zolang de app zichtbaar op je scherm openstaat. Ga je naar een andere app of tabblad, of gaat je scherm uit, dan stopt de sessie.</p></div>
-      </div>
-      <p class="body muted">Na vijf uur focus kun je punten inwisselen bij partners. Geen geld.</p>
-      <div style="flex:1"></div>
-      <div class="btn primary">Doe mee met de squad</div>
-      <span class="link" style="padding-top:0">Hoe telt Rewarded?</span>
-      <p class="caption" style="text-align:center;padding-bottom:28px">16+ · Voorwaarden · Privacyverklaring</p>
-    </div>
+<section class="item" aria-labelledby="h01"><div class="phone t-light " role="group" aria-label="Welkomstscherm met uitnodiging van Sanne"><div class="statusbar"><span aria-hidden="true">9:41</span><span class="fict">Fictief</span><span class="sb-icons" aria-hidden="true"><span class="sig"><i style="height:4px"></i><i style="height:6px"></i><i style="height:8px"></i><i style="height:10px"></i></span><span class="bat"></span></span></div>
+ <div class="content" style="gap:12px;padding-top:10px">
+  <div class="steps" aria-hidden="true"><i class="on"></i><i></i><i></i><i></i><i></i><i></i></div>
+  <p class="label" style="font-size:18px">Rewarded</p>
+  <div class="card row">
+   <div class="avatars" aria-hidden="true"><div class="avatar">S</div><div class="avatar">M</div><div class="avatar">D</div></div>
+   <div><p class="body"><strong>Sanne</strong> nodigt je uit voor squad <strong>UB-ochtendploeg</strong></p><p class="caption">3 leden · Universiteit Utrecht</p></div>
   </div>
-  <h2><span class="idx">01</span>Welkom via een squadlink (O1)</h2>
-  <p class="note">De uitnodiger staat bovenaan: de reden om te blijven is een vriend, geen bedrag. De eerlijke claim staat vóór de registratie. Beloningen krijgen één regel, onder de belofte, met "Geen geld".</p>
-</section>
-
-<!-- 2 LEEFTIJDSCHECK -->
-<section class="item">
-  <div class="phone t-light" role="img" aria-label="Leeftijdscheck met geboortedatum">
-    <div class="statusbar"><span>9:42</span><span class="sb-icons"><span class="sig"><i style="height:4px"></i><i style="height:6px"></i><i style="height:8px"></i><i style="height:10px"></i></span><span class="bat"></span></span></div>
-    <div class="content" style="gap:16px">
-      <div class="topnav"><svg class="ico"><use href="#i-back"/></svg>Terug</div>
-      <div class="steps"><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i><i></i></div>
-      <h1 class="title-l">Wanneer ben je geboren?</h1>
-      <p class="body muted">Rewarded is er vanaf 16 jaar. Sommige onderdelen, zoals gratis trekkingen, zijn alleen voor 18+.</p>
-      <div class="row" style="gap:10px">
-        <div class="field" style="flex:1"><span class="caption">Dag</span><span class="v num">14</span></div>
-        <div class="field" style="flex:1"><span class="caption">Maand</span><span class="v num">03</span></div>
-        <div class="field focus" style="flex:1.5"><span class="caption">Jaar</span><span class="v num">2006</span></div>
-      </div>
-      <div class="card soft row" style="align-items:flex-start;gap:10px">
-        <svg class="ico sm" style="margin-top:2px"><use href="#i-lock"/></svg>
-        <p class="body">We bewaren alleen of je 16–17 of 18+ bent, niet je geboortedatum. Win je later een 18+-prijs, dan vragen we eenmalig om een controle.</p>
-      </div>
-      <div style="flex:1"></div>
-      <div class="btn primary">Verder</div>
-      <p class="caption" style="text-align:center;padding-bottom:30px">Stap 3 van 6</p>
-    </div>
+  <h1 class="title-l" style="font-size:32px;line-height:38px;margin-top:4px">Telefoon weg.<br>Squad aan.</h1>
+  <p class="body-l">Focus samen met je squad in de tentamenweken, en word beloond voor wat je toch al moest doen.</p>
+  <div class="card soft row" style="align-items:flex-start;gap:10px"><svg class="ico sm" aria-hidden="true" focusable="false" style="margin-top:2px"><use href="#i-info"/></svg><p class="body">Rewarded telt je focustijd zolang de app zichtbaar op je scherm openstaat. Ga je naar een andere app of tabblad, of gaat je scherm uit, dan stopt de sessie.</p></div>
+  <div class="row" style="align-items:flex-start;gap:10px"><svg class="ico sm" aria-hidden="true" focusable="false" style="margin-top:2px"><use href="#i-eye"/></svg><p class="body muted">Je squad ziet of je nu focust, hoe lang je sessie nog loopt en of je je dagdoel haalde. Je focusminuten en punten zien ze niet. Stille modus kan altijd.</p></div>
+  <p class="body muted">Na vijf uur focus kun je punten inwisselen bij partners. Geen geld.</p>
+  <div style="flex:1"></div>
+  <button type="button" class="btn primary">Doe mee met de squad</button>
+  <button type="button" class="link" style="margin-top:-6px">Hoe telt Rewarded?</button>
+  <p class="caption" style="text-align:center;padding-bottom:24px;margin-top:-8px">16+ · Voorwaarden · Privacyverklaring</p>
+ </div></div><h2 id="h01"><span class="idx">01</span>Welkom via een squadlink (O1)</h2><p class="note">De uitnodiger staat bovenaan: de reden om te blijven is een vriend, geen bedrag. Eerlijke claim en de zichtbaarheidsregel staan vóór de registratie, zodat het lidmaatschap een geïnformeerde keuze is. Beloningen krijgen één regel met "Geen geld". Geen woord over trekkingen. Op een desktop wordt de kop "Focus samen met je squad."</p></section><section class="item" aria-labelledby="h02"><div class="phone t-light " role="group" aria-label="Leeftijdscheck met geboortedatum"><div class="statusbar"><span aria-hidden="true">9:42</span><span class="fict">Fictief</span><span class="sb-icons" aria-hidden="true"><span class="sig"><i style="height:4px"></i><i style="height:6px"></i><i style="height:8px"></i><i style="height:10px"></i></span><span class="bat"></span></span></div>
+ <div class="content" style="gap:16px">
+  <button type="button" class="topnav"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-back"/></svg>Terug</button>
+  <div class="steps" aria-hidden="true"><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i><i></i></div>
+  <h1 class="title-l">Wanneer ben je geboren?</h1>
+  <p class="body muted">Rewarded is er vanaf 16 jaar. We vragen je geboortedatum om te bepalen welke onderdelen je ziet.</p>
+  <div class="row" style="gap:10px">
+   <label class="field" style="flex:1"><span class="caption">Dag</span><input inputmode="numeric" maxlength="2" value="14" class="num"></label>
+   <label class="field" style="flex:1"><span class="caption">Maand</span><input inputmode="numeric" maxlength="2" value="03" class="num"></label>
+   <label class="field focus" style="flex:1.5"><span class="caption">Jaar</span><input inputmode="numeric" maxlength="4" value="2009" class="num"></label>
   </div>
-  <h2><span class="idx">02</span>Leeftijdscheck (O5)</h2>
-  <p class="note">Drie losse velden, zodat het numerieke toetsenbord opent en een schermlezer elk veld apart noemt. Onder 16: "Rewarded is er vanaf 16 jaar", en er wordt niets opgeslagen. De gebruiker ziet hier geen verschil tussen 16–17 en 18+; dat komt pas bij Beloningen.</p>
-</section>
-
-<!-- 3 HOME -->
-<section class="item">
-  <div class="phone t-light" role="img" aria-label="Home met dagdoel en sessiestart">
-    <div class="statusbar"><span>10:05</span><span class="sb-icons"><span class="sig"><i style="height:4px"></i><i style="height:6px"></i><i style="height:8px"></i><i style="height:10px"></i></span><span class="bat"></span></span></div>
-    <div class="content with-tabs" style="gap:14px">
-      <div class="row between"><h1 class="title-l">Hoi Lotte</h1><span class="chip ok"><svg><use href="#i-flame"/></svg>Dag 6</span></div>
-      <div class="card row" style="gap:16px">
-        <svg width="112" height="112" viewBox="0 0 128 128" style="transform:rotate(-90deg);flex:0 0 auto" role="progressbar" aria-valuenow="25" aria-valuemax="50">
-          <circle cx="64" cy="64" r="54" fill="none" stroke="var(--surface-2)" stroke-width="10"/>
-          <circle cx="64" cy="64" r="54" fill="none" stroke="var(--primary)" stroke-width="10" stroke-linecap="round" stroke-dasharray="339.3" stroke-dashoffset="169.6"/>
-        </svg>
-        <div class="stack" style="gap:4px">
-          <p class="label muted">Dagdoel vandaag</p>
-          <p class="title-m num">25 van 50 min</p>
-          <p class="body muted">Nog één sessie van 25 minuten.</p>
-        </div>
-      </div>
-      <div class="card row between">
-        <div class="row" style="gap:10px">
-          <div class="avatars"><div class="avatar sm">M<span class="live"></span></div><div class="avatar sm">D<span class="live"></span></div><div class="avatar sm">J</div></div>
-          <div><p class="label">UB-ochtendploeg</p><p class="body" style="color:var(--live);font-weight:600">2 van 4 focussen nu</p></div>
-        </div>
-        <span class="caption">Squad ›</span>
-      </div>
-      <p class="label muted" style="margin-top:4px">Hoe lang?</p>
-      <div class="seg" role="radiogroup"><div>25 min</div><div class="on">50 min</div><div>90 min</div></div>
-      <div class="btn primary" style="min-height:60px;font-size:19px"><svg class="ico"><use href="#i-focus"/></svg>Start focussessie</div>
-      <p class="caption" style="text-align:center">Haal je doel vandaag: +20.</p>
-      <div class="card soft row between"><p class="body">SV Kompas staat <strong>2e</strong> in jullie poule</p><span class="caption">Vereniging ›</span></div>
-    </div>
-    <nav class="tabbar">
-      <div class="tab on"><svg><use href="#i-focus"/></svg>Focus</div>
-      <div class="tab"><svg><use href="#i-squad"/></svg>Squad</div>
-      <div class="tab"><svg><use href="#i-flag"/></svg>Vereniging</div>
-      <div class="tab"><svg><use href="#i-gift"/></svg>Beloningen</div>
-      <div class="tab"><svg><use href="#i-user"/></svg>Ik</div>
-    </nav>
+  <div class="card soft row" style="align-items:flex-start;gap:10px"><svg class="ico sm" aria-hidden="true" focusable="false" style="margin-top:2px"><use href="#i-lock"/></svg>
+   <p class="body">We bewaren of je 16–17 of 18+ bent. Ben je jonger dan 18, dan bewaren we ook de dag waarop je 18 wordt, zodat je dan automatisch overstapt.</p></div>
+  <div style="flex:1"></div>
+  <button type="button" class="btn primary">Verder</button>
+  <p class="caption" style="text-align:center;padding-bottom:30px">Stap 3 van 6</p>
+ </div></div><h2 id="h02"><span class="idx">02</span>Leeftijdscheck (O5)</h2><p class="note">Drie losse velden, zodat het numerieke toetsenbord opent en een schermlezer elk veld apart noemt. Geen zin over trekkingen of 18+-prijzen: dit scherm ziet ook een 16-jarige. De privacyregel zegt precies wat de server bewaart (spec 4.10). Een datum onder 16 vraagt eerst om bevestiging.</p></section><section class="item" aria-labelledby="h03"><div class="phone t-light " role="group" aria-label="Voorwaarden, privacy en pilotuitleg"><div class="statusbar"><span aria-hidden="true">9:43</span><span class="fict">Fictief</span><span class="sb-icons" aria-hidden="true"><span class="sig"><i style="height:4px"></i><i style="height:6px"></i><i style="height:8px"></i><i style="height:10px"></i></span><span class="bat"></span></span></div>
+ <div class="content" style="gap:12px">
+  <button type="button" class="topnav"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-back"/></svg>Terug</button>
+  <div class="steps" aria-hidden="true"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i></div>
+  <h1 class="title-l">De afspraken</h1>
+  <div class="card stack" style="gap:6px">
+   <p class="label">Wat we vastleggen</p>
+   <p class="body">Begin en einde van je sessies, of Rewarded zichtbaar op je scherm stond, en bij wie je in de squad zit. Geen locatie, geen camera, geen contacten.</p>
   </div>
-  <h2><span class="idx">03</span>Home met sessiestart (F1)</h2>
-  <p class="note">Eén primaire knop. Bovenaan dagdoel en squad, daaronder de duurkeuze. Geen puntensaldo op dit scherm; de bonusregel van de arm (hier arm A) staat klein onder de knop. De vereniging krijgt één regel.</p>
-</section>
-
-<!-- 4 SESSIE LOPEND (donker) -->
-<section class="item">
-  <div class="phone t-dark t-session session" role="img" aria-label="Lopende focussessie, nog 32 minuten">
-    <div class="statusbar" style="color:#8A929C"><span>10:23</span><span class="sb-icons"><span class="sig"><i style="height:4px"></i><i style="height:6px"></i><i style="height:8px"></i><i style="height:10px"></i></span><span class="bat"></span></span></div>
-    <div class="content">
-      <p class="label" style="color:var(--text-muted)">Focussessie · 50 minuten</p>
-      <div class="ringwrap">
-        <svg viewBox="0 0 290 290" aria-hidden="true">
-          <circle cx="145" cy="145" r="130" fill="none" stroke="#1A1E23" stroke-width="6"/>
-          <circle cx="145" cy="145" r="130" fill="none" stroke="#4E8F7B" stroke-width="6" stroke-linecap="round" stroke-dasharray="816.8" stroke-dashoffset="522.8"/>
-        </svg>
-        <div class="center"><span class="display">32 min</span><span class="body" style="color:var(--text-muted)">nog te gaan</span></div>
-      </div>
-      <div class="stack" style="align-items:center;gap:10px">
-        <svg width="40" height="40" style="color:var(--text-muted)"><use href="#i-focus"/></svg>
-        <p class="body-l" style="max-width:280px">Leg je telefoon omgekeerd neer. Wij houden de tijd bij.</p>
-      </div>
-      <div class="stack" style="align-items:center;gap:8px">
-        <div class="avatars"><div class="avatar sm" style="background:#20262D;color:#C9CED4;border-color:#000">M</div><div class="avatar sm" style="background:#20262D;color:#C9CED4;border-color:#000">D</div></div>
-        <p class="body" style="color:var(--text-muted)">Mila en Daan focussen ook</p>
-      </div>
-      <div class="stack" style="width:100%;gap:14px">
-        <p class="caption" style="color:#8A929C"><svg class="ico sm" style="vertical-align:-4px"><use href="#i-sun"/></svg> Scherm blijft aan</p>
-        <div class="btn secondary" style="color:#C9CED4;border-color:#6E7782;min-height:56px">Stoppen</div>
-      </div>
-    </div>
+  <div class="card stack" style="gap:6px">
+   <p class="label">Dit is een pilot</p>
+   <p class="body">We testen twee bonusregels die evenveel opleveren; jouw squad krijgt er één, door loting. Je punten per minuut zijn voor iedereen gelijk. Sommige onderdelen krijg je op een ander moment dan anderen. De doelbonus stopt op 18 januari 2027. Stoppen en je gegevens laten verwijderen kan altijd.</p>
   </div>
-  <h2><span class="idx">04</span>Sessie lopend (F3), altijd donker</h2>
-  <p class="note">Zwart vlak, grijze tekst (13,3:1), dunne ring zonder puls. Geen punten, geen tabbalk, één knop. Minuten in plaats van seconden: het scherm verandert hooguit eens per minuut. De omdraai-instructie zakt na vijf seconden naar deze kleine regel. De squad zit erbij.</p>
-</section>
-
-<!-- 5 SESSIE AFGEBROKEN (donker) -->
-<section class="item">
-  <div class="phone t-dark" role="img" aria-label="Sessie afgebroken met uitleg">
-    <div class="statusbar"><span>10:41</span><span class="sb-icons"><span class="sig"><i style="height:4px"></i><i style="height:6px"></i><i style="height:8px"></i><i style="height:10px"></i></span><span class="bat"></span></span></div>
-    <div class="content with-tabs" style="gap:14px;padding-top:16px">
-      <span class="chip pause" style="align-self:flex-start"><svg><use href="#i-pause"/></svg>Sessie gestopt</span>
-      <h1 class="title-l">Je sessie stopte om 14:32.</h1>
-      <p class="body-l">Rewarded stond niet meer op je scherm. Je hield <strong>18 minuten</strong> vol. Afgebroken sessies leveren geen punten op: we kunnen alleen tijd belonen die we kunnen zien.</p>
-      <div class="card">
-        <div class="kv"><span class="muted">Volgehouden</span><b class="num">18 van 50 min</b></div>
-        <div class="kv"><span class="muted">Reden</span><b>App niet meer zichtbaar</b></div>
-        <div class="kv"><span class="muted">Squadstreak</span><b style="color:var(--primary-text)">Loopt nog · dag 6</b></div>
-      </div>
-      <div class="card soft row" style="align-items:flex-start;gap:10px">
-        <svg class="ico sm" style="margin-top:2px"><use href="#i-info"/></svg>
-        <p class="body">Een inkomend gesprek of een geopende melding stopt je sessie. Zet Niet storen aan voor je begint.</p>
-      </div>
-      <div style="flex:1"></div>
-      <div class="btn primary">Opnieuw beginnen</div>
-      <div class="btn secondary">Kortere sessie (25 min)</div>
-      <span class="link" style="padding:6px 0 0">Klopt dit niet?</span>
-    </div>
-    <nav class="tabbar">
-      <div class="tab on"><svg><use href="#i-focus"/></svg>Focus</div>
-      <div class="tab"><svg><use href="#i-squad"/></svg>Squad</div>
-      <div class="tab"><svg><use href="#i-flag"/></svg>Vereniging</div>
-      <div class="tab"><svg><use href="#i-gift"/></svg>Beloningen</div>
-      <div class="tab"><svg><use href="#i-user"/></svg>Ik</div>
-    </nav>
+  <label class="check"><input type="checkbox"><span>Ik ga akkoord met de <u>voorwaarden</u>.</span></label>
+  <label class="check" style="margin-top:-6px"><input type="checkbox"><span>Ik heb de <u>privacyverklaring</u> gelezen.</span></label>
+  <div style="flex:1"></div>
+  <button type="button" class="btn primary" aria-describedby="o6r" disabled>Akkoord</button>
+  <p class="caption" id="o6r" style="text-align:center;padding-bottom:28px">Zet beide vinkjes aan om verder te gaan.</p>
+ </div></div><h2 id="h03"><span class="idx">03</span>Voorwaarden en pilotuitleg (O6)</h2><p class="note">Geïnformeerd akkoord in gewone taal, voor 16–17 en 18+ dezelfde tekst. De pilot met twee bonusregels staat er expliciet, met de loting en de einddatum van de doelbonus. Twee aparte vinkjes, niet vooraf aangevinkt; de knop is uit met de reden ernaast.</p></section><section class="item" aria-labelledby="h04"><div class="phone t-light " role="group" aria-label="Home met dagdoel en sessiestart, arm A"><div class="statusbar"><span aria-hidden="true">10:05</span><span class="fict">Fictief</span><span class="sb-icons" aria-hidden="true"><span class="sig"><i style="height:4px"></i><i style="height:6px"></i><i style="height:8px"></i><i style="height:10px"></i></span><span class="bat"></span></span></div>
+ <div class="content with-tabs" style="gap:12px">
+  <div class="row between"><h1 class="title-l">Hoi Lotte</h1><span class="chip ok"><svg class="" aria-hidden="true" focusable="false"><use href="#i-flame"/></svg>Squadstreak dag 6</span></div>
+  <div class="card row" style="gap:16px">
+   <svg width="112" height="112" viewBox="0 0 128 128" style="transform:rotate(-90deg);flex:0 0 auto" role="progressbar" aria-label="Dagdoel vandaag" aria-valuemin="0" aria-valuemax="50" aria-valuenow="25" aria-valuetext="25 van 50 minuten"><circle cx="64" cy="64" r="54" fill="none" stroke="var(--surface-2)" stroke-width="10"/><circle cx="64" cy="64" r="54" fill="none" stroke="var(--primary)" stroke-width="10" stroke-linecap="round" stroke-dasharray="339.3" stroke-dashoffset="169.7"/></svg>
+   <div class="stack" style="gap:4px">
+    <p class="label muted">Dagdoel vandaag</p>
+    <p class="title-m num">25 van 50 min</p>
+    <p class="body muted">Nog één sessie van 25 minuten.</p>
+   </div>
   </div>
-  <h2><span class="idx">05</span>Sessie afgebroken met uitleg (F6)</h2>
-  <p class="note">Amber, geen rood: dit is geen fout van de gebruiker. Tijdstip, duur, reden (code <code>hidden</code>) en de streakzin. Drie wegen terug; "Klopt dit niet?" zet een melding in de wachtrij. Bij <code>heartbeat_gap</code> wordt die link een secundaire knop.</p>
-</section>
-
-<!-- 6 SESSIE VOLTOOID -->
-<section class="item">
-  <div class="phone t-light" role="img" aria-label="Sessie voltooid met directe bijschrijving">
-    <div class="statusbar"><span>11:15</span><span class="sb-icons"><span class="sig"><i style="height:4px"></i><i style="height:6px"></i><i style="height:8px"></i><i style="height:10px"></i></span><span class="bat"></span></span></div>
-    <div class="content with-tabs" style="gap:14px;padding-top:16px">
-      <div style="width:56px;height:56px;border-radius:50%;background:var(--primary-soft);color:var(--primary);display:flex;align-items:center;justify-content:center"><svg width="30" height="30"><use href="#i-check"/></svg></div>
-      <h1 class="title-l">50 minuten.<br>Je dagdoel is gehaald.</h1>
-      <p class="body muted">Twee volle sessies vandaag, samen 75 minuten.</p>
-      <div class="card stack" style="gap:10px">
-        <div class="row" style="gap:10px"><div class="avatars"><div class="avatar sm">M</div><div class="avatar sm">D</div></div><p class="body"><strong>Mila en Daan</strong> zaten er ook.</p></div>
-        <div class="row between"><span class="chip ok"><svg><use href="#i-flame"/></svg>Squadstreak dag 6</span><span class="caption">Squaddag: 2 van 4 gehaald</span></div>
-      </div>
-      <div class="card stack" style="gap:8px">
-        <div class="row between"><p class="title-m num">+50 punten</p><span class="caption">bijgeschreven</span></div>
-        <p class="body muted">+20 doelbonus voor je gehaalde dagdoel</p>
-        <div class="bar" style="margin-top:6px" role="progressbar" aria-valuenow="262" aria-valuemax="300"><i style="width:87%"></i></div>
-        <p class="body num">262 van 300 min · nog 38 minuten tot je eerste verzilvering</p>
-      </div>
-      <div style="flex:1"></div>
-      <div class="row" style="gap:10px"><div class="btn secondary" style="flex:1">Klaar</div><div class="btn primary" style="flex:1.3">Nog een sessie</div></div>
-      <span class="link" style="padding:4px 0 0">Maak een kaart</span>
-    </div>
-    <nav class="tabbar">
-      <div class="tab on"><svg><use href="#i-focus"/></svg>Focus</div>
-      <div class="tab"><svg><use href="#i-squad"/></svg>Squad</div>
-      <div class="tab"><svg><use href="#i-flag"/></svg>Vereniging</div>
-      <div class="tab"><svg><use href="#i-gift"/></svg>Beloningen</div>
-      <div class="tab"><svg><use href="#i-user"/></svg>Ik</div>
-    </nav>
+  <button type="button" class="card row between" style="text-align:left;width:100%;min-height:64px">
+   <span class="row" style="gap:10px">
+    <span class="avatars" aria-hidden="true"><span class="avatar sm">M<span class="live"></span></span><span class="avatar sm">D<span class="live"></span></span><span class="avatar sm">J</span></span>
+    <span><span class="label" style="display:block">UB-ochtendploeg</span><span class="body" style="color:var(--live);font-weight:600;display:block">2 van 3 focussen nu</span></span>
+   </span><span class="caption">Squad ›</span>
+  </button>
+  <p class="caption row" style="gap:6px"><svg class="ico sm" aria-hidden="true" focusable="false"><use href="#i-joker"/></svg>Joker deze week: nog over.</p>
+  <p class="label muted" id="durA">Hoe lang?</p>
+  <div class="seg" role="radiogroup" aria-label="Duur van de sessie"><button type="button" role="radio" aria-checked="false">25 min</button><button type="button" role="radio" aria-checked="true">50 min</button><button type="button" role="radio" aria-checked="false">90 min</button></div>
+  <button type="button" class="btn primary" style="min-height:60px;font-size:19px"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-focus"/></svg>Start focussessie</button>
+  <p class="bonus">Dagdoel halen vandaag: +20 bonus. <button type="button" class="link inline">Waarom zie ik dit?</button></p>
+  <div class="card soft row between"><p class="body">SV Kompas staat <strong>2e</strong> in jullie poule</p><span class="caption">Vereniging ›</span></div>
+ </div><nav class="tabbar" aria-label="Hoofdnavigatie"><a href="#" class="tab on" aria-current="page"><svg aria-hidden="true" focusable="false"><use href="#i-focus-f"/></svg>Focus</a><a href="#" class="tab"><svg aria-hidden="true" focusable="false"><use href="#i-squad"/></svg>Squad</a><a href="#" class="tab"><svg aria-hidden="true" focusable="false"><use href="#i-flag"/></svg>Vereniging</a><a href="#" class="tab"><svg aria-hidden="true" focusable="false"><use href="#i-gift"/></svg>Beloningen</a><a href="#" class="tab"><svg aria-hidden="true" focusable="false"><use href="#i-user"/></svg>Ik</a></nav></div><h2 id="h04"><span class="idx">04</span>Home met sessiestart, arm A (F1)</h2><p class="note">Eén primaire knop. Dagdoel en squad bovenaan; de noemer telt alleen actieve leden (Joris staat op pauze). Jokerstatus in één regel. Direct onder de knop de component Bonusregel: de enige plek op F1 met een puntengetal, in body en text-muted.</p></section><section class="item" aria-labelledby="h05"><div class="phone t-light " role="group" aria-label="Home met dagdoel en sessiestart, arm B"><div class="statusbar"><span aria-hidden="true">10:05</span><span class="fict">Fictief</span><span class="sb-icons" aria-hidden="true"><span class="sig"><i style="height:4px"></i><i style="height:6px"></i><i style="height:8px"></i><i style="height:10px"></i></span><span class="bat"></span></span></div>
+ <div class="content with-tabs" style="gap:12px">
+  <div class="row between"><h1 class="title-l">Hoi Lotte</h1><span class="chip ok"><svg class="" aria-hidden="true" focusable="false"><use href="#i-flame"/></svg>Squadstreak dag 6</span></div>
+  <div class="card row" style="gap:16px">
+   <svg width="112" height="112" viewBox="0 0 128 128" style="transform:rotate(-90deg);flex:0 0 auto" role="progressbar" aria-label="Dagdoel vandaag" aria-valuemin="0" aria-valuemax="50" aria-valuenow="25" aria-valuetext="25 van 50 minuten"><circle cx="64" cy="64" r="54" fill="none" stroke="var(--surface-2)" stroke-width="10"/><circle cx="64" cy="64" r="54" fill="none" stroke="var(--primary)" stroke-width="10" stroke-linecap="round" stroke-dasharray="339.3" stroke-dashoffset="169.7"/></svg>
+   <div class="stack" style="gap:4px">
+    <p class="label muted">Dagdoel vandaag</p>
+    <p class="title-m num">25 van 50 min</p>
+    <p class="body muted">Nog één sessie van 25 minuten.</p>
+   </div>
   </div>
-  <h2><span class="idx">06</span>Sessie voltooid, direct bijgeschreven (F5)</h2>
-  <p class="note">Vaste volgorde: competentie, squad, punten. De punten staan er meteen, met de inverdienvoortgang als getal. Geen confetti, geen oplopende teller; de blokken verschijnen rustig na elkaar. "Maak een kaart" is een tekstlink, geen pop-up.</p>
-</section>
-
-<!-- 7 SQUAD -->
-<section class="item">
-  <div class="phone t-light" role="img" aria-label="Squad-overzicht met live aanwezigheid">
-    <div class="statusbar"><span>14:10</span><span class="sb-icons"><span class="sig"><i style="height:4px"></i><i style="height:6px"></i><i style="height:8px"></i><i style="height:10px"></i></span><span class="bat"></span></span></div>
-    <div class="content with-tabs" style="gap:14px">
-      <div class="row between"><h1 class="title-l">UB-ochtendploeg</h1><span class="chip ok"><svg><use href="#i-flame"/></svg>Dag 6</span></div>
-      <div class="card soft"><p class="body"><strong>Vandaag:</strong> 2 van 4 hebben hun dagdoel gehaald. De squaddag is geslaagd.</p></div>
-      <div class="card list" style="padding:4px 16px">
-        <div class="li"><div class="avatar">M<span class="live"></span></div><div class="grow"><p class="body"><strong>Mila</strong></p><p class="body" style="color:var(--live);font-weight:600">Focust nu · nog 32 min</p></div></div>
-        <div class="li"><div class="avatar">D<span class="live"></span></div><div class="grow"><p class="body"><strong>Daan</strong></p><p class="body" style="color:var(--live);font-weight:600">Focust nu · nog 8 min</p></div><span class="chip ok"><svg><use href="#i-check"/></svg>Doel</span></div>
-        <div class="li"><div class="avatar">L</div><div class="grow"><p class="body"><strong>Lotte</strong> (jij)</p><p class="body muted">Dagdoel gehaald</p></div><span class="chip ok"><svg><use href="#i-check"/></svg>Doel</span></div>
-        <div class="li"><div class="avatar">J</div><div class="grow"><p class="body"><strong>Joris</strong></p><p class="body muted">Staat op pauze</p></div><span class="chip neutral"><svg><use href="#i-pause"/></svg>Pauze</span></div>
-      </div>
-      <p class="caption">Minuten vergelijken staat uit. Zet je het aan in Ik, dan zie je alleen de minuten van leden die het ook aanzetten.</p>
-      <div style="flex:1"></div>
-      <div class="btn secondary"><svg class="ico"><use href="#i-chat"/></svg>Nodig uit via WhatsApp</div>
-      <div class="btn secondary">Daag iemand uit voor een duel</div>
-    </div>
-    <nav class="tabbar">
-      <div class="tab"><svg><use href="#i-focus"/></svg>Focus</div>
-      <div class="tab on"><svg><use href="#i-squad"/></svg>Squad</div>
-      <div class="tab"><svg><use href="#i-flag"/></svg>Vereniging</div>
-      <div class="tab"><svg><use href="#i-gift"/></svg>Beloningen</div>
-      <div class="tab"><svg><use href="#i-user"/></svg>Ik</div>
-    </nav>
+  <button type="button" class="card row between" style="text-align:left;width:100%;min-height:64px">
+   <span class="row" style="gap:10px">
+    <span class="avatars" aria-hidden="true"><span class="avatar sm">M<span class="live"></span></span><span class="avatar sm">D<span class="live"></span></span><span class="avatar sm">J</span></span>
+    <span><span class="label" style="display:block">UB-ochtendploeg</span><span class="body" style="color:var(--live);font-weight:600;display:block">2 van 3 focussen nu</span></span>
+   </span><span class="caption">Squad ›</span>
+  </button>
+  <p class="caption row" style="gap:6px"><svg class="ico sm" aria-hidden="true" focusable="false"><use href="#i-joker"/></svg>Joker deze week: nog over.</p>
+  <p class="label muted" id="durB">Hoe lang?</p>
+  <div class="seg" role="radiogroup" aria-label="Duur van de sessie"><button type="button" role="radio" aria-checked="false">25 min</button><button type="button" role="radio" aria-checked="true">50 min</button><button type="button" role="radio" aria-checked="false">90 min</button></div>
+  <button type="button" class="btn primary" style="min-height:60px;font-size:19px"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-focus"/></svg>Start focussessie</button>
+  <p class="bonus">Weekbudget: nog 100. Je dagdoel halen zet er vandaag 20 veilig. <button type="button" class="link inline">Waarom zie ik dit?</button></p>
+  <div class="card soft row between"><p class="body">SV Kompas staat <strong>2e</strong> in jullie poule</p><span class="caption">Vereniging ›</span></div>
+ </div><nav class="tabbar" aria-label="Hoofdnavigatie"><a href="#" class="tab on" aria-current="page"><svg aria-hidden="true" focusable="false"><use href="#i-focus-f"/></svg>Focus</a><a href="#" class="tab"><svg aria-hidden="true" focusable="false"><use href="#i-squad"/></svg>Squad</a><a href="#" class="tab"><svg aria-hidden="true" focusable="false"><use href="#i-flag"/></svg>Vereniging</a><a href="#" class="tab"><svg aria-hidden="true" focusable="false"><use href="#i-gift"/></svg>Beloningen</a><a href="#" class="tab"><svg aria-hidden="true" focusable="false"><use href="#i-user"/></svg>Ik</a></nav></div><h2 id="h05"><span class="idx">05</span>Home met sessiestart, arm B (F1)</h2><p class="note">Zelfde scherm, zelfde component Bonusregel op dezelfde plek, met dezelfde grootte en lengte. Alleen de framing verschilt (veiligstellen uit een weekbudget). Geen weekbudgetblok: het bedrag van het weekbudget staat in Beloningen. Zo verschillen de armen niet in saillantie (H-A, spec 7.3).</p></section><section class="item" aria-labelledby="h06"><div class="phone t-session session " role="group" aria-label="Lopende focussessie, nog 32 minuten"><div class="statusbar" style="color:var(--session-muted)"><span aria-hidden="true">10:23</span><span class="fict">Fictief</span><span class="sb-icons" aria-hidden="true"><span class="sig"><i style="height:4px"></i><i style="height:6px"></i><i style="height:8px"></i><i style="height:10px"></i></span><span class="bat"></span></span></div>
+ <div class="content">
+  <p class="label" style="color:var(--text-muted)">Focussessie · 50 minuten</p>
+  <div class="ringwrap" role="progressbar" aria-label="Sessie" aria-valuemin="0" aria-valuemax="50" aria-valuenow="18" aria-valuetext="nog 32 minuten">
+   <svg viewBox="0 0 290 290" aria-hidden="true">
+    <circle cx="145" cy="145" r="130" fill="none" stroke="var(--session-track)" stroke-width="6"/>
+    <circle cx="145" cy="145" r="130" fill="none" stroke="var(--session-accent)" stroke-width="6" stroke-linecap="round" stroke-dasharray="816.8" stroke-dashoffset="522.8"/>
+   </svg>
+   <div class="center"><h1 class="display">32 min</h1><span class="body" style="color:var(--text-muted)">nog te gaan</span></div>
   </div>
-  <h2><span class="idx">07</span>Squad-overzicht met live aanwezigheid (Q1)</h2>
-  <p class="note">Status als woord plus icoon, niet alleen kleur. Pauze is neutraal grijs, nooit "gefaald". Geen minuten of punten van anderen zolang vergelijken uit staat. Uitnodigen opent het deelmenu met een tekst zonder punten of prijzen; de knop staat er alleen op de toegestane momenten.</p>
-</section>
-
-<!-- 8 VERENIGINGSCHALLENGE -->
-<section class="item">
-  <div class="phone t-light" role="img" aria-label="Ranglijst van verenigingen">
-    <div class="statusbar"><span>16:02</span><span class="sb-icons"><span class="sig"><i style="height:4px"></i><i style="height:6px"></i><i style="height:8px"></i><i style="height:10px"></i></span><span class="bat"></span></span></div>
-    <div class="content with-tabs" style="gap:12px">
-      <h1 class="title-l">Blokk-challenge</h1>
-      <div class="row" style="gap:8px;flex-wrap:wrap"><span class="chip neutral">Utrecht · poule 150–500 leden</span><span class="chip pause">Voorlopig</span></div>
-      <p class="caption">Deelnamegraad: leden die deze week op minstens 3 dagen hun dagdoel haalden, gedeeld door het ledental. Grootte geeft geen voordeel. <u>Hoe rekenen we?</u></p>
-      <div class="card list" style="padding:2px 16px">
-        <div class="li"><span class="label num" style="width:18px">1</span><div class="grow"><p class="body"><strong>SV Meridiaan</strong></p><p class="caption">71 min per actief lid per dag</p></div><p class="title-m num">38%</p></div>
-        <div class="li" style="margin:0 -14px;padding:8px 14px;border:2px solid var(--primary);border-radius:10px"><span class="label num" style="width:18px">2</span><div class="grow"><p class="body"><strong>SV Kompas</strong> · jullie</p><p class="caption">64 min per actief lid per dag</p></div><p class="title-m num">31%</p></div>
-        <div class="li"><span class="label num" style="width:18px">3</span><div class="grow"><p class="body"><strong>SV Lumen</strong></p><p class="caption">58 min per actief lid per dag</p></div><p class="title-m num">27%</p></div>
-        <div class="li"><span class="label num" style="width:18px">4</span><div class="grow"><p class="body"><strong>SV Prisma</strong></p><p class="caption">66 min per actief lid per dag</p></div><p class="title-m num">22%</p></div>
-      </div>
-      <div class="card stack" style="gap:6px">
-        <div class="row between"><p class="label">Drempelprijs voor elke vereniging ≥ 25%</p><span class="chip ok">Verdiend</span></div>
-        <p class="body">[Prijs in natura] · gefinancierd door [partner]</p>
-        <div class="bar"><i style="width:100%"></i></div>
-        <p class="caption">Jullie zitten op 31%. Uitslag pas na controle van sessies en winnaars.</p>
-      </div>
-      <div class="card stack" style="gap:6px">
-        <div class="row between"><p class="label">Hoofdprijs poule</p><span class="chip ok">Verdiend, niet verloot</span></div>
-        <p class="body">7 procentpunt achter nr. 1.</p>
-      </div>
-    </div>
-    <nav class="tabbar">
-      <div class="tab"><svg><use href="#i-focus"/></svg>Focus</div>
-      <div class="tab"><svg><use href="#i-squad"/></svg>Squad</div>
-      <div class="tab on"><svg><use href="#i-flag"/></svg>Vereniging</div>
-      <div class="tab"><svg><use href="#i-gift"/></svg>Beloningen</div>
-      <div class="tab"><svg><use href="#i-user"/></svg>Ik</div>
-    </nav>
+  <div class="stack" style="align-items:center;gap:10px">
+   <svg class="" aria-hidden="true" focusable="false" style="width:40px;height:40px;color:var(--text-muted)"><use href="#i-focus"/></svg>
+   <p class="body-l" style="max-width:280px">Leg je telefoon omgekeerd neer. Wij houden de tijd bij.</p>
   </div>
-  <h2><span class="idx">08</span>Verenigingschallenge-ranglijst (V1)</h2>
-  <p class="note">Alleen verenigingen, nooit personen of totalen. Groot cijfer: deelnamegraad (de prijsmaatstaf); klein: intensiteit zonder prijs. Eigen vereniging met een rand. Prijzen dragen het label "Verdiend" en staan pas na controle vast.</p>
-</section>
-
-<!-- 9 CATALOGUS EN VERZILVEREN -->
-<section class="item">
-  <div class="phone t-light" role="img" aria-label="Catalogus met verzilver-sheet">
-    <div class="statusbar"><span>18:30</span><span class="sb-icons"><span class="sig"><i style="height:4px"></i><i style="height:6px"></i><i style="height:8px"></i><i style="height:10px"></i></span><span class="bat"></span></span></div>
-    <div class="content with-tabs" style="gap:12px">
-      <h1 class="title-l">Beloningen</h1>
-      <div class="card">
-        <div class="row between" style="align-items:flex-end"><div><p class="caption">Beschikbaar</p><p class="title-l num">640</p></div><div style="text-align:right"><p class="caption">In afwachting <b class="num">50</b></p><p class="caption">Referral, nog niet vrij <b class="num">0</b></p></div></div>
-      </div>
-      <p class="caption">Punten geven toegang tot de catalogus zolang de voorraad strekt. Punten zijn geen geld en geven geen recht op een bepaalde beloning.</p>
-      <div class="card row"><div class="grow"><p class="body"><strong>Koffie bij [partner]</strong></p><p class="caption">Gefinancierd door [faculteit] · nog 12 deze week</p></div><p class="label num">300 pnt</p></div>
-      <div class="card row"><div class="grow"><p class="body"><strong>Printtegoed UB</strong></p><p class="caption">Gefinancierd door [vereniging] · deze week op; maandag komen er 15 bij</p></div><p class="label num muted">500 pnt</p></div>
-    </div>
-    <div class="scrim"></div>
-    <div class="sheet">
-      <div class="grab"></div>
-      <p class="title-m">Koffie bij [partner]</p>
-      <p class="body muted">Gefinancierd door [faculteit]. Eén code, 30 dagen geldig. Je krijgt hem hier en per e-mail.</p>
-      <div class="card soft" style="padding:4px 16px">
-        <div class="kv"><span>Gaat af</span><b class="num">300 punten</b></div>
-        <div class="kv"><span>Daarna beschikbaar</span><b class="num">340 punten</b></div>
-        <div class="kv"><span>Volgende verzilvering</span><b>vanaf maandag</b></div>
-      </div>
-      <div class="btn primary">Verzilver voor 300 punten</div>
-      <div class="btn secondary">Annuleren</div>
-    </div>
+  <div class="stack" style="align-items:center;gap:8px">
+   <div class="avatars" aria-hidden="true"><div class="avatar sm" style="border-color:var(--session-bg)">M</div><div class="avatar sm" style="border-color:var(--session-bg)">D</div></div>
+   <p class="body" style="color:var(--text-muted)">Mila en Daan focussen ook</p>
   </div>
-  <h2><span class="idx">09</span>Catalogus en verzilveren (B1, B2)</h2>
-  <p class="note">Saldo in drie delen, de disclaimer uit de spec en per item financier en echte voorraad, ook als die nul is. Nergens een eurowaarde. Het sheet laat zien wat er afgaat en wat er overblijft. Vóór 300 minuten zijn de knoppen uit, met "Nog 38 minuten focus, dan kun je verzilveren."</p>
-</section>
-
-<!-- 10 VERLOTE PRIJS 18+ -->
-<section class="item">
-  <div class="phone t-light" role="img" aria-label="Verlote prijs met spelvoorwaarden, 18 plus">
-    <div class="statusbar"><span>19:12</span><span class="sb-icons"><span class="sig"><i style="height:4px"></i><i style="height:6px"></i><i style="height:8px"></i><i style="height:10px"></i></span><span class="bat"></span></span></div>
-    <div class="content" style="gap:12px">
-      <div class="topnav"><svg class="ico"><use href="#i-back"/></svg>Beloningen</div>
-      <span class="chip kans" style="align-self:flex-start"><svg><use href="#i-clover"/></svg>Kans · 18+</span>
-      <h1 class="title-l">Kans op een [prijs]</h1>
-      <p class="body-l">Haalde je je weekdoel? Dan doe je gratis mee aan de trekking. Dit is een kans, geen beloning die je verdient.</p>
-      <div class="card" style="padding:4px 16px">
-        <div class="kv"><span class="muted">Prijzen</span><b class="num">3 × [prijs]</b></div>
-        <div class="kv"><span class="muted">Vorige trekking</span><b class="num">412 deelnemers</b></div>
-        <div class="kv"><span class="muted">Kans, op basis daarvan</span><b class="num">ongeveer 1 op 137</b></div>
-        <div class="kv"><span class="muted">Trekking</span><b>ma 11 januari 2027</b></div>
-        <div class="kv"><span class="muted">Meedoen</span><b>dagdoel op 5 van 7 dagen</b></div>
-        <div class="kv"><span class="muted">Seed-hash</span><b class="num" style="font-family:ui-monospace,Menlo,monospace;font-size:13px">9f2c…e41a</b></div>
-      </div>
-      <div class="card kans"><p class="body">Geen aankoop of abonnement nodig, en niets geeft extra kans. Organisator: Rewarded. De kansspelbelasting betaalt Rewarded.</p></div>
-      <div style="flex:1"></div>
-      <div class="btn kansbtn">Ik doe mee (eenmalig aanzetten)</div>
-      <span class="link" style="padding:4px 0 30px">Spelvoorwaarden</span>
-    </div>
+  <div class="stack" style="width:100%;gap:12px">
+   <p class="caption" style="color:var(--session-muted)"><svg class="ico sm" aria-hidden="true" focusable="false" style="vertical-align:-4px"><use href="#i-sun"/></svg> Scherm blijft aan · aan het einde een toon en een wit scherm</p>
+   <button type="button" class="btn secondary" style="color:var(--session-text);border-color:#6E7782;min-height:56px">Stoppen</button>
   </div>
-  <h2><span class="idx">10</span>Verlote prijs met spelvoorwaarden, 18+ (B5)</h2>
-  <p class="note">Eigen violette kleurfamilie en het woord "Kans", zodat het nooit op een verdiende prijs lijkt. Kans als getal, trekkingsdatum, seed-hash en organisator. Alleen voor 18+ en na een aparte opt-in; voor 16–17 bestaat dit scherm niet. In de pilot staat de module uit tot de juridische toetsen klaar zijn.</p>
-</section>
-
-<!-- 11 BEWIJSKAART (donker) -->
-<section class="item">
-  <div class="phone t-dark" role="img" aria-label="Deelbare bewijskaart maken">
-    <div class="statusbar"><span>21:40</span><span class="sb-icons"><span class="sig"><i style="height:4px"></i><i style="height:6px"></i><i style="height:8px"></i><i style="height:10px"></i></span><span class="bat"></span></span></div>
-    <div class="content" style="gap:12px">
-      <div class="topnav"><svg class="ico"><use href="#i-back"/></svg>Terug</div>
-      <h1 class="title-m">Maak een kaart</h1>
-      <div style="align-self:center;width:216px;height:384px;border-radius:18px;background:#1E3530;color:#E8EAED;padding:20px;display:flex;flex-direction:column;justify-content:space-between;box-shadow:var(--shadow)">
-        <div><p class="label" style="color:#9ED6C3">Rewarded</p><p class="caption" style="color:#A3ABB5">dinsdag 12 januari</p></div>
-        <div><p style="font-size:44px;line-height:48px;font-weight:700;margin:0" class="num">2 u 30</p><p class="body" style="color:#C9CED4">gefocust vandaag</p></div>
-        <div class="row" style="gap:6px;color:#9ED6C3"><svg class="ico sm"><use href="#i-flame"/></svg><p class="body" style="font-weight:600">Streak · dag 6</p></div>
-        <div class="row between" style="align-items:flex-end"><p class="title-m">Lotte</p><div style="width:64px;height:64px;border-radius:6px;overflow:hidden"><svg class="qr" viewBox="-2 -2 29 29" aria-hidden="true"><rect x="-2" y="-2" width="29" height="29" fill="#fff"/><g fill="#111"><rect x="0" y="0" width="1" height="1"/><rect x="1" y="0" width="1" height="1"/><rect x="2" y="0" width="1" height="1"/><rect x="3" y="0" width="1" height="1"/><rect x="4" y="0" width="1" height="1"/><rect x="5" y="0" width="1" height="1"/><rect x="6" y="0" width="1" height="1"/><rect x="8" y="0" width="1" height="1"/><rect x="9" y="0" width="1" height="1"/><rect x="10" y="0" width="1" height="1"/><rect x="11" y="0" width="1" height="1"/><rect x="12" y="0" width="1" height="1"/><rect x="14" y="0" width="1" height="1"/><rect x="15" y="0" width="1" height="1"/><rect x="18" y="0" width="1" height="1"/><rect x="19" y="0" width="1" height="1"/><rect x="20" y="0" width="1" height="1"/><rect x="21" y="0" width="1" height="1"/><rect x="22" y="0" width="1" height="1"/><rect x="23" y="0" width="1" height="1"/><rect x="24" y="0" width="1" height="1"/><rect x="0" y="1" width="1" height="1"/><rect x="6" y="1" width="1" height="1"/><rect x="8" y="1" width="1" height="1"/><rect x="9" y="1" width="1" height="1"/><rect x="10" y="1" width="1" height="1"/><rect x="12" y="1" width="1" height="1"/><rect x="13" y="1" width="1" height="1"/><rect x="16" y="1" width="1" height="1"/><rect x="18" y="1" width="1" height="1"/><rect x="24" y="1" width="1" height="1"/><rect x="0" y="2" width="1" height="1"/><rect x="2" y="2" width="1" height="1"/><rect x="3" y="2" width="1" height="1"/><rect x="4" y="2" width="1" height="1"/><rect x="6" y="2" width="1" height="1"/><rect x="11" y="2" width="1" height="1"/><rect x="18" y="2" width="1" height="1"/><rect x="20" y="2" width="1" height="1"/><rect x="21" y="2" width="1" height="1"/><rect x="22" y="2" width="1" height="1"/><rect x="24" y="2" width="1" height="1"/><rect x="0" y="3" width="1" height="1"/><rect x="2" y="3" width="1" height="1"/><rect x="3" y="3" width="1" height="1"/><rect x="4" y="3" width="1" height="1"/><rect x="6" y="3" width="1" height="1"/><rect x="9" y="3" width="1" height="1"/><rect x="10" y="3" width="1" height="1"/><rect x="11" y="3" width="1" height="1"/><rect x="13" y="3" width="1" height="1"/><rect x="14" y="3" width="1" height="1"/><rect x="18" y="3" width="1" height="1"/><rect x="20" y="3" width="1" height="1"/><rect x="21" y="3" width="1" height="1"/><rect x="22" y="3" width="1" height="1"/><rect x="24" y="3" width="1" height="1"/><rect x="0" y="4" width="1" height="1"/><rect x="2" y="4" width="1" height="1"/><rect x="3" y="4" width="1" height="1"/><rect x="4" y="4" width="1" height="1"/><rect x="6" y="4" width="1" height="1"/><rect x="8" y="4" width="1" height="1"/><rect x="15" y="4" width="1" height="1"/><rect x="18" y="4" width="1" height="1"/><rect x="20" y="4" width="1" height="1"/><rect x="21" y="4" width="1" height="1"/><rect x="22" y="4" width="1" height="1"/><rect x="24" y="4" width="1" height="1"/><rect x="0" y="5" width="1" height="1"/><rect x="6" y="5" width="1" height="1"/><rect x="8" y="5" width="1" height="1"/><rect x="9" y="5" width="1" height="1"/><rect x="12" y="5" width="1" height="1"/><rect x="13" y="5" width="1" height="1"/><rect x="14" y="5" width="1" height="1"/><rect x="15" y="5" width="1" height="1"/><rect x="16" y="5" width="1" height="1"/><rect x="18" y="5" width="1" height="1"/><rect x="24" y="5" width="1" height="1"/><rect x="0" y="6" width="1" height="1"/><rect x="1" y="6" width="1" height="1"/><rect x="2" y="6" width="1" height="1"/><rect x="3" y="6" width="1" height="1"/><rect x="4" y="6" width="1" height="1"/><rect x="5" y="6" width="1" height="1"/><rect x="6" y="6" width="1" height="1"/><rect x="12" y="6" width="1" height="1"/><rect x="13" y="6" width="1" height="1"/><rect x="14" y="6" width="1" height="1"/><rect x="18" y="6" width="1" height="1"/><rect x="19" y="6" width="1" height="1"/><rect x="20" y="6" width="1" height="1"/><rect x="21" y="6" width="1" height="1"/><rect x="22" y="6" width="1" height="1"/><rect x="23" y="6" width="1" height="1"/><rect x="24" y="6" width="1" height="1"/><rect x="10" y="7" width="1" height="1"/><rect x="14" y="7" width="1" height="1"/><rect x="15" y="7" width="1" height="1"/><rect x="16" y="7" width="1" height="1"/><rect x="0" y="8" width="1" height="1"/><rect x="6" y="8" width="1" height="1"/><rect x="8" y="8" width="1" height="1"/><rect x="11" y="8" width="1" height="1"/><rect x="12" y="8" width="1" height="1"/><rect x="15" y="8" width="1" height="1"/><rect x="16" y="8" width="1" height="1"/><rect x="17" y="8" width="1" height="1"/><rect x="20" y="8" width="1" height="1"/><rect x="24" y="8" width="1" height="1"/><rect x="1" y="9" width="1" height="1"/><rect x="2" y="9" width="1" height="1"/><rect x="7" y="9" width="1" height="1"/><rect x="10" y="9" width="1" height="1"/><rect x="11" y="9" width="1" height="1"/><rect x="12" y="9" width="1" height="1"/><rect x="13" y="9" width="1" height="1"/><rect x="15" y="9" width="1" height="1"/><rect x="16" y="9" width="1" height="1"/><rect x="17" y="9" width="1" height="1"/><rect x="19" y="9" width="1" height="1"/><rect x="23" y="9" width="1" height="1"/><rect x="3" y="10" width="1" height="1"/><rect x="4" y="10" width="1" height="1"/><rect x="5" y="10" width="1" height="1"/><rect x="6" y="10" width="1" height="1"/><rect x="8" y="10" width="1" height="1"/><rect x="12" y="10" width="1" height="1"/><rect x="16" y="10" width="1" height="1"/><rect x="18" y="10" width="1" height="1"/><rect x="19" y="10" width="1" height="1"/><rect x="0" y="11" width="1" height="1"/><rect x="12" y="11" width="1" height="1"/><rect x="16" y="11" width="1" height="1"/><rect x="17" y="11" width="1" height="1"/><rect x="18" y="11" width="1" height="1"/><rect x="19" y="11" width="1" height="1"/><rect x="20" y="11" width="1" height="1"/><rect x="21" y="11" width="1" height="1"/><rect x="0" y="12" width="1" height="1"/><rect x="3" y="12" width="1" height="1"/><rect x="6" y="12" width="1" height="1"/><rect x="8" y="12" width="1" height="1"/><rect x="12" y="12" width="1" height="1"/><rect x="13" y="12" width="1" height="1"/><rect x="15" y="12" width="1" height="1"/><rect x="16" y="12" width="1" height="1"/><rect x="17" y="12" width="1" height="1"/><rect x="19" y="12" width="1" height="1"/><rect x="21" y="12" width="1" height="1"/><rect x="22" y="12" width="1" height="1"/><rect x="23" y="12" width="1" height="1"/><rect x="1" y="13" width="1" height="1"/><rect x="5" y="13" width="1" height="1"/><rect x="6" y="13" width="1" height="1"/><rect x="7" y="13" width="1" height="1"/><rect x="9" y="13" width="1" height="1"/><rect x="10" y="13" width="1" height="1"/><rect x="11" y="13" width="1" height="1"/><rect x="14" y="13" width="1" height="1"/><rect x="15" y="13" width="1" height="1"/><rect x="19" y="13" width="1" height="1"/><rect x="20" y="13" width="1" height="1"/><rect x="22" y="13" width="1" height="1"/><rect x="23" y="13" width="1" height="1"/><rect x="2" y="14" width="1" height="1"/><rect x="4" y="14" width="1" height="1"/><rect x="7" y="14" width="1" height="1"/><rect x="10" y="14" width="1" height="1"/><rect x="11" y="14" width="1" height="1"/><rect x="13" y="14" width="1" height="1"/><rect x="14" y="14" width="1" height="1"/><rect x="15" y="14" width="1" height="1"/><rect x="16" y="14" width="1" height="1"/><rect x="17" y="14" width="1" height="1"/><rect x="18" y="14" width="1" height="1"/><rect x="19" y="14" width="1" height="1"/><rect x="21" y="14" width="1" height="1"/><rect x="23" y="14" width="1" height="1"/><rect x="24" y="14" width="1" height="1"/><rect x="0" y="15" width="1" height="1"/><rect x="1" y="15" width="1" height="1"/><rect x="2" y="15" width="1" height="1"/><rect x="5" y="15" width="1" height="1"/><rect x="8" y="15" width="1" height="1"/><rect x="10" y="15" width="1" height="1"/><rect x="13" y="15" width="1" height="1"/><rect x="17" y="15" width="1" height="1"/><rect x="21" y="15" width="1" height="1"/><rect x="22" y="15" width="1" height="1"/><rect x="23" y="15" width="1" height="1"/><rect x="24" y="15" width="1" height="1"/><rect x="0" y="16" width="1" height="1"/><rect x="2" y="16" width="1" height="1"/><rect x="3" y="16" width="1" height="1"/><rect x="4" y="16" width="1" height="1"/><rect x="8" y="16" width="1" height="1"/><rect x="9" y="16" width="1" height="1"/><rect x="10" y="16" width="1" height="1"/><rect x="12" y="16" width="1" height="1"/><rect x="13" y="16" width="1" height="1"/><rect x="14" y="16" width="1" height="1"/><rect x="18" y="16" width="1" height="1"/><rect x="20" y="16" width="1" height="1"/><rect x="21" y="16" width="1" height="1"/><rect x="22" y="16" width="1" height="1"/><rect x="23" y="16" width="1" height="1"/><rect x="8" y="17" width="1" height="1"/><rect x="9" y="17" width="1" height="1"/><rect x="10" y="17" width="1" height="1"/><rect x="17" y="17" width="1" height="1"/><rect x="18" y="17" width="1" height="1"/><rect x="20" y="17" width="1" height="1"/><rect x="23" y="17" width="1" height="1"/><rect x="0" y="18" width="1" height="1"/><rect x="1" y="18" width="1" height="1"/><rect x="2" y="18" width="1" height="1"/><rect x="3" y="18" width="1" height="1"/><rect x="4" y="18" width="1" height="1"/><rect x="5" y="18" width="1" height="1"/><rect x="6" y="18" width="1" height="1"/><rect x="14" y="18" width="1" height="1"/><rect x="15" y="18" width="1" height="1"/><rect x="16" y="18" width="1" height="1"/><rect x="17" y="18" width="1" height="1"/><rect x="18" y="18" width="1" height="1"/><rect x="0" y="19" width="1" height="1"/><rect x="6" y="19" width="1" height="1"/><rect x="8" y="19" width="1" height="1"/><rect x="9" y="19" width="1" height="1"/><rect x="10" y="19" width="1" height="1"/><rect x="12" y="19" width="1" height="1"/><rect x="16" y="19" width="1" height="1"/><rect x="22" y="19" width="1" height="1"/><rect x="23" y="19" width="1" height="1"/><rect x="24" y="19" width="1" height="1"/><rect x="0" y="20" width="1" height="1"/><rect x="2" y="20" width="1" height="1"/><rect x="3" y="20" width="1" height="1"/><rect x="4" y="20" width="1" height="1"/><rect x="6" y="20" width="1" height="1"/><rect x="9" y="20" width="1" height="1"/><rect x="13" y="20" width="1" height="1"/><rect x="15" y="20" width="1" height="1"/><rect x="18" y="20" width="1" height="1"/><rect x="22" y="20" width="1" height="1"/><rect x="23" y="20" width="1" height="1"/><rect x="24" y="20" width="1" height="1"/><rect x="0" y="21" width="1" height="1"/><rect x="2" y="21" width="1" height="1"/><rect x="3" y="21" width="1" height="1"/><rect x="4" y="21" width="1" height="1"/><rect x="6" y="21" width="1" height="1"/><rect x="11" y="21" width="1" height="1"/><rect x="14" y="21" width="1" height="1"/><rect x="15" y="21" width="1" height="1"/><rect x="18" y="21" width="1" height="1"/><rect x="19" y="21" width="1" height="1"/><rect x="20" y="21" width="1" height="1"/><rect x="21" y="21" width="1" height="1"/><rect x="23" y="21" width="1" height="1"/><rect x="0" y="22" width="1" height="1"/><rect x="2" y="22" width="1" height="1"/><rect x="3" y="22" width="1" height="1"/><rect x="4" y="22" width="1" height="1"/><rect x="6" y="22" width="1" height="1"/><rect x="10" y="22" width="1" height="1"/><rect x="11" y="22" width="1" height="1"/><rect x="12" y="22" width="1" height="1"/><rect x="13" y="22" width="1" height="1"/><rect x="14" y="22" width="1" height="1"/><rect x="16" y="22" width="1" height="1"/><rect x="18" y="22" width="1" height="1"/><rect x="19" y="22" width="1" height="1"/><rect x="21" y="22" width="1" height="1"/><rect x="22" y="22" width="1" height="1"/><rect x="0" y="23" width="1" height="1"/><rect x="6" y="23" width="1" height="1"/><rect x="11" y="23" width="1" height="1"/><rect x="12" y="23" width="1" height="1"/><rect x="14" y="23" width="1" height="1"/><rect x="16" y="23" width="1" height="1"/><rect x="17" y="23" width="1" height="1"/><rect x="20" y="23" width="1" height="1"/><rect x="22" y="23" width="1" height="1"/><rect x="24" y="23" width="1" height="1"/><rect x="0" y="24" width="1" height="1"/><rect x="1" y="24" width="1" height="1"/><rect x="2" y="24" width="1" height="1"/><rect x="3" y="24" width="1" height="1"/><rect x="4" y="24" width="1" height="1"/><rect x="5" y="24" width="1" height="1"/><rect x="6" y="24" width="1" height="1"/><rect x="8" y="24" width="1" height="1"/><rect x="9" y="24" width="1" height="1"/><rect x="10" y="24" width="1" height="1"/><rect x="11" y="24" width="1" height="1"/><rect x="12" y="24" width="1" height="1"/><rect x="13" y="24" width="1" height="1"/><rect x="14" y="24" width="1" height="1"/><rect x="15" y="24" width="1" height="1"/><rect x="19" y="24" width="1" height="1"/><rect x="20" y="24" width="1" height="1"/><rect x="22" y="24" width="1" height="1"/><rect x="23" y="24" width="1" height="1"/><rect x="24" y="24" width="1" height="1"/></g></svg></div></div>
-      </div>
-      <div class="card" style="padding:2px 16px">
-        <div class="li row between" style="min-height:48px;border-bottom:1px solid var(--border)"><span class="body">Voornaam, focustijd, streak</span><span class="toggle on locked" aria-label="aan"></span></div>
-        <div class="li row between" style="min-height:48px;border-bottom:1px solid var(--border)"><span class="body">Vereniging</span><span class="toggle"></span></div>
-        <div class="li row between" style="min-height:48px"><span class="body">Squadnaam <span class="caption">· alle leden moeten akkoord zijn</span></span><span class="toggle"></span></div>
-      </div>
-      <p class="caption">Delen levert niets op; het is gewoon leuk. Punten, beloningen en trekkingen staan nooit op je kaart.</p>
-      <div class="row" style="gap:10px;padding-bottom:30px"><div class="btn secondary" style="flex:1">Opslaan</div><div class="btn primary" style="flex:1.3"><svg class="ico"><use href="#i-share"/></svg>Delen</div></div>
-    </div>
+ </div></div><h2 id="h06"><span class="idx">06</span>Sessie lopend (F3), altijd donker</h2><p class="note">Zwart vlak, grijze tekst (13,3:1), dunne ring in session-accent zonder puls. Geen punten, geen tabbalk, één knop. Minuten in plaats van seconden. De squad zit erbij. De regel onderaan zegt dat het einde een toon en een wit scherm geeft.</p></section><section class="item" aria-labelledby="h07"><div class="phone t-end " role="group" aria-label="Eindscherm: sessie klaar"><div class="statusbar"><span aria-hidden="true">11:15</span><span class="fict">Fictief</span><span class="sb-icons" aria-hidden="true"><span class="sig"><i style="height:4px"></i><i style="height:6px"></i><i style="height:8px"></i><i style="height:10px"></i></span><span class="bat"></span></span></div>
+ <div class="content" style="align-items:center;justify-content:center;text-align:center;gap:16px;padding-bottom:80px">
+  <h1 class="display" style="font-weight:600">Sessie klaar.</h1>
+  <p class="title-m">Draai je telefoon om.</p>
+  <p class="body muted num">50 minuten · 10:25–11:15</p>
+ </div></div><h2 id="h07"><span class="idx">07</span>Eindscherm (F3e)</h2><p class="note">Het enige felle moment: een wit vlak, zodat het licht onder de omgekeerde telefoon uit valt, plus een zachte toon (standaard aan, uit te zetten in F2). Geen punten vóór F5. Zonder dit signaal draaien eerlijke studenten de telefoon te laat om en markeert H9 hen ten onrechte.</p></section><section class="item" aria-labelledby="h08"><div class="phone t-dark " role="group" aria-label="Sessie afgebroken met uitleg"><div class="statusbar"><span aria-hidden="true">14:40</span><span class="fict">Fictief</span><span class="sb-icons" aria-hidden="true"><span class="sig"><i style="height:4px"></i><i style="height:6px"></i><i style="height:8px"></i><i style="height:10px"></i></span><span class="bat"></span></span></div>
+ <div class="content with-tabs" style="gap:12px;padding-top:14px">
+  <span class="chip pause" style="align-self:flex-start"><svg class="" aria-hidden="true" focusable="false"><use href="#i-pause"/></svg>Sessie gestopt</span>
+  <h1 class="title-l">Je sessie stopte om 14:32.</h1>
+  <p class="body-l">Rewarded stond niet meer op je scherm. Je hield <strong>18 minuten</strong> vol. Afgebroken sessies leveren geen punten op: we kunnen alleen tijd belonen die we kunnen zien.</p>
+  <div class="card" style="padding:4px 16px">
+   <div class="kv"><span class="muted">Volgehouden</span><b class="num">18 van 50 min</b></div>
+   <div class="kv"><span class="muted">Reden</span><b>App niet meer zichtbaar</b></div>
+   <div class="kv"><span class="muted">Squadstreak</span><b style="color:var(--primary-text)">Loopt nog · dag 6</b></div>
   </div>
-  <h2><span class="idx">11</span>Deelbare bewijskaart (K1), donker thema</h2>
-  <p class="note">Standaard voornaam, focustijd en streak; extra velden zijn opt-in. Geen punten of bedragen. De QR opent een verificatiepagina die zegt wat ze wel en niet bewijst ("stond zichtbaar op het scherm van één browser"). De QR in deze mockup is decoratief.</p>
-</section>
-
-<!-- 12 BESTUURSDASHBOARD -->
-<section class="item wide">
-  <div class="laptop t-light" role="img" aria-label="Bestuursdashboard op laptopbreedte">
-    <aside class="side">
-      <div class="brand">Rewarded · Bestuur</div>
-      <div class="nav on"><svg class="ico"><use href="#i-chart"/></svg>Stand en werving</div>
-      <div class="nav"><svg class="ico"><use href="#i-kit"/></svg>Promotiekit</div>
-      <div class="nav"><svg class="ico"><use href="#i-gift"/></svg>Prijs</div>
-      <div class="nav"><svg class="ico"><use href="#i-shield"/></svg>Kwaliteit</div>
-      <div style="flex:1"></div>
-      <p class="caption" style="padding:0 12px">SV Kompas · Utrecht<br>Ingelogd als commissaris onderwijs</p>
-    </aside>
-    <div class="main">
-      <div class="row between">
-        <div><h1 class="title-l">Blokk-challenge · week 2 van 2</h1><p class="body muted">Poule 150–500 leden · opgegeven ledental 320 (bron: jaarverslag)</p></div>
-        <span class="chip pause">Voorlopig, definitief na controle</span>
-      </div>
-      <div class="card soft row" style="gap:10px;padding:12px 16px"><svg class="ico sm"><use href="#i-lock"/></svg><p class="body">Je ziet groepscijfers. Wie wat doet, zie je niet, en wij ook niet zonder reden. Cijfers verschijnen vanaf 5 leden per groep. Geen namen, geen export.</p></div>
-      <div class="tiles">
-        <div class="card tile"><p class="caption">Positie in de poule</p><p class="big">2 <span class="body muted">van 6</span></p></div>
-        <div class="card tile"><p class="caption">Deelnamegraad</p><p class="big">31%</p><p class="caption">7 procentpunt achter nr. 1</p></div>
-        <div class="card tile"><p class="caption">Intensiteit</p><p class="big">64 <span class="body muted">min</span></p><p class="caption">per actief lid per dag, geen prijs</p></div>
-        <div class="card tile"><p class="caption">Drempelprijs (≥ 25%)</p><p class="big" style="color:var(--primary)">Gehaald</p><p class="caption">voorlopig</p></div>
-      </div>
-      <div class="grid2">
-        <div class="card">
-          <div class="row between"><p class="label">Werving: gekoppelde en actieve leden per dag</p><p class="caption"><i class="sw" style="background:var(--primary-soft);vertical-align:-2px"></i> gekoppeld &nbsp; <i class="sw" style="background:var(--primary);vertical-align:-2px"></i> actief</p></div>
-          <div class="chart" aria-label="Staafdiagram werving">
-            <div class="col"><div class="b1" style="height:30%"><div class="b2" style="height:55%"></div></div></div>
-            <div class="col"><div class="b1" style="height:38%"><div class="b2" style="height:52%"></div></div></div>
-            <div class="col"><div class="b1" style="height:45%"><div class="b2" style="height:58%"></div></div></div>
-            <div class="col"><div class="b1" style="height:52%"><div class="b2" style="height:54%"></div></div></div>
-            <div class="col"><div class="b1" style="height:60%"><div class="b2" style="height:60%"></div></div></div>
-            <div class="col"><div class="b1" style="height:66%"><div class="b2" style="height:57%"></div></div></div>
-            <div class="col"><div class="b1" style="height:71%"><div class="b2" style="height:52%"></div></div></div>
-            <div class="col"><div class="b1" style="height:76%"><div class="b2" style="height:63%"></div></div></div>
-            <div class="col"><div class="b1" style="height:82%"><div class="b2" style="height:64%"></div></div></div>
-            <div class="col"><div class="b1" style="height:86%"><div class="b2" style="height:61%"></div></div></div>
-            <div class="col"><div class="b1" style="height:90%"><div class="b2" style="height:66%"></div></div></div>
-            <div class="col"><div class="b1" style="height:93%"><div class="b2" style="height:64%"></div></div></div>
-            <div class="col"><div class="b1" style="height:96%"><div class="b2" style="height:67%"></div></div></div>
-            <div class="col"><div class="b1" style="height:98%"><div class="b2" style="height:65%"></div></div></div>
-          </div>
-          <div class="xl"><span>4 jan</span><span></span><span></span><span></span><span></span><span></span><span>10 jan</span><span>11</span><span></span><span></span><span></span><span></span><span></span><span>17 jan</span></div>
-        </div>
-        <div class="card stack" style="gap:2px">
-          <p class="label">Koppelingen per QR-bron</p>
-          <div class="kv"><span>Instagram-story</span><b class="num">48</b></div>
-          <div class="kv"><span>Poster UB</span><b class="num">31</b></div>
-          <div class="kv"><span>WhatsApp-groep jaarclubs</span><b class="num">22</b></div>
-          <div class="kv"><span>Dia in collegezaal</span><b class="num">9</b></div>
-          <div class="kv"><span>Aandeel leden in een squad</span><b class="num">46%</b></div>
-        </div>
-      </div>
-      <div class="row" style="gap:12px">
-        <div class="btn primary sm">Download poster met QR</div>
-        <div class="btn secondary sm">Bekijk wat je wel en niet belooft</div>
-      </div>
-    </div>
+  <div class="card soft row" style="align-items:flex-start;gap:10px"><svg class="ico sm" aria-hidden="true" focusable="false" style="margin-top:2px"><use href="#i-info"/></svg><p class="body">Een inkomend gesprek of een geopende melding stopt je sessie. Zet Niet storen aan voor je begint.</p></div>
+  <div style="flex:1"></div>
+  <button type="button" class="btn primary">Opnieuw beginnen</button>
+  <button type="button" class="btn secondary">Kortere sessie (25 min)</button>
+  <button type="button" class="link" style="margin-top:-6px">Klopt dit niet?</button>
+ </div><nav class="tabbar" aria-label="Hoofdnavigatie"><a href="#" class="tab on" aria-current="page"><svg aria-hidden="true" focusable="false"><use href="#i-focus-f"/></svg>Focus</a><a href="#" class="tab"><svg aria-hidden="true" focusable="false"><use href="#i-squad"/></svg>Squad</a><a href="#" class="tab"><svg aria-hidden="true" focusable="false"><use href="#i-flag"/></svg>Vereniging</a><a href="#" class="tab"><svg aria-hidden="true" focusable="false"><use href="#i-gift"/></svg>Beloningen</a><a href="#" class="tab"><svg aria-hidden="true" focusable="false"><use href="#i-user"/></svg>Ik</a></nav></div><h2 id="h08"><span class="idx">08</span>Sessie afgebroken met uitleg (F6), code hidden</h2><p class="note">Amber, geen rood: dit is geen fout van de gebruiker. Tijdstip, duur, reden en de streakzin. Drie wegen terug; "Klopt dit niet?" heeft een tikvlak van 48 px over de volle breedte. Bij heartbeat_gap en late_end wordt die link een secundaire knop.</p></section><section class="item" aria-labelledby="h09"><div class="phone t-light " role="group" aria-label="Melding bij een afgebroken sessie"><div class="statusbar"><span aria-hidden="true">14:41</span><span class="fict">Fictief</span><span class="sb-icons" aria-hidden="true"><span class="sig"><i style="height:4px"></i><i style="height:6px"></i><i style="height:8px"></i><i style="height:10px"></i></span><span class="bat"></span></span></div>
+ <div class="content" style="gap:12px;padding-top:14px">
+  <span class="chip pause" style="align-self:flex-start"><svg class="" aria-hidden="true" focusable="false"><use href="#i-pause"/></svg>Sessie gestopt</span>
+  <p class="title-l">Je sessie stopte om 14:32.</p>
+ </div>
+ <div class="scrim" aria-hidden="true"></div>
+ <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="f7h">
+  <div class="grab" aria-hidden="true"></div>
+  <h1 class="title-m" id="f7h">Klopt dit niet?</h1>
+  <p class="body">Een gesprek, een andere app of een scherm dat uitging kunnen we niet terugdraaien: we zagen Rewarded niet meer op je scherm.</p>
+  <p class="body muted">Je melding helpt ons beslissen of er na de pilot een kort terugkeervenster komt.</p>
+  <p class="section-label">Wat gebeurde er?</p>
+  <div class="radiolist" role="radiogroup" aria-label="Wat gebeurde er?"><button type="button" role="radio" aria-checked="true">Een gesprek</button><button type="button" role="radio" aria-checked="false">Ik opende een melding</button><button type="button" role="radio" aria-checked="false">Het scherm ging vanzelf uit</button><button type="button" role="radio" aria-checked="false">Iets anders</button></div>
+  <label class="caption" for="f7t">Toelichting (mag leeg)</label>
+  <textarea id="f7t" class="ta" rows="2"></textarea>
+  <button type="button" class="btn primary">Versturen</button>
+  <button type="button" class="btn secondary">Annuleren</button>
+ </div></div><h2 id="h09"><span class="idx">09</span>Klopt dit niet? bij code hidden (F7)</h2><p class="note">De sheet belooft niet meer dan de wachtrij kan: bij hidden is herstel niet mogelijk (spec 6.4), en dat staat er eerlijk, met waarvoor de melding wel dient. Bij heartbeat_gap en late_end staat hier "Een mens kijkt of we je sessie kunnen herstellen, meestal binnen 3 werkdagen."</p></section><section class="item" aria-labelledby="h10"><div class="phone t-light " role="group" aria-label="Sessie voltooid met directe bijschrijving, arm A"><div class="statusbar"><span aria-hidden="true">11:16</span><span class="fict">Fictief</span><span class="sb-icons" aria-hidden="true"><span class="sig"><i style="height:4px"></i><i style="height:6px"></i><i style="height:8px"></i><i style="height:10px"></i></span><span class="bat"></span></span></div>
+ <div class="content with-tabs" style="gap:12px;padding-top:14px">
+  <div aria-hidden="true" style="width:56px;height:56px;border-radius:50%;background:var(--primary-soft);color:var(--primary);display:flex;align-items:center;justify-content:center"><svg class="" aria-hidden="true" focusable="false" style="width:30px;height:30px"><use href="#i-check"/></svg></div>
+  <h1 class="title-l">50 minuten.<br>Je dagdoel is gehaald.</h1>
+  <p class="body muted">Twee volle sessies vandaag, samen 75 minuten.</p>
+  <div class="card stack" style="gap:10px">
+   <div class="row" style="gap:10px"><div class="avatars" aria-hidden="true"><div class="avatar sm">M</div><div class="avatar sm">D</div></div><p class="body"><strong>Mila en Daan</strong> zaten er ook.</p></div>
+   <div class="row between"><span class="chip ok"><svg class="" aria-hidden="true" focusable="false"><use href="#i-flame"/></svg>Squadstreak dag 6</span><span class="caption">Squaddag: 2 van 3 actieve leden</span></div>
   </div>
-  <h2><span class="idx">12</span>Bestuursdashboard (D1, D2) op laptopbreedte</h2>
-  <p class="note">Alleen aggregaten, met de grens bovenaan in gewone taal. Deelnamegraad, intensiteit, afstand tot de vereniging erboven en tot de drempel, werving per dag en per QR-bron. Geen namen, lijsten, tijdstippen, export of berichtenfunctie. Een wervingsinstrument, geen monitor.</p>
-</section>
-
+  <div class="card stack" style="gap:6px">
+   <p class="body-l strong num">+50 punten bijgeschreven</p>
+   <div class="bar" style="margin-top:6px" role="progressbar" aria-label="Inverdienperiode" aria-valuemin="0" aria-valuemax="300" aria-valuenow="262" aria-valuetext="262 van 300 minuten"><i style="width:87%"></i></div>
+   <p class="body num">262 van 300 min · nog 38 minuten tot je eerste verzilvering</p>
+   <p class="bonus">+20 bonus voor je gehaalde dagdoel. <button type="button" class="link inline">Waarom zie ik dit?</button></p>
+  </div>
+  <div style="flex:1"></div>
+  <div class="row" style="gap:10px"><button type="button" class="btn secondary" style="flex:1">Klaar</button><button type="button" class="btn primary" style="flex:1.3">Nog een sessie</button></div>
+  <button type="button" class="link" style="margin-top:-6px">Maak een kaart</button>
+ </div><nav class="tabbar" aria-label="Hoofdnavigatie"><a href="#" class="tab on" aria-current="page"><svg aria-hidden="true" focusable="false"><use href="#i-focus-f"/></svg>Focus</a><a href="#" class="tab"><svg aria-hidden="true" focusable="false"><use href="#i-squad"/></svg>Squad</a><a href="#" class="tab"><svg aria-hidden="true" focusable="false"><use href="#i-flag"/></svg>Vereniging</a><a href="#" class="tab"><svg aria-hidden="true" focusable="false"><use href="#i-gift"/></svg>Beloningen</a><a href="#" class="tab"><svg aria-hidden="true" focusable="false"><use href="#i-user"/></svg>Ik</a></nav></div><h2 id="h10"><span class="idx">10</span>Sessie voltooid, arm A (F5)</h2><p class="note">Vaste volgorde: competentie (title-l), squad, punten (body-l, kleiner dan de kop). De Bonusregel is de laatste regel van het puntenblok. De squaddag rekent op actieve leden. Geen confetti, geen oplopende teller.</p></section><section class="item" aria-labelledby="h11"><div class="phone t-light " role="group" aria-label="Sessie voltooid met directe bijschrijving, arm B"><div class="statusbar"><span aria-hidden="true">11:16</span><span class="fict">Fictief</span><span class="sb-icons" aria-hidden="true"><span class="sig"><i style="height:4px"></i><i style="height:6px"></i><i style="height:8px"></i><i style="height:10px"></i></span><span class="bat"></span></span></div>
+ <div class="content with-tabs" style="gap:12px;padding-top:14px">
+  <div aria-hidden="true" style="width:56px;height:56px;border-radius:50%;background:var(--primary-soft);color:var(--primary);display:flex;align-items:center;justify-content:center"><svg class="" aria-hidden="true" focusable="false" style="width:30px;height:30px"><use href="#i-check"/></svg></div>
+  <h1 class="title-l">50 minuten.<br>Je dagdoel is gehaald.</h1>
+  <p class="body muted">Twee volle sessies vandaag, samen 75 minuten.</p>
+  <div class="card stack" style="gap:10px">
+   <div class="row" style="gap:10px"><div class="avatars" aria-hidden="true"><div class="avatar sm">M</div><div class="avatar sm">D</div></div><p class="body"><strong>Mila en Daan</strong> zaten er ook.</p></div>
+   <div class="row between"><span class="chip ok"><svg class="" aria-hidden="true" focusable="false"><use href="#i-flame"/></svg>Squadstreak dag 6</span><span class="caption">Squaddag: 2 van 3 actieve leden</span></div>
+  </div>
+  <div class="card stack" style="gap:6px">
+   <p class="body-l strong num">+50 punten bijgeschreven</p>
+   <div class="bar" style="margin-top:6px" role="progressbar" aria-label="Inverdienperiode" aria-valuemin="0" aria-valuemax="300" aria-valuenow="262" aria-valuetext="262 van 300 minuten"><i style="width:87%"></i></div>
+   <p class="body num">262 van 300 min · nog 38 minuten tot je eerste verzilvering</p>
+   <p class="bonus">20 uit je weekbudget staan nu veilig. Nog 80 in je weekbudget. <button type="button" class="link inline">Waarom zie ik dit?</button></p>
+  </div>
+  <div style="flex:1"></div>
+  <div class="row" style="gap:10px"><button type="button" class="btn secondary" style="flex:1">Klaar</button><button type="button" class="btn primary" style="flex:1.3">Nog een sessie</button></div>
+  <button type="button" class="link" style="margin-top:-6px">Maak een kaart</button>
+ </div><nav class="tabbar" aria-label="Hoofdnavigatie"><a href="#" class="tab on" aria-current="page"><svg aria-hidden="true" focusable="false"><use href="#i-focus-f"/></svg>Focus</a><a href="#" class="tab"><svg aria-hidden="true" focusable="false"><use href="#i-squad"/></svg>Squad</a><a href="#" class="tab"><svg aria-hidden="true" focusable="false"><use href="#i-flag"/></svg>Vereniging</a><a href="#" class="tab"><svg aria-hidden="true" focusable="false"><use href="#i-gift"/></svg>Beloningen</a><a href="#" class="tab"><svg aria-hidden="true" focusable="false"><use href="#i-user"/></svg>Ik</a></nav></div><h2 id="h11"><span class="idx">11</span>Sessie voltooid, arm B (F5)</h2><p class="note">Identieke opbouw; alleen de tekst van de Bonusregel verschilt. Het weekbudget krijgt hier geen eigen blok, kleur of groter getal.</p></section><section class="item" aria-labelledby="h12"><div class="phone t-light " role="group" aria-label="Sessiedetail met besluit en beroep"><div class="statusbar"><span aria-hidden="true">09:12</span><span class="fict">Fictief</span><span class="sb-icons" aria-hidden="true"><span class="sig"><i style="height:4px"></i><i style="height:6px"></i><i style="height:8px"></i><i style="height:10px"></i></span><span class="bat"></span></span></div>
+ <div class="content with-tabs" style="gap:12px">
+  <button type="button" class="topnav"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-back"/></svg>Meldingen en beroepen</button>
+  <h1 class="title-l">Sessie van maandag 11 januari</h1>
+  <span class="chip pause" style="align-self:flex-start"><svg class="" aria-hidden="true" focusable="false"><use href="#i-info"/></svg>Telt niet</span>
+  <div class="card" style="padding:4px 16px">
+   <div class="kv"><span class="muted">Gepland</span><b class="num">90 min</b></div>
+   <div class="kv"><span class="muted">Gemarkeerd</span><b>Wordt nagekeken, 11 jan</b></div>
+   <div class="kv"><span class="muted">Besluit</span><b>Afgekeurd, 13 jan</b></div>
+   <div class="kv"><span class="muted">Besloten door</span><b>Beoordelaar van Rewarded</b></div>
+  </div>
+  <div class="card soft stack" style="gap:6px">
+   <p class="label">Waarom</p>
+   <p class="body">Voor een te groot deel van deze sessie kregen we geen signaal. Daarom telt hij niet. De 90 punten zijn teruggedraaid.</p>
+  </div>
+  <p class="body">Ben je het er niet mee eens? Een andere beoordelaar kijkt opnieuw, uiterlijk 5 werkdagen na je beroep.</p>
+  <div style="flex:1"></div>
+  <button type="button" class="btn primary">Beroep instellen</button>
+  <p class="caption" style="text-align:center">Beroep kan tot en met woensdag 27 januari.</p>
+ </div><nav class="tabbar" aria-label="Hoofdnavigatie"><a href="#" class="tab"><svg aria-hidden="true" focusable="false"><use href="#i-focus"/></svg>Focus</a><a href="#" class="tab"><svg aria-hidden="true" focusable="false"><use href="#i-squad"/></svg>Squad</a><a href="#" class="tab"><svg aria-hidden="true" focusable="false"><use href="#i-flag"/></svg>Vereniging</a><a href="#" class="tab"><svg aria-hidden="true" focusable="false"><use href="#i-gift"/></svg>Beloningen</a><a href="#" class="tab on" aria-current="page"><svg aria-hidden="true" focusable="false"><use href="#i-user-f"/></svg>Ik</a></nav></div><h2 id="h12"><span class="idx">12</span>Sessiedetail met besluit en beroep (F8)</h2><p class="note">Een afgekeurde sessie met de redencode in gewone taal, wie besliste (rol, geen naam) en de beroepstermijn als datum. Beroep is één knop met een vrij tekstveld; een andere beoordelaar beslist binnen 5 werkdagen (spec 6.5).</p></section><section class="item" aria-labelledby="h13"><div class="phone t-light " role="group" aria-label="Squad-overzicht met live aanwezigheid"><div class="statusbar"><span aria-hidden="true">14:10</span><span class="fict">Fictief</span><span class="sb-icons" aria-hidden="true"><span class="sig"><i style="height:4px"></i><i style="height:6px"></i><i style="height:8px"></i><i style="height:10px"></i></span><span class="bat"></span></span></div>
+ <div class="content with-tabs" style="gap:10px">
+  <div class="row between"><h1 class="title-l">UB-ochtendploeg</h1><span class="chip ok"><svg class="" aria-hidden="true" focusable="false"><use href="#i-flame"/></svg>Dag 6</span></div>
+  <div class="card soft"><p class="body"><strong>Vandaag:</strong> 2 van 3 actieve leden haalden hun dagdoel. De squaddag is geslaagd.</p></div>
+  <div class="card list" style="padding:2px 16px">
+   <button type="button" class="li" style="width:100%;background:none;border:0;border-bottom:1px solid var(--border);text-align:left;padding:6px 0">
+    <span class="avatar" aria-hidden="true">M<span class="live"></span></span>
+    <span class="grow"><span class="body" style="display:block"><strong>Mila</strong></span><span class="body" style="color:var(--live);font-weight:600;display:block">Focust nu · nog 32 min</span><span class="caption" style="display:block">Belofte: 3 van 5 dagen deze week ›</span></span>
+    <span class="chip ok"><svg class="" aria-hidden="true" focusable="false"><use href="#i-check"/></svg>Doel</span>
+   </button>
+   <div class="li"><span class="avatar" aria-hidden="true">D</span><div class="grow"><p class="body"><strong>Daan</strong></p><p class="body muted">Joker ingezet voor vandaag</p></div><span class="chip neutral"><svg class="" aria-hidden="true" focusable="false"><use href="#i-joker"/></svg>Joker</span></div>
+   <div class="li"><span class="avatar" aria-hidden="true">L</span><div class="grow"><p class="body"><strong>Lotte</strong> (jij)</p><p class="body muted">Dagdoel gehaald · joker nog over</p></div><span class="chip ok"><svg class="" aria-hidden="true" focusable="false"><use href="#i-check"/></svg>Doel</span></div>
+  </div>
+  <p class="section-label">Op pauze</p>
+  <div class="card list" style="padding:2px 16px">
+   <div class="li"><span class="avatar" aria-hidden="true">J</span><div class="grow"><p class="body"><strong>Joris</strong></p><p class="body muted">Terug bij zijn volgende sessie</p></div><span class="chip neutral"><svg class="" aria-hidden="true" focusable="false"><use href="#i-pause"/></svg>Pauze</span></div>
+  </div>
+  <p class="caption">Minuten vergelijken staat uit. Zet je het aan in Ik, dan zie je alleen de minuten van leden die het ook aanzetten.</p>
+  <div style="flex:1"></div>
+  <button type="button" class="btn secondary"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-chat"/></svg>Nodig uit via WhatsApp</button>
+ </div><nav class="tabbar" aria-label="Hoofdnavigatie"><a href="#" class="tab"><svg aria-hidden="true" focusable="false"><use href="#i-focus"/></svg>Focus</a><a href="#" class="tab on" aria-current="page"><svg aria-hidden="true" focusable="false"><use href="#i-squad-f"/></svg>Squad</a><a href="#" class="tab"><svg aria-hidden="true" focusable="false"><use href="#i-flag"/></svg>Vereniging</a><a href="#" class="tab"><svg aria-hidden="true" focusable="false"><use href="#i-gift"/></svg>Beloningen</a><a href="#" class="tab"><svg aria-hidden="true" focusable="false"><use href="#i-user"/></svg>Ik</a></nav></div><h2 id="h13"><span class="idx">13</span>Squad-overzicht met joker, Belofte en pauze (Q1)</h2><p class="note">De squaddag rekent op actieve leden; Joris staat apart onder "Op pauze". Daan zette zijn joker in (neutraal grijs). Bij Mila staat haar Belofte, omdat de squad getuige is; tikken opent de dagen. Geen minuten of punten van anderen zolang vergelijken uit staat.</p></section><section class="item" aria-labelledby="h14"><div class="phone t-light " role="group" aria-label="Belofte maken"><div class="statusbar"><span aria-hidden="true">12:30</span><span class="fict">Fictief</span><span class="sb-icons" aria-hidden="true"><span class="sig"><i style="height:4px"></i><i style="height:6px"></i><i style="height:8px"></i><i style="height:10px"></i></span><span class="bat"></span></span></div>
+ <div class="content with-tabs" style="gap:12px">
+  <button type="button" class="topnav"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-back"/></svg>Squad</button>
+  <h1 class="title-l">Iets beloven voor de komende twee weken?</h1>
+  <p class="body muted">Je hebt twee weken gefocust. Dit is ons voorstel, op basis van wat je echt deed. Pas het gerust aan.</p>
+  <p class="section-label">Dagen per week</p>
+  <div class="seg" role="radiogroup" aria-label="Dagen per week"><button type="button" role="radio" aria-checked="false">3</button><button type="button" role="radio" aria-checked="false">4</button><button type="button" role="radio" aria-checked="true">5</button><button type="button" role="radio" aria-checked="false">6</button><button type="button" role="radio" aria-checked="false">7</button></div>
+  <p class="section-label">Minuten per dag</p>
+  <div class="seg" role="radiogroup" aria-label="Minuten per dag"><button type="button" role="radio" aria-checked="false">25</button><button type="button" role="radio" aria-checked="true">50</button><button type="button" role="radio" aria-checked="false">90</button><button type="button" role="radio" aria-checked="false">120</button></div>
+  <p class="section-label">Getuigen</p>
+  <div class="seg" role="radiogroup" aria-label="Getuigen"><button type="button" role="radio" aria-checked="true">De squad</button><button type="button" role="radio" aria-checked="false">Niemand</button></div>
+  <div class="card soft row" style="align-items:flex-start;gap:10px"><svg class="ico sm" aria-hidden="true" focusable="false" style="margin-top:2px"><use href="#i-eye"/></svg><p class="body">Je squad ziet je Belofte en per dag of je hem haalde. Je minuten en punten zien ze niet. Er hangen geen punten aan.</p></div>
+  <div style="flex:1"></div>
+  <button type="button" class="btn primary">Beloof het</button>
+  <button type="button" class="link" style="margin-top:-6px">Niet nu</button>
+ </div><nav class="tabbar" aria-label="Hoofdnavigatie"><a href="#" class="tab"><svg aria-hidden="true" focusable="false"><use href="#i-focus"/></svg>Focus</a><a href="#" class="tab on" aria-current="page"><svg aria-hidden="true" focusable="false"><use href="#i-squad-f"/></svg>Squad</a><a href="#" class="tab"><svg aria-hidden="true" focusable="false"><use href="#i-flag"/></svg>Vereniging</a><a href="#" class="tab"><svg aria-hidden="true" focusable="false"><use href="#i-gift"/></svg>Beloningen</a><a href="#" class="tab"><svg aria-hidden="true" focusable="false"><use href="#i-user"/></svg>Ik</a></nav></div><h2 id="h14"><span class="idx">14</span>Belofte maken (Q5)</h2><p class="note">Het voorstel staat al ingevuld met wat Lotte de afgelopen 14 dagen echt deed. Wat getuigen zien, staat vóór de keuze. Er hangen geen punten aan; stoppen kan later met één tik. Segmenten zijn keuzerondjes (role="radio").</p></section><section class="item" aria-labelledby="h15"><div class="phone t-light " role="group" aria-label="Belofte-reflectie"><div class="statusbar"><span aria-hidden="true">10:02</span><span class="fict">Fictief</span><span class="sb-icons" aria-hidden="true"><span class="sig"><i style="height:4px"></i><i style="height:6px"></i><i style="height:8px"></i><i style="height:10px"></i></span><span class="bat"></span></span></div>
+ <div class="content with-tabs" style="gap:12px">
+  <button type="button" class="topnav"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-back"/></svg>Squad</button>
+  <h1 class="title-l">Je haalde je Belofte op 9 van 12 dagen.</h1>
+  <div class="stack" style="gap:6px">
+   <div class="dots" role="img" aria-label="9 van 12 dagen gehaald"><i class="y" title="gehaald"></i><i class="y" title="gehaald"></i><i class="y" title="gehaald"></i><i class="y" title="gehaald"></i><i title="niet gehaald"></i><i class="y"></i><i class="y"></i><i class="y"></i><i></i><i class="y"></i><i class="y"></i><i></i></div>
+   <p class="caption"><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:var(--primary)"></span> gehaald &nbsp; <span style="display:inline-block;width:10px;height:10px;border-radius:50%;border:1.5px solid var(--border-strong)"></span> niet gehaald</p>
+  </div>
+  <div class="card stack" style="gap:8px">
+   <p class="body">Zou je bij een volgende Belofte een bedrag inzetten dat naar een goed doel gaat als je hem niet haalt? Er is nu geen betaalfunctie; we vragen het alleen.</p>
+   <div class="seg" role="radiogroup" aria-label="Interesse in inzet"><button type="button" role="radio" aria-checked="false">Ja</button><button type="button" role="radio" aria-checked="false">Nee</button><button type="button" role="radio" aria-checked="false">Weet ik niet</button></div>
+  </div>
+  <div style="flex:1"></div>
+  <button type="button" class="btn primary">Verlengen met twee weken</button>
+  <button type="button" class="btn secondary">Aanpassen</button>
+  <button type="button" class="link" style="margin-top:-6px">Stoppen</button>
+ </div><nav class="tabbar" aria-label="Hoofdnavigatie"><a href="#" class="tab"><svg aria-hidden="true" focusable="false"><use href="#i-focus"/></svg>Focus</a><a href="#" class="tab on" aria-current="page"><svg aria-hidden="true" focusable="false"><use href="#i-squad-f"/></svg>Squad</a><a href="#" class="tab"><svg aria-hidden="true" focusable="false"><use href="#i-flag"/></svg>Vereniging</a><a href="#" class="tab"><svg aria-hidden="true" focusable="false"><use href="#i-gift"/></svg>Beloningen</a><a href="#" class="tab"><svg aria-hidden="true" focusable="false"><use href="#i-user"/></svg>Ik</a></nav></div><h2 id="h15"><span class="idx">15</span>Belofte-reflectie (Q6), 18+</h2><p class="note">De uitkomst als feit, de dagen als stippen zonder rood. De vraag over inzet voor een goed doel krijgen alleen 18-plussers; er is geen betaalfunctie, en "Weet ik niet" is een gelijkwaardige keuze. Eén primaire knop: verlengen.</p></section><section class="item" aria-labelledby="h16"><div class="phone t-light " role="group" aria-label="Ranglijst van verenigingen"><div class="statusbar"><span aria-hidden="true">16:02</span><span class="fict">Fictief</span><span class="sb-icons" aria-hidden="true"><span class="sig"><i style="height:4px"></i><i style="height:6px"></i><i style="height:8px"></i><i style="height:10px"></i></span><span class="bat"></span></span></div>
+ <div class="content with-tabs" style="gap:10px">
+  <h1 class="title-l">Blokchallenge</h1>
+  <div class="row" style="gap:8px;flex-wrap:wrap"><span class="chip neutral">Utrecht · poule 150–500 leden</span><span class="chip pause">Voorlopig</span></div>
+  <p class="caption">Deelnamegraad: leden die deze week op minstens 3 dagen hun dagdoel haalden, gedeeld door het ledental. Grootte geeft geen voordeel. <button type="button" class="link inline">Hoe rekenen we?</button></p>
+  <ol class="card list" style="padding:2px 16px;margin:0;list-style:none">
+   <li class="li"><span class="label num" style="width:18px">1</span><div class="grow"><p class="body"><strong>SV Meridiaan</strong></p><p class="caption">71 min per actief lid per dag</p></div><p class="title-m num">38%</p></li>
+   <li class="li" style="margin:0 -14px;padding:6px 14px;border:2px solid var(--primary);border-radius:10px"><span class="label num" style="width:18px">2</span><div class="grow"><p class="body"><strong>SV Kompas</strong> · jullie</p><p class="caption">64 min per actief lid per dag</p></div><p class="title-m num">31%</p></li>
+   <li class="li"><span class="label num" style="width:18px">3</span><div class="grow"><p class="body"><strong>SV Lumen</strong></p><p class="caption">58 min per actief lid per dag</p></div><p class="title-m num">27%</p></li>
+   <li class="li"><span class="label num" style="width:18px">4</span><div class="grow"><p class="body"><strong>SV Prisma</strong></p><p class="caption">66 min per actief lid per dag</p></div><p class="title-m num">22%</p></li>
+  </ol>
+  <div class="card stack" style="gap:6px">
+   <div class="row between"><p class="label">Drempelprijs voor elke vereniging ≥ 25%</p><span class="chip ok">Verdiend</span></div>
+   <p class="body">[Prijs in natura] · gefinancierd door [partner]</p>
+   <div class="bar" style="margin-top:0" role="progressbar" aria-label="Afstand tot de drempel" aria-valuemin="0" aria-valuemax="31" aria-valuenow="31" aria-valuetext="31 procent, drempel 25 procent gehaald"><i style="width:100%"></i></div>
+   <p class="caption">Jullie zitten op 31%. Uitslag pas na controle van sessies en winnaars.</p>
+  </div>
+  <div class="card stack" style="gap:6px">
+   <div class="row between"><p class="label">Hoofdprijs poule</p><span class="chip ok">Verdiend, niet verloot</span></div>
+   <p class="body">[Prijs in natura] · gefinancierd door [faculteit] · 7 procentpunt achter nr. 1.</p>
+  </div>
+ </div><nav class="tabbar" aria-label="Hoofdnavigatie"><a href="#" class="tab"><svg aria-hidden="true" focusable="false"><use href="#i-focus"/></svg>Focus</a><a href="#" class="tab"><svg aria-hidden="true" focusable="false"><use href="#i-squad"/></svg>Squad</a><a href="#" class="tab on" aria-current="page"><svg aria-hidden="true" focusable="false"><use href="#i-flag-f"/></svg>Vereniging</a><a href="#" class="tab"><svg aria-hidden="true" focusable="false"><use href="#i-gift"/></svg>Beloningen</a><a href="#" class="tab"><svg aria-hidden="true" focusable="false"><use href="#i-user"/></svg>Ik</a></nav></div><h2 id="h16"><span class="idx">16</span>Blokchallenge, ranglijst van verenigingen (V1)</h2><p class="note">Alleen verenigingen, nooit personen of totalen. Groot cijfer: deelnamegraad (de prijsmaatstaf); klein: intensiteit zonder prijs. Eigen vereniging met een rand. Beide prijzen noemen hun financier en dragen "Verdiend".</p></section><section class="item" aria-labelledby="h17"><div class="phone t-light " role="group" aria-label="Catalogus met verzilver-sheet"><div class="statusbar"><span aria-hidden="true">18:30</span><span class="fict">Fictief</span><span class="sb-icons" aria-hidden="true"><span class="sig"><i style="height:4px"></i><i style="height:6px"></i><i style="height:8px"></i><i style="height:10px"></i></span><span class="bat"></span></span></div>
+ <div class="content with-tabs" style="gap:10px">
+  <h1 class="title-l">Beloningen</h1>
+  <div class="card stack" style="gap:6px">
+   <p class="caption">Beschikbaar</p><p class="title-l num">640</p>
+   <div class="kv" style="padding:6px 0"><span class="muted">Weekbudget (nog niet veilig)</span><b class="num">80</b></div>
+   <div class="kv" style="padding:6px 0"><span class="muted">Wordt nagekeken</span><b class="num">50</b></div>
+  </div>
+  <p class="caption">Punten geven toegang tot de catalogus zolang de voorraad strekt. Punten zijn geen geld en geven geen recht op een bepaalde beloning.</p>
+  <div class="card row"><div class="grow"><p class="body"><strong>Koffie bij [partner]</strong></p><p class="caption">Gefinancierd door [faculteit] · nog 12 deze week</p></div><p class="label num">300 pnt</p></div>
+  <div class="card row"><div class="grow"><p class="body"><strong>Printtegoed UB</strong></p><p class="caption">Gefinancierd door [vereniging] · deze week op</p></div><p class="label num muted">500 pnt</p></div>
+ </div><nav class="tabbar" aria-label="Hoofdnavigatie"><a href="#" class="tab"><svg aria-hidden="true" focusable="false"><use href="#i-focus"/></svg>Focus</a><a href="#" class="tab"><svg aria-hidden="true" focusable="false"><use href="#i-squad"/></svg>Squad</a><a href="#" class="tab"><svg aria-hidden="true" focusable="false"><use href="#i-flag"/></svg>Vereniging</a><a href="#" class="tab on" aria-current="page"><svg aria-hidden="true" focusable="false"><use href="#i-gift-f"/></svg>Beloningen</a><a href="#" class="tab"><svg aria-hidden="true" focusable="false"><use href="#i-user"/></svg>Ik</a></nav>
+ <div class="scrim" aria-hidden="true"></div>
+ <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="b2h">
+  <div class="grab" aria-hidden="true"></div>
+  <h1 class="title-m" id="b2h">Koffie bij [partner]</h1>
+  <p class="body muted">Gefinancierd door [faculteit]. Eén code, 30 dagen geldig. Je krijgt hem hier en per e-mail.</p>
+  <div class="card soft" style="padding:4px 16px">
+   <div class="kv"><span>Gaat af</span><b class="num">300 punten</b></div>
+   <div class="kv"><span>Daarna beschikbaar</span><b class="num">340 punten</b></div>
+   <div class="kv"><span>Volgende verzilvering</span><b>vanaf maandag</b></div>
+  </div>
+  <button type="button" class="btn primary">Verzilver voor 300 punten</button>
+  <button type="button" class="btn secondary">Annuleren</button>
+ </div></div><h2 id="h17"><span class="idx">17</span>Catalogus en verzilveren (B1, B2), arm B</h2><p class="note">"In afwachting" is gesplitst: het weekbudget van arm B (nog niet veilig) staat los van punten die worden nagekeken. Referral verschijnt pas als die vlag aan staat. Voorraad nul zonder belofte van aanvulling, omdat die hier niet gedekt is. Nergens een eurowaarde.</p></section><section class="item" aria-labelledby="h18"><div class="phone t-light " role="group" aria-label="Verlote prijs met spelvoorwaarden, 18 plus"><div class="statusbar"><span aria-hidden="true">19:12</span><span class="fict">Fictief</span><span class="sb-icons" aria-hidden="true"><span class="sig"><i style="height:4px"></i><i style="height:6px"></i><i style="height:8px"></i><i style="height:10px"></i></span><span class="bat"></span></span></div>
+ <div class="content" style="gap:10px">
+  <button type="button" class="topnav"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-back"/></svg>Beloningen</button>
+  <span class="chip kans" style="align-self:flex-start"><svg class="" aria-hidden="true" focusable="false"><use href="#i-ticket"/></svg>Kans · 18+</span>
+  <h1 class="title-l">Kans op een [prijs]</h1>
+  <p class="body-l">Haalde je je dagdoel op 5 van de 7 dagen? Dan doe je gratis mee aan de trekking. Dit is een kans, geen beloning die je verdient.</p>
+  <div class="card" style="padding:2px 16px">
+   <div class="kv"><span class="muted">Prijzen</span><b class="num">3 × [prijs]</b></div>
+   <div class="kv"><span class="muted">Vorige trekking</span><b class="num">412 deelnemers</b></div>
+   <div class="kv"><span class="muted">Kans, op basis daarvan</span><b class="num">ongeveer 1 op 137</b></div>
+   <div class="kv"><span class="muted">Trekking</span><b>ma 11 januari 2027</b></div>
+   <div class="kv"><span class="muted">Seed-hash</span><b class="num" style="font-family:ui-monospace,Menlo,monospace;font-size:13px">9f2c…e41a</b></div>
+  </div>
+  <div class="card kans"><p class="body">Geen aankoop of abonnement nodig, en niets geeft extra kans. Organisator: Rewarded. De kansspelbelasting betaalt Rewarded. Win je, dan vragen we eenmalig om een leeftijdscontrole.</p></div>
+  <div style="flex:1"></div>
+  <button type="button" class="btn kansbtn">Meedoen aanzetten</button>
+  <p class="caption" style="text-align:center">Uitzetten kan altijd, hier en bij Ik.</p>
+  <button type="button" class="link" style="margin-top:-8px;margin-bottom:22px">Spelvoorwaarden</button>
+ </div></div><h2 id="h18"><span class="idx">18</span>Verlote prijs met spelvoorwaarden, 18+ (B5)</h2><p class="note">Eigen violette kleurfamilie, een lot als icoon (geen klavertje) en het woord "Kans". Kans als getal, trekkingsdatum, seed-hash, organisator en de leeftijdscontrole bij winnaars. Alleen voor 18+ met de vlag aan; voor 16–17 bestaat dit scherm niet. Na de opt-in wordt de knop een schakelaar die je met één tik uitzet.</p></section><section class="item" aria-labelledby="h19"><div class="phone t-dark " role="group" aria-label="Deelbare bewijskaart maken"><div class="statusbar"><span aria-hidden="true">21:40</span><span class="fict">Fictief</span><span class="sb-icons" aria-hidden="true"><span class="sig"><i style="height:4px"></i><i style="height:6px"></i><i style="height:8px"></i><i style="height:10px"></i></span><span class="bat"></span></span></div>
+ <div class="content" style="gap:10px">
+  <button type="button" class="topnav"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-back"/></svg>Terug</button>
+  <h1 class="title-m">Maak een kaart</h1>
+  <div role="img" aria-label="Voorbeeld van de kaart: Lotte, 2 uur 30 gefocust op dinsdag 12 januari, streak dag 6" style="align-self:center;width:200px;height:340px;border-radius:18px;background:var(--card-share-bg);color:#E8EAED;padding:18px;display:flex;flex-direction:column;justify-content:space-between;box-shadow:var(--shadow-sheet)">
+   <div><p class="label" style="color:#9ED6C3">Rewarded</p><p class="caption" style="color:#A3ABB5">dinsdag 12 januari</p></div>
+   <div><p style="font-size:40px;line-height:44px;font-weight:700;margin:0" class="num">2 u 30</p><p class="body" style="color:#C9CED4">gefocust vandaag</p></div>
+   <div class="row" style="gap:6px;color:#9ED6C3"><svg class="ico sm" aria-hidden="true" focusable="false"><use href="#i-flame"/></svg><p class="body" style="font-weight:600">Streak · dag 6</p></div>
+   <div class="row between" style="align-items:flex-end"><p class="title-m">Lotte</p><div style="width:60px;height:60px;border-radius:6px;overflow:hidden"><svg class="qr" viewBox="-2 -2 29 29" aria-hidden="true"><rect x="-2" y="-2" width="29" height="29" fill="#fff"/><g fill="#111"><rect x="0" y="0" width="1" height="1"/><rect x="1" y="0" width="1" height="1"/><rect x="2" y="0" width="1" height="1"/><rect x="3" y="0" width="1" height="1"/><rect x="4" y="0" width="1" height="1"/><rect x="5" y="0" width="1" height="1"/><rect x="6" y="0" width="1" height="1"/><rect x="8" y="0" width="1" height="1"/><rect x="9" y="0" width="1" height="1"/><rect x="10" y="0" width="1" height="1"/><rect x="11" y="0" width="1" height="1"/><rect x="12" y="0" width="1" height="1"/><rect x="14" y="0" width="1" height="1"/><rect x="15" y="0" width="1" height="1"/><rect x="18" y="0" width="1" height="1"/><rect x="19" y="0" width="1" height="1"/><rect x="20" y="0" width="1" height="1"/><rect x="21" y="0" width="1" height="1"/><rect x="22" y="0" width="1" height="1"/><rect x="23" y="0" width="1" height="1"/><rect x="24" y="0" width="1" height="1"/><rect x="0" y="1" width="1" height="1"/><rect x="6" y="1" width="1" height="1"/><rect x="8" y="1" width="1" height="1"/><rect x="9" y="1" width="1" height="1"/><rect x="10" y="1" width="1" height="1"/><rect x="12" y="1" width="1" height="1"/><rect x="13" y="1" width="1" height="1"/><rect x="16" y="1" width="1" height="1"/><rect x="18" y="1" width="1" height="1"/><rect x="24" y="1" width="1" height="1"/><rect x="0" y="2" width="1" height="1"/><rect x="2" y="2" width="1" height="1"/><rect x="3" y="2" width="1" height="1"/><rect x="4" y="2" width="1" height="1"/><rect x="6" y="2" width="1" height="1"/><rect x="11" y="2" width="1" height="1"/><rect x="18" y="2" width="1" height="1"/><rect x="20" y="2" width="1" height="1"/><rect x="21" y="2" width="1" height="1"/><rect x="22" y="2" width="1" height="1"/><rect x="24" y="2" width="1" height="1"/><rect x="0" y="3" width="1" height="1"/><rect x="2" y="3" width="1" height="1"/><rect x="3" y="3" width="1" height="1"/><rect x="4" y="3" width="1" height="1"/><rect x="6" y="3" width="1" height="1"/><rect x="9" y="3" width="1" height="1"/><rect x="10" y="3" width="1" height="1"/><rect x="11" y="3" width="1" height="1"/><rect x="13" y="3" width="1" height="1"/><rect x="14" y="3" width="1" height="1"/><rect x="18" y="3" width="1" height="1"/><rect x="20" y="3" width="1" height="1"/><rect x="21" y="3" width="1" height="1"/><rect x="22" y="3" width="1" height="1"/><rect x="24" y="3" width="1" height="1"/><rect x="0" y="4" width="1" height="1"/><rect x="2" y="4" width="1" height="1"/><rect x="3" y="4" width="1" height="1"/><rect x="4" y="4" width="1" height="1"/><rect x="6" y="4" width="1" height="1"/><rect x="8" y="4" width="1" height="1"/><rect x="15" y="4" width="1" height="1"/><rect x="18" y="4" width="1" height="1"/><rect x="20" y="4" width="1" height="1"/><rect x="21" y="4" width="1" height="1"/><rect x="22" y="4" width="1" height="1"/><rect x="24" y="4" width="1" height="1"/><rect x="0" y="5" width="1" height="1"/><rect x="6" y="5" width="1" height="1"/><rect x="8" y="5" width="1" height="1"/><rect x="9" y="5" width="1" height="1"/><rect x="12" y="5" width="1" height="1"/><rect x="13" y="5" width="1" height="1"/><rect x="14" y="5" width="1" height="1"/><rect x="15" y="5" width="1" height="1"/><rect x="16" y="5" width="1" height="1"/><rect x="18" y="5" width="1" height="1"/><rect x="24" y="5" width="1" height="1"/><rect x="0" y="6" width="1" height="1"/><rect x="1" y="6" width="1" height="1"/><rect x="2" y="6" width="1" height="1"/><rect x="3" y="6" width="1" height="1"/><rect x="4" y="6" width="1" height="1"/><rect x="5" y="6" width="1" height="1"/><rect x="6" y="6" width="1" height="1"/><rect x="12" y="6" width="1" height="1"/><rect x="13" y="6" width="1" height="1"/><rect x="14" y="6" width="1" height="1"/><rect x="18" y="6" width="1" height="1"/><rect x="19" y="6" width="1" height="1"/><rect x="20" y="6" width="1" height="1"/><rect x="21" y="6" width="1" height="1"/><rect x="22" y="6" width="1" height="1"/><rect x="23" y="6" width="1" height="1"/><rect x="24" y="6" width="1" height="1"/><rect x="10" y="7" width="1" height="1"/><rect x="14" y="7" width="1" height="1"/><rect x="15" y="7" width="1" height="1"/><rect x="16" y="7" width="1" height="1"/><rect x="0" y="8" width="1" height="1"/><rect x="6" y="8" width="1" height="1"/><rect x="8" y="8" width="1" height="1"/><rect x="11" y="8" width="1" height="1"/><rect x="12" y="8" width="1" height="1"/><rect x="15" y="8" width="1" height="1"/><rect x="16" y="8" width="1" height="1"/><rect x="17" y="8" width="1" height="1"/><rect x="20" y="8" width="1" height="1"/><rect x="24" y="8" width="1" height="1"/><rect x="1" y="9" width="1" height="1"/><rect x="2" y="9" width="1" height="1"/><rect x="7" y="9" width="1" height="1"/><rect x="10" y="9" width="1" height="1"/><rect x="11" y="9" width="1" height="1"/><rect x="12" y="9" width="1" height="1"/><rect x="13" y="9" width="1" height="1"/><rect x="15" y="9" width="1" height="1"/><rect x="16" y="9" width="1" height="1"/><rect x="17" y="9" width="1" height="1"/><rect x="19" y="9" width="1" height="1"/><rect x="23" y="9" width="1" height="1"/><rect x="3" y="10" width="1" height="1"/><rect x="4" y="10" width="1" height="1"/><rect x="5" y="10" width="1" height="1"/><rect x="6" y="10" width="1" height="1"/><rect x="8" y="10" width="1" height="1"/><rect x="12" y="10" width="1" height="1"/><rect x="16" y="10" width="1" height="1"/><rect x="18" y="10" width="1" height="1"/><rect x="19" y="10" width="1" height="1"/><rect x="0" y="11" width="1" height="1"/><rect x="12" y="11" width="1" height="1"/><rect x="16" y="11" width="1" height="1"/><rect x="17" y="11" width="1" height="1"/><rect x="18" y="11" width="1" height="1"/><rect x="19" y="11" width="1" height="1"/><rect x="20" y="11" width="1" height="1"/><rect x="21" y="11" width="1" height="1"/><rect x="0" y="12" width="1" height="1"/><rect x="3" y="12" width="1" height="1"/><rect x="6" y="12" width="1" height="1"/><rect x="8" y="12" width="1" height="1"/><rect x="12" y="12" width="1" height="1"/><rect x="13" y="12" width="1" height="1"/><rect x="15" y="12" width="1" height="1"/><rect x="16" y="12" width="1" height="1"/><rect x="17" y="12" width="1" height="1"/><rect x="19" y="12" width="1" height="1"/><rect x="21" y="12" width="1" height="1"/><rect x="22" y="12" width="1" height="1"/><rect x="23" y="12" width="1" height="1"/><rect x="1" y="13" width="1" height="1"/><rect x="5" y="13" width="1" height="1"/><rect x="6" y="13" width="1" height="1"/><rect x="7" y="13" width="1" height="1"/><rect x="9" y="13" width="1" height="1"/><rect x="10" y="13" width="1" height="1"/><rect x="11" y="13" width="1" height="1"/><rect x="14" y="13" width="1" height="1"/><rect x="15" y="13" width="1" height="1"/><rect x="19" y="13" width="1" height="1"/><rect x="20" y="13" width="1" height="1"/><rect x="22" y="13" width="1" height="1"/><rect x="23" y="13" width="1" height="1"/><rect x="2" y="14" width="1" height="1"/><rect x="4" y="14" width="1" height="1"/><rect x="7" y="14" width="1" height="1"/><rect x="10" y="14" width="1" height="1"/><rect x="11" y="14" width="1" height="1"/><rect x="13" y="14" width="1" height="1"/><rect x="14" y="14" width="1" height="1"/><rect x="15" y="14" width="1" height="1"/><rect x="16" y="14" width="1" height="1"/><rect x="17" y="14" width="1" height="1"/><rect x="18" y="14" width="1" height="1"/><rect x="19" y="14" width="1" height="1"/><rect x="21" y="14" width="1" height="1"/><rect x="23" y="14" width="1" height="1"/><rect x="24" y="14" width="1" height="1"/><rect x="0" y="15" width="1" height="1"/><rect x="1" y="15" width="1" height="1"/><rect x="2" y="15" width="1" height="1"/><rect x="5" y="15" width="1" height="1"/><rect x="8" y="15" width="1" height="1"/><rect x="10" y="15" width="1" height="1"/><rect x="13" y="15" width="1" height="1"/><rect x="17" y="15" width="1" height="1"/><rect x="21" y="15" width="1" height="1"/><rect x="22" y="15" width="1" height="1"/><rect x="23" y="15" width="1" height="1"/><rect x="24" y="15" width="1" height="1"/><rect x="0" y="16" width="1" height="1"/><rect x="2" y="16" width="1" height="1"/><rect x="3" y="16" width="1" height="1"/><rect x="4" y="16" width="1" height="1"/><rect x="8" y="16" width="1" height="1"/><rect x="9" y="16" width="1" height="1"/><rect x="10" y="16" width="1" height="1"/><rect x="12" y="16" width="1" height="1"/><rect x="13" y="16" width="1" height="1"/><rect x="14" y="16" width="1" height="1"/><rect x="18" y="16" width="1" height="1"/><rect x="20" y="16" width="1" height="1"/><rect x="21" y="16" width="1" height="1"/><rect x="22" y="16" width="1" height="1"/><rect x="23" y="16" width="1" height="1"/><rect x="8" y="17" width="1" height="1"/><rect x="9" y="17" width="1" height="1"/><rect x="10" y="17" width="1" height="1"/><rect x="17" y="17" width="1" height="1"/><rect x="18" y="17" width="1" height="1"/><rect x="20" y="17" width="1" height="1"/><rect x="23" y="17" width="1" height="1"/><rect x="0" y="18" width="1" height="1"/><rect x="1" y="18" width="1" height="1"/><rect x="2" y="18" width="1" height="1"/><rect x="3" y="18" width="1" height="1"/><rect x="4" y="18" width="1" height="1"/><rect x="5" y="18" width="1" height="1"/><rect x="6" y="18" width="1" height="1"/><rect x="14" y="18" width="1" height="1"/><rect x="15" y="18" width="1" height="1"/><rect x="16" y="18" width="1" height="1"/><rect x="17" y="18" width="1" height="1"/><rect x="18" y="18" width="1" height="1"/><rect x="0" y="19" width="1" height="1"/><rect x="6" y="19" width="1" height="1"/><rect x="8" y="19" width="1" height="1"/><rect x="9" y="19" width="1" height="1"/><rect x="10" y="19" width="1" height="1"/><rect x="12" y="19" width="1" height="1"/><rect x="16" y="19" width="1" height="1"/><rect x="22" y="19" width="1" height="1"/><rect x="23" y="19" width="1" height="1"/><rect x="24" y="19" width="1" height="1"/><rect x="0" y="20" width="1" height="1"/><rect x="2" y="20" width="1" height="1"/><rect x="3" y="20" width="1" height="1"/><rect x="4" y="20" width="1" height="1"/><rect x="6" y="20" width="1" height="1"/><rect x="9" y="20" width="1" height="1"/><rect x="13" y="20" width="1" height="1"/><rect x="15" y="20" width="1" height="1"/><rect x="18" y="20" width="1" height="1"/><rect x="22" y="20" width="1" height="1"/><rect x="23" y="20" width="1" height="1"/><rect x="24" y="20" width="1" height="1"/><rect x="0" y="21" width="1" height="1"/><rect x="2" y="21" width="1" height="1"/><rect x="3" y="21" width="1" height="1"/><rect x="4" y="21" width="1" height="1"/><rect x="6" y="21" width="1" height="1"/><rect x="11" y="21" width="1" height="1"/><rect x="14" y="21" width="1" height="1"/><rect x="15" y="21" width="1" height="1"/><rect x="18" y="21" width="1" height="1"/><rect x="19" y="21" width="1" height="1"/><rect x="20" y="21" width="1" height="1"/><rect x="21" y="21" width="1" height="1"/><rect x="23" y="21" width="1" height="1"/><rect x="0" y="22" width="1" height="1"/><rect x="2" y="22" width="1" height="1"/><rect x="3" y="22" width="1" height="1"/><rect x="4" y="22" width="1" height="1"/><rect x="6" y="22" width="1" height="1"/><rect x="10" y="22" width="1" height="1"/><rect x="11" y="22" width="1" height="1"/><rect x="12" y="22" width="1" height="1"/><rect x="13" y="22" width="1" height="1"/><rect x="14" y="22" width="1" height="1"/><rect x="16" y="22" width="1" height="1"/><rect x="18" y="22" width="1" height="1"/><rect x="19" y="22" width="1" height="1"/><rect x="21" y="22" width="1" height="1"/><rect x="22" y="22" width="1" height="1"/><rect x="0" y="23" width="1" height="1"/><rect x="6" y="23" width="1" height="1"/><rect x="11" y="23" width="1" height="1"/><rect x="12" y="23" width="1" height="1"/><rect x="14" y="23" width="1" height="1"/><rect x="16" y="23" width="1" height="1"/><rect x="17" y="23" width="1" height="1"/><rect x="20" y="23" width="1" height="1"/><rect x="22" y="23" width="1" height="1"/><rect x="24" y="23" width="1" height="1"/><rect x="0" y="24" width="1" height="1"/><rect x="1" y="24" width="1" height="1"/><rect x="2" y="24" width="1" height="1"/><rect x="3" y="24" width="1" height="1"/><rect x="4" y="24" width="1" height="1"/><rect x="5" y="24" width="1" height="1"/><rect x="6" y="24" width="1" height="1"/><rect x="8" y="24" width="1" height="1"/><rect x="9" y="24" width="1" height="1"/><rect x="10" y="24" width="1" height="1"/><rect x="11" y="24" width="1" height="1"/><rect x="12" y="24" width="1" height="1"/><rect x="13" y="24" width="1" height="1"/><rect x="14" y="24" width="1" height="1"/><rect x="15" y="24" width="1" height="1"/><rect x="19" y="24" width="1" height="1"/><rect x="20" y="24" width="1" height="1"/><rect x="22" y="24" width="1" height="1"/><rect x="23" y="24" width="1" height="1"/><rect x="24" y="24" width="1" height="1"/></g></svg></div></div>
+  </div>
+  <div class="card" style="padding:0 16px">
+   <div class="switchrow"><span class="body" id="sw1">Voornaam</span><button type="button" class="toggle" role="switch" aria-checked="true" aria-labelledby="sw1"></button></div>
+   <div class="switchrow"><span class="body" id="sw2">Streak</span><button type="button" class="toggle" role="switch" aria-checked="true" aria-labelledby="sw2"></button></div>
+   <div class="switchrow"><span class="body" id="sw3">Vereniging</span><button type="button" class="toggle" role="switch" aria-checked="false" aria-labelledby="sw3"></button></div>
+   <div class="switchrow"><span class="body" id="sw4">Squadnaam<span class="caption" style="display:block">alle leden moeten akkoord zijn</span></span><button type="button" class="toggle" role="switch" aria-checked="false" aria-labelledby="sw4"></button></div>
+  </div>
+  <p class="caption">Delen levert niets op; het is gewoon leuk. Punten, beloningen en trekkingen staan nooit op je kaart.</p>
+  <div class="row" style="gap:10px;padding-bottom:26px"><button type="button" class="btn secondary" style="flex:1">Opslaan</button><button type="button" class="btn primary" style="flex:1.3"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-share"/></svg>Delen</button></div>
+ </div></div><h2 id="h19"><span class="idx">19</span>Deelbare bewijskaart (K1), donker thema</h2><p class="note">Focustijd is de inhoud van de kaart; voornaam en streak staan standaard aan maar zijn uit te zetten, extra velden zijn opt-in. Geen punten, bedragen, badges of trekkingen. De kaartachtergrond is het token card-share-bg. De QR in deze mockup is decoratief.</p></section><section class="item wide" aria-labelledby="h20"><div class="laptop t-light" role="group" aria-label="Bestuursdashboard op laptopbreedte">
+  <nav class="side" aria-label="Dashboard">
+   <p class="brand">Rewarded · Bestuur <span class="fict" style="vertical-align:2px">Fictief</span></p>
+   <a href="#" class="nav"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-chart"/></svg>Stand</a><a href="#" class="nav" aria-current="page"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-people"/></svg>Werving</a><a href="#" class="nav"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-kit"/></svg>Promotiekit</a><a href="#" class="nav"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-gift"/></svg>Prijs</a><a href="#" class="nav"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-shield"/></svg>Kwaliteit</a>
+   <div style="flex:1"></div>
+   <p class="caption" style="padding:0 12px">SV Kompas · Utrecht<br>Ingelogd als commissaris onderwijs</p>
+  </nav>
+  <div class="main">
+   <div class="row between">
+    <div><h1 class="title-l">Werving</h1><p class="body muted">Blokchallenge week 2 van 2 · poule 150–500 leden · opgegeven ledental 320 (bron: jaarverslag)</p></div>
+    <div class="standstrip"><span class="chip neutral">Positie 2 van 6</span><span class="chip ok">Deelnamegraad 31%</span><span class="chip pause">Voorlopig</span></div>
+   </div>
+   <div class="card soft row" style="gap:10px;padding:12px 16px"><svg class="ico sm" aria-hidden="true" focusable="false"><use href="#i-lock"/></svg><p class="body">Je ziet groepscijfers. Wie wat doet, zie je niet, en wij ook niet zonder reden. Cijfers verschijnen vanaf 5 leden per groep en zijn afgerond op vijftallen. Geen namen, geen export.</p></div>
+   <div class="tiles">
+    <div class="card tile"><p class="caption">Gekoppelde leden</p><p class="big">185</p><p class="caption">afgerond op 5</p></div>
+    <div class="card tile"><p class="caption">Actief deze week</p><p class="big">120</p><p class="caption">afgerond op 5</p></div>
+    <div class="card tile"><p class="caption">Aandeel in een squad</p><p class="big">46%</p></div>
+    <div class="card tile"><p class="caption">Squads</p><p class="big">35</p><p class="caption">afgerond op 5</p></div>
+   </div>
+   <div class="grid2">
+    <div class="card">
+     <div class="row between"><p class="label">Gekoppelde en actieve leden per dag</p><p class="caption"><i class="sw" style="background:var(--primary-soft);vertical-align:-2px"></i> gekoppeld &nbsp; <i class="sw" style="background:var(--primary);vertical-align:-2px"></i> actief · afgerond op vijftallen</p></div>
+     <div class="chart" role="img" aria-label="Staafdiagram: gekoppelde leden stijgen van ongeveer 55 naar 185, actieve leden van ongeveer 30 naar 120, van 4 tot en met 17 januari"><div class="col"><div class="b1" style="height:30%"><div class="b2" style="height:55%"></div></div></div><div class="col"><div class="b1" style="height:38%"><div class="b2" style="height:52%"></div></div></div><div class="col"><div class="b1" style="height:45%"><div class="b2" style="height:58%"></div></div></div><div class="col"><div class="b1" style="height:52%"><div class="b2" style="height:54%"></div></div></div><div class="col"><div class="b1" style="height:60%"><div class="b2" style="height:60%"></div></div></div><div class="col"><div class="b1" style="height:66%"><div class="b2" style="height:57%"></div></div></div><div class="col"><div class="b1" style="height:71%"><div class="b2" style="height:52%"></div></div></div><div class="col"><div class="b1" style="height:76%"><div class="b2" style="height:63%"></div></div></div><div class="col"><div class="b1" style="height:82%"><div class="b2" style="height:64%"></div></div></div><div class="col"><div class="b1" style="height:86%"><div class="b2" style="height:61%"></div></div></div><div class="col"><div class="b1" style="height:90%"><div class="b2" style="height:66%"></div></div></div><div class="col"><div class="b1" style="height:93%"><div class="b2" style="height:64%"></div></div></div><div class="col"><div class="b1" style="height:96%"><div class="b2" style="height:67%"></div></div></div><div class="col"><div class="b1" style="height:98%"><div class="b2" style="height:65%"></div></div></div></div>
+     <div class="xl" aria-hidden="true"><span>4 jan</span><span></span><span></span><span></span><span></span><span></span><span>10 jan</span><span>11</span><span></span><span></span><span></span><span></span><span></span><span>17 jan</span></div>
+    </div>
+    <div class="card stack" style="gap:2px">
+     <p class="label">Koppelingen per QR-bron</p>
+     <div class="kv"><span>Instagram-story</span><b class="num">50</b></div>
+     <div class="kv"><span>Poster UB</span><b class="num">30</b></div>
+     <div class="kv"><span>WhatsApp-groep jaarclubs</span><b class="num">20</b></div>
+     <div class="kv"><span>Dia in collegezaal</span><b class="num">10</b></div>
+     <p class="caption" style="padding-top:6px">Afgerond op vijftallen; een bron onder 5 koppelingen toont "minder dan 5".</p>
+    </div>
+   </div>
+  </div>
+ </div><h2 id="h20"><span class="idx">20</span>Bestuursdashboard, tab Werving (D2), op laptopbreedte</h2><p class="note">Vijf tabbladen zoals spec 4.6 (D1–D5). De stand staat als kopregel op elk tabblad. Alleen aggregaten, met de grens bovenaan in gewone taal; aantallen afgerond op vijftallen, zodat verschilberekening met kennis van buitenaf lastig wordt. Geen namen, lijsten, tijdstippen, export of berichten.</p></section>
 </main>
 </body>
 </html>

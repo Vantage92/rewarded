@@ -95,7 +95,7 @@ Niet bouwen: het pool-model en een abonnement dat een prijzenpot vult.
 | B2B2C | ca. €1,16 per seat | Enige laag waarin verkoop zichzelf terugverdient (payback circa 9 maanden bij €5.000 verkoopkosten per contract van 500 seats). |
 | Plus | hoog bij directe betaling via de PWA; 15–30% lager via de app stores | Te valideren op conversie; benchmark in de categorie is laag (2,9% download naar betaald bij Health & Fitness). |
 
-Harde regel: we beloven nooit beloningen die niet gedekt zijn. Het puntengrootboek registreert de verplichting per gebruiker, en de catalogus bevat alleen beloningen waarvoor het budget al vastligt.
+Harde regel: we beloven nooit beloningen die niet gedekt zijn. Het puntengrootboek registreert de verplichting per gebruiker, en de catalogus bevat alleen beloningen waarvoor het budget al vastligt. Tweede harde regel: onbesteed beloningsbudget gaat door naar de catalogus of de verenigingsprijs van de volgende periode, nooit naar Rewarded. Alleen zo klopt de claim dat we niet aan falen verdienen.
 
 ## 6. Groei
 
