@@ -1,6 +1,6 @@
 # Rewarded — Gebruiksvoorwaarden (concept voor de advocaat)
 
-*Concept van het juridische team, stand 4 november 2026, versie 0.1. **Dit is geen juridisch advies.** Dit is een concepttekst die de advocaat nog moet beoordelen en die pas geldt als de founder hem vaststelt. Gebaseerd op `docs/pitch/ronde-1-jurist.md` (must-fix 6), de besluiten in `docs/pitch/ronde-1-founder-reactie.md`, `docs/01-businessplan.md`, `docs/02-productplan.md` en `docs/research/05-productspecificatie.md` (§4.2, §4.3, §4.6, §4.7, §4.10, §6). Uiterlijk 18 november 2026 naar de advocaat.*
+*Concept van het juridische team, stand 5 november 2026, versie 0.2. **Dit is geen juridisch advies.** Dit is een concepttekst die de advocaat nog moet beoordelen en die pas geldt als de founder hem vaststelt. Gebaseerd op `docs/pitch/ronde-1-jurist.md` (must-fix 6), de besluiten in `docs/pitch/ronde-1-founder-reactie.md` (inclusief de aanvulling van 5 november), `docs/01-businessplan.md`, `docs/02-productplan.md` en `docs/research/05-productspecificatie.md` (§4.2, §4.3, §4.6, §4.7, §4.10, §6). Uiterlijk 18 november 2026 naar de advocaat.*
 
 *Leeswijzer voor het team en de advocaat. De tekst richt zich tot de gebruiker en is geschreven voor een student van 17. Tussen vierkante haken staat wat nog moet worden ingevuld. Markeringen: **aanname** = keuze die nog niet bevestigd is; **voorstel** = keuze van het juridische team die de founder of advocaat nog moet bevestigen; **niet geverifieerd** = juridische bewering die we niet in een primaire bron hebben gecontroleerd; **vraag advocaat** = staat in `vragen-advocatenopinie.md`. Een getal dat in de productspecificatie een werkhypothese is, is dat hier ook.*
 
@@ -22,7 +22,7 @@
 
 1.3 Je gaat akkoord met deze voorwaarden als je je account aanmaakt. Je kunt ze altijd teruglezen in de app onder Ik › Voorwaarden, en downloaden.
 
-1.4 **De pilot.** Van 2 december 2026 tot en met de meting in de tentamenperiode van april 2027 is Rewarded een gesloten pilot. Je kunt alleen meedoen met een uitnodiging (van een vriend, je vereniging of de wachtlijst). De exacte einddatum van de pilot maken we bekend zodra de aprilperiode per vereniging vastligt [**aanname**: de tentamenperiode van april 2027 moet per vereniging worden bevestigd, zie founder-reactie G1]. In deze voorwaarden staat "tijdens de pilot" voor die hele periode.
+1.4 **De pilot.** Van 2 december 2026 tot 18 januari 2027 is Rewarded een gesloten pilot: je kunt alleen meedoen met een uitnodiging (van een vriend, je vereniging of de wachtlijst). Vanaf 19 januari 2027 kan iedereen zich registreren. Ben je vóór 19 januari ingestroomd, dan loopt het onderzoek (§6) voor jou door tot en met de meting in de tentamenperiode van april 2027; de exacte einddatum maken we bekend zodra de aprilperiode per vereniging vastligt [**aanname**: de tentamenperiode van april 2027 moet per vereniging worden bevestigd, zie founder-reactie G1]. Registreer je je vanaf 19 januari, dan doe je niet mee aan het onderzoek: je verdient punten volgens de gewone ratio en krijgt het aanbod voor een Belofte op je 14e dag. In deze voorwaarden staat "tijdens de pilot" voor de periode van 2 december 2026 tot en met de aprilmeting. [Bron: aanvulling founder-reactie 5 november; spec §4.12; voorregistratie §2.]
 
 ## 2. Wie mag meedoen
 
@@ -60,9 +60,9 @@
 
 4.2 **De vaste ratio.** Je krijgt 1 punt per geverifieerde minuut van een voltooide sessie. De punten staan direct na het einde van de sessie bij. Deze ratio is vast en openbaar, en **verlaagt niet tijdens de pilot**. We laten in de app nergens zien hoeveel euro een punt waard is.
 
-4.3 **Plafond per dag.** Per focusdag tellen hoogstens 300 minuten voor punten. Een focusdag loopt van 04:00 tot 04:00 (Nederlandse tijd); een sessie hoort bij de dag waarop ze begon. Je dagdoel kan hoogstens 120 minuten zijn. [Bron: founder-reactie G4. In de productspecificatie stond nog 480 minuten; die wordt door het productteam aangepast.]
+4.3 **Plafond per dag.** Per focusdag tellen hoogstens 300 minuten voor punten. Een focusdag loopt van 04:00 tot 04:00 (Nederlandse tijd); een sessie hoort bij de dag waarop ze begon. Je dagdoel kan hoogstens 120 minuten zijn. [Bron: founder-reactie G4; spec 1.1 §4.2.]
 
-4.4 **Laat op de avond.** Sessies die na 01:00 beginnen, tellen gewoon voor punten, maar leveren geen doelbonus op (§6.2). Je krijgt dan een rustig bericht dat slaap ook telt. [Bron: founder-reactie GS9. **Aanname**: "na 01:00" gaat over het begin van de sessie; het productteam legt dit vast in de spec.]
+4.4 **Laat op de avond.** Sessies die na 01:00 beginnen, tellen gewoon voor punten, maar leveren geen doelbonus op (§6.2). Je krijgt dan een rustig bericht dat slaap ook telt. [Bron: founder-reactie GS9; spec 1.1 §4.2: het gaat om sessies die tussen 01:00 en 04:00 beginnen.]
 
 4.5 **Punten die nog worden nagekeken.** Als een sessie gemarkeerd is voor controle (§8), staan de punten "in afwachting". Ze tellen voorlopig mee voor je dagdoel, je squadstreak en je Belofte, maar je kunt ze nog niet gebruiken voor verzilveren, duels, challenges of prijzen. Na de controle komen ze vrij of vervallen ze.
 
@@ -97,7 +97,7 @@
 
 Deze bedragen zijn de kostprijs voor Rewarded. Je ziet ze niet in de app, maar ze bepalen wat er in de catalogus mag staan. [**Werkhypothese**, spec §4.3; **vraag advocaat** 1.]
 
-5.5 **Voorraad.** Beloningen komen in voorraad die we in de loop van de week vrijgeven, niet alles in één keer. Een deel van de voorraad houden we apart voor accounts die een e-mailadres van een hogeschool of universiteit hebben bevestigd (§8.4). Is een beloning op, dan staat er eerlijk "Deze week op" en wanneer er nieuwe bijkomen. Je hebt geen recht op een bepaalde beloning, en "zolang de voorraad strekt" geldt voor de hele catalogus. Als een beloning op is terwijl je aan het afrekenen bent, schrijven we niets af. [**Vraag advocaat** 5.]
+5.5 **Voorraad.** Beloningen komen in voorraad die we in de loop van de week vrijgeven, niet alles in één keer. Een deel van de voorraad houden we apart voor accounts die een e-mailadres van een hogeschool of universiteit hebben bevestigd (het instellingsanker, §8.4). Een bevestigd telefoonnummer alleen is daarvoor niet genoeg. Is een beloning op, dan staat er eerlijk "Deze week op" en wanneer er nieuwe bijkomen. Je hebt geen recht op een bepaalde beloning, en "zolang de voorraad strekt" geldt voor de hele catalogus. Als een beloning op is terwijl je aan het afrekenen bent, schrijven we niets af. [**Vraag advocaat** 5.]
 
 5.6 **Als een code niet werkt.** Tik op "Werkt niet". Binnen twee werkdagen krijg je een nieuwe code of je punten terug.
 
@@ -116,20 +116,20 @@ In beide groepen kun je per week precies even veel bonuspunten verdienen als je 
 
 6.3 **De Belofte (twee momenten).** Je krijgt één keer het aanbod om jezelf een Belofte te doen: een aantal dagen per week en minuten per dag voor twee weken, met je squad als getuige of zonder getuigen. Er zijn twee momenten waarop je het aanbod krijgt:
 
-- *vroeg*: in de laatste tentamenweek, als de doelbonus stopt (per vereniging tussen 11 en 17 januari 2027);
+- *vroeg*: op maandag 11 januari 2027, een week voordat de doelbonus stopt (voor iedereen in deze groep op dezelfde dag);
 - *laat*: na de meting in de tentamenperiode van april 2027.
 
-Een Belofte levert geen punten, badges of prijzen op en kost ook niets. Je kunt altijd met één tik stoppen. Daarna kun je zelf een nieuwe Belofte starten. [Bron: founder-reactie G1 en JS2.]
+Een Belofte levert geen punten, badges of prijzen op en kost ook niets. Je kunt altijd met één tik stoppen. Daarna kun je zelf een nieuwe Belofte starten. [Bron: founder-reactie G1 en JS2; aanvulling 5 november.]
 
 6.4 **De rustperiode (twee groepen).** [**Onder voorbehoud. Deze regel geldt alleen als de advocaat vóór 25 november bevestigt dat hij is toegestaan; zo niet, dan vervalt hij en schrappen we deze paragraaf vóór de eerste uitnodiging.** Bron: founder-reactie G1 punt 3; **vraag advocaat** 3.]
 
-Na 18 januari 2027 verdient de helft van de squads tijdelijk geen nieuwe punten, tot de start van de challenge in de tentamenperiode van april 2027. Welke squads dat zijn, wordt vooraf door het lot bepaald, door een computer, en staat vast. Je ziet dat vanaf je eerste dag in de app. Voor deze groep geldt:
+Van 19 januari tot en met 31 maart 2027 verdient de helft van de squads tijdelijk geen nieuwe punten. Welke squads dat zijn, wordt vooraf door het lot bepaald, door een computer, en staat vast. Deze regel staat vanaf je eerste dag in deze voorwaarden; in welke groep jouw squad zit, zie je in de app uiterlijk op 11 januari 2027. Voor deze groep geldt:
 
 - punten die je al had, blijven van jou en blijven inwisselbaar, met dezelfde plafonds;
 - sessies, je dagdoel, je squadstreak, duels en de Belofte werken gewoon door;
-- vanaf de start van de aprilchallenge verdien je weer punten met dezelfde ratio als iedereen.
+- vanaf 1 april 2027 verdien je weer punten met dezelfde ratio als iedereen.
 
-De andere helft blijft in die periode gewoon punten verdienen. We doen dit om eerlijk te kunnen meten of mensen blijven focussen als er geen beloning meer is. 16- en 17-jarigen zitten nooit in de rustperiodegroep.
+De andere helft blijft in die periode gewoon punten verdienen. We doen dit om eerlijk te kunnen meten of mensen blijven focussen als er geen beloning meer is. De rustperiode is geen beloningsregel maar een onderzoeksregel: je kunt er altijd uit door uit het onderzoek te stappen (§6.8), zonder punten te verliezen. 16- en 17-jarigen zitten nooit in de rustperiodegroep. [Bron: aanvulling founder-reactie 5 november; spec §3.16. Of de groep al vanaf dag 1 zichtbaar moet zijn, is **vraag advocaat** 3c; zo ja, dan passen spec §3.16 en voorregistratie H3b zich aan.]
 
 6.5 **Een duwtje om een squad te maken.** Als je solo begint, krijg je in je eerste dagen misschien een extra uitnodiging om een squad te maken, met een kant-en-klare link. Ook dat wordt door het lot bepaald. Je mist er niets door als je hem niet krijgt: iedereen kan altijd een squad maken.
 
@@ -142,15 +142,15 @@ De andere helft blijft in die periode gewoon punten verdienen. We doen dit om ee
 - staat je live aanwezigheid in de squad standaard uit (§7.2);
 - kun je alleen duels spelen met leden van je eigen squad (§7.4).
 
-[**Aanname**: als een squad gemengd is, volgt de 16- of 17-jarige zelf groep A en blijft hij punten verdienen. Het productteam legt dit vast in de voorregistratie.]
+[Bron: spec 1.1 §5 (toewijzing) en voorregistratie §8.2: in een gemengde squad volgt de 16- of 17-jarige zelf groep A en blijft hij punten verdienen.]
 
-6.8 **Uitstappen.** Je mag altijd uit het onderzoek stappen, onder Ik › Onderzoek. Je verliest dan geen punten. Je krijgt vanaf dat moment de standaardregels (groep A, geen rustperiode) en we gebruiken je gegevens vanaf dan niet meer voor de analyse. [**Aanname**: "standaardregels" = groep A zonder rustperiode; het productteam bevestigt. Wat er gebeurt met de gegevens van vóór je uitstapt, staat in de privacyverklaring §5.]
+6.8 **Uitstappen.** Je mag altijd uit het onderzoek stappen, onder Ik › Onderzoek. Je verliest dan geen punten. Vanaf de volgende focusdag krijg je groep A, doorlopende punten (geen rustperiode) en het aanbod voor een Belofte bij de stop van de doelbonus (op 11 januari 2027), en we gebruiken je gegevens vanaf dan niet meer voor de analyse. [Bron: spec 1.1 §4.10 en voorregistratie §8.1. Wat er gebeurt met de gegevens van vóór je uitstapt, staat in de privacyverklaring §5.]
 
-6.9 **Korte vragenlijsten.** We vragen je een paar keer om een korte vragenlijst: bij de start, bij de reflectie na je Belofte en eind januari, en vóór en na de pilot over je studietijd en afleiding. De vragen gaan onder meer over stress, slaap, druk vanuit je squad en waarom je focust. Meedoen is vrijwillig. Niet meedoen heeft geen gevolgen voor je punten of je groep. [Bron: founder-reactie G4 en GS3. Of deze vragen gezondheidsgegevens zijn, is **vraag advocaat** 9.]
+6.9 **Korte vragenlijsten.** We vragen je een paar keer om een korte vragenlijst: bij de start, bij de pilotreflectie (18–24 januari 2027), eind januari (25–31 januari 2027) en na de tentamenperiode van april 2027 (alleen over je studietijd en afleiding). De vragen gaan onder meer over stress, slaap, druk vanuit je squad en waarom je focust. Voor de vragen over stress, slaap en druk vragen we je eerst apart om toestemming. Meedoen is vrijwillig. Niet meedoen heeft geen gevolgen voor je punten of je groep. [Bron: founder-reactie G4 en GS3; voorregistratie §8.4; aanvulling 5 november. Of deze vragen gezondheidsgegevens zijn, is **vraag advocaat** 9.]
 
 6.10 **Als het niet goed lijkt te gaan.** Als we zien dat je veel nachten achter elkaar laat focust, meerdere dagen meer dan 6 uur per dag, of ineens veel minder na een gebroken streak, sturen we je een rustig bericht met tips en de contactgegevens van de studentenpsycholoog of studentendecaan van je instelling. Dat bericht heeft nooit gevolgen voor je punten of je account. Als blijkt dat een van de groepen er duidelijk slechter van wordt, stoppen we die groep. [Bron: founder-reactie G4.]
 
-6.11 **Tentamendag.** Op een dag dat je een tentamen hebt, kun je je dagdoel opschorten. Je streak breekt dan niet en je gebruikt geen joker, en in groep B vervalt er die dag niets. [Bron: founder-reactie G4. **Aanname**: hoe vaak en hoe je een tentamendag aanmeldt, legt het productteam vast in de spec.]
+6.11 **Tentamendag.** Op een dag dat je een tentamen hebt, kun je je dagdoel opschorten, hoogstens 3 keer per kalenderweek [**werkhypothese**, spec §3.13]. Op een tentamendag zonder gehaald dagdoel krijg je in groep A geen bonus en vervallen in groep B de 20 punten van die dag, zonder melding; je streak breekt niet en je gebruikt geen joker. Haal je je dagdoel toch, dan telt het gewoon, ook voor de bonus. Zo levert geen van beide groepen meer op dan de andere. [Bron: founder-reactie G4; aanvulling 5 november; spec 1.1 §3.13.]
 
 ## 7. Squads, live aanwezigheid en duels
 
@@ -281,7 +281,8 @@ De andere helft blijft in die periode gewoon punten verdienen. We doen dit om ee
 
 | Besluit van de founder (ronde 1) | Paragraaf |
 |---|---|
-| G1: Belofte bij de stop van de doelbonus, late arm na april; rustperiode-arm onder voorbehoud | §6.3, §6.4 |
+| G1: Belofte bij de stop van de doelbonus (11 januari 2027), late arm na april; rustperiode-arm van 19 januari tot en met 31 maart 2027, onder voorbehoud | §6.3, §6.4 |
+| Aanvulling 5 november: looptijd gesloten pilot, tentamendag in groep B, rustperiode als onderzoeksconditie, aparte toestemming voor welzijnsvragen | §1.4, §6.4, §6.9, §6.11 |
 | G2: encouragement design voor squads | §6.5 |
 | G4: geïnformeerde deelname met opt-out zonder puntverlies; 16/17 in arm A, buiten de rustperiode, aanwezigheid uit; welzijnsmeting; schadesignalen; tentamendag; plafond 300 minuten | §4.3, §6.7–6.11, §7.2 |
 | GS1: catalogus met collectieve en symbolische beloningen | §5.1 |
@@ -296,10 +297,11 @@ De andere helft blijft in die periode gewoon punten verdienen. We doen dit om ee
 | JS11: meldknop squadnamen | §7.3 |
 | S3: nepdeur voor Plus | §10.3 |
 
-**Wat het productteam nog moet aanpassen zodat app en voorwaarden kloppen** (niet in onze map; ter informatie): daglimiet van 480 naar 300 minuten voor punten (spec §4.2), duels op dagdoelen (spec §4.5), aanwezigheid standaard uit voor `16_17` (productplan §10), Belofte-aanbod (spec §4.12), wachttijd en nummertype (spec §4.3), referralregels (spec §4.9).
+**Afgestemd op de huidige bouwdocumenten** (spec 1.1 en architectuur 1.2, stand 5 november 2026; ter informatie): puntenplafond van 300 minuten (spec §4.2), duels op dagdoelen (spec §4.5), aanwezigheid standaard uit voor `16_17` (spec §4.4, productplan §10), Belofte-aanbod (spec §4.12), wachttijd en nummertype (spec §4.3), referralregels (spec §4.9), hoogstens 3 tentamendagen per week (spec §3.13), en wie zich afmeldt krijgt groep A, doorlopende punten en het Belofte-aanbod bij de stop van de doelbonus (spec §4.10). Er staat geen openstaande aanpassing meer voor het productteam.
 
 ## Wijzigingslog
 
 | Ronde | Datum | Wijziging |
 |---|---|---|
-| ronde 1 | 4 november 2026 | Eerste concept, opgesteld na pitchronde 1 (jurist must-fix 6; founder-besluiten J1–J6, G1, G2, G4, GS1, GS4, GS6, GS9, JS2, JS3, JS6, JS11, S3 en besluit 3). Nog niet door de advocaat beoordeeld. |
+| ronde 1 | 5 november 2026 | Eerste concept, opgesteld na pitchronde 1 (jurist must-fix 6; founder-besluiten J1–J6, G1, G2, G4, GS1, GS4, GS6, GS9, JS2, JS3, JS6, JS11, S3 en besluit 3). Nog niet door de advocaat beoordeeld. |
+| ronde 1 (eindredactie) | 5 november 2026 | Gelijkgetrokken met de aanvulling van de founder van 5 november, spec 1.1, architectuur 1.2 en de voorregistratie: §1.4 looptijd gesloten pilot (tot 18 januari) en open registratie vanaf 19 januari, onderzoek loopt door tot de aprilmeting; §5.5 reservering alleen voor het instellingsanker; §6.3 Belofte-aanbod op 11 januari; §6.4 rustperiode van 19 januari tot en met 31 maart 2027, groep zichtbaar uiterlijk 11 januari, als onderzoeksregel; §6.8 regels bij uitstappen zonder aanname; §6.9 meetmomenten volgens de voorregistratie en aparte toestemming voor welzijnsvragen; §6.11 tentamendag in groep B volgens spec en architectuur, hoogstens 3 per week (werkhypothese); verouderde notities over 480 minuten, de nachtregel en de 16/17-regel vervangen door bronverwijzingen; bijlage bijgewerkt. Versie 0.2. |

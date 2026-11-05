@@ -1,6 +1,6 @@
 # Rewarded — Challengevoorwaarden (concept voor de advocaat)
 
-*Concept van het juridische team, stand 4 november 2026, versie 0.1. **Dit is geen juridisch advies.** Dit is een concepttekst die de advocaat nog moet beoordelen en die pas geldt als de founder hem vaststelt. Gebaseerd op `docs/pitch/ronde-1-jurist.md` (must-fix 2 en 6), de besluiten in `docs/pitch/ronde-1-founder-reactie.md` (J1, J2, J3, J6, JS2), `docs/02-productplan.md` (§3, §4) en `docs/research/05-productspecificatie.md` (§3.8, §4.3, §4.6, §4.7, §6). Uiterlijk 18 november 2026 naar de advocaat.*
+*Concept van het juridische team, stand 5 november 2026, versie 0.2. **Dit is geen juridisch advies.** Dit is een concepttekst die de advocaat nog moet beoordelen en die pas geldt als de founder hem vaststelt. Gebaseerd op `docs/pitch/ronde-1-jurist.md` (must-fix 2 en 6), de besluiten in `docs/pitch/ronde-1-founder-reactie.md` (J1, J2, J3, J6, JS2, en de aanvulling van 5 november), `docs/02-productplan.md` (§3, §4) en `docs/research/05-productspecificatie.md` (§3.8, §4.3, §4.6, §4.7, §6). Uiterlijk 18 november 2026 naar de advocaat.*
 
 *Leeswijzer. Deze voorwaarden gelden naast de gebruiksvoorwaarden (`gebruiksvoorwaarden.md`). Deel A gaat over de verenigingschallenge (de Blokk-challenge), deel B over individuele prestatiechallenges. Markeringen: **aanname**, **voorstel**, **werkhypothese**, **niet geverifieerd** en **vraag advocaat** (genummerd zoals in `vragen-advocatenopinie.md`). Tussen vierkante haken staat wat nog moet worden ingevuld.*
 
@@ -26,7 +26,7 @@
 
 **5. Tijd.** Alle tijden zijn Nederlandse tijd (Europe/Amsterdam). Een focusdag loopt van 04:00 tot 04:00. Een sessie telt voor de dag waarop ze begon.
 
-**6. Wat telt.** Alleen sessies die voldoen aan de gebruiksvoorwaarden §3, en die niet zijn afgekeurd. Een sessie die nog wordt nagekeken, telt pas als ze is vrijgegeven. Een rustdag-joker telt niet als gehaald dagdoel.
+**6. Wat telt.** Alleen sessies die voldoen aan de gebruiksvoorwaarden §3, en die niet zijn afgekeurd. Een sessie die nog wordt nagekeken, telt pas als ze is vrijgegeven. Een rustdag-joker telt niet als gehaald dagdoel, en een tentamendag (gebruiksvoorwaarden §6.11) ook niet. [Bron: spec 1.1 §3.13 en §4.6.]
 
 **7. Apple.** [Voor de app-versie, zodra die er is:] Apple is geen sponsor van deze challenges en is er op geen enkele manier bij betrokken. [Apple App Store Review Guidelines 5.3.1 en 5.3.2, letterlijk geciteerd in `docs/research/02-businessmodel-juridisch-unit-economics.md` §2.6. De web-MVP valt niet onder de App Store; de zin staat er nu al zodat de tekst niet hoeft te veranderen.]
 
@@ -62,7 +62,7 @@ A3.2 **Vastgelegd vóór de start.** Rewarded legt het ledental vast **vóór he
 
 A3.3 **Openbaar.** Het ledental staat op de ranglijst naast de naam van elke vereniging, met de soort bron ("opgave aan de instelling", "bevestigd door de faculteit").
 
-A3.4 **Zonder externe bron.** Een vereniging zonder externe bron doet mee aan het klassement en ziet haar plek, maar **dingt niet mee naar de hoofdprijs**. Haar plek telt niet bij het bepalen van de winnaar van de poule. [**Voorstel** van het juridische team, ter beslissing door de founder: zo'n vereniging dingt ook niet mee naar de drempelprijs, omdat de drempel net zo afhangt van het ledental. De founder-reactie (J2) noemt alleen de hoofdprijs.]
+A3.4 **Zonder externe bron.** Een vereniging zonder externe bron doet mee aan het klassement en ziet haar plek, maar **dingt niet mee naar de hoofdprijs**. Haar plek telt niet bij het bepalen van de winnaar van de poule. Ze kan wel de drempelprijs halen. [Bron: founder-reactie J2; aanvulling 5 november: alleen uitgesloten van de hoofdprijs.]
 
 ### A4. De maatstaf: deelnamegraad
 
@@ -77,16 +77,16 @@ A4.2 De score van een vereniging in de prijsperiode is het gemiddelde van de dee
 
 A4.3 **Identiteitsanker.** Een lid telt in de prijsperiode alleen mee in de teller als het:
 
-- een e-mailadres van een hogeschool of universiteit heeft bevestigd (we bewaren alleen dat het bevestigd is en het domein); of
+- een e-mailadres van een hogeschool of universiteit heeft bevestigd (we bewaren alleen dat het bevestigd is en het domein, geen kopie of hash van het adres); of
 - een mobiel telefoonnummer heeft bevestigd met een sms-code (geen virtueel nummer of internetnummer).
 
-Een lid zonder anker blijft in de noemer. Een lid kan het anker tot het einde van de prijsperiode toevoegen; het telt dan voor de weken waarin het anker er al was. [**Aanname**: het anker telt per week vanaf het moment van bevestigen; het productteam legt dit vast in de spec.] [Bron: founder-reactie J2.]
+Een lid zonder anker blijft in de noemer. Elk van beide is genoeg; een telefoonnummer is dus niet nodig naast een bevestigde instellingsmail. [Bron: aanvulling founder-reactie 5 november.] Een lid kan het anker tot het einde van de prijsperiode toevoegen; het telt dan voor de weken waarin het anker er al was. [**Aanname**: het anker telt per week vanaf het moment van bevestigen; het productteam legt dit vast in de spec.] [Bron: founder-reactie J2.]
 
 A4.4 **Vertrekken.** Wie tijdens een week zijn koppeling met de vereniging verbreekt, blijft die week in de noemer.
 
 A4.5 **Codeplafond.** Met de code van een vereniging kunnen hoogstens 1,1 × het vastgelegde ledental accounts koppelen. Daarboven beoordeelt een medewerker elke koppeling.
 
-A4.6 **Tweede cijfer, zonder prijs.** Naast de deelnamegraad tonen we de intensiteit: het gemiddelde aantal geverifieerde minuten per actief lid per dag, met een plafond van [300] minuten per lid per dag. Een actief lid is een gekoppeld lid met minstens één voltooide, niet afgekeurde sessie in die week. Totalen tonen we nooit. [**Aanname**: het plafond van 300 minuten uit de gebruiksvoorwaarden §4.3 geldt ook hier; in de spec staat nog 480.]
+A4.6 **Tweede cijfer, zonder prijs.** Naast de deelnamegraad tonen we de intensiteit: het gemiddelde aantal geverifieerde minuten per actief lid per dag, met een plafond van 300 minuten per lid per dag. Een actief lid is een gekoppeld lid met minstens één voltooide, niet afgekeurde sessie in die week. Totalen tonen we nooit. [Bron: gebruiksvoorwaarden §4.3; spec 1.1 §4.6.]
 
 ### A5. Poules en minimum
 
@@ -104,7 +104,7 @@ A5.3 Een vereniging dingt alleen mee naar een prijs als er aan het begin van de 
 | Drempelprijs | Elke vereniging die een gemiddelde deelnamegraad van minstens [25]% haalt | Hoogstens €75, in natura |
 
 - De drempel en de prijzen maken we bekend vóór het aanloopklassement. Ze veranderen daarna niet ten nadele van de verenigingen. [Drempel van 25% is een **werkhypothese**, spec §4.6.]
-- De financier van de prijzen staat bij de challenge. In de gratis pilot betaalt Rewarded de prijzen zelf, binnen deze plafonds; een getekende bijdrage van een partner kan daarbovenop komen (productplan §4).
+- De financier van de prijzen staat bij de challenge. In de gratis pilot betaalt Rewarded de prijzen zelf, uit de begrotingspost "pilotprijzen en catalogus", binnen deze plafonds; een getekende bijdrage van een partner kan daarbovenop komen (productplan §4; aanvulling founder-reactie 5 november).
 - De prijs is voor de vereniging, niet voor een bestuurslid of een individueel lid.
 - Levering: na de definitieve uitslag, en niet eerder dan 14 dagen na het einde van de prijsperiode.
 
@@ -186,7 +186,9 @@ Een campusambassadeur van Rewarded mag geen bestuurslid zijn van een vereniging 
 
 ### A13. Als de challenge niet kan doorgaan
 
-Als we een challenge moeten stoppen of aanpassen omdat de wet, de advocaat of een toezichthouder dat vraagt, laten we dat de verenigingen en leden direct weten. Wat in een afgeronde week al is behaald, blijft staan. [**Voorstel**, nog in te vullen met de terugvalvariant: als de advocaat de rangprijs niet houdbaar vindt, worden alleen drempelprijzen uitgereikt (zie **vraag advocaat** 1). Die variant moet vóór de start bekend zijn, zodat de regels niet tijdens de challenge veranderen.]
+Als we een challenge moeten stoppen of aanpassen omdat de wet, de advocaat of een toezichthouder dat vraagt, laten we dat de verenigingen en leden direct weten. Wat in een afgeronde week al is behaald, blijft staan.
+
+**Terugvalvariant.** De hoofdprijs (A6) wordt alleen uitgereikt als er vóór 2 december 2026 een positieve opinie van de advocaat over de rangprijs is. Is die er niet, dan geldt vanaf de start van het aanloopklassement de terugvalvariant: geen hoofdprijs, alleen drempelprijzen. De ranglijst blijft bestaan, zonder prijs voor de eerste plaats. Welke variant geldt, maken we bekend vóór het aanloopklassement, zodat de regels niet tijdens de challenge veranderen. Het aanloopklassement heeft geen prijs en start in beide varianten. [Bron: aanvulling founder-reactie 5 november; **vraag advocaat** 1.]
 
 ---
 
@@ -221,8 +223,8 @@ Een individuele prijs telt mee voor het plafond van €15 per persoon per kalend
 Voordat je de prijs krijgt, controleren we:
 
 1. alle sessies in de periode zijn niet gemarkeerd, of na controle vrijgegeven;
-2. je telefoonnummer is bevestigd;
-3. er is geen overlap in netwerk of telefoonnummer met andere winnende accounts;
+2. je telefoonnummer of je instellingsmail is bevestigd (identiteitsanker, A4.3);
+3. er is geen overlap in netwerk, telefoonnummer of toestel met andere winnende accounts;
 4. een medewerker heeft gekeken;
 5. je bevestigt per e-mail je naam voor de levering;
 6. bij een 18+-prijs controleren we je leeftijd, **zonder een kopie van je identiteitsbewijs te bewaren en zonder je BSN** [**vraag advocaat** 8: hoe precies; open vraag 8 van de spec].
@@ -251,10 +253,11 @@ De prijs wordt **na 14 dagen** na het einde van de challenge geleverd, en pas al
 | Ambassadeur geen bestuurslid van een deelnemende vereniging (J3) | A12 |
 | Terugvalvariant met alleen drempelprijzen | A13 |
 
-**Niet in deze voorwaarden, wel nodig in de bouw** (productteam, ter informatie): ledental en soort bron als velden die vóór het aanloopklassement worden vastgezet; anker per lid per week; winnaarssteekproef als vaste stap vóór publicatie in plaats van alleen boven 10% markeringen (spec §4.7); de status "gediskwalificeerd" op de ranglijst.
+**Niet in deze voorwaarden, wel nodig in de bouw** (productteam, ter informatie; afgestemd op spec 1.1 en architectuur 1.2): ledental en soort bron als velden die vóór het aanloopklassement worden vastgezet (spec §4.6, §4.11: geregeld); de verplichte steekproef van 20 als vaste stap vóór publicatie (spec §4.6–4.7, architectuur §6.2: geregeld); anker per lid per week (A4.3, nog vast te leggen); de status "gediskwalificeerd" op de ranglijst (nog vast te leggen).
 
 ## Wijzigingslog
 
 | Ronde | Datum | Wijziging |
 |---|---|---|
-| ronde 1 | 4 november 2026 | Eerste concept, opgesteld na pitchronde 1 (jurist must-fix 2 en 6; founder-besluiten J2, J3, J6). Nog niet door de advocaat beoordeeld. |
+| ronde 1 | 5 november 2026 | Eerste concept, opgesteld na pitchronde 1 (jurist must-fix 2 en 6; founder-besluiten J2, J3, J6). Nog niet door de advocaat beoordeeld. |
+| ronde 1 (eindredactie) | 5 november 2026 | Gelijkgetrokken met de aanvulling van de founder van 5 november en spec 1.1: Algemeen 6 ook de tentamendag; A3.4 vereniging zonder externe bron alleen uitgesloten van de hoofdprijs; A4.3 alleen vinkje en domein, elk anker afzonderlijk genoeg; A4.6 plafond 300 zonder verouderde notitie; A6 prijzen uit de post "pilotprijzen en catalogus"; A13 terugvalvariant ingevuld (hoofdprijs alleen bij positieve opinie vóór 2 december); B5.2 identiteitsanker, B5.3 ook toestel; bijlage bijgewerkt. Versie 0.2. |

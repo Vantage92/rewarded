@@ -1,6 +1,6 @@
 # Rewarded — Overeenkomst met studieverenigingen (concept voor de advocaat)
 
-*Concept van het juridische team, stand 4 november 2026, versie 0.1. **Dit is geen juridisch advies.** Dit is een concepttekst die de advocaat nog moet beoordelen. Gebaseerd op `docs/pitch/ronde-1-jurist.md` (must-fix 2 en 5, punt 4), de besluiten in `docs/pitch/ronde-1-founder-reactie.md` (J2, J3, J5, J6, S7, G4), `docs/02-productplan.md` (§4) en `docs/research/05-productspecificatie.md` (§4.6, §4.10). Deze overeenkomst is ook de vorm van een "schriftelijke toezegging" van een vereniging in de zin van S7: ledental, promotieverplichting en contactpersoon.*
+*Concept van het juridische team, stand 5 november 2026, versie 0.2. **Dit is geen juridisch advies.** Dit is een concepttekst die de advocaat nog moet beoordelen. Gebaseerd op `docs/pitch/ronde-1-jurist.md` (must-fix 2 en 5, punt 4), de besluiten in `docs/pitch/ronde-1-founder-reactie.md` (J2, J3, J5, J6, S7, G4), `docs/02-productplan.md` (§4) en `docs/research/05-productspecificatie.md` (§4.6, §4.10). Deze overeenkomst is ook de vorm van een "schriftelijke toezegging" van een vereniging in de zin van S7: ledental, promotieverplichting en contactpersoon.*
 
 *Leeswijzer. Kort en in gewone taal, zodat een bestuur van studenten hem zonder jurist kan lezen en tekenen. Eén exemplaar per vereniging. Markeringen: **aanname**, **voorstel**, **werkhypothese**, **niet geverifieerd**, **vraag advocaat** (genummerd zoals in `vragen-advocatenopinie.md`). Tussen vierkante haken staat wat per vereniging moet worden ingevuld.*
 
@@ -27,7 +27,7 @@
 
 1.2 Rewarded levert gratis: de app voor de leden, een verenigingscode, een promotiekit, een bestuursdashboard met groepscijfers, en de prijzen uit §5.
 
-1.3 De vereniging betaalt niets voor deelname in deze pilot. [Productplan §4: de pilot is gratis voor verenigingen; Rewarded betaalt de prijzen uit eigen budget.]
+1.3 De vereniging betaalt niets voor deelname in deze pilot. [Productplan §4: de pilot is gratis voor verenigingen; Rewarded betaalt de prijzen uit eigen budget, de begrotingspost "pilotprijzen en catalogus" binnen het plafond van de gratis laag (aanvulling founder-reactie 5 november).]
 
 ### 2. Rol van de vereniging bij persoonsgegevens
 
@@ -167,4 +167,5 @@
 
 | Ronde | Datum | Wijziging |
 |---|---|---|
-| ronde 1 | 4 november 2026 | Eerste concept, opgesteld na pitchronde 1 (jurist must-fix 2 en 5; founder-besluiten J2, J3, J5, J6, S7, G4, JS1). Nog niet door de advocaat beoordeeld. |
+| ronde 1 | 5 november 2026 | Eerste concept, opgesteld na pitchronde 1 (jurist must-fix 2 en 5; founder-besluiten J2, J3, J5, J6, S7, G4, JS1). Nog niet door de advocaat beoordeeld. |
+| ronde 1 (eindredactie) | 5 november 2026 | §1.3: de begrotingspost voor de prijzen benoemd ("pilotprijzen en catalogus", aanvulling founder-reactie 5 november). Verder ongewijzigd. Versie 0.2. |

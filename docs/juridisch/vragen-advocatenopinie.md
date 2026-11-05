@@ -1,6 +1,6 @@
 # Rewarded — Vragen voor de advocatenopinie
 
-*Opgesteld door het juridische team, stand 4 november 2026, versie 0.1. **Dit is geen juridisch advies.** Dit is de vragenlijst die we de advocaat voorleggen; het antwoord van de advocaat is het advies. Gebaseerd op de vragenlijst in `docs/pitch/ronde-1-founder-reactie.md` ("Juridische documenten"), de beoordeling in `docs/pitch/ronde-1-jurist.md`, `docs/research/02-businessmodel-juridisch-unit-economics.md` en de vijf concepten in deze map.*
+*Opgesteld door het juridische team, stand 5 november 2026, versie 0.2. **Dit is geen juridisch advies.** Dit is de vragenlijst die we de advocaat voorleggen; het antwoord van de advocaat is het advies. Gebaseerd op de vragenlijst in `docs/pitch/ronde-1-founder-reactie.md` ("Juridische documenten" en de aanvulling van 5 november), de beoordeling in `docs/pitch/ronde-1-jurist.md`, `docs/research/02-businessmodel-juridisch-unit-economics.md` en de vijf concepten in deze map.*
 
 *Leeswijzer. Per vraag: de vraag zelf, de context in een paar regels, **wat er van het antwoord afhangt**, wat er gebeurt als het antwoord niet op tijd binnen is, en de termijn. Een standaarduitkomst die de founder al heeft besloten, staat als **besluit founder**; een standaarduitkomst die het juridische team voorstelt en die de founder nog moet vaststellen, staat als **voorstel**. Wat in deze sessies niet in een primaire bron is gecontroleerd, staat als **niet geverifieerd**.*
 
@@ -55,7 +55,7 @@ d. Passen de europlafonds (item ≤ €5, individuele prijs ≤ €10, €15 per
 - Negatief op c: geen verdiende prijzen in de pilot; alleen status.
 - Andere grenzen bij d: plafonds in de beheeromgeving en de gebruiksvoorwaarden §5.4 aanpassen.
 
-**Zonder antwoord op 2 december.** [**Voorstel**] De challengevoorwaarden noemen vanaf de start beide varianten: de hoofdprijs wordt alleen uitgereikt als de opinie vóór [datum, voorstel 18 december 2026] positief is; anders alleen drempelprijzen. Het aanloopklassement heeft geen prijs en kan dus gewoon starten.
+**Zonder antwoord op 2 december.** **Besluit founder** (5 november): het aanloopklassement heeft geen prijs en hangt niet aan de opinie. De hoofdprijs vraagt een positieve opinie vóór 2 december 2026; anders geldt vanaf de start de terugvalvariant met alleen drempelprijzen (challengevoorwaarden A13).
 
 **Raakt.** Challengevoorwaarden A6, A7, A13, deel B; gebruiksvoorwaarden §5.4.
 
@@ -64,7 +64,7 @@ d. Passen de europlafonds (item ≤ €5, individuele prijs ≤ €10, €15 per
 **De vraag.**
 a. Is arm B (een weekbudget aan bonuspunten "in afwachting", waarvan per gehaald dagdoel 20 punten vrijkomen en per gemist dagdoel 20 vervallen) een oneerlijke handelspraktijk (art. 6:193a e.v. BW) of een misleidende of agressieve vormgeving, als de arm in feitelijke taal wordt beschreven, de armregel bij elke mutatie staat en de verwachte waarde gelijk is aan arm A?
 b. Mogen 16- en 17-jarigen in arm B, of moeten ze in arm A? (Het team heeft ze al in arm A gezet; we vragen of dat nodig of alleen verstandig is.)
-c. Bevestigt de advocaat dat een gerandomiseerde toewijzing aan beloningsregels geen "aanwijzing der winnaars door kansbepaling" is, mits **geen arm een hogere maximale beloning kan opleveren dan de andere**? Klopt het dat dat voor arm A en B zo is (gebruiksvoorwaarden §6.2)?
+c. Bevestigt de advocaat dat een gerandomiseerde toewijzing aan beloningsregels geen "aanwijzing der winnaars door kansbepaling" is, mits **geen arm een hogere maximale beloning kan opleveren dan de andere**? Klopt het dat dat voor arm A en B zo is (gebruiksvoorwaarden §6.2 en §6.11)? [**Besluit founder** (5 november): deze eis geldt voor de bonusarmen A en B; voor de rustperiode zie vraag 3.]
 d. Bevestigt de advocaat dat de Belofte-arm (vroeg tegenover laat) geen punten raakt en daarom geen kanselement heeft?
 e. Geldt hetzelfde voor de gerandomiseerde squadprompt (solo-gebruikers krijgen in de eerste dagen wel of geen sterke uitnodiging om een squad te maken)?
 
@@ -81,13 +81,13 @@ e. Geldt hetzelfde voor de gerandomiseerde squadprompt (solo-gebruikers krijgen 
 
 ### Vraag 3 — De rustperiode-arm
 
-**De vraag.** Na 18 januari 2027 verdient de helft van de squads (vooraf geloot) geen nieuwe punten tot de aprilchallenge; de andere helft wel. Al verdiende punten blijven inwisselbaar; sessies, dagdoel, streak, duels en Belofte werken door. Dit staat vanaf de eerste dag in de voorwaarden (gebruiksvoorwaarden §6.4). 16- en 17-jarigen zitten er nooit in, en iedereen kan uit het onderzoek stappen zonder puntverlies.
+**De vraag.** Van 19 januari tot en met 31 maart 2027 verdient de helft van de squads (vooraf geloot) geen nieuwe punten; de andere helft wel. Vanaf 1 april verdient iedereen weer punten, en de aprilchallenge loopt voor iedereen. Al verdiende punten blijven inwisselbaar; sessies, dagdoel, streak, duels en Belofte werken door. Dit staat vanaf de eerste dag in de voorwaarden (gebruiksvoorwaarden §6.4); in welke groep een squad zit, ziet de gebruiker uiterlijk op 11 januari 2027. 16- en 17-jarigen zitten er nooit in, en iedereen kan uit het onderzoek stappen zonder puntverlies.
 a. Is dit een oneerlijke handelspraktijk, of een onredelijk bezwarend beding (art. 6:233 BW)?
 b. Is er een kanselement in de waarde: het lot bepaalt of je in die periode punten kunt verdienen. Dat staat op gespannen voet met de voorwaarde uit vraag 2c dat geen arm een hogere maximale beloning kan opleveren. Is de toewijzing daarom een "kansbepaling" over "prijzen of premies" in de zin van art. 1 onder a Wok?
-c. Wat moet er in de voorwaarden en de app staan om dit houdbaar te maken (informatie vooraf, opt-out, compensatie)?
-d. Verandert het oordeel als iemand die uit het onderzoek stapt (gebruiksvoorwaarden §6.8) de standaardregels krijgt en dus wel punten blijft verdienen? Ondergraaft dat de arm, of maakt het de arm juist houdbaar?
+c. Wat moet er in de voorwaarden en de app staan om dit houdbaar te maken (informatie vooraf, opt-out, compensatie)? Volstaat het dat de regel vanaf dag 1 in de voorwaarden staat en de groep uiterlijk op 11 januari wordt getoond, of moet de groep vanaf dag 1 zichtbaar zijn?
+d. Verandert het oordeel als iemand die uit het onderzoek stapt (gebruiksvoorwaarden §6.8) vanaf de volgende focusdag groep A en doorlopende punten krijgt en dus wel punten blijft verdienen? Ondergraaft dat de arm, of maakt het de arm juist houdbaar?
 
-**Context.** De gedragswetenschapper noemt een gerandomiseerde, aangekondigde afbouw van de beloning "de enige manier om 'steiger' te toetsen" (must-fix 1, punt 3). De founder heeft de arm overgenomen onder de voorwaarde dat de jurist toetst dat hij vanaf de eerste dag in de voorwaarden staat en geen oneerlijke handelspraktijk is (founder-reactie G1, punt 3). De vraag naar het kanselement (b) is van het juridische team: die volgt uit JS2 en staat niet in de beoordeling van de jurist.
+**Context.** De gedragswetenschapper noemt een gerandomiseerde, aangekondigde afbouw van de beloning "de enige manier om 'steiger' te toetsen" (must-fix 1, punt 3). De founder heeft de arm overgenomen onder de voorwaarde dat de jurist toetst dat hij vanaf de eerste dag in de voorwaarden staat en geen oneerlijke handelspraktijk is (founder-reactie G1, punt 3). De vraag naar het kanselement (b) is van het juridische team: die volgt uit JS2 en staat niet in de beoordeling van de jurist. **Besluit founder** (5 november): de eis uit JS2 geldt voor de bonusarmen A en B; de rustperiode is geen beloningsregel maar een vooraf aangekondigde onderzoeksconditie met opt-out zonder verlies van punten, en verdiende punten blijven inwisselbaar. De advocaat beoordeelt of hier een kanselement of oneerlijke handelspraktijk in zit; bij een negatief oordeel vervalt de arm.
 
 **Wat ervan afhangt.**
 - Positief: de arm blijft, en de pilot heeft een zuivere toets van "beloning als steiger".
@@ -102,7 +102,7 @@ d. Verandert het oordeel als iemand die uit het onderzoek stapt (gebruiksvoorwaa
 **De vraag.**
 a. Zijn de regels voor diskwalificatie van een vereniging bij georganiseerde manipulatie (challengevoorwaarden A9) houdbaar: de omschrijving, hoor en wederhoor met 5 werkdagen, besluit door twee niet-betrokken medewerkers, beroep bij een externe beoordelaar binnen 5 werkdagen, en de prijs naar de volgende plaats?
 b. Is "een definitieve uitslag wordt niet meer herzien" (A10.3) redelijk met deze beroepsprocedure ervoor? Gelden voor de vereniging (geen consument) en voor de individuele leden (wel consumenten) verschillende maatstaven?
-c. Mag een vereniging zonder externe bron voor het ledental wel in het klassement maar niet om de hoofdprijs (A3.4), en zo ja ook niet om de drempelprijs?
+c. Mag een vereniging zonder externe bron voor het ledental wel in het klassement en om de drempelprijs, maar niet om de hoofdprijs (A3.4; **besluit founder**, 5 november)?
 d. Is het redelijk dat alleen leden met een identiteitsanker (instellingsmail of geverifieerd mobiel nummer) in de teller tellen, terwijl leden zonder anker in de noemer blijven (A4.3)?
 e. Mag Rewarded een lid in de steekproef een kort bericht sturen met de vraag zijn vereniging en squad te bevestigen, en wat mag het gevolg zijn als het lid niet reageert (A8.2; gebruiksvoorwaarden §8.3)?
 
@@ -118,7 +118,7 @@ e. Mag Rewarded een lid in de steekproef een kort bericht sturen met de vraag zi
 
 **De vraag.**
 a. Is een catalogus met wekelijks beperkte voorraad, waarin "Deze week op" kan staan en de gebruiker geen recht heeft op een bepaald item, houdbaar onder het consumentenrecht (onder meer misleiding, art. 6:193c BW, en art. 6:233 BW)?
-b. Is het redelijk om een deel van de voorraad te reserveren voor accounts met een instellingsmail (gebruiksvoorwaarden §5.5)? Raakt dat studenten zonder instellingsmail (bijvoorbeeld mbo of een instelling buiten de domeinlijst) op een manier die uitleg vraagt?
+b. Is het redelijk om een deel van de voorraad te reserveren voor accounts met een instellingsmail (het instellingsanker; gebruiksvoorwaarden §5.5)? Raakt dat studenten zonder instellingsmail (bijvoorbeeld mbo of een instelling buiten de domeinlijst) op een manier die uitleg vraagt?
 c. Is een wachttijd van 7 dagen op de eerste verzilvering, met een lichte menselijke blik, houdbaar en voldoende aangekondigd (§5.3)?
 
 **Context.** Spec §4.3 en open vraag 7; jurist must-fix 3; founder-reactie J3.
@@ -159,7 +159,7 @@ b. Is verval van alle punten bij verwijdering van het account houdbaar, ook als 
 
 **De vraag.**
 a. Klopt de grondslag per verwerking in privacyverklaring §2: overeenkomst (art. 6 lid 1 sub b) alleen voor account, sessie, punten, verzilvering en de functies die daar direct bij horen; gerechtvaardigd belang (sub f) met schriftelijke belangenafweging voor experiment, eventlog en fraude, met aandacht voor 16- en 17-jarigen?
-b. Valt de telefoonverificatie onder sub b (voorwaarde voor verzilvering) of sub f (fraudepreventie)?
+b. Valt de telefoonverificatie onder sub b (voorwaarde voor verzilvering) of sub f (fraudepreventie)? [**Besluit founder** (5 november): voorlopig sub f, in privacyverklaring en verwerkingsregister; definitief na dit antwoord.]
 c. Is een overeenkomst met een 16- of 17-jarige geldig zonder uitdrukkelijke toestemming van de ouders (art. 1:234 BW: toestemming wordt vermoed bij rechtshandelingen die in het maatschappelijk verkeer gebruikelijk zijn voor die leeftijd)? Dat raakt de grondslag sub b voor minderjarigen. [**Niet geverifieerd** in deze sessie.]
 d. Na verwijdering houden we events met een nieuw pseudoniem en zonder `squad_id` (privacyverklaring §7.2). Is dat nog een persoonsgegeven, en zo ja, is de grond art. 17 lid 3 of art. 89 AVG (met welke waarborgen)? Of moeten de events direct worden geaggregeerd?
 e. Bij bezwaar tegen het onderzoek (opt-out): mogen we gegevens van vóór het bezwaar houden voor de geldigheid van de analyse?
@@ -183,11 +183,11 @@ a. Zijn antwoorden op vragen over stress, slaap, ervaren squaddruk en motivatie 
 b. Is het vooraf vastgelegde systeem van zorgsignalen (nachtsessies op meerdere dagen, meer dan 6 uur per dag op meerdere dagen, scherpe daling na een gebroken streak, een welzijnslabel in support) met een zacht bericht en hulpbronnen een vorm van profilering die extra waarborgen vraagt? Is een welzijnslabel in support een gezondheidsgegeven?
 c. Is een lichte ethische toets via een partneruniversiteit nodig of verstandig, en verandert die iets aan de grondslag?
 
-**Context.** Founder-reactie G4 en GS3: welzijnsmeting bij instroom, bij de reflectie en eind januari; instrument gekozen door een onderzoeker; zelfrapportage van studietijd en afleiding vóór en na. Deze vraag is van het juridische team; de beoordelaars noemden de AVG-kant van de welzijnsmeting niet.
+**Context.** Founder-reactie G4 en GS3: welzijnsmeting bij instroom, bij de pilotreflectie (18–24 januari 2027) en eind januari (25–31 januari; voorregistratie §8.4); **besluit founder** (5 november): voorlopig gerechtvaardigd belang, met aparte toestemming voor de welzijnsvragen omdat die gezondheidsgegevens kunnen zijn; instrument gekozen door een onderzoeker; zelfrapportage van studietijd en afleiding vóór en na. Deze vraag is van het juridische team; de beoordelaars noemden de AVG-kant van de welzijnsmeting niet.
 
 **Wat ervan afhangt.** Of de vragenlijsten in de app mogen zoals bedoeld, met welke toestemming, en hoe lang de antwoorden bewaard mogen worden. Zonder houdbare grondslag geen welzijnsmeting gekoppeld aan het account, en dan mist de pilot een deel van de deelnemersbescherming die de founder bindend heeft gemaakt.
 
-**Zonder antwoord op 2 december.** [**Voorstel**] Vragenlijsten alleen met aparte, uitdrukkelijke toestemming, en de items beperkt tot wat de onderzoeker strikt nodig vindt. De zorgsignalen draaien wel (ze gebruiken alleen sessiegegevens die we al hebben) en leiden nooit tot een sanctie.
+**Zonder antwoord op 2 december.** **Besluit founder** (voorlopig): gerechtvaardigd belang, en de welzijnsvragen alleen met aparte toestemming. [**Voorstel**] De items beperkt tot wat de onderzoeker strikt nodig vindt. De zorgsignalen draaien wel (ze gebruiken alleen sessiegegevens die we al hebben) en leiden nooit tot een sanctie.
 
 **Raakt.** Gebruiksvoorwaarden §6.9, §6.10; privacyverklaring §2.3.
 
@@ -263,15 +263,15 @@ De inzetlaag is buiten deze ronde en buiten de bouw (besluit 3; JS7). Deze punte
 
 | # | Onderwerp | Termijn | Zonder antwoord |
 |---|---|---|---|
-| 1 | Verdiende prijzen, rangprijs, plafonds | 2 december | Voorstel: beide varianten in de voorwaarden; hoofdprijs alleen bij positieve opinie vóór 18 december |
+| 1 | Verdiende prijzen, rangprijs, plafonds | 2 december | Besluit founder: aanloopklassement los van de opinie; hoofdprijs alleen bij positieve opinie vóór 2 december, anders alleen drempelprijzen |
 | 2 | Arm B en randomisering | 25 november | Besluit founder: arm B vervalt |
-| 3 | Rustperiode-arm | 25 november | Besluit founder: arm vervalt |
+| 3 | Rustperiode-arm | 25 november | Besluit founder: arm vervalt (JS2 geldt voor de bonusarmen; de rustperiode is een onderzoeksconditie) |
 | 4 | Ledental, steekproef, diskwalificatie, definitieve uitslag | 2 december | Voorstel: tekst zoals geconcipieerd |
 | 5 | Voorraad, gespreide vrijgave, wachttijd | 2 december | Voorstel: tekst zoals geconcipieerd |
 | 6 | Vervaldatum | 2 december | Voorstel: tekst zoals geconcipieerd (verval pas eind 2027) |
 | 7 | Partnerkortingen | 2 december | Besluit founder: alleen specifiek product of fysieke beloning |
-| 8 | Grondslagen en AVG | 1 december | Besluit founder: geen DPIA, geen uitnodigingen |
-| 9 | Welzijnsmeting en zorgsignalen | 2 december | Voorstel: alleen met aparte, uitdrukkelijke toestemming |
+| 8 | Grondslagen en AVG | 1 december | Besluit founder: geen DPIA, geen uitnodigingen; telefoonverificatie voorlopig sub f |
+| 9 | Welzijnsmeting en zorgsignalen | 2 december | Besluit founder (voorlopig): gerechtvaardigd belang, welzijnsvragen met aparte toestemming |
 | 10 | Rol van de vereniging | 2 december | Voorstel: gezamenlijke verantwoordelijkheid |
 | 11 | Bedingen (wijziging, uitslag, sancties, aansprakelijkheid, klachten) | 2 december | Voorstel: tekst zoals geconcipieerd |
 | 12 | Trekkingsstructuur | Na deze ronde | Besluit founder: stilte is nee |
@@ -281,4 +281,5 @@ De inzetlaag is buiten deze ronde en buiten de bouw (besluit 3; JS7). Deze punte
 
 | Ronde | Datum | Wijziging |
 |---|---|---|
-| ronde 1 | 4 november 2026 | Eerste versie, opgesteld na pitchronde 1 op basis van de vragenlijst in de founder-reactie (juridische documenten), aangevuld met JS2, JS7, G1 (rustperiode), G4 (welzijnsmeting) en J5. Vragen 3b, 8c en 9 zijn toevoegingen van het juridische team. |
+| ronde 1 | 5 november 2026 | Eerste versie, opgesteld na pitchronde 1 op basis van de vragenlijst in de founder-reactie (juridische documenten), aangevuld met JS2, JS7, G1 (rustperiode), G4 (welzijnsmeting) en J5. Vragen 3b, 8c en 9 zijn toevoegingen van het juridische team. |
+| ronde 1 (eindredactie) | 5 november 2026 | Gelijkgetrokken met de aanvulling van de founder van 5 november: vraag 1 hoofdprijs alleen bij positieve opinie vóór 2 december (was voorstel 18 december), aanloopklassement los van de opinie; vraag 2c en 3 JS2 geldt voor de bonusarmen, rustperiode als onderzoeksconditie, nieuwe looptijd 19 januari tot en met 31 maart en zichtbaarheid uiterlijk 11 januari (3c); vraag 4c drempelprijs blijft mogelijk zonder externe bron; vraag 8b en 9 voorlopige grondslagen; overzicht bijgewerkt. Versie 0.2. |

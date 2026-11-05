@@ -1,12 +1,12 @@
 # Rewarded — Spelvoorwaarden promotioneel kansspel (sjabloon, niet in gebruik)
 
-*Sjabloon van het juridische team, stand 4 november 2026, versie 0.1. **Dit is geen juridisch advies.** Dit sjabloon is alleen bedoeld voor het geval dat trekkingen ooit aangaan. **Trekkingen staan uit en de trekkingsmodule wordt niet gebouwd** (founder-reactie, besluit 3, S9 en J4). Gebaseerd op `docs/pitch/ronde-1-jurist.md` (must-fix 4 en 6), `docs/research/02-businessmodel-juridisch-unit-economics.md` (§2.1, §2.2, §2.6) en `docs/research/05-productspecificatie.md` (§3.9, §4.7).*
+*Sjabloon van het juridische team, stand 5 november 2026, versie 0.2. **Dit is geen juridisch advies.** Dit sjabloon is alleen bedoeld voor het geval dat trekkingen ooit aangaan. **Trekkingen staan uit en de trekkingsmodule wordt niet gebouwd** (founder-reactie, besluit 3, S9 en J4). Gebaseerd op `docs/pitch/ronde-1-jurist.md` (must-fix 4 en 6), `docs/research/02-businessmodel-juridisch-unit-economics.md` (§2.1, §2.2, §2.6) en `docs/research/05-productspecificatie.md` (versie 1.1, §3.9).*
 
 ## Voordat dit sjabloon ooit wordt gebruikt
 
 Dit sjabloon mag pas worden ingevuld en gepubliceerd als **alle** onderstaande voorwaarden schriftelijk vastliggen. Dat is de beslisregel uit de founder-reactie (J4): **geen schriftelijke advocatenopinie plus geen expliciete, schriftelijke reactie van de Kansspelautoriteit betekent dat trekkingen uit blijven. Stilte is nee.**
 
-| # | Voorwaarde | Status op 4 november 2026 |
+| # | Voorwaarde | Status op 5 november 2026 |
 |---|---|---|
 | 1 | Schriftelijke advocatenopinie over de gekozen structuur (**vraag advocaat** 12) | Niet aangevraagd voor trekkingen; staat in de vragenlijst |
 | 2 | Expliciete, schriftelijke reactie van de Kansspelautoriteit op de voorgelegde structuur | Niet voorgelegd. De Ksa geeft voor zover bekend geen bindende rulings op promotionele kansspelen (**niet geverifieerd**, jurist must-fix 4) |
@@ -16,7 +16,7 @@ Dit sjabloon mag pas worden ingevuld en gepubliceerd als **alle** onderstaande v
 
 **Structuur die dit sjabloon aanneemt.** Eén promotioneel kansspel per jaar voor Rewarded, met **hoogstens twintig trekkingen** en een **totale prijzenpot onder €100.000**, volgens art. 2 van de Gedragscode promotionele kansspelen 2014 zoals weergegeven in WODC 2024 (rapport 02 §2.2). **Niet** een reeks kleine spellen van hoogstens €4.500 elk: de jurist wijst die af omdat de Ksa zo'n opdeling volgens WODC als ondermijning van het vergunningenstelsel ziet. De Gedragscode staat niet in de BWB en is in deze sessies alleen via WODC 2024 gelezen (**niet geverifieerd** in de primaire tekst).
 
-**Wat dit sjabloon niet oplost.** Het risico dat trekkingen in de app een "zelfstandige activiteit" worden in plaats van een promotie van de focus-dienst (rapport 02 §2.2; jurist must-fix 4). Dat is een ontwerpvraag: trekkingen staan nooit op het startscherm, in uitnodigingen, op kaarten of in de promotiekit (spec §4.7).
+**Wat dit sjabloon niet oplost.** Het risico dat trekkingen in de app een "zelfstandige activiteit" worden in plaats van een promotie van de focus-dienst (rapport 02 §2.2; jurist must-fix 4). Dat is een ontwerpvraag: trekkingen staan nooit op het startscherm, in uitnodigingen, op kaarten of in de promotiekit. [Spec 1.1 bouwt geen trekkingen (§3.9) en legt deze regel daarom nog niet vast; als de module ooit komt, neemt het productteam hem op.]
 
 *Leeswijzer. Hieronder staat de tekst zoals een deelnemer hem zou lezen, in gewone taal. Tussen vierkante haken staat wat per spel moet worden ingevuld. Markeringen: **aanname**, **voorstel**, **niet geverifieerd**, **vraag advocaat**.*
 
@@ -123,7 +123,7 @@ Dit sjabloon mag pas worden ingevuld en gepubliceerd als **alle** onderstaande v
 
 ### 9. Je gegevens
 
-Voor dit spel verwerken we: dat je het spel hebt aangezet, je deelnamecode per trekking, of je gewonnen hebt, en voor de levering je naam en adres. Je deelnamecode bewaren we tot 1 jaar na het einde van het spel, voor klachten en controle; daarna blijft alleen de codelijst zonder koppeling aan jou. Meer staat in de privacyverklaring. [Termijn uit de architectuur §10.6, **keuze** van het team, te toetsen door de advocaat.]
+Voor dit spel verwerken we: dat je het spel hebt aangezet, je deelnamecode per trekking, of je gewonnen hebt, en voor de levering je naam en adres. Je deelnamecode bewaren we tot 1 jaar na het einde van het spel, voor klachten en controle; daarna blijft alleen de codelijst zonder koppeling aan jou. Meer staat in de privacyverklaring. [Termijn: **keuze** van het juridische team, te toetsen door de advocaat. Architectuur 1.2 heeft geen trekkingstabellen meer (§7) en dus ook geen termijn daarvoor.]
 
 ### 10. Klachten
 
@@ -143,7 +143,7 @@ Rewarded verandert deze spelvoorwaarden tijdens het spel niet ten nadele van de 
 
 ## Bijlage voor de advocaat: herkomst per onderdeel
 
-| Onderdeel (jurist must-fix 6; spec §4.7) | Paragraaf |
+| Onderdeel (jurist must-fix 6; spec 1.1 §3.9) | Paragraaf |
 |---|---|
 | Organisator | §1 |
 | Looptijd | §2 |
@@ -156,10 +156,11 @@ Rewarded verandert deze spelvoorwaarden tijdens het spel niet ten nadele van de 
 | Verklaring dat Apple geen sponsor is (Apple 5.3.2) | §1.3 |
 | Structuur: één spel per jaar, ≤ 20 trekkingen, pot < €100.000 (founder J4) | Voorafgaand, §2.3, §5.1 |
 
-**Verschil met de bestaande spec.** Spec §4.7 en de beheeromgeving (§4.11) gaan uit van een reeks kleine spellen van hoogstens €4.500. Dit sjabloon volgt de founder-reactie (J4) en gaat uit van één spel per jaar. Als de module ooit wordt gebouwd, moet het productteam de controle in de beheeromgeving daarop aanpassen.
+**Verhouding tot de bouwdocumenten.** Spec 1.1 (§3.9) en architectuur 1.2 (§7) bouwen geen trekkingen; de vlag `draws` en een lege plek in het datamodel blijven. Komen trekkingen ooit terug, dan volgens beide documenten alleen als één promotioneel spel per jaar met hooguit twintig trekkingen en een pot onder €100.000, zoals dit sjabloon. Een reeks kleine spellen van hoogstens €4.500 staat in geen enkel huidig document meer.
 
 ## Wijzigingslog
 
 | Ronde | Datum | Wijziging |
 |---|---|---|
-| ronde 1 | 4 november 2026 | Eerste sjabloon, opgesteld na pitchronde 1 (jurist must-fix 4 en 6; founder-besluiten J4, J6, S9 en besluit 3). Niet in gebruik: trekkingen staan uit en de module wordt niet gebouwd. |
+| ronde 1 | 5 november 2026 | Eerste sjabloon, opgesteld na pitchronde 1 (jurist must-fix 4 en 6; founder-besluiten J4, J6, S9 en besluit 3). Niet in gebruik: trekkingen staan uit en de module wordt niet gebouwd. |
+| ronde 1 (eindredactie) | 5 november 2026 | Verouderde verwijzingen naar spec §4.7, de beheeromgeving en architectuur §10.6 vervangen door de huidige stand (spec 1.1 §3.9, architectuur 1.2 §7: geen trekkingen in de bouw). Inhoud van het sjabloon ongewijzigd. Versie 0.2. |

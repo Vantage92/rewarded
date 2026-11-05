@@ -1,6 +1,6 @@
 # Rewarded — Privacyverklaring (concept voor de advocaat)
 
-*Concept van het juridische team, stand 4 november 2026, versie 0.1. **Dit is geen juridisch advies.** Dit is een concepttekst die de advocaat en de opsteller van de DPIA nog moeten beoordelen. Hij geldt pas als de DPIA is ondertekend (uiterlijk 1 december 2026, vóór de eerste uitnodiging; founder-reactie J5) en de founder hem vaststelt. Gebaseerd op `docs/pitch/ronde-1-jurist.md` (must-fix 5 en should-fix 4 en 5), de besluiten in `docs/pitch/ronde-1-founder-reactie.md` (J5, JS4, JS5, G4, GS3), `docs/research/05-productspecificatie.md` §4.10 en §6, en `docs/research/07-architectuur.md` §10.4–10.7.*
+*Concept van het juridische team, stand 5 november 2026, versie 0.2. **Dit is geen juridisch advies.** Dit is een concepttekst die de advocaat en de opsteller van de DPIA nog moeten beoordelen. Hij geldt pas als de DPIA is ondertekend (uiterlijk 1 december 2026, vóór de eerste uitnodiging; founder-reactie J5) en de founder hem vaststelt. Gebaseerd op `docs/pitch/ronde-1-jurist.md` (must-fix 5 en should-fix 4 en 5), de besluiten in `docs/pitch/ronde-1-founder-reactie.md` (J5, JS4, JS5, G4, GS3, en de aanvulling van 5 november), `docs/research/05-productspecificatie.md` §4.10 en §6, en `docs/research/07-architectuur.md` §10.4–10.7.*
 
 *Leeswijzer. De tekst richt zich tot de gebruiker en is geschreven voor een student van 17. Een privacyverklaring moet kloppen met wat de app echt doet; waar de bouw nog moet veranderen om dit waar te maken, staat dat in de bijlage. Markeringen: **aanname**, **voorstel**, **werkhypothese**, **niet geverifieerd**, **vraag advocaat** (genummerd zoals in `vragen-advocatenopinie.md`). Tussen vierkante haken staat wat nog moet worden ingevuld.*
 
@@ -31,7 +31,7 @@
 - *Gerechtvaardigd belang* (art. 6 lid 1 sub f AVG): we hebben een goede reden die niet strikt nodig is voor de app zelf, zoals fraude tegengaan of het onderzoek. We hebben schriftelijk afgewogen of die reden zwaarder weegt dan jouw privacy, met extra aandacht voor 16- en 17-jarigen. Die afweging staat in de DPIA. Je kunt bezwaar maken (§5).
 - *Toestemming* (art. 6 lid 1 sub a AVG): alleen als je zelf iets extra's aanzet. Je kunt je toestemming altijd intrekken.
 
-[Bron: founder-reactie J5: overeenkomst alleen voor account, sessie, punten en verzilvering; gerechtvaardigd belang met belangenafweging voor experiment, eventlog en fraude. Dit vervangt "toestemming voor de rest" uit de architectuur §10.5.]
+[Bron: founder-reactie J5: overeenkomst alleen voor account, sessie, punten en verzilvering; gerechtvaardigd belang met belangenafweging voor experiment, eventlog en fraude. Dit vervangt "toestemming voor de rest" uit architectuur 1.1; architectuur 1.2 §10.5 volgt deze indeling. Telefoonverificatie en vragenlijsten vallen voorlopig onder gerechtvaardigd belang (aanvulling founder-reactie 5 november).]
 
 ### 2.1 Je account en de app
 
@@ -55,10 +55,10 @@
 
 | Wat | Welke gegevens | Waarvoor | Grondslag | Hoe lang |
 |---|---|---|---|---|
-| Telefoonnummer | Gehashte versie van je mobiele nummer; bij het versturen van de sms-code ook het nummer zelf, alleen even in het geheugen | Eén nummer per account; voorwaarde voor je eerste verzilvering | Gerechtvaardigd belang (fraude tegengaan) [**vraag advocaat** 8: of dit onder overeenkomst valt omdat het een voorwaarde voor verzilvering is] | Zolang je account bestaat |
+| Telefoonnummer | Gehashte versie van je mobiele nummer; bij het versturen van de sms-code ook het nummer zelf, alleen even in het geheugen | Eén nummer per account; voorwaarde voor je eerste verzilvering | Gerechtvaardigd belang (fraude tegengaan) [Voorlopig besluit founder (5 november), gelijk aan het verwerkingsregister in architectuur §10.5; definitief na **vraag advocaat** 8b: of dit onder overeenkomst valt omdat het een voorwaarde voor verzilvering is] | Zolang je account bestaat |
 | Nummertypecontrole | Je nummer gaat naar onze sms-verwerker, die controleert of het een mobiel nummer is | Geen virtuele of internetnummers | Gerechtvaardigd belang | Bij ons: alleen de uitkomst. Bij de verwerker: [**in te vullen** na keuze verwerker] |
 | Uniek e-mailadres | Een gehashte versie van de "kern" van je e-mailadres (zonder het deel na een plusteken en, bij providers die ze negeren, zonder punten) | Voorkomen dat één persoon met aliassen meerdere accounts maakt | Gerechtvaardigd belang | Zolang je account bestaat |
-| Instellingsmail (identiteitsanker) | Alleen een vinkje "bevestigd" en het domein (bijvoorbeeld "uu.nl"); niet het adres zelf | Meetellen in de verenigingschallenge; deel van de voorraad | Gerechtvaardigd belang | Zolang je account bestaat |
+| Instellingsmail (identiteitsanker en instellingsanker) | Alleen een vinkje "bevestigd" en het domein (bijvoorbeeld "uu.nl"); niet het adres zelf en geen hash ervan | Meetellen in de verenigingschallenge (identiteitsanker, samen met het telefoonnummer); toegang tot het gereserveerde deel van de voorraad en meetellen voor de vergoeding van ambassadeurs (instellingsanker) | Gerechtvaardigd belang | Zolang je account bestaat |
 | Netwerk | Een gehashte versie van je IP-adres en de soort netwerk (campus, mobiel, anders); nooit het adres zelf | Fraudesignalen, misbruik van inloggen tegengaan | Gerechtvaardigd belang | 30 dagen |
 | Toestel-id | Een willekeurig nummer dat de app in de opslag van je browser zet | Zien of meerdere accounts op één toestel zitten (alleen als signaal voor een mens) | Gerechtvaardigd belang. Voor het opslaan op je toestel geldt art. 11.7a Telecommunicatiewet; we gaan ervan uit dat de uitzondering voor wat strikt nodig is voor de dienst geldt [**niet geverifieerd**; **vraag advocaat** 8] | Bij de sessie 30 dagen; het toestel zelf 180 dagen na laatste gebruik |
 | Fraudesignalen en markeringen | Welke signaal afging, het besluit, wie besliste | Valsspelen tegengaan; menselijke beoordeling | Gerechtvaardigd belang | Het bewijs tot na de beroepstermijn, daarna alleen codes; de markering zelf 2 jaar na het besluit |
@@ -77,7 +77,7 @@
 | Groepsindeling | In welke groep jij of je squad zit (doelbonus A of B, Belofte vroeg of laat, rustperiode ja of nee, squadduwtje ja of nee) en wisselingen | Het onderzoek: welke regels helpen om te blijven focussen | Gerechtvaardigd belang | Tot na de analyse van de aprilmeting (zie hieronder) |
 | Gebeurtenissenlog | Wat er in de app gebeurt (sessie gestart, dagdoel gehaald, squad gemaakt, …), gekoppeld aan een pseudoniem in plaats van je naam of account | Meten of de pilot werkt, per groep en per instroomkanaal | Gerechtvaardigd belang | **Ruwe gebeurtenissen tot na de nawerkingsmeting van april 2027**, daarna samengevat tot weekcijfers per groep zonder pseudoniem. [**Voorstel**: uiterlijk 15 juni 2027 (architectuur §10.6), vast te leggen in de DPIA zodra de aprilperiode per vereniging bekend is. Bron: founder-reactie JS5] |
 | Zorgsignalen | Patronen zoals veel nachtsessies of meer dan 6 uur per dag op meerdere dagen | Je een rustig bericht met hulp sturen; een groep stoppen als die er slechter van wordt | Gerechtvaardigd belang | Als het gebeurtenissenlog |
-| Vragenlijsten | Je antwoorden over stress, slaap, ervaren druk van je squad, motivatie, en je studietijd en afleiding vóór en na | Het onderzoek, en zien of de app je niet schaadt | **Toestemming**, apart gevraagd, vrijwillig. [**Voorstel** van het juridische team. Vragen over stress en slaap kunnen gezondheidsgegevens zijn (art. 9 AVG); dan is uitdrukkelijke toestemming nodig of een andere uitzondering. **Vraag advocaat** 9] | [**Voorstel**: tot na de analyse van de aprilmeting, daarna alleen groepscijfers] |
+| Vragenlijsten | Je antwoorden over stress, slaap, ervaren druk van je squad, motivatie, en je studietijd en afleiding vóór en na | Het onderzoek, en zien of de app je niet schaadt | **Gerechtvaardigd belang**, vrijwillig en altijd over te slaan. Voor de vragen over stress, slaap en ervaren druk vragen we je daarnaast apart om toestemming, omdat dat gezondheidsgegevens kunnen zijn (art. 9 AVG). [Voorlopig besluit founder (5 november), in lijn met J5; definitief na **vraag advocaat** 9. Het juridische team stelde eerder toestemming als grondslag voor de hele vragenlijst voor.] | [**Voorstel**: tot na de analyse van de aprilmeting, daarna alleen groepscijfers] |
 | Wachtlijst | E-mailadres, of je met een vriend kwam, welke tekst je zag | Je uitnodigen, en de wachtlijsttest | Toestemming | Uitgenodigd: 30 dagen na de uitnodiging; niet uitgenodigd: 30 dagen na de publieke lancering; afmelden: direct |
 | Belangstelling voor Plus | Dat je je hebt opgegeven voor bericht over Plus | Meten of er belangstelling is; je een bericht sturen als Plus er komt | Toestemming | Tot Plus er is of je je afmeldt [**voorstel**: hoogstens 12 maanden] |
 
@@ -115,7 +115,7 @@ Je kunt:
 - **verwijderen**: in de app onder Ik › Account verwijderen (zie §7);
 - **beperking vragen**: dat we je gegevens tijdelijk niet gebruiken, bijvoorbeeld terwijl we een klacht onderzoeken;
 - **bezwaar maken** tegen wat we op grond van gerechtvaardigd belang doen. **Uit het onderzoek stappen** kan altijd met één knop (Ik › Onderzoek). Je verliest dan geen punten, je krijgt de standaardregels, en we gebruiken je gegevens vanaf dan niet meer voor de analyse. Gegevens die we al hadden, gebruiken we niet meer voor de analyse als je dat vraagt [**voorstel**; **vraag advocaat** 8: of we gegevens van vóór de bezwaarmaking mogen houden voor de geldigheid van het onderzoek (art. 21 en art. 89 AVG)]. Bezwaar tegen fraudecontrole kun je maken, maar die stopt alleen als je belang zwaarder weegt; zonder fraudecontrole kun je niet verzilveren of meedoen om prijzen;
-- **je toestemming intrekken** voor wat op toestemming rust (vragenlijsten, wachtlijst, Plus-bericht), zonder gevolgen voor de rest van de app;
+- **je toestemming intrekken** voor wat op toestemming rust (de welzijnsvragen in de vragenlijsten, wachtlijst, Plus-bericht), zonder gevolgen voor de rest van de app;
 - **je gegevens meenemen** (overdraagbaarheid) in het downloadbestand;
 - een **klacht indienen** bij de Autoriteit Persoonsgegevens (autoriteitpersoonsgegevens.nl). We horen het liever eerst zelf.
 
@@ -191,13 +191,13 @@ Als we deze privacyverklaring veranderen, laten we je dat weten in de app. Bij e
 |---|---|---|---|---|
 | 1 | DPIA-light voor de wachtlijst | Founder | Deze week | Founder-reactie J5 |
 | 2 | Volledige DPIA ondertekend, met per verwerking de grondslag uit §2 en de schriftelijke belangenafweging (met aandacht voor 16–17) | Founder, juridisch team | 1 december 2026 | J5 |
-| 3 | `squad_id` in events wissen of vervangen bij verwijdering | Productteam | R1, 2 december 2026 | J5; architectuur §10.7 noemt alleen `pseudonym` en enkele props |
-| 4 | Aanwezigheid standaard uit voor `16_17`; 16–17 in arm A en buiten de rustperiode | Productteam | R1 | G4, J5; wijkt af van productplan §10 |
+| 3 | `squad_id` in events wissen of vervangen bij verwijdering | Productteam | R1, 2 december 2026 | J5; geregeld in spec 1.1 §4.10 en architectuur 1.2 §10.7 en productplan §10; nog te bouwen |
+| 4 | Aanwezigheid standaard uit voor `16_17`; 16–17 in arm A en buiten de rustperiode | Productteam | R1 | G4, J5; geregeld in productplan §10 (herzien na ronde 1) en spec 1.1 §4.4 en §5; nog te bouwen |
 | 5 | Grondslagen in het verwerkingsregister (`docs/dpia/verwerkingen.md`) aanpassen: geen "toestemming voor de rest" | Productteam | 1 december 2026 | J5; architectuur §10.5 |
 | 6 | Bewaartermijnen vastleggen: auditlog 2 jaar; ruwe events tot na april 2027 | Productteam, DPIA | 1 december 2026 | JS5; architectuur §10.6 |
 | 7 | Verwerkers kiezen (hosting, e-mail, sms met nummertypecontrole) en subverwerkers buiten de EER controleren | Founder | 1 december 2026 | JS4 |
 | 8 | Toestel-id en Telecommunicatiewet; geen kopie identiteitsbewijs; uitleg `blocked_phone_hash` | DPIA | 1 december 2026 | J5 |
-| 9 | Vragenlijsten: grondslag en gezondheidsgegevens; aparte toestemming in de app | Juridisch team, productteam | Vóór de eerste vragenlijst | G4, GS3; vraag advocaat 9 |
+| 9 | Vragenlijsten: voorlopig gerechtvaardigd belang; aparte toestemming voor de welzijnsvragen in de app (spec 1.1 §3.1 stap 8, architectuur 1.2 `wellbeing_consent_at`) | Juridisch team, productteam | Vóór de eerste vragenlijst | G4, GS3, aanvulling 5 november; vraag advocaat 9 |
 | 10 | Opt-out van het onderzoek als knop, zonder puntverlies | Productteam | R1 | G4 |
 | 11 | E-mailnormalisatie als hash naast het echte adres | Productteam | R1 | J2 |
 | 12 | Opslag van uitkomsten van de wekelijkse steekproef en de winnaarssteekproef | Productteam | R1 | J1, J2 |
@@ -206,4 +206,5 @@ Als we deze privacyverklaring veranderen, laten we je dat weten in de app. Bij e
 
 | Ronde | Datum | Wijziging |
 |---|---|---|
-| ronde 1 | 4 november 2026 | Eerste concept, opgesteld na pitchronde 1 (jurist must-fix 5 en 6, should-fix 4 en 5; founder-besluiten J1, J2, J5, J6, JS4, JS5, JS11, G4, GS3). Grondslag per verwerking volgens J5. Nog niet door de advocaat of in de DPIA beoordeeld. |
+| ronde 1 | 5 november 2026 | Eerste concept, opgesteld na pitchronde 1 (jurist must-fix 5 en 6, should-fix 4 en 5; founder-besluiten J1, J2, J5, J6, JS4, JS5, JS11, G4, GS3). Grondslag per verwerking volgens J5. Nog niet door de advocaat of in de DPIA beoordeeld. |
+| ronde 1 (eindredactie) | 5 november 2026 | Gelijkgetrokken met de aanvulling van de founder van 5 november, spec 1.1 en architectuur 1.2: telefoonverificatie voorlopig gerechtvaardigd belang; vragenlijsten voorlopig gerechtvaardigd belang met aparte toestemming voor welzijnsvragen (art. 9); instellingsmail als identiteitsanker en instellingsanker, zonder hash; bijlage #3, #4 en #9 bijgewerkt naar de huidige bouwdocumenten. Versie 0.2. |

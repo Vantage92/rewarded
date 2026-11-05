@@ -1,6 +1,6 @@
 # Rewarded — Voorregistratie gesloten pilot 2026/'27 (concept)
 
-*Concept van het productteam, 4 november 2026. Vast te leggen door de founder vóór 2 december 2026; na vastlegging wijzigt niets meer zonder een gedateerde, gemotiveerde wijzigingsregel onderaan (en dan rapporteren we beide versies). Bindend kader: de besluiten van de founder na pitchronde 1 (`docs/pitch/ronde-1-founder-reactie.md`), het businessplan (`docs/01-businessplan.md` §7) en het productplan (`docs/02-productplan.md` §8). Regels en parameters: `docs/research/05-productspecificatie.md` (verder: spec). Bij verschil tussen dit document en een ander document over maten, drempels en beslisregels geldt dit document.*
+*Concept van het productteam, 5 november 2026 (bijgewerkt na de aanvulling van de founder na de samenhangcontrole). Vast te leggen door de founder vóór 2 december 2026; na vastlegging wijzigt niets meer zonder een gedateerde, gemotiveerde wijzigingsregel onderaan (en dan rapporteren we beide versies). Bindend kader: de besluiten van de founder na pitchronde 1 (`docs/pitch/ronde-1-founder-reactie.md`), het businessplan (`docs/01-businessplan.md` §7) en het productplan (`docs/02-productplan.md` §8). Regels en parameters: `docs/research/05-productspecificatie.md` (verder: spec). Bij verschil tussen dit document en een ander document over maten, drempels en beslisregels geldt dit document.*
 
 *Markering. **[in te vullen]** betekent dat een getal pas na de poweranalyse, de red-teamdag of een bevestiging van een vereniging bekend is; we vullen het in vóór 2 december. **Werkhypothese** is een voorstel van het productteam of het strategieteam dat de founder hier bevestigt of verandert. **Aanname** is iets wat we niet weten. Er staat geen getal in dat niet uit een bron, een besluit van de founder of een benoemde werkhypothese komt.*
 
@@ -14,7 +14,7 @@ Twee besluiten hangen aan deze pilot, op verschillende momenten:
 
 | Besluit | Wanneer | Waarop |
 |---|---|---|
-| **Lanceringsbesluit** (operationeel) | 18 januari 2027, lancering 19 januari | Activatie, fraude, kosten, D7 van het go/no-go-cohort, deelnemersbescherming (§5) |
+| **Lanceringsbesluit** (operationeel) | 19 januari 2027, op data tot en met 18 januari 04:00; lancering dezelfde dag | Activatie, fraude, kosten, D7 van het go/no-go-cohort, deelnemersbescherming (§5) |
 | **Bedrijfsbesluit** (gedragseffect, tweede tranche, native app, volgende financieringsstap) | Na de nawerkingsmeting van april 2027 (werkhypothese: mei 2027) | Nawerking, na-seizoensmaten, squadeffect, commercieel criterium (§6) |
 
 Het lanceringsbesluit hangt **niet** af van de nawerkingshypothese. Zo staat het ook in de pitch en het productplan.
@@ -40,7 +40,7 @@ Een hypothese waarvan het kleinste detecteerbare effect (MDE) volgens de poweran
 | 9 december | 16 december | 8 januari (tentamenweken) | 22 januari |
 | 13 december | 20 december | 12 januari (tentamenweken) | 26 januari |
 
-Gevolg dat we hier vastleggen: **D7 van het hele go/no-go-cohort valt vóór de vakantiepauze en is op 18 januari bekend.** D30 valt voor dit cohort in de vakantiepauze of in de tentamenweken (werkhypothese prijsperiode 4–17 januari), en meet daar vooral de tentamenkalender. We rapporteren D30 daarom altijd op kalendertijd én met overgeslagen vakantiedagen, en we gebruiken voor de stopregel een D30 **buiten de tentamenweken** (§5.2), die pas na 18 januari bekend is.
+Gevolg dat we hier vastleggen: **D7 van het hele go/no-go-cohort valt vóór de vakantiepauze en is op 18 januari bekend.** D30 valt voor dit cohort in de vakantiepauze of in de tentamenweken (werkhypothese prijsperiode 4–17 januari), en meet daar vooral de tentamenkalender. We rapporteren D30 daarom altijd op kalendertijd én met overgeslagen vakantiedagen, en we gebruiken voor de stopregel een D30 **buiten de tentamenweken**, gemeten in 1–14 februari (§5.2), die pas na 14 februari bekend is.
 
 ## 3. Kalender van de pilot
 
@@ -48,22 +48,25 @@ Tentamenperiodes verschillen per instelling. Elke datum met "per vereniging" wor
 
 | Datum | Wat |
 |---|---|
-| Vóór 25 november 2026 | Poweranalyse (statisticus); red-teamdag (§7.3); oordeel jurist over arm B en de rustperiode-arm; toesteltest |
-| Vóór 1 december 2026 | DPIA ondertekend |
+| Vóór 25 november 2026 | Poweranalyse (statisticus); red-teamdag (§7.3); oordeel jurist over arm B en de rustperiode-arm; toesteltest; stopregel arm B en welzijnsgrens vastgesteld (§8.3; founder met statisticus en onderzoeker) |
+| Vóór 1 december 2026 | DPIA ondertekend; jaarkalenders van de pilotinstellingen opgevraagd (founder) |
 | Vóór 2 december 2026 | Deze voorregistratie vastgelegd; A/A-controle afgerond (§9.3); randomisatieseed vastgelegd (§9.2); hogere drempels voor campus en CGNAT op de seed vastgelegd (§7.4) |
 | 2 december 2026 | Start gesloten pilot (R1); start doelbonus; start registratievenster go/no-go-cohort |
 | 13 december 2026 | Einde registratievenster go/no-go-cohort |
 | 21 december 2026 – 3 januari 2027 | Vakantiepauze (doelbonus, streaks, Belofte-dagen en pauzetellers bevroren) |
 | 4–17 januari 2027 | Prijsperiode Blokk-challenge (werkhypothese; per vereniging) |
-| 11–17 januari 2027 | Laatste tentamenweek (werkhypothese; per vereniging): aankondiging van de stop van de doelbonus en bekendmaking van de rustperiode-arm; Belofte-aanbod in de vroege arm |
-| Maandag 18 januari 2027, 04:00 | Stop doelbonus; start rustperiode in de rustperiode-arm; lanceringsbesluit |
+| Maandag 11 januari 2027 | Belofte-aanbod in de vroege arm, voor iedereen op dezelfde dag (besluit founder, 5 november; niet per vereniging); aankondiging van de stop van de doelbonus; uiterlijk dan bekendmaking van de rustperiode-groep |
+| 11–17 januari 2027 | Laatste tentamenweek (werkhypothese; per vereniging); venster voor de januari-actieven (H3, secundair) |
+| Maandag 18 januari 2027, 04:00 | Stop doelbonus; einde van de data voor het lanceringsbesluit |
 | 18–24 januari 2027 | Pilotreflectie met de vraag over de bonusregel en welzijnsmeting 2 |
-| 19 januari 2027 | Publieke lancering in Nederland |
+| 19 januari 2027 | Lanceringsbesluit; publieke lancering in Nederland; eerste dag van de rustperiode in de rustperiode-arm (tot en met 31 maart) |
 | 25–31 januari 2027 | Welzijnsmeting 3 en zelfrapportage "na" (werkhypothese voor "eind januari") |
-| 1–14 februari 2027 | Secundair venster na het seizoen (§4, H3) |
+| 1–14 februari 2027 | Secundair venster na het seizoen (§4, H3); meetvenster D30 buiten de tentamenweken (§5.2) |
 | Maart 2027 | Secundair venster (§4, H3) |
-| Tentamenperiode april 2027 **[in te vullen per vereniging]** | Primaire nawerkingsmeting (§4, H3) |
-| Na het aprilvenster | Belofte-aanbod in de late arm; einde rustperiode (§4, H3, open punt 1) |
+| 25–31 maart 2027 | Secundaire maat: terugkeer in de week vóór de aprilchallenge (§4, H3) |
+| 1 april 2027 | Einde rustperiode: iedereen verdient weer punten |
+| Tentamenperiode april 2027 **[in te vullen per vereniging]** | Primaire nawerkingsmeting (§4, H3); aprilchallenge voor iedereen |
+| Na het aprilvenster | Belofte-aanbod in de late arm (§4, H3) |
 | Mei 2027 (werkhypothese) | Bedrijfsbesluit |
 | Uiterlijk 15 juni 2027 | Ruwe events samengevat (spec §4.10, DPIA) |
 
@@ -105,23 +108,23 @@ Dit is de ene redelijk gepowerde vergelijking.
 
 | Onderdeel | Inhoud |
 |---|---|
-| Formulering voor de pitch | "Na het einde van de doelbonus focussen studenten in de volgende tentamenperiode vaker als ze bij de stop van de bonus een Belofte aangeboden kregen (H3a), en als ze na het seizoen gewoon punten bleven verdienen of juist niet (H3b, zie richting)." H3 is verkennend tot de poweranalyse anders laat zien. |
-| H3a: factor Belofte | **Vroeg**: aanbod bij de aangekondigde stop van de doelbonus, in de laatste tentamenweek per vereniging (werkhypothese 11–17 januari; solo zonder vereniging op 11 januari). **Laat**: aanbod pas na het aprilvenster. De Belofte raakt geen punten |
-| H3b: factor rustperiode | **Rustperiode**: na 18 januari 04:00 verdient de squad geen punten tot het einde van het aprilvenster (open punt 1); verdiende punten blijven inwisselbaar. **Doorlopend**: de squad verdient punten volgens de vaste ratio. Vanaf de eerste dag aangekondigd in de voorwaarden; de toewijzing wordt uiterlijk bij de aankondiging van de stop (werkhypothese 11 januari) aan de gebruiker getoond. Alleen als de jurist de arm toestaat; anders vervalt H3b en verdient iedereen doorlopend |
+| Formulering voor de pitch | "Na het einde van de doelbonus focussen studenten in de volgende tentamenperiode vaker als ze bij de aankondiging van de stop van de bonus een Belofte aangeboden kregen (H3a), en als ze na het seizoen gewoon punten bleven verdienen of juist niet (H3b, zie richting)." H3 is verkennend tot de poweranalyse anders laat zien. |
+| H3a: factor Belofte | **Vroeg**: aanbod op maandag 11 januari 2027, een week vóór de stop van de doelbonus op 18 januari 04:00, voor iedereen in de vroege arm op dezelfde dag (besluit founder, 5 november; niet per vereniging). **Laat**: aanbod pas na het aprilvenster. De Belofte raakt geen punten |
+| H3b: factor rustperiode | **Rustperiode**: van 19 januari tot en met 31 maart 2027 verdient de squad geen punten; vanaf 1 april verdient iedereen weer punten, en de aprilchallenge loopt voor iedereen in de tentamenperiode per instelling (besluit founder, 5 november). Verdiende punten blijven inwisselbaar. **Doorlopend**: de squad verdient punten volgens de vaste ratio. Vanaf de eerste dag aangekondigd in de voorwaarden; de toewijzing wordt uiterlijk op 11 januari 2027 aan de gebruiker getoond. De rustperiode is geen beloningsregel maar een vooraf aangekondigde onderzoeksconditie met opt-out zonder verlies van punten; de eis dat geen arm een hogere maximale beloning oplevert (JS2) geldt voor de bonusarmen A en B (besluit founder, 5 november). Alleen als de advocaat geen kanselement of oneerlijke handelspraktijk ziet (vraag 3b); anders vervalt H3b en verdient iedereen doorlopend |
 | Richting H3b | Tweezijdig. "Beloning als steiger" voorspelt dat de rustperiode-arm in april niet slechter scoort; een verdringingseffect zou hem beter laten scoren, een afhankelijkheid van de beloning slechter |
 | Toewijzing | Beide factoren per squad of solo, onafhankelijk geloot; 16- en 17-jarigen buiten de rustperiode-arm |
 | Primaire maat | Gemiddeld aantal sessiedagen per week in het aprilvenster (sessiedag: ≥ 1 goedgekeurde, voltooide sessie van ≥ 25 minuten) **[venster in te vullen per vereniging]** |
 | Analyse-eenheid | Toewijzingseenheid (squad of solo); geclusterd |
 | Analyse | ITT tussen armen, niet vóór tegenover na; zero-inflated verdeling verwacht, dus ook het aandeel met ≥ 1 sessiedag in het venster |
-| Secundair | (1) Aandeel van de januari-actieven (≥ 2 sessiedagen in 11–17 januari) met ≥ 2 sessiedagen per week in 1–14 februari; (2) terugkeer in de aprilperiode zonder nieuwe challenge (aandeel met ≥ 1 sessiedag in het aprilvenster onder wie in maart geen sessie had); (3) sessiedagen per week in maart; (4) Belofte-overname en -naleving, ook naar squadstatus; (5) welzijnsmeting en zelfrapportage (§8.4) |
+| Secundair | (1) Aandeel van de januari-actieven (≥ 2 sessiedagen in 11–17 januari) met ≥ 2 sessiedagen per week in 1–14 februari; (2) terugkeer in de week vóór de aprilchallenge, 25–31 maart (aandeel met ≥ 1 sessiedag in 25–31 maart onder wie in 1–24 maart geen sessie had; de maat "terugkeer zonder nieuwe challenge" is vervallen, besluit founder 5 november; definitie voorstel productteam); (3) sessiedagen per week in maart; (4) Belofte-overname en -naleving, ook naar squadstatus; (5) welzijnsmeting en zelfrapportage (§8.4) |
 | MDE | **[in te vullen na de poweranalyse]** |
 | Beslisregel | Verkennend tenzij de MDE plausibel is. Een effect in de vroege Belofte-arm of de rustperiode-arm met het interval boven nul is input voor het bedrijfsbesluit ("gemeten nawerking", businessplan §4). Geen effect: de verdediging rust alleen op de institutionele relatie, en dat zeggen we tegen investeerders en klanten (businessplan §12) |
 
 ### H4 — Fraude blijft beheersbaar (operationeel)
 
-Primaire maat: het geschatte aandeel frauduleuze accounts uit de onafhankelijke steekproef (§7.1), met 95%-interval. Het aandeel gemarkeerde sessies is een maat voor de wachtrijlast, geen go/no-go. Beslisregel in §5.
+Formulering voor de pitch: "Het geschatte aandeel frauduleuze accounts uit de onafhankelijke steekproef blijft onder 5%." Primaire maat: het geschatte aandeel frauduleuze accounts uit de onafhankelijke steekproef (§7.1), met 95%-interval. Het aandeel gemarkeerde sessies is een maat voor de wachtrijlast, geen go/no-go. Beslisregel in §5.
 
-## 5. Lanceringsbesluit op 18 januari 2027
+## 5. Lanceringsbesluit op 19 januari 2027 (data tot en met 18 januari 04:00)
 
 ### 5.1 Maten en drempels
 
@@ -130,7 +133,7 @@ Primaire maat: het geschatte aandeel frauduleuze accounts uit de onafhankelijke 
 | Activatie | Accounts met een goedgekeurde sessie van ≥ 25 minuten binnen 24 uur na registratie, gedeeld door alle registraties (experimentpopulatie); de oefensessie telt niet | ≥ 60% |
 | D7 go/no-go-cohort | Aandeel van het go/no-go-cohort met ≥ 1 goedgekeurde sessie op dag 7 | ≥ 25%; definitieve drempel per kanaal afgeleid uit de encouragement-controle (de D7 van de standaardflow) **[in te vullen vóór 2 december]** |
 | Geschatte fraude | Onafhankelijke steekproef (§7.1), cumulatief tot en met week 6 | Puntschatting < 5% |
-| Kosten per actieve gebruiker per week | (Kostprijs verzilveringen + verdiende prijzen + verenigingsprijzen) ÷ (gebruikers met ≥ 1 goedgekeurde sessie in die week), per week | Werkhypothese ≤ €0,25 (businessplan §7; **aanname**) |
+| Kosten per wekelijks actieve gebruiker per week | (Kostprijs verzilveringen + verdiende prijzen + verenigingsprijzen) ÷ (gebruikers met ≥ 1 goedgekeurde sessie in die week), per week | Werkhypothese ≤ €0,06, afgeleid uit het maandplafond van €0,25 per maandelijks actieve gebruiker (businessplan §6; besluit founder 5 november; **aanname**) |
 | Deelnemersbescherming | Geen stopregel uit §8.3 geraakt | Geen |
 
 ### 5.2 Stopregel en besluit per uitkomst
@@ -138,7 +141,7 @@ Primaire maat: het geschatte aandeel frauduleuze accounts uit de onafhankelijke 
 | Uitkomst | Besluit |
 |---|---|
 | D7 go/no-go-cohort < 15% | Geen lancering en geen tweede tranche (stopregel) |
-| D30 buiten de tentamenweken < 6% | Geen tweede tranche (stopregel). Definitie (voorstel productteam, besluit founder): aandeel van het go/no-go-cohort met ≥ 1 goedgekeurde sessie in 18–31 januari, de eerste twee weken na de tentamenweken die voor het hele cohort na dag 30 liggen. Deze maat is pas na 31 januari bekend en weegt dus in het bedrijfsbesluit, niet in het lanceringsbesluit |
+| D30 buiten de tentamenweken < 6% | Geen tweede tranche en geen opschaling (stopregel; besluit founder, 5 november). Definitie: aandeel van het go/no-go-cohort met ≥ 1 goedgekeurde sessie in 1–14 februari 2027, een venster buiten de tentamenweken dat voor het hele cohort na dag 30 ligt (eerder voorstel productteam: 18–31 januari). Deze maat is pas na 14 februari bekend en weegt dus in het bedrijfsbesluit, niet in het lanceringsbesluit |
 | D7 tussen 15% en 25% (werkhypothese) | Lancering uitgesteld; productloop eerst repareren en opnieuw meten |
 | Geschatte fraude ≥ 5% | Beloningen in de gratis laag omlaag tot native verificatie er is (voorstel: europlafonds en weekvrijgave halveren); geen lancering in het kanaal met de hoogste geschatte fraude |
 | Activatie < 60% | Lancering uitgesteld tot de onboarding is aangepast en een nieuw cohort ≥ 60% haalt |
@@ -183,7 +186,7 @@ Campus- en CGNAT-adressen worden bij H2, H7 en H10 niet overgeslagen maar met ee
 
 ### 8.1 Geïnformeerde deelname
 
-In de onboarding staat vóór het akkoord een korte uitleg: de pilot vergelijkt twee bonusregels, twee momenten voor de Belofte, een uitnodiging om een squad te vormen en (als de jurist de arm toestaat) een rustperiode zonder nieuwe punten na 18 januari; de toewijzing gebeurt door loting; de doelbonus stopt op 18 januari 2027. Afmelden voor het onderzoek kan altijd in Ik, zonder verlies van punten. Wie zich afmeldt, krijgt vanaf de volgende dag arm A, doorlopende punten en het Belofte-aanbod bij de stop van de doelbonus, en valt vanaf de afmelding buiten de analyse; de afmelding zelf rapporteren we per arm.
+In de onboarding staat vóór het akkoord een korte uitleg: de pilot vergelijkt twee bonusregels, twee momenten voor de Belofte, een uitnodiging om een squad te vormen en (als de jurist de arm toestaat) een rustperiode zonder nieuwe punten van 19 januari tot en met 31 maart 2027; de toewijzing gebeurt door loting; de doelbonus stopt op 18 januari 2027. Afmelden voor het onderzoek kan altijd in Ik, zonder verlies van punten. Wie zich afmeldt, krijgt vanaf de volgende focusdag arm A, doorlopende punten en het Belofte-aanbod bij de stop van de doelbonus (op 11 januari 2027), en valt vanaf de afmelding buiten de analyse; de afmelding zelf rapporteren we per arm.
 
 ### 8.2 Minderjarigen
 
@@ -200,11 +203,11 @@ In de onboarding staat vóór het akkoord een korte uitleg: de pilot vergelijkt 
 
 Hoogstens één bericht per signaal per 14 dagen. Signalen worden per arm geteld, zonder dat het bericht van de arm afhangt.
 
-**Stopregel voor arm B.** Arm B stopt (iedereen arm A vanaf de volgende maandag) als het aandeel gebruikers met ≥ 1 schadesignaal (S1–S4) in arm B **[in te vullen door statisticus en onderzoeker]** procentpunt hoger ligt dan in arm A, of als de welzijnsmeting op stress of ervaren squaddruk een vooraf vastgelegd verschil **[in te vullen]** laat zien. Toetsmoment: elke maandag vanaf week 2, met een correctie voor herhaald kijken **[methode in te vullen]**.
+**Stopregel voor arm B.** Eigenaar: de founder, met de statisticus en de onderzoeker; vast te stellen uiterlijk 25 november 2026. **Werkhypothese** (besluit founder, 5 november): arm B stopt (iedereen arm A vanaf de volgende maandag) als de wekelijkse welzijnsscore (stress en ervaren druk) twee weken achter elkaar minstens een halve standaarddeviatie slechter is dan in arm A, of als het aandeel schadesignalen in arm B meer dan twee keer dat van arm A is (lezing productteam: het aandeel gebruikers met ≥ 1 signaal S1–S4 per week). Toetsmoment: elke maandag vanaf week 2, met een correctie voor herhaald kijken **[methode in te vullen door de statisticus, uiterlijk 25 november]**. Let op: de welzijnsmeting in §8.4 is niet wekelijks (instroom, 18–24 januari, 25–31 januari). Voor het welzijnscriterium is dus een korte wekelijkse meting nodig, of de grens moet op de meetmomenten worden toegepast; besluit van de eigenaar, uiterlijk 25 november (open punt 6).
 
 ### 8.4 Vragenlijsten
 
-Kort, overslaanbaar, zonder punten of andere beloning (zodat beantwoorden niet van de arm afhangt). Het welzijnsinstrument kiest een onderzoeker **[in te vullen: instrument en items]**.
+Kort, overslaanbaar, zonder punten of andere beloning (zodat beantwoorden niet van de arm afhangt). Het welzijnsinstrument kiest een onderzoeker **[in te vullen: instrument en items]**. Grondslag voorlopig gerechtvaardigd belang; de welzijnsitems kunnen gezondheidsgegevens zijn (art. 9 AVG) en staan daarom achter een aparte toestemmingsvraag (besluit founder, 5 november; definitief na vraag advocaat 9). Wie geen toestemming geeft, krijgt de overige items. In de welzijnsanalyse en in het welzijnscriterium van §8.3 telt hij als ontbrekend; het aandeel weigeraars rapporteren we per arm (voorstel productteam).
 
 | Moment | Inhoud |
 |---|---|
@@ -254,11 +257,25 @@ Vóór 2 december draait een gesimuleerd cohort (werkhypothese: 800 fictieve geb
 
 ## 11. Open punten vóór vastlegging
 
-1. **Einde van de rustperiode en de aprilchallenge.** De founder noemt "geen punten tot de aprilchallenge" en meet "terugkeer in de aprilperiode zonder nieuwe challenge". Voorstel productteam: de aprilchallenge begint pas na het aprilvenster, en de rustperiode eindigt op hetzelfde moment; zo meet het venster nawerking zonder challenge. Besluit founder.
-2. **Rustperiode-arm en de vraag aan de advocaat (JS2).** De opdracht aan de advocaat vraagt bevestiging dat geen arm een hogere maximale beloning kan opleveren. De rustperiode-arm levert per constructie minder punten op dan de doorlopende arm. De jurist beoordeelt of dit, met aankondiging vanaf dag één, toelaatbaar is; zo niet, dan vervalt de arm (besluit founder G1).
-3. **D30 buiten de tentamenweken.** Definitie in §5.2 is een voorstel; besluit founder.
+1. **Einde van de rustperiode en de aprilchallenge.** Besloten (founder, 5 november): de rustperiode loopt van 19 januari tot en met 31 maart 2027; vanaf 1 april verdient iedereen weer punten. De aprilmeting is de tentamenperiode per instelling, met de challenge voor iedereen. De maat "terugkeer zonder nieuwe challenge" vervalt; in de plaats komt terugkeer in 25–31 maart (H3, secundair).
+2. **Rustperiode-arm en de vraag aan de advocaat (JS2).** Besloten (founder, 5 november): de eis uit JS2 geldt voor de bonusarmen A en B. De rustperiode is een vooraf aangekondigde onderzoeksconditie met opt-out zonder verlies van punten. De advocaat beoordeelt of er een kanselement of oneerlijke handelspraktijk in zit (vraag 3b); bij een negatief oordeel vervalt de arm.
+3. **D30 buiten de tentamenweken.** Besloten (founder, 5 november): gemeten in 1–14 februari; onder 6% geen tweede tranche en geen opschaling (§5.2). Het lanceringsbesluit hangt alleen aan D7.
 4. **Drempel D7 per kanaal.** Afleiden uit de standaardflow van H1, of een vooraf vastgelegde ondergrens per kanaal; besluit vóór 2 december.
+5. **Instroom op 18 januari.** De experimentpopulatie loopt tot en met 17 januari, lanceringsgebruikers registreren vanaf 19 januari, en de founder noemt de onderzoeksperiode "voor wie vóór 19 januari instroomde". Wie op 18 januari registreert, valt nu in geen van beide groepen. Besluit founder vóór 2 december.
+6. **Wekelijkse welzijnsscore.** De werkhypothese voor de stopregel van arm B (§8.3) gaat uit van een wekelijkse welzijnsscore, die het meetplan (§8.4) niet heeft. Besluit eigenaar (founder met statisticus en onderzoeker) uiterlijk 25 november.
 
 ## Wijzigingslog
 
-**Ronde 1 — 4 november 2026.** Eerste concept, opgesteld door het productteam volgens `docs/pitch/ronde-1-founder-reactie.md` (M4, G1–G4, GS2, GS3, GS7, GS8, GS10, GS11, J1, J2, S10). Bevat per hypothese primaire maat, analyse-eenheid, MDE (in te vullen), beslisregel en stopregel; go/no-go-cohort; kalender; fraudesteekproef; seedprocedure en A/A-controle.
+**Ronde 1 — 5 november 2026.** Eerste concept, opgesteld door het productteam volgens `docs/pitch/ronde-1-founder-reactie.md` (M4, G1–G4, GS2, GS3, GS7, GS8, GS10, GS11, J1, J2, S10). Bevat per hypothese primaire maat, analyse-eenheid, MDE (in te vullen), beslisregel en stopregel; go/no-go-cohort; kalender; fraudesteekproef; seedprocedure en A/A-controle.
+
+**Ronde 1, eindredactie — 5 november 2026.** Bijgewerkt volgens de aanvulling van de founder na de samenhangcontrole (`docs/pitch/ronde-1-founder-reactie.md`, 5 november).
+
+- Lanceringsbesluit op 19 januari 2027, op data tot en met 18 januari 04:00 (§1, §3, §5).
+- D30 buiten de tentamenweken gemeten in 1–14 februari (was voorstel 18–31 januari); onder 6% geen tweede tranche en geen opschaling (§2, §5.2; M4, G3). Open punt 3 gesloten.
+- Kostenplafond €0,06 per wekelijks actieve gebruiker per week, afgeleid uit €0,25 per MAU per maand (§5.1; M2, M4); nieuwe werkhypothese, gemarkeerd als aanname.
+- Belofte-aanbod in de vroege arm op 11 januari 2027 voor iedereen; rustperiode van 19 januari tot en met 31 maart 2027, iedereen weer punten vanaf 1 april, aprilchallenge voor iedereen; secundaire maat terugkeer in 25–31 maart (§3, §4 H3; G1). Open punten 1 en 2 gesloten.
+- H4 kreeg een formulering voor de pitch; H3-zin verduidelijkt ("bij de aankondiging van de stop") (G2).
+- Stopregel arm B: eigenaar, termijn en werkhypothese van de founder ingevuld; toetsmethode nog in te vullen (§8.3; G4).
+- Welzijnsitems achter een aparte toestemmingsvraag, weigeraars als ontbrekend en per arm gerapporteerd (§8.4; J5).
+- Afmelders: vanaf de volgende focusdag, met het vroege Belofte-aanbod (§8.1).
+- Nieuwe open punten 5 (instroom op 18 januari) en 6 (wekelijkse welzijnsscore).
