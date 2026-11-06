@@ -152,6 +152,16 @@ export function formatNumber(locale: Locale, n: number): string {
 
 const STORAGE_KEY = 'rw_locale';
 
+/** Whether this browser holds an explicit language choice (else the account's locale is adopted). */
+export function hasStoredLocale(): boolean {
+  try {
+    const stored = localStorage.getItem(STORAGE_KEY);
+    return stored !== null && (LOCALES as readonly string[]).includes(stored);
+  } catch {
+    return false;
+  }
+}
+
 function initialLocale(): Locale {
   try {
     const stored = localStorage.getItem(STORAGE_KEY);

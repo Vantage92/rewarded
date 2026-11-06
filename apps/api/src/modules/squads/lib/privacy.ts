@@ -10,7 +10,11 @@ type Holder = { [REGISTERED]?: true };
 
 const ERASERS: Record<string, (tx: Db, userId: string) => void> = {
   squads: (tx, id) => {
-    tx.run('UPDATE squad SET admin_user_id = NULL WHERE admin_user_id = ?', [id]);
+    // The admin role goes to the longest-sitting open member (spec §4.4, architecture §10.7), else NULL.
+    for (const q of tx.all<{ id: string }>('SELECT id FROM squad WHERE admin_user_id = ?', [id])) {
+      const next = tx.get<{ user_id: string }>('SELECT user_id FROM squad_membership WHERE squad_id = ? AND left_at IS NULL AND user_id IS NOT NULL AND user_id <> ? ORDER BY joined_at, id LIMIT 1', [q.id, id]);
+      tx.run('UPDATE squad SET admin_user_id = ? WHERE id = ?', [next?.user_id ?? null, q.id]);
+    }
     tx.run("UPDATE squad_membership SET left_at = coalesce(left_at, strftime('%Y-%m-%dT%H:%M:%fZ', 'now')), left_day = coalesce(left_day, date('now')) WHERE user_id = ? AND left_at IS NULL", [id]);
     tx.run('UPDATE squad_membership SET user_id = NULL WHERE user_id = ?', [id]);
     tx.run('UPDATE squad_merge_request SET requested_by = NULL WHERE requested_by = ?', [id]);

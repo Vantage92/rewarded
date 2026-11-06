@@ -13,6 +13,16 @@ import { createServices } from './services/index.ts';
 import { openMigratedDb, startServer } from './server.ts';
 
 loadDotEnv();
+// Production refuses to start without an explicit proxy choice and an https origin (architecture
+// §10.2, §10.3): otherwise every user shares the proxy's IP, or cookies go without Secure.
+if (process.env.TRUST_PROXY !== '0' && process.env.TRUST_PROXY !== '1') {
+  console.error('[api] TRUST_PROXY must be set to 0 or 1 in production');
+  process.exit(1);
+}
+if (!process.env.APP_ORIGIN?.startsWith('https://')) {
+  console.error('[api] APP_ORIGIN must be an https:// origin in production');
+  process.exit(1);
+}
 const config = loadConfig();
 const clock = new SystemClock();
 const secrets = loadSecrets(config.secretsDir);
@@ -27,7 +37,7 @@ const platform: Platform = {
   net: new CidrNetClassifier(CURRENT_PARAMS.net_classes),
   totpKey: secrets.totpKey,
 };
-const http = httpConfigFromEnv(process.env, { appOrigin: 'http://localhost:5173', trustProxy: false, secureCookies: false, release: 'r1' });
+const http = { ...httpConfigFromEnv(process.env, { appOrigin: 'https://invalid.invalid', trustProxy: false, secureCookies: true, release: 'r1' }), secureCookies: true };
 // Without the registered seed (voorregistratie §9.2) the assignment is marked provisional.
 if (secrets.experimentSeed === null) platform.logger?.log('warn', 'experiment_seed_missing');
 const services = createServices(

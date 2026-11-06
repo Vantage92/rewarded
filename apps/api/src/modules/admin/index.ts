@@ -6,7 +6,8 @@
 import { DomainError, routes, type AdminPrize, type FeatureFlagKey } from '@rewarded/contracts';
 import { CURRENT_PARAMS, addDays, focusDayOf, weekKey } from '@rewarded/core';
 import { harmRules, HARM_CODES, type HarmCode } from '@rewarded/core/fraud';
-import { enrollMfa, mfaDepsOf, verifyMfa } from '../../db/adminMfa.ts';
+import { assertMfaNotLocked, enrollMfa, mfaDepsOf, recordMfaFailure, verifyMfa } from '../../db/adminMfa.ts';
+import { RATE_LIMITS } from '../../middleware/rateLimit.ts';
 import { isFeatureEnabled, setFeatureFlag } from '../../db/flags.ts';
 import type { Db } from '../../db/types.ts';
 import { mount, reply } from '../../middleware/route.ts';
@@ -14,7 +15,7 @@ import type { ApiModule, ModuleDeps } from '../../module.ts';
 import { installWp6Services } from '../fraud/lib/install.ts';
 import { loadPrize, type PrizeRow } from '../fraud/lib/prizes.ts';
 import type { SqlPrizeService } from '../fraud/lib/prizes.ts';
-import { actorOf, hasTables, idsOf, parseJson, ref } from '../fraud/lib/util.ts';
+import { actorOf, assertNotOwnSubject, hasTables, idsOf, parseJson, ref } from '../fraud/lib/util.ts';
 import { ambassadorPayout, createAmbassador, listAmbassadors } from './ambassadors.ts';
 
 /** Flags whose switch needs a second admin (architecture §8.2): turning arm B or the rest arm on, and stopping arm B. */
@@ -83,9 +84,17 @@ export const module: ApiModule = {
       routes['admin.mfa.verify'],
       ({ auth, body }) => {
         if (auth.kind !== 'user' || auth.user.adminRole === null) throw new DomainError('FORBIDDEN');
-        return db.transaction(() => verifyMfa(db, mfaDepsOf(deps.platform), auth.user.id, auth.sessionId, body.code));
+        const mfa = mfaDepsOf(deps.platform);
+        assertMfaNotLocked(db, mfa, auth.user.id);
+        try {
+          return db.transaction(() => verifyMfa(db, mfa, auth.user.id, auth.sessionId, body.code));
+        } catch (err) {
+          // The failure is stored outside the rolled-back transaction, so the limit survives a restart.
+          if (err instanceof DomainError && err.code === 'MFA_INVALID') db.transaction(() => recordMfaFailure(db, mfa, auth.user.id));
+          throw err;
+        }
       },
-      { allowWithoutMfa: true },
+      { allowWithoutMfa: true, rateLimits: [RATE_LIMITS.mfaVerify] },
     );
 
     // --- users ------------------------------------------------------------------------------
@@ -150,6 +159,7 @@ export const module: ApiModule = {
     mount(api, routes['admin.prizes.verify'], ({ auth, params, body }) => {
       const actor = actorOf(deps, auth);
       return db.transaction(() => {
+        assertNotOwnSubject(deps, actor, [loadPrize(db, params.id)?.winner_user_id]);
         prizes().verify(db, params.id, actor);
         deps.services.audit.audit(db, { actor, action: 'prize_verified', objectType: 'prize', objectRef: params.id, reason: body.note ?? JSON.stringify(body.checks) });
         return { prize: prizeDto(deps, loadPrize(db, params.id) as PrizeRow) };

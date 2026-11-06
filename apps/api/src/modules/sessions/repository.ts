@@ -42,6 +42,7 @@ export interface SessionRow {
   clock_skew_ms: number | null;
   claim_delay_s: number | null;
   webdriver: number;
+  ua_headless?: number;
   standalone: number;
   ua_class: string;
   ip_hash: string | null;
@@ -116,6 +117,7 @@ export function headerOf(r: SessionRow): SessionHeader {
     verificationLevel: 1,
     webdriver: r.webdriver === 1,
     uaClass: r.ua_class,
+    uaHeadless: r.ua_headless === 1,
   };
 }
 

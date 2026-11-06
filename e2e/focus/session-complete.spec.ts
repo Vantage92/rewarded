@@ -16,7 +16,7 @@ test('spec §3.2 / arch §11: a 25-minute session with the clock moving forward 
   // F5: daily goal first, points small at the bottom.
   await expect(page.getByText('25 minuten. Je dagdoel is gehaald.')).toBeVisible();
   // Standard Playwright has navigator.webdriver = true: completed but marked H1, points under review (§11).
-  await expect(page.getByText(/Deze sessie wordt nagekeken\./)).toBeVisible();
+  await expect(page.getByText(/Deze sessie wordt nagekeken/)).toBeVisible();
   const s = rw.fake.session()!;
   expect(s.status).toBe('completed');
   expect(s.flags).toEqual(['H1']);

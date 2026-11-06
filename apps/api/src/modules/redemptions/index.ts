@@ -12,6 +12,7 @@ import { idsFor } from '../../db/ids.ts';
 import { adminActor } from '../../db/services/audit.ts';
 import type { Db } from '../../db/types.ts';
 import type { AuthState } from '../../middleware/context.ts';
+import { saveIdempotentResponse } from '../../middleware/idempotency.ts';
 import { enforceRateLimit, RATE_LIMITS } from '../../middleware/rateLimit.ts';
 import { mount, reply } from '../../middleware/route.ts';
 import type { ApiModule, ModuleDeps } from '../../module.ts';
@@ -194,7 +195,13 @@ export const module: ApiModule = {
         enforceRateLimit(c, RATE_LIMITS.redemptions);
         let res: ReturnType<typeof redeem>;
         try {
-          res = db.transaction(() => redeem(user.id, body.reward_id));
+          // The idempotent answer is stored in the same transaction as the redemption, so a retry during a
+          // slow mail or after a crash gets the stored answer instead of WEEKLY_CAP.
+          res = db.transaction(() => {
+            const r = redeem(user.id, body.reward_id);
+            saveIdempotentResponse(db, c, deps.platform.clock, 201, { redemption_id: r.id, voucher_code: r.code, points: r.points, points_from_referral: r.fromReferral });
+            return r;
+          });
         } catch (err) {
           const reden = err instanceof DomainError ? BLOCK_REASON[err.code] : undefined;
           // The refusal itself is the domain fact; nothing else was written (the transaction rolled back).

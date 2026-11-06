@@ -90,7 +90,19 @@ export function createWebApi({ mode = resolveApiMode(), baseUrl = '/api/v1', fet
     web.api = gated(mockReady, mockDelayMs);
     return web;
   }
-  const doFetch: FetchLike = fetch ?? ((url, init) => globalThis.fetch(url, init as RequestInit));
+  const rawFetch: FetchLike = fetch ?? ((url, init) => globalThis.fetch(url, init as RequestInit));
+  // The server sets rw_csrf on any response, also on the 403 for a missing cookie. A fresh browser
+  // whose first call is unsafe (POST /auth/magic-link straight from /login) has no cookie yet; such
+  // a call is retried once with the cookie the 403 brought (QA fix). No extra request otherwise.
+  const doFetch: FetchLike = async (url, init) => {
+    const res = await rawFetch(url, init);
+    if (res.status !== 403 || init.method === 'GET' || init.headers['X-CSRF-Token'] || typeof document === 'undefined') return res;
+    const token = readCsrfCookie();
+    if (!token) return res;
+    const body = await res.text();
+    if (!body.includes('CSRF_INVALID')) return { status: res.status, ok: res.ok, text: async () => body };
+    return rawFetch(url, { ...init, headers: { ...init.headers, 'X-CSRF-Token': token } });
+  };
   return {
     api: createApiClient({ fetch: doFetch, baseUrl, csrfToken: () => readCsrfCookie(), validateResponses: import.meta.env.DEV }),
     mode,

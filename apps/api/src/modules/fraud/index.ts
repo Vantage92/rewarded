@@ -7,7 +7,7 @@ import { isoWeekKey } from '@rewarded/core/catalog';
 import { isValidFlagReason } from '@rewarded/core/fraud';
 import { reply, mount } from '../../middleware/route.ts';
 import type { ApiModule } from '../../module.ts';
-import { decideAppeal, submitAppeal, type AppealRow } from './lib/appeals.ts';
+import { decideAppeal, myDecisions, submitAppeal, type AppealRow } from './lib/appeals.ts';
 import { confirmBlock, decideFlag } from './lib/decisions.ts';
 import { flagDto, flagDtoById } from './lib/dto.ts';
 import { loadFlag, type FlagRow } from './lib/flags.ts';
@@ -26,10 +26,17 @@ export const module: ApiModule = {
     const { db } = deps;
 
     // --- student ---------------------------------------------------------------------------
-    mount(api, routes['appeals.create'], ({ auth, body }) => {
-      const user = studentOf(auth);
-      return db.transaction(() => reply(201, { appeal_id: submitAppeal(deps, db, user.id, body.object_type, body.object_id, body.text) }));
-    });
+    mount(
+      api,
+      routes['appeals.create'],
+      ({ auth, body }) => {
+        const user = studentOf(auth);
+        return db.transaction(() => reply(201, { appeal_id: submitAppeal(deps, db, user.id, body.object_type, body.object_id, body.text) }));
+      },
+      { allowBlocked: true },
+    );
+
+    mount(api, routes['appeals.mine'], ({ auth }) => ({ items: myDecisions(deps, db, studentOf(auth).id) }), { allowBlocked: true });
 
     mount(
       api,

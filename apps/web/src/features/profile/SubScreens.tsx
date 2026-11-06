@@ -152,7 +152,7 @@ export function PlusScreen() {
   return (
     <Screen title={t('profile:title')}>
       <h2>{t('points:plus.title')}</h2>
-      {me.data && !on ? <p>{t('profile:referral.off')}</p> : null}
+      {me.data && !on ? <p>{t('points:plus.off')}</p> : null}
       {on ? (
         <>
           <p>{t('points:plus.text')}</p>

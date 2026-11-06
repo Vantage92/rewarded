@@ -3,11 +3,12 @@
 // UX §3.1, the /me query, client events and date formatting in Europe/Amsterdam.
 import type { ClientEvent, ErrorCode, MeResponse } from '@rewarded/contracts';
 import { ApiClientError } from '@rewarded/contracts/client';
+import { useQueryClient } from '@tanstack/react-query';
 import { useCallback, useEffect, type ReactNode } from 'react';
 import { useShell } from '../../app/shell.tsx';
-import { Banner, Button } from '../../design/index.ts';
-import { TIME_ZONE, useT, type Locale } from '../../i18n/index.tsx';
-import { errorText, useApi, useApiQuery } from '../../lib/api/index.ts';
+import { Banner, Button, Segment } from '../../design/index.ts';
+import { LOCALES, TIME_ZONE, hasStoredLocale, useT, type Locale } from '../../i18n/index.tsx';
+import { apiKey, errorText, useApi, useApiMutation, useApiQuery } from '../../lib/api/index.ts';
 import './kit.css';
 
 /** Screen frame: the single h1 of the page (UX §5.8) and its content. */
@@ -64,7 +65,38 @@ export function useMe() {
   const { setNoPointsMode } = useShell();
   const noPoints = query.data?.settings?.no_points_mode ?? false;
   useEffect(() => setNoPointsMode(noPoints), [noPoints, setNoPointsMode]);
+  useAccountLocale(query.data?.user?.locale);
   return query;
+}
+
+/** A new device starts in the account's language when the browser holds no choice yet. */
+export function useAccountLocale(accountLocale: Locale | undefined) {
+  const { locale, setLocale } = useT();
+  useEffect(() => {
+    if (accountLocale && accountLocale !== locale && !hasStoredLocale()) setLocale(accountLocale);
+  }, [accountLocale, locale, setLocale]);
+}
+
+/** Language switch of P1: the browser and the account (mails, catalogue and challenge titles). */
+export function AccountLanguageSwitch() {
+  const { t, locale, setLocale } = useT();
+  const qc = useQueryClient();
+  const patch = useApiMutation('me.settings', {
+    onSuccess: () => {
+      for (const id of ['me.get', 'catalog.list', 'challenges.list'] as const) void qc.invalidateQueries({ queryKey: apiKey(id) });
+    },
+  });
+  return (
+    <Segment<Locale>
+      label={t('language.label')}
+      options={LOCALES.map((l) => ({ value: l, label: t(`language.${l}`) }))}
+      value={locale}
+      onChange={(l) => {
+        setLocale(l);
+        patch.mutate({ body: { locale: l } });
+      }}
+    />
+  );
 }
 
 /** Helpers on /me used by several screens. */

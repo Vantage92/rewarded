@@ -55,7 +55,7 @@
     "code": "Code from the email",
     "confirm": "Confirm",
     "sent": "We sent a code to that address.",
-    "in_use": "This address has already been confirmed by another account. Not right? Ask via Help; a person will look at it.",
+    "in_use": "This address has already been confirmed by another account. Not right? Let us know via the contact address in the privacy statement; a person looks at it.",
     "domain": "This domain is not on the list of pilot institutions."
   },
   "links": {
@@ -107,5 +107,62 @@
     "none": "Nobody has started via your link yet.",
     "off": "The personal link is not switched on right now."
   },
-  "plus_link": "Plus is coming"
+  "plus_link": "Plus is coming",
+  "decisions": {
+    "title": "Notifications",
+    "empty": "No notifications or decisions.",
+    "open": "A person is looking at this, usually within 3 working days.",
+    "on": "Decision of {date}.",
+    "reason": {
+      "no_evidence": "We reviewed your session. Everything is fine; your points are released.",
+      "pattern_explained": "We reviewed your session. Everything is fine; your points are released.",
+      "shared_network": "We reviewed your session. The shared network explains the pattern; your points are released.",
+      "outage_confirmed": "We had an outage at that moment. Your session counts as completed after all.",
+      "late_log_valid": "Your device sent a valid log after all. Your session counts as completed after all.",
+      "false_positive": "We reviewed your session. Everything is fine; your points are released.",
+      "automation": "This session ran in a browser controlled by software. That is why it does not count. You can appeal within 14 days.",
+      "multiple_accounts": "This session belongs to a pattern of several accounts. That is why it does not count. You can appeal within 14 days.",
+      "shared_device": "This session belongs to a pattern of several accounts on one device. That is why it does not count. You can appeal within 14 days.",
+      "unattended_device": "The pattern of these sessions fits a device that kept running without you. That is why they do not count. You can appeal within 14 days.",
+      "implausible_pattern": "The pattern of these sessions does not fit focusing. That is why they do not count. You can appeal within 14 days.",
+      "clock_manipulation": "Your device's clock was far off from ours. That is why this session does not count. You can appeal within 14 days.",
+      "incomplete_evidence": "For too large a part of this session we got no signal. That is why it does not count. You can appeal within 14 days.",
+      "fraud_confirmed": "Your account is blocked: two reviewers found fraud. You can appeal within 14 days.",
+      "repeat_offence": "Your account is blocked after repeated rejected sessions. You can appeal within 14 days.",
+      "blocked_phone_reuse": "Your account is blocked: the phone number belongs to a blocked account. You can appeal within 14 days.",
+      "other": "A decision was made about your session or account."
+    },
+    "appeal": "Appeal",
+    "appeal_until": "You can appeal until {date}.",
+    "appeal_open": "Your appeal is in. Another reviewer decides within 5 working days.",
+    "appeal_upheld": "A second reviewer agreed with you. Your points are back and the session counts.",
+    "appeal_denied": "A second reviewer looked again and reached the same decision: {motivation}",
+    "appeal_title": "Appeal",
+    "appeal_text": "Explain in your own words why the decision is wrong. A reviewer other than the first one decides.",
+    "appeal_label": "Your explanation",
+    "appeal_send": "Send appeal",
+    "appeal_cancel": "Cancel",
+    "appeal_sent": "Your appeal is in. You see its status here under Notifications."
+  },
+  "blocked": {
+    "title": "Your account is blocked",
+    "intro": "You cannot start sessions or redeem anything. You can still appeal, download your data and delete your account.",
+    "rights": "You can always download your data or delete your account.",
+    "privacy": "Go to privacy and data"
+  },
+  "logout": "Log out",
+  "reminders": {
+    "time": "Reminder time",
+    "days": "On these days",
+    "day": {
+      "1": "Mon",
+      "2": "Tue",
+      "3": "Wed",
+      "4": "Thu",
+      "5": "Fri",
+      "6": "Sat",
+      "7": "Sun"
+    },
+    "saved": "Saved."
+  }
 }

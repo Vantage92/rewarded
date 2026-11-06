@@ -37,6 +37,7 @@ export const MIGRATION_SERIES: readonly { from: number; to: number; owner: strin
   { from: 100, to: 199, owner: 'WP-4' },
   { from: 200, to: 299, owner: 'WP-5' },
   { from: 300, to: 399, owner: 'WP-6' },
+  { from: 400, to: 499, owner: 'REPARATIE' },
 ];
 
 export function migrationOwner(version: string): string | undefined {

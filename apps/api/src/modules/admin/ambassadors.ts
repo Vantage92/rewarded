@@ -64,9 +64,12 @@ export function countedUsers(db: Db, ambassadorId: string, monthKey: string): st
   const P = CURRENT_PARAMS.ambassadors;
   const rows = db.all<{ id: string; created_at: string; n: number }>(
     `SELECT u.id, u.created_at,
-            (SELECT count(*) FROM focus_session s WHERE s.user_id = u.id AND s.status = 'completed' AND s.is_practice = 0 AND s.review_status <> 'rejected'
+            (SELECT count(*) FROM focus_session s WHERE s.user_id = u.id AND s.status = 'completed' AND s.is_practice = 0 AND s.review_status IN ('none', 'released')
                AND s.server_start_at < (CAST(strftime('%s', u.created_at) AS INTEGER) + ? * 86400) * 1000) AS n
        FROM user u WHERE u.registration_invite_id = ? AND u.institution_email_hash IS NOT NULL AND u.status = 'active' AND substr(u.created_at, 1, 7) = ?
+        -- Accounts with an open flag do not count (the only path where web sessions lead to money).
+        AND NOT EXISTS (SELECT 1 FROM fraud_flag f LEFT JOIN fraud_flag_session l ON l.flag_id = f.id
+                         WHERE f.status = 'open' AND (l.user_id = u.id OR (f.subject_type = 'account' AND f.subject_id = u.id)))
       ORDER BY u.created_at, u.id`,
     [P.eval_day, a.code_invite_id, monthKey],
   );
@@ -82,7 +85,7 @@ export type PayoutStep = { status: 'sampled' | 'proposed' | 'recorded'; sampleId
  * second admin records it. The payment itself runs outside the app.
  */
 export function ambassadorPayout(deps: ModuleDeps, tx: Db, ambassadorId: string, monthKey: string, actor: AdminActor): PayoutStep {
-  const existing = tx.get<{ id: string; status: PayoutStep['status']; sample_id: string; proposed_by: string | null }>('SELECT id, status, sample_id, proposed_by FROM ambassador_payout WHERE ambassador_id = ? AND month_key = ?', [
+  const existing = tx.get<{ id: string; status: PayoutStep['status']; sample_id: string; proposed_by: string | null; counted_users: number | null }>('SELECT id, status, sample_id, proposed_by, counted_users FROM ambassador_payout WHERE ambassador_id = ? AND month_key = ?', [
     ambassadorId,
     monthKey,
   ]);
@@ -91,13 +94,15 @@ export function ambassadorPayout(deps: ModuleDeps, tx: Db, ambassadorId: string,
   if (!existing) {
     const counted = countedUsers(tx, ambassadorId, monthKey);
     const sampleId = drawAmbassadorSample(deps, tx, ambassadorId, monthKey, counted);
-    tx.run("INSERT INTO ambassador_payout (id, ambassador_id, month_key, sample_id, status, created_at) VALUES (?, ?, ?, ?, 'sampled', ?)", [idsOf(deps).ulid(), ambassadorId, monthKey, sampleId, now]);
+    // The count is frozen when the sample is drawn; later it can only go down (a new flag), never up.
+    tx.run("INSERT INTO ambassador_payout (id, ambassador_id, month_key, sample_id, status, created_at, counted_users) VALUES (?, ?, ?, ?, 'sampled', ?, ?)", [idsOf(deps).ulid(), ambassadorId, monthKey, sampleId, now, counted.length]);
     deps.services.audit.audit(tx, { actor, action: 'ambassador_sample_drawn', objectType: 'ambassador', objectRef: ambassadorId, reason: monthKey });
     return { status: 'sampled', sampleId, counted: counted.length, feeCents: 0 };
   }
   const open = tx.get<{ n: number }>('SELECT count(*) AS n FROM fraud_sample_item WHERE sample_id = ? AND judged_at IS NULL', [existing.sample_id])?.n ?? 0;
   if (open > 0) throw new DomainError('AMBASSADOR_SAMPLE_REQUIRED', { open_items: open });
-  const counted = countedUsers(tx, ambassadorId, monthKey).length;
+  const now_ = countedUsers(tx, ambassadorId, monthKey).length;
+  const counted = existing.counted_users === null ? now_ : Math.min(existing.counted_users, now_);
   if (existing.status === 'sampled') {
     tx.run("UPDATE ambassador_payout SET status = 'proposed', proposed_by = ?, counted_users = ? WHERE id = ?", [actor, counted, existing.id]);
     deps.services.audit.audit(tx, { actor, action: 'ambassador_payout_proposed', objectType: 'ambassador', objectRef: ambassadorId, reason: `${monthKey}:${counted}` });

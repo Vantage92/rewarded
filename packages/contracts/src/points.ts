@@ -67,6 +67,8 @@ export const TodayResponse = z.strictObject({
     .optional(),
   survey_due: SurveyMoment.optional(),
   rest_notice: z.strictObject({ arm_rest: ArmRest }).optional(),
+  /** Arm B: what is still in the weekly budget (pending_goal_budget) for the Bonusregel (UX §6.2; repair wave). */
+  week_budget: z.strictObject({ remaining: NonNegInt, per_day: NonNegInt, first_day_of_week: z.boolean() }).optional(),
 });
 
 export const pointsRoutes = defineRoutes({

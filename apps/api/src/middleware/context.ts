@@ -30,6 +30,8 @@ export interface HttpConfig {
   appOrigin: string;
   /** Read the client IP from X-Forwarded-For (only behind our own reverse proxy). */
   trustProxy: boolean;
+  /** Number of our own proxies in front of the API (TRUST_PROXY_HOPS, default 1). */
+  proxyHops?: number;
   /** Secure flag on cookies (off on localhost). */
   secureCookies: boolean;
   /** Release tag written on events. */
@@ -68,6 +70,7 @@ export function httpConfigFromEnv(env: NodeJS.ProcessEnv, fallback: HttpConfig =
   return {
     appOrigin,
     trustProxy: env.TRUST_PROXY === '1' || (env.TRUST_PROXY === undefined && fallback.trustProxy),
+    proxyHops: Math.max(1, Number.parseInt(env.TRUST_PROXY_HOPS ?? '1', 10) || 1),
     secureCookies: appOrigin.startsWith('https://'),
     release: env.RELEASE || fallback.release,
   };

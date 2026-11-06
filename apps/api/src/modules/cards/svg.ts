@@ -72,6 +72,6 @@ export const SVG_HEADERS: Readonly<Record<string, string>> = Object.freeze({
   'Content-Security-Policy': "default-src 'none'; style-src 'unsafe-inline'; img-src 'none'; script-src 'none'; frame-ancestors 'none'; sandbox",
   'X-Content-Type-Options': 'nosniff',
   'Cache-Control': 'private, no-store',
-  'Content-Disposition': 'inline; filename="rewarded-kaart.svg"',
+  'Content-Disposition': 'attachment; filename="rewarded-kaart.svg"',
   'Cross-Origin-Resource-Policy': 'same-origin',
 });

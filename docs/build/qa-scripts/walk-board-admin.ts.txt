@@ -1,0 +1,181 @@
+// QA walk-through of the Rewarded MVP on the demo seed against `pnpm dev` (http://localhost:5173).
+import { chromium, type Page, type BrowserContext } from '/home/user/rewarded/node_modules/@playwright/test/index.mjs';
+import { adminTotp } from '/home/user/rewarded/tooling/seed/admins.ts';
+import { writeFileSync, mkdirSync } from 'node:fs';
+
+const WEB = 'http://localhost:5173';
+const API = `${WEB}/api/v1`;
+const OUT = '/home/user/rewarded/docs/build/screenshots';
+mkdirSync(OUT, { recursive: true });
+const log: { step: string; ok: boolean; notes: string[]; shot?: string }[] = [];
+let cur: { step: string; ok: boolean; notes: string[]; shot?: string };
+const begin = (step: string) => { cur = { step, ok: true, notes: [] }; log.push(cur); console.log(`\n== ${step}`); };
+const note = (s: string) => { cur.notes.push(s); console.log('  ' + s); };
+const fail = (s: string) => { cur.ok = false; note('FOUT: ' + s); };
+
+// ---- tiny API client with a cookie jar ----
+class Client {
+  jar = new Map<string, string>();
+  ip: string;
+  constructor(ip: string) { this.ip = ip; }
+  async req(method: string, path: string, body?: unknown) {
+    if (method !== 'GET' && !this.jar.has('rw_csrf')) await this.req('GET', '/health');
+    const headers: Record<string, string> = { Origin: WEB, 'X-Forwarded-For': this.ip, 'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/140 Safari/537.36' };
+    if (this.jar.size) headers.Cookie = [...this.jar].map(([k, v]) => `${k}=${v}`).join('; ');
+    if (method !== 'GET') { headers['X-CSRF-Token'] = this.jar.get('rw_csrf')!; headers['Content-Type'] = 'application/json'; headers['Idempotency-Key'] = crypto.randomUUID(); }
+    const r = await fetch(API + path, { method, headers, body: body === undefined ? undefined : JSON.stringify(body) });
+    for (const c of r.headers.getSetCookie()) { const [kv] = c.split(';'); const i = kv!.indexOf('='); this.jar.set(kv!.slice(0, i), kv!.slice(i + 1)); }
+    const text = await r.text();
+    let json: any; try { json = JSON.parse(text); } catch { json = text; }
+    if (!r.ok) throw new Error(`${method} ${path} -> ${r.status} ${text.slice(0, 300)}`);
+    return json;
+  }
+}
+const dev = new Client('203.0.113.250');
+const serverNow = async () => Date.parse((await dev.req('POST', '/dev/clock', { advance_ms: 0 })).now);
+const setServer = async (ms: number) => dev.req('POST', '/dev/clock', { set: new Date(ms).toISOString() });
+const inbox = async (to: string) => (await dev.req('GET', `/dev/inbox?to=${encodeURIComponent(to)}`)).messages as { channel: string; to: string; subject?: string; text: string }[];
+const lastCode = async (to: string) => {
+  const m = (await inbox(to)).filter((x) => /\b\d{6}\b/.test(x.text)).at(-1);
+  if (!m) throw new Error('no code for ' + to);
+  return m.text.match(/\b(\d{6})\b/)![1]!;
+};
+
+// ---- browser helpers ----
+async function syncServerToPage(page: Page) { const t = await page.evaluate(() => Date.now()); await setServer(t); }
+async function newCtx(browser: any, viewport: { width: number; height: number }): Promise<{ ctx: BrowserContext; page: Page }> {
+  const ctx = await browser.newContext({ viewport, deviceScaleFactor: 2, isMobile: viewport.width < 500, hasTouch: viewport.width < 500, locale: 'nl-NL', timezoneId: 'Europe/Amsterdam',
+    userAgent: viewport.width < 500 ? 'Mozilla/5.0 (Linux; Android 14; Pixel 7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Mobile Safari/537.36' : undefined });
+  const page = await ctx.newPage();
+  await page.addInitScript(() => {
+    (globalThis as any).__RW_TEST__ = true;
+    // A normal phone browser: webdriver false, so the sessions are not marked H1.
+    Object.defineProperty(Navigator.prototype, 'webdriver', { configurable: true, get: () => false });
+  });
+  await page.clock.install({ time: await serverNow() });
+  return { ctx, page };
+}
+async function shot(page: Page, name: string, full = true) {
+  const file = `${OUT}/${name}.png`;
+  await page.waitForTimeout(400);
+  await page.screenshot({ path: file, fullPage: full });
+  cur.shot = (cur.shot ? cur.shot + ', ' : '') + `${name}.png`;
+  console.log('  [shot] ' + name);
+}
+async function bodyText(page: Page) { return (await page.locator('body').innerText()).replace(/\s+\n/g, '\n'); }
+async function checkWords(page: Page, where: string) {
+  const t = await bodyText(page);
+  if (/bewezen/i.test(t)) fail(`"bewezen" op ${where}`);
+  // Euro amount near points on the same line.
+  for (const line of t.split('\n')) if (/punt/i.test(line) && /€|euro/i.test(line)) fail(`eurowaarde bij punten op ${where}: "${line.trim()}"`);
+  return t;
+}
+/** Lockstep: server clock and paused page clock move together. */
+async function advance(page: Page, ms: number, step = 30_000) {
+  for (let left = ms; left > 0; left -= step) {
+    const d = Math.min(step, left);
+    await setServer((await serverNow()) + d);
+    await page.clock.runFor(d);
+    await page.waitForTimeout(60);
+  }
+}
+async function pause(page: Page) {
+  const t = await page.evaluate(() => Date.now());
+  await setServer(t + 1000);
+  await page.clock.pauseAt(t + 1000);
+}
+async function waitVisible(page: Page, loc: ReturnType<Page['getByText']>, timeout = 15_000) {
+  await loc.first().waitFor({ state: 'visible', timeout });
+}
+
+
+import { DatabaseSync } from 'node:sqlite';
+async function main() {
+  const browser = await chromium.launch();
+  await dev.req('GET', '/health');
+  await setServer((await serverNow()) + 120_000);
+  const db = new DatabaseSync('/home/user/rewarded/.data/rewarded.sqlite', { readOnly: true });
+  const clubId = (db.prepare("SELECT id FROM club WHERE name = 'Studievereniging Kompas'").get() as any).id;
+  const names = (db.prepare("SELECT DISTINCT u.first_name AS f FROM user u JOIN club_membership m ON m.user_id = u.id WHERE m.club_id = ? AND u.first_name IS NOT NULL").all(clubId) as any[]).map((r) => r.f).filter((n: string) => n && n.length > 2);
+  console.log('kompas names', names.length, names.slice(0, 8).join(','));
+  const mainText = async (p: Page) => (await p.locator('main').first().innerText().catch(async () => bodyText(p)));
+  const demoEmail = 'sanne.devries@student.demostad.test';
+  const login = async (p: Page, email: string) => {
+    await p.goto(WEB + '/login');
+    await p.getByLabel('E-mailadres').fill(email);
+    await p.getByRole('button', { name: 'Stuur link' }).click();
+    await waitVisible(p, p.getByRole('heading', { name: 'Check je mail' }) as any);
+    await p.getByLabel('Code van 6 cijfers').fill(await lastCode(email));
+    await p.getByRole('button', { name: 'Ga verder' }).click();
+    await p.waitForTimeout(1500);
+  };
+  // Board
+  const { ctx: bctx, page: bpage } = await newCtx(browser, { width: 1280, height: 800 });
+  begin('bestuur: /bestuur zonder club-id');
+  await login(bpage, demoEmail);
+  await bpage.goto(WEB + '/bestuur'); await bpage.waitForTimeout(1500);
+  await shot(bpage, 'bestuur-40-start-zonder-link');
+  note((await mainText(bpage)).replace(/\n+/g, ' | '));
+  for (const tab of ['', 'werving', 'promotiekit', 'prijs', 'kwaliteit']) {
+    begin(`bestuur: dashboard ${tab || 'stand'}`);
+    await bpage.goto(`${WEB}/bestuur/${clubId}/${tab}`); await bpage.waitForTimeout(2500);
+    const t = await checkWords(bpage, `/bestuur ${tab}`);
+    await shot(bpage, `bestuur-4${['', 'werving', 'promotiekit', 'prijs', 'kwaliteit'].indexOf(tab) + 1}-${tab || 'stand'}`);
+    const leaked = names.filter((n: string) => new RegExp(`\\b${n}\\b`).test(t) && n !== 'Sanne');
+    if (leaked.length) fail('namen van leden zichtbaar: ' + leaked.join(', ')); else note('geen voornamen van leden (behalve de ingelogde bestuurder zelf, indien getoond)');
+    note((await mainText(bpage)).replace(/\n+/g, ' | ').slice(0, 1500));
+  }
+  // Another club's dashboard must be refused.
+  begin('bestuur: dashboard van een andere vereniging');
+  const other = (db.prepare("SELECT id FROM club WHERE name = 'Studievereniging Prisma'").get() as any).id;
+  await bpage.goto(`${WEB}/bestuur/${other}`); await bpage.waitForTimeout(2000);
+  await shot(bpage, 'bestuur-46-andere-vereniging');
+  note((await mainText(bpage)).replace(/\n+/g, ' | ').slice(0, 400));
+  await bctx.close();
+
+  // Admin
+  const { ctx: actx, page: apage } = await newCtx(browser, { width: 1280, height: 800 });
+  begin('beheer: inloggen met code en TOTP');
+  await login(apage, 'chris.beheer@rewarded.test');
+  await apage.goto(WEB + '/beheer'); await apage.waitForTimeout(1500);
+  await shot(apage, 'beheer-50-tweede-factor');
+  await syncServerToPage(apage);
+  await apage.getByLabel(/Code van zes cijfers/).fill(adminTotp('chris', new Date(await serverNow())));
+  await apage.getByRole('button', { name: /Bevestig|Verder|Inloggen|Controleer/ }).first().click();
+  await apage.waitForTimeout(2000);
+  await shot(apage, 'beheer-51-overzicht');
+  note((await mainText(apage)).replace(/\n+/g, ' | ').slice(0, 1200));
+  begin('beheer: fraudewachtrij, markering vrijgeven');
+  await apage.goto(WEB + '/beheer/wachtrij'); await apage.waitForTimeout(2500);
+  await shot(apage, 'beheer-52-wachtrij');
+  const before = (db.prepare("SELECT status, count(*) n FROM fraud_flag GROUP BY status").all() as any[]).map((r) => `${r.status}=${r.n}`).join(' ');
+  note('fraud_flag voor: ' + before);
+  note((await mainText(apage)).replace(/\n+/g, ' | ').slice(0, 1500));
+  const card = apage.getByRole('form', { name: /Besluit over markering/ }).first();
+  await card.waitFor({ timeout: 10_000 });
+  const label = await card.getAttribute('aria-label');
+  note('eerste kaart: ' + label);
+  await card.getByLabel(/^Redencode/).selectOption('no_evidence');
+  await card.getByLabel('Interne toelichting').fill('QA: gewone browser na controle.');
+  await shot(apage, 'beheer-53-besluit-ingevuld', false);
+  await card.getByRole('button', { name: 'Besluit vastleggen' }).click({ force: true });
+  await apage.waitForTimeout(2500);
+  await shot(apage, 'beheer-54-na-vrijgave');
+  const after = (db.prepare("SELECT status, count(*) n FROM fraud_flag GROUP BY status").all() as any[]).map((r) => `${r.status}=${r.n}`).join(' ');
+  note('fraud_flag na: ' + after);
+  if (before === after) fail('geen statuswijziging in fraud_flag na het besluit');
+  note((await mainText(apage)).replace(/\n+/g, ' | ').slice(0, 600));
+  for (const sub of ['kpi', 'verenigingen', 'tentamenkalenders', 'auditlog', 'vier-ogen']) {
+    begin(`beheer: ${sub}`);
+    await apage.goto(`${WEB}/beheer/${sub}`); await apage.waitForTimeout(2000);
+    await checkWords(apage, '/beheer/' + sub);
+    await shot(apage, `beheer-6x-${sub}`);
+    note((await mainText(apage)).replace(/\n+/g, ' | ').slice(0, 800));
+  }
+  await actx.close();
+  await browser.close();
+}
+main().catch((e) => { if (cur) fail(String(e?.message ?? e).slice(0, 600)); console.error(e); }).finally(() => {
+  writeFileSync('/tmp/qa-log-part2.json', JSON.stringify(log, null, 2));
+  process.exit(0);
+});

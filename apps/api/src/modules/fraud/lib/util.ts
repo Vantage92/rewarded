@@ -79,3 +79,11 @@ export function parseJson<T>(text: string | null | undefined, fallback: T): T {
     return fallback;
   }
 }
+
+/**
+ * Conflict of interest (architecture §10.8): an admin never decides about his own sessions, account,
+ * appeal or prize. SAME_REVIEWER when one of the subject's users is the acting admin.
+ */
+export function assertNotOwnSubject(deps: ModuleDeps, actor: AdminActor, userIds: readonly (string | null | undefined)[]): void {
+  for (const u of userIds) if (u && adminActor(deps.platform.hasher, u) === actor) throw new DomainError('SAME_REVIEWER', { reason: 'own_subject' });
+}

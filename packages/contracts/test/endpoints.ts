@@ -83,6 +83,8 @@ export const SECTION_8_2_ENDPOINTS = [
   'GET /referral/mine',
   'POST /events',
   'POST /appeals',
+  // Repair wave: the student's decisions and appeals (F8, P4 Meldingen; spec §6.4, §6.5).
+  'GET /appeals/mine',
   // Beheer
   'POST /admin/mfa/enroll',
   'POST /admin/mfa/verify',

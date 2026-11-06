@@ -19,7 +19,19 @@
     "aborted_banner": "Je sessie stopte om {time}.",
     "aborted_banner_view": "Bekijk waarom",
     "signed_out": "Log in om een sessie te starten.",
-    "login": "Inloggen"
+    "login": "Inloggen",
+    "joker_available": "Joker deze week: nog over.",
+    "joker_used": "Joker deze week ingezet.",
+    "exam_link": "Vandaag heb ik een tentamen",
+    "exam_on": "Tentamendag. Je dagdoel telt vandaag niet mee.",
+    "streak": "Squadstreak: dag {count}.",
+    "club": "Je vereniging: {club}.",
+    "club_link": "Bekijk de ranglijst",
+    "reminder": "Wil je een herinnering om {time}? Hoogstens één mail per dag, alleen als je dagdoel nog open staat.",
+    "reminder_yes": "Ja, om {time}",
+    "reminder_other": "Andere tijd",
+    "reminder_no": "Nee, dank je",
+    "reminder_saved": "Herinnering staat aan om {time}."
   },
   "prepare": {
     "title": "Klaar voor de sessie",
@@ -34,7 +46,8 @@
     "starting": "Je sessie start…",
     "start_failed": "De sessie kon niet starten. {reason}",
     "start_failed_network": "Er is geen verbinding. Probeer het zo opnieuw.",
-    "back": "Andere duur kiezen"
+    "back": "Andere duur kiezen",
+    "other_device": "Je hebt een sessie op een ander toestel. Starten stopt die."
   },
   "running": {
     "label": "Lopende sessie",
@@ -60,7 +73,8 @@
   "end_signal": {
     "title": "Sessie klaar.",
     "turn": "Draai je telefoon om.",
-    "waiting": "We tellen je sessie…"
+    "waiting": "We tellen je sessie…",
+    "tab_title": "Sessie klaar · Rewarded"
   },
   "completed": {
     "title": "Sessie voltooid",
@@ -70,7 +84,7 @@
     "week": "Deze week {count} van de 7 dagen.",
     "streak": "Squadstreak: dag {count}.",
     "points": "+{count} punten bijgeschreven.",
-    "points_pending": "Deze sessie wordt nagekeken. Je punten komen vrij zodra dat klaar is, meestal binnen 3 werkdagen.",
+    "points_pending": "Deze sessie wordt nagekeken (reden: {reason}). Je punten komen vrij zodra dat klaar is, meestal binnen 3 werkdagen.",
     "earn_in_label": "Inverdienperiode",
     "earn_in_value": "{value} van {max} minuten",
     "cap": "Je zit op 5 uur vandaag. Meer focus telt voor je dagdoel, maar levert vandaag geen punten meer op. Rust telt ook.",
@@ -78,7 +92,17 @@
     "again": "Nog een sessie",
     "done": "Klaar",
     "practice_done": "Goed volgehouden. Zo klinkt en voelt het einde van een sessie.",
-    "practice_note": "Oefenen telt nergens mee."
+    "practice_note": "Oefenen telt nergens mee.",
+    "reason": {
+      "no_signal": "een groot deel van de tijd kregen we geen signaal",
+      "automation": "de browser werd door software bestuurd",
+      "clock": "de klok van je toestel week sterk af van de onze",
+      "outage": "er was bij ons een storing",
+      "pattern": "een patroon dat een mens nakijkt"
+    },
+    "squad_day": "Vandaag: {met} van {active} actieve leden haalden hun dagdoel.",
+    "card": "Maak een kaart",
+    "earn_in_left": "Nog {count} minuten focus tot je eerste verzilvering. Je punten staan al klaar."
   },
   "aborted": {
     "title": "Sessie gestopt",
@@ -150,5 +174,21 @@
     "report_title": "Klopt dit niet?",
     "report_body": "Na een afgebroken sessie kun je melden dat het niet klopt. Een mens kan een sessie alleen herstellen als er bij ons een storing was of als je toestel alsnog een geldig log stuurde. Een gesprek of een andere app kunnen we niet terugdraaien.",
     "practice": "Oefen een minuut"
+  },
+  "bonus_rule": {
+    "a": "Dagdoel halen vandaag: +{points} bonus.",
+    "a_done": "+{points} bonus voor je gehaalde dagdoel.",
+    "b": "Weekbudget: nog {remaining}. Je dagdoel halen zet er vandaag {points} veilig.",
+    "b_monday": "Je weekbudget: {remaining} punten. Elke dag dat je je doel haalt, zet je er {points} veilig.",
+    "b_done": "{points} uit je weekbudget staan nu veilig. Nog {remaining} in je weekbudget.",
+    "why": "Waarom zie ik dit?"
+  },
+  "exam": {
+    "title": "Tentamen vandaag?",
+    "text": "Tentamen vandaag? Dan telt je dagdoel vandaag niet mee. Je streak breekt niet en je joker blijft over. Succes.",
+    "confirm": "Ja, vandaag is een tentamendag",
+    "cancel": "Annuleer",
+    "undo": "Toch geen tentamen",
+    "limit": "Je hebt deze week al drie tentamendagen."
   }
 }

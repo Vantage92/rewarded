@@ -66,5 +66,12 @@
     "text": "Je sessies tellen dan niet meer mee voor je vereniging. Deze week blijf je in de noemer staan.",
     "confirm": "Ontkoppel",
     "cancel": "Blijf gekoppeld"
+  },
+  "code": {
+    "loading": "Even laden…",
+    "title": "Koppelen aan je vereniging",
+    "text": "Je opende de link van je vereniging. Log in of meld je aan; daarna koppelen we je account aan de vereniging.",
+    "login": "Ik heb al een account",
+    "new": "Ik ben nieuw"
   }
 }

@@ -94,19 +94,32 @@ const emptyReport = (): BatchReport => ({ raised: {}, skipped: {}, harm: { S1: 0
 export function persistFindings(deps: ModuleDeps, tx: Db, result: HeuristicResult, report: BatchReport): void {
   const flags = deps.services.flags as SqlFlagService;
   for (const f of result.findings) {
-    const exists = tx.get('SELECT 1 AS x FROM fraud_flag WHERE dedup_key = ?', [f.dedupKey]) !== undefined;
-    if (exists) continue;
-    if (f.subject.type === 'session' && f.sessionIds.length === 0) continue;
-    flags.raise(tx, { code: f.code, subject: f.subject, sessionIds: f.sessionIds, evidence: f.evidence, userIds: f.userIds, dedupKey: f.dedupKey });
+    const existing = tx.get<{ id: string; status: string }>('SELECT id, status FROM fraud_flag WHERE dedup_key = ?', [f.dedupKey]);
+    // A week key (H6, H12) is found again later in the week: the new sessions join the open flag and
+    // go to pending as well (spec §6.3, §6.4). A decided flag is left alone.
+    let newSessionIds: readonly string[] = f.sessionIds;
+    if (existing) {
+      if (existing.status !== 'open') continue;
+      const known = new Set(tx.all<{ session_id: string | null }>('SELECT session_id FROM fraud_flag_session WHERE flag_id = ?', [existing.id]).map((r) => r.session_id));
+      newSessionIds = f.sessionIds.filter((id) => !known.has(id));
+      if (newSessionIds.length === 0) continue;
+      for (const sid of newSessionIds) {
+        const owner = tx.get<{ user_id: string }>('SELECT user_id FROM focus_session WHERE id = ?', [sid]);
+        if (owner) tx.run('INSERT OR IGNORE INTO fraud_flag_session (flag_id, session_id, user_id) VALUES (?, ?, ?)', [existing.id, sid, owner.user_id]);
+      }
+    } else {
+      if (f.subject.type === 'session' && f.sessionIds.length === 0) continue;
+      flags.raise(tx, { code: f.code, subject: f.subject, sessionIds: f.sessionIds, evidence: f.evidence, userIds: f.userIds, dedupKey: f.dedupKey });
+    }
     const sessions = (deps.services as Partial<ModuleDeps['services']>).sessions;
     if (sessions) {
-      const pending = f.sessionIds.filter((id) => {
+      const pending = newSessionIds.filter((id) => {
         const s = sessions.get(id);
         return s !== undefined && s.status === 'completed' && s.reviewStatus !== 'pending' && s.reviewStatus !== 'rejected';
       });
       if (pending.length > 0) sessions.setReviewStatus(tx, pending, 'pending');
     }
-    report.raised[f.code] = (report.raised[f.code] ?? 0) + 1;
+    if (!existing) report.raised[f.code] = (report.raised[f.code] ?? 0) + 1;
   }
   for (const s of result.skipped) {
     report.skipped[s.code] = (report.skipped[s.code] ?? 0) + 1;

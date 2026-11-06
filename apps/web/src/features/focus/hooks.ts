@@ -1,9 +1,12 @@
 // Server data the focus screens read: /me, today's goal and the squad presence (polled every 30 s
 // while visible, architecture §9.2; no websockets, spec §4.4).
 import { useApiQuery } from '../../lib/api/index.ts';
+import { useAccountLocale } from '../profile/kit.tsx';
 
 export function useMe() {
-  return useApiQuery('me.get', undefined, { retry: false, staleTime: 60_000 });
+  const q = useApiQuery('me.get', undefined, { retry: false, staleTime: 60_000 });
+  useAccountLocale(q.data?.user?.locale);
+  return q;
 }
 
 export function useToday(enabled: boolean) {

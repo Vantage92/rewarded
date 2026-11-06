@@ -29,6 +29,21 @@ import { defineRoutes } from './route.ts';
 export const AppealRequest = z.strictObject({ object_type: AppealObjectType, object_id: Ulid, text: FreeText(2000) });
 export const AppealResponse = z.strictObject({ appeal_id: Ulid });
 
+/** A decision about the student's own sessions or account (F8, P4 Meldingen; repair wave). */
+export const MyDecision = z.strictObject({
+  flag_id: Ulid,
+  /** `review`: a flag on sessions; `block`: the account is blocked. */
+  kind: z.enum(['review', 'block']),
+  status: FlagStatus,
+  /** Reason code of the decision (UX §6.2 F8 list), null while open. */
+  reason_code: ReasonCode.nullable(),
+  decided_at: Instant.nullable(),
+  /** Appeal possible until (14 days after the decision), null when nothing can be appealed. */
+  appeal_until: Instant.nullable(),
+  appeal: z.strictObject({ id: Ulid, status: z.enum(['open', 'decided', 'closed']), outcome: AppealOutcome.nullable(), motivation: z.string().max(2000).nullable() }).nullable(),
+});
+export const MyDecisionsResponse = z.strictObject({ items: z.array(MyDecision).max(200) });
+
 export const InstitutionStartRequest = z.strictObject({ email: Email });
 export const InstitutionConfirmRequest = z.strictObject({ code: z.string().regex(/^\d{6}$/) });
 export const InstitutionConfirmResponse = z.strictObject({ domain: z.string().max(253), verified: z.literal(true) });
@@ -125,6 +140,10 @@ export const SampleJudgementRequest = z.strictObject({
 export const SampleJudgementResponse = z.strictObject({ item: SampleItem, flag_id: Ulid.nullable() });
 
 export const fraudRoutes = defineRoutes({
+  'appeals.mine': {
+    module: 'fraud', method: 'GET', path: '/appeals/mine', auth: ['student'],
+    response: MyDecisionsResponse, responseKind: 'json', status: [200], errors: [], spec: 'spec §6.4, §6.5; UX §6.2 F8 (repair wave)',
+  },
   'appeals.create': {
     module: 'fraud', method: 'POST', path: '/appeals', auth: ['student'],
     body: AppealRequest, response: AppealResponse, responseKind: 'json', status: [201],
@@ -147,7 +166,7 @@ export const fraudRoutes = defineRoutes({
   'admin.flags.decide': {
     module: 'fraud', method: 'POST', path: '/admin/flags/:id/decision', auth: ['admin'],
     params: IdParam, body: FlagDecisionRequest, response: FlagDecisionResponse, responseKind: 'json', status: [200],
-    errors: ['REASON_REQUIRED', 'FOUR_EYES_REQUIRED', 'NOT_FOUND'], spec: 'arch §8.2 Beheer, §5.1, §10.8',
+    errors: ['REASON_REQUIRED', 'FOUR_EYES_REQUIRED', 'NOT_FOUND', 'SAME_REVIEWER'], spec: 'arch §8.2 Beheer, §5.1, §10.8',
   },
   'admin.blocks.confirm': {
     module: 'fraud', method: 'POST', path: '/admin/blocks/:id/confirm', auth: ['admin'],
@@ -174,7 +193,7 @@ export const fraudRoutes = defineRoutes({
   'admin.samples.judge': {
     module: 'fraud', method: 'POST', path: '/admin/samples/:id/items/:item/judgement', auth: ['admin'],
     params: SampleItemParams, body: SampleJudgementRequest, response: SampleJudgementResponse, responseKind: 'json', status: [200],
-    errors: ['REASON_REQUIRED'], spec: 'arch §8.2 Beheer, §6.5',
+    errors: ['REASON_REQUIRED', 'SAME_REVIEWER'], spec: 'arch §8.2 Beheer, §6.5',
   },
 });
 
@@ -202,3 +221,6 @@ export type CurrentSampleResponse = z.output<typeof CurrentSampleResponse>;
 export type SampleItemParams = z.output<typeof SampleItemParams>;
 export type SampleJudgementRequest = z.output<typeof SampleJudgementRequest>;
 export type SampleJudgementResponse = z.output<typeof SampleJudgementResponse>;
+
+export type MyDecision = z.output<typeof MyDecision>;
+export type MyDecisionsResponse = z.output<typeof MyDecisionsResponse>;

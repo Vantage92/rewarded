@@ -71,7 +71,7 @@
     "sent": "We stuurden een code van zes cijfers.",
     "invalid_number": "Vul je nummer in met landcode, zoals +31612345678.",
     "type_not_allowed": "Dit nummer kunnen we niet gebruiken. Gebruik het nummer van je eigen mobiele telefoon.",
-    "in_use": "Dit nummer hoort al bij een ander account. Klopt dat niet? Vraag het via Hulp; een mens kijkt ernaar."
+    "in_use": "Dit nummer hoort al bij een ander account. Klopt dat niet? Laat het weten via het contactadres in de privacyverklaring; een mens kijkt ernaar."
   },
   "voucher": {
     "title": "Je code",
@@ -107,7 +107,7 @@
     "joker": "De joker beschermt je squadstreak, niet de doelbonus.",
     "night": "Sessies die tussen 01:00 en 04:00 starten, tellen voor punten en je dagdoel, maar zonder doelbonus.",
     "exam": "Op een tentamendag telt je dagdoel niet mee. In de regel 'weekbudget' valt die dag stil uit het budget.",
-    "season": "De doelbonus stopt aan het einde van de laatste tentamenweek van je instelling. Dat zie je vooraf."
+    "season": "De doelbonus stopt aan het einde van de laatste tentamenweek van je instelling, op {date}."
   },
   "plus": {
     "title": "Plus",
@@ -116,6 +116,7 @@
     "yes": "Laat het me weten",
     "no": "Nee",
     "thanks": "Dank je. We laten het je weten.",
-    "declined": "Prima. Je hoort er verder niets over."
+    "declined": "Prima. Je hoort er verder niets over.",
+    "off": "Plus staat nu niet aan."
   }
 }

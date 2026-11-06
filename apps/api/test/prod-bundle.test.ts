@@ -29,7 +29,7 @@ describe('production bundle', () => {
     writeFileSync(join(tmp, 'peppers.json'), JSON.stringify({ pepper_ip: `${pep()}i`, pepper_phone: `${pep()}p`, pepper_audit: `${pep()}a` }));
     const port = 18_000 + Math.floor(Math.random() * 1000);
     const child = spawn(process.execPath, [join(outDir, 'server.prod.js')], {
-      env: { ...process.env, PORT: String(port), DATABASE_PATH: join(tmp, 'prod.sqlite'), REWARDED_SECRETS_DIR: tmp },
+      env: { ...process.env, PORT: String(port), DATABASE_PATH: join(tmp, 'prod.sqlite'), REWARDED_SECRETS_DIR: tmp, TRUST_PROXY: '0', APP_ORIGIN: 'https://rewarded.test' },
       stdio: 'pipe',
     });
     try {

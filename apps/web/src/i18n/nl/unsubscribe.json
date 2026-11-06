@@ -1,0 +1,13 @@
+{
+  "busy": "Even bezig…",
+  "invalid": "Deze link werkt niet (meer). In Ik zet je herinneringen ook zelf uit.",
+  "home": "Naar Rewarded",
+  "reminders": {
+    "title": "Geen herinneringen meer",
+    "done": "Klaar. Je krijgt geen herinneringsmails meer. Aanzetten kan altijd weer in Ik."
+  },
+  "waitlist": {
+    "title": "Afmelden voor de wachtlijst",
+    "done": "Je staat niet meer op de wachtlijst. We sturen je geen mail meer."
+  }
+}

@@ -63,7 +63,7 @@
     "minutes_long": "{value} van {max} minuten"
   },
   "placeholder": {
-    "coming": "Dit scherm komt in een volgend werkpakket ({owner})."
+    "coming": "Dit scherm is er nog niet."
   },
   "not_found": {
     "title": "Pagina niet gevonden",

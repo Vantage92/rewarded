@@ -52,18 +52,23 @@ export function squadMine(deps: ModuleDeps, userId: string): SquadMineResponse {
   const day = today(deps);
   const members = openMembers(deps.db, squad.id).filter((m) => m.user_id !== null);
   const reader = userDays(deps);
+  const isPaused = (m: (typeof members)[number]) => m.paused_since_day !== null && m.paused_since_day <= day;
+  const active = members.filter((m) => !isPaused(m));
   return {
     squad: squadDto(squad, userId),
     members: members.map((m) => {
       const u = userById(deps.db, m.user_id!);
+      // Silent mode hides the status of the member (architecture §6.4, UX §146); the own row stays complete.
+      if (u && u.silent_mode === 1 && m.user_id !== userId) return { first_name: u.first_name, status: 'silent' as const };
       return {
         first_name: u?.first_name ?? '—',
-        paused: m.paused_since_day !== null && m.paused_since_day <= day,
+        paused: isPaused(m),
         goal_met_today: reader.get(m.user_id!, day)?.goalMet ?? false,
       };
     }),
     streak: squad.streak,
     status: squad.status,
+    today: { active: active.length, goal_met: active.filter((m) => reader.get(m.user_id!, day)?.goalMet === true).length },
   };
 }
 
@@ -153,7 +158,9 @@ export const module: ApiModule = {
         if (s && s.planned_end_at > now) out.push({ member_ref: ref, focusing: true, remaining_min: Math.max(0, Math.ceil((s.planned_end_at - now) / 60_000)) });
         else out.push({ member_ref: ref, focusing: false });
       }
-      return { members: out, polled_at: new Date(now).toISOString() };
+      const day = today(deps);
+      const activeCount = members.filter((m) => !(m.paused_since_day !== null && m.paused_since_day <= day)).length;
+      return { members: out, polled_at: new Date(now).toISOString(), active_count: activeCount };
     });
 
     mount(api, routes['squads.compare'], ({ auth }) => {

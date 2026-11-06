@@ -49,7 +49,7 @@ async function world(h: Harness) {
 }
 
 describe('architecture §6.4 privacy of individual data on every social route', () => {
-  it('§6.4 squad routes: first names only, no minutes except mutual opt-in compare, silent members absent, witnesses only', async () => {
+  it('§6.4 squad routes (squads.mine included): first names only, no minutes except mutual opt-in compare, silent members absent, witnesses only', async () => {
     const h = wp5Harness({ start: '2026-12-03T15:00:00Z' });
     const w = await world(h);
     const others = [w.mutual, w.closed, w.silent, w.board];
@@ -59,10 +59,14 @@ describe('architecture §6.4 privacy of individual data on every social route', 
     noForeignData(mine, others, 'squads.mine');
     expect(mine.text).not.toMatch(/minut|77|83|91/);
     expect(mine.body.members.map((m: { first_name: string }) => m.first_name).sort()).toEqual([w.viewer, w.mutual, w.closed, w.silent].map((u) => u.firstName).sort());
+    // Repair wave: a silent member shows only the first name and `silent`; the squad day is an aggregate.
+    expect(mine.body.members.find((m: { first_name: string }) => m.first_name === w.silent.firstName)).toEqual({ first_name: w.silent.firstName, status: 'silent' });
+    expect(mine.body.today).toEqual({ active: 4, goal_met: 4 });
 
     const presence = await call(h, w.viewer, 'GET', '/squads/mine/presence');
     noForeignData(presence, others, 'squads.presence');
     expect(presence.body.members).toHaveLength(3);
+    expect(presence.body.active_count).toBe(4);
     const focusing = presence.body.members.filter((m: { focusing: boolean }) => m.focusing);
     expect(focusing).toEqual([{ member_ref: expect.any(String), focusing: true, remaining_min: 32 }]);
     for (const m of presence.body.members) expect(Object.keys(m).sort()).toEqual(m.focusing ? ['focusing', 'member_ref', 'remaining_min'] : ['focusing', 'member_ref']);
@@ -144,6 +148,10 @@ describe('architecture §6.4 privacy of individual data on every social route', 
     const w = await world(h);
     for (const m of w.members.slice(0, 7)) putSession(h, m.id, '2026-11-30', { minutes: 25 });
     await closeDay(h, '2026-11-30', [8]);
+    // Repair wave: the running week is not shown (rule 1: week figures); only closed weeks.
+    expect((await call(h, w.board, 'GET', `/board/clubs/${w.club.id}/dashboard?tab=werving`)).body.linked_members).toEqual({ value: null, suppressed: true });
+    h.clock.set(new Date('2026-12-07T10:00:00Z'));
+    await closeDay(h, '2026-12-06', [8]);
     const werving = await call(h, w.board, 'GET', `/board/clubs/${w.club.id}/dashboard?tab=werving`);
     expect(werving.status).toBe(200);
     noForeignData(werving, w.members, 'board.werving');
@@ -162,6 +170,12 @@ describe('architecture §6.4 privacy of individual data on every social route', 
       expect({ tab, status: r.status }).toEqual({ tab, status: 200 });
       expect(r.text).not.toMatch(/first_name|user_id|pseudonym|"email"/);
     }
+    // One link in the middle of the next week does not move any board number before that week closes.
+    const late = createUser(h, { institution: true });
+    linkMember(h, w.club.id, late.id, '2026-12-08', 'story');
+    h.clock.set(new Date('2026-12-09T10:00:00Z'));
+    await closeDay(h, '2026-12-08', [8]);
+    expect((await call(h, w.board, 'GET', `/board/clubs/${w.club.id}/dashboard?tab=werving`)).body).toEqual(werving.body);
     expect((await call(h, w.viewer, 'GET', `/board/clubs/${w.club.id}/dashboard?tab=werving`)).body.error.code).toBe('FORBIDDEN');
     expect((await call(h, w.board, 'GET', `/board/clubs/${w.club.id}/promo-kit`)).body.assets).toHaveLength(4);
   });

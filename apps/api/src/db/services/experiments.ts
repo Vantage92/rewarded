@@ -22,6 +22,7 @@ const ARMS: Record<ExperimentFactor, readonly [string, string]> = {
   prompt: ['strong', 'standard'],
 };
 const BLOCK_SIZE = CURRENT_PARAMS.experiments.block_size;
+const isFactor = (f: string): f is ExperimentFactor => f === 'bonus' || f === 'belofte' || f === 'rest' || f === 'prompt';
 const SQUAD_FACTORS: readonly ExperimentFactor[] = ['bonus', 'belofte', 'rest'];
 const SOLO_FACTORS: readonly ExperimentFactor[] = ['bonus', 'belofte', 'rest', 'prompt'];
 
@@ -157,26 +158,61 @@ export class SqlExperimentService implements ExperimentService {
     const a = this.get(ctx.unit);
     if (!a) throw new DomainError('NOT_FOUND', { reason: 'unit_not_assigned' });
     const arms: Arms = { ...a.arms };
-    const today = this.today();
-    // Personal switches (join, merge, minor, opt_out) that are effective today, latest per factor.
-    const switches = this.db.all<{ factor: string; to: string }>(
-      `SELECT factor, "to" FROM arm_switch WHERE user_id = ? AND (effective_from_day IS NULL OR effective_from_day <= ?) ORDER BY at, id`,
-      [ctx.userId, today],
+    // Everything is evaluated on the focus day being booked, not on today (spec §5 Toewijzing, §4.13).
+    const day = ctx.day ?? this.today();
+    const switches = this.db.all<{ factor: string; from: string; to: string; reason: string; effective_from_day: string | null; at: string }>(
+      `SELECT factor, "from", "to", reason, effective_from_day, at FROM arm_switch WHERE user_id = ? ORDER BY at, id`,
+      [ctx.userId],
     );
+    // Join and merge switches belong to the squad membership that applies on `day`: before their
+    // effective day (the next Monday) the user keeps the arm he came with (the switch's `from`).
+    const joinedDay = ctx.unit.type === 'squad' ? this.joinedDay(ctx.userId, ctx.unit.id, day) : null;
+    const pending = new Set<string>();
     for (const s of switches) {
-      if (s.factor === 'bonus' || s.factor === 'belofte' || s.factor === 'rest' || s.factor === 'prompt') (arms as unknown as Record<string, string>)[s.factor] = s.to;
+      if (!isFactor(s.factor)) continue;
+      const effective = s.effective_from_day === null || s.effective_from_day <= day;
+      if (s.reason === 'join' || s.reason === 'merge') {
+        if (joinedDay === null) continue;
+        const madeOn = focusDayOf(Date.parse(s.at), CURRENT_PARAMS);
+        if (madeOn < joinedDay || madeOn > day) continue;
+        if (!effective && !pending.has(s.factor) && s.from !== '*') {
+          (arms as unknown as Record<string, string>)[s.factor] = s.from;
+          pending.add(s.factor);
+        }
+        continue;
+      }
+      // Personal switches (minor, opt_out, rest exit, rest flag off) effective on `day`.
+      if (effective) (arms as unknown as Record<string, string>)[s.factor] = s.to;
     }
     // The opt-out takes effect from the next focus day (spec §4.10); the switch rows carry that day.
-    const optOut = this.db.get<{ effective_from_day: string | null }>("SELECT effective_from_day FROM arm_switch WHERE user_id = ? AND reason = 'opt_out' LIMIT 1", [ctx.userId]);
-    const optedOut = optOut ? optOut.effective_from_day === null || optOut.effective_from_day <= today : ctx.optedOut;
+    const optOut = switches.find((s) => s.reason === 'opt_out');
+    const optedOut = optOut ? optOut.effective_from_day === null || optOut.effective_from_day <= day : ctx.optedOut;
     if (ctx.ageBand === '16_17' || optedOut) {
       arms.bonus = 'A';
       arms.rest = 'continue';
     }
     if (optedOut) arms.belofte = 'early';
     const stoppedFrom = this.armBStoppedFrom();
-    if (stoppedFrom !== null && stoppedFrom <= today) arms.bonus = 'A';
+    if (stoppedFrom !== null && stoppedFrom <= day) arms.bonus = 'A';
     return arms;
+  }
+
+  /** Focus day on which the membership of `userId` in `squadId` that covers `day` started. */
+  private joinedDay(userId: string, squadId: string, day: FocusDay): FocusDay | null {
+    let rows: { joined_at: string; left_day: string | null }[] = [];
+    try {
+      rows = this.db.all<{ joined_at: string; left_day: string | null }>(
+        'SELECT joined_at, left_day FROM squad_membership WHERE user_id = ? AND squad_id = ? ORDER BY joined_at DESC',
+        [userId, squadId],
+      );
+    } catch {
+      return null;
+    }
+    for (const r of rows) {
+      const from = focusDayOf(Date.parse(r.joined_at), CURRENT_PARAMS);
+      if (from <= day && (r.left_day === null || r.left_day >= day)) return from;
+    }
+    return rows.length > 0 ? focusDayOf(Date.parse(rows[0]!.joined_at), CURRENT_PARAMS) : null;
   }
 
   /** First focus day without arm B, or null while arm B runs. */

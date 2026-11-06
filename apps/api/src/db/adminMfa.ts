@@ -44,5 +44,37 @@ export function verifyMfa(tx: Db, deps: MfaDeps, userId: string, sessionId: stri
   const at = now.toISOString();
   tx.run('UPDATE admin_mfa SET last_used_step = ?, enrolled_at = coalesce(enrolled_at, ?) WHERE user_id = ?', [step, at, userId]);
   tx.run('UPDATE auth_session SET mfa_at = ? WHERE id = ? AND user_id = ?', [at, sessionId, userId]);
+  clearMfaFailures(tx, userId);
   return { mfa_at: at };
+}
+
+/** Attempts per window before the lock (architecture §10.2: 5 per 15 minutes). */
+export const MFA_MAX_FAILURES = 5;
+export const MFA_WINDOW_MS = 15 * 60_000;
+
+/** Refuses with RATE_LIMITED while the stored lock runs; survives a restart (unlike the memory buckets). */
+export function assertMfaNotLocked(db: Db, deps: Pick<MfaDeps, 'clock'>, userId: string): void {
+  const row = db.get<{ locked_until: string | null }>('SELECT locked_until FROM admin_mfa WHERE user_id = ?', [userId]);
+  if (row?.locked_until && Date.parse(row.locked_until) > deps.clock.now().getTime()) {
+    throw new DomainError('RATE_LIMITED', { retry_after_s: Math.ceil((Date.parse(row.locked_until) - deps.clock.now().getTime()) / 1000) });
+  }
+}
+
+/** Counts a failed code in its own transaction; the fifth failure in the window sets the lock. */
+export function recordMfaFailure(db: Db, deps: Pick<MfaDeps, 'clock'>, userId: string): void {
+  const now = deps.clock.now();
+  const row = db.get<{ failed_count: number; failed_window_start: string | null }>('SELECT failed_count, failed_window_start FROM admin_mfa WHERE user_id = ?', [userId]);
+  if (!row) return;
+  const fresh = row.failed_window_start === null || now.getTime() - Date.parse(row.failed_window_start) >= MFA_WINDOW_MS;
+  const count = fresh ? 1 : row.failed_count + 1;
+  const start = fresh ? now.toISOString() : row.failed_window_start;
+  const locked = count >= MFA_MAX_FAILURES ? new Date(now.getTime() + MFA_WINDOW_MS).toISOString() : null;
+  db.run('UPDATE admin_mfa SET failed_count = ?, failed_window_start = ?, locked_until = coalesce(?, locked_until) WHERE user_id = ?', [count, start, locked, userId]);
+}
+
+/** A correct code clears the counter. */
+export function clearMfaFailures(db: Db, userId: string): void {
+  // Harnesses of one work package migrate only their series; without migration 0400 there is nothing to clear.
+  if (!db.get("SELECT 1 AS x FROM pragma_table_info('admin_mfa') WHERE name = 'failed_count'")) return;
+  db.run('UPDATE admin_mfa SET failed_count = 0, failed_window_start = NULL, locked_until = NULL WHERE user_id = ?', [userId]);
 }

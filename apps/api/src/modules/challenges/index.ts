@@ -129,6 +129,8 @@ export const module: ApiModule = {
       return {
         items: rows
           .filter((c) => !blockedByRestPeriod(db, me.id, c))
+          // No 18+ prize, title or description for a minor (UX principle P10).
+          .filter((c) => me.ageBand === '18_plus' || !prizesOf(c).some((p) => p.min_age_band === '18_plus'))
           .map((c) => {
             const prize = prizesOf(c)[0];
             const left = seatsLeft(db, c);
@@ -138,7 +140,7 @@ export const module: ApiModule = {
               title: locale === 'en' ? c.title_en : c.title_nl,
               period: { start_day: c.period_start_day, end_day: c.period_end_day },
               ...(left !== undefined ? { seats_left: left } : {}),
-              prize: prize ? { kind: prize.kind, description: locale === 'en' ? prize.description_en : prize.description_nl, value_cents: prize.value_cents } : null,
+              prize: prize ? { kind: prize.kind, description: locale === 'en' ? prize.description_en : prize.description_nl } : null,
             };
           }),
       };

@@ -66,5 +66,12 @@
     "text": "Your sessions then no longer count for your club. This week you stay in the denominator.",
     "confirm": "Unlink",
     "cancel": "Stay linked"
+  },
+  "code": {
+    "loading": "Loading…",
+    "title": "Link to your club",
+    "text": "You opened your club's link. Log in or sign up; then we link your account to the club.",
+    "login": "I already have an account",
+    "new": "I am new"
   }
 }

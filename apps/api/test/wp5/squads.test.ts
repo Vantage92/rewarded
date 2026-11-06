@@ -32,7 +32,7 @@ describe.each(DRIVERS)('squads on %s', (driver) => {
     const { users, token, squadId } = await squadOf(h, 2);
     const preview = await call(h, null, 'GET', `/invites/${token}`);
     expect(preview.status).toBe(200);
-    expect(preview.body).toEqual({ source: 'squad', inviter_first_name: users[0]!.firstName, squad_name: 'Studiegenoten', valid: true });
+    expect(preview.body).toEqual({ source: 'squad', inviter_first_name: users[0]!.firstName, squad_name: 'Studiegenoten', valid: true, t_day: expect.stringMatching(/^\d{4}-\d{2}-\d{2}$/) });
     expect(preview.text).not.toMatch(/punt|point|prijs|prize|€/i);
     expect(h.events.named('invite_link_opened')[0]!.pseudonym).toBeNull();
     expect((await call(h, users[0]!, 'GET', '/squads/mine')).body.status).toBe('building');

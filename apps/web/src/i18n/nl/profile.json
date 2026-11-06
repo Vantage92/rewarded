@@ -55,7 +55,7 @@
     "code": "Code uit de mail",
     "confirm": "Bevestig",
     "sent": "We stuurden een code naar dat adres.",
-    "in_use": "Dit adres is al door een ander account bevestigd. Klopt dat niet? Vraag het via Hulp; een mens kijkt ernaar.",
+    "in_use": "Dit adres is al door een ander account bevestigd. Klopt dat niet? Laat het weten via het contactadres in de privacyverklaring; een mens kijkt ernaar.",
     "domain": "Dit domein staat niet op de lijst van pilotinstellingen."
   },
   "links": {
@@ -107,5 +107,62 @@
     "none": "Nog niemand begon via je link.",
     "off": "De persoonlijke link staat nu niet aan."
   },
-  "plus_link": "Plus komt eraan"
+  "plus_link": "Plus komt eraan",
+  "decisions": {
+    "title": "Meldingen",
+    "empty": "Geen meldingen of besluiten.",
+    "open": "Een mens kijkt hiernaar, meestal binnen 3 werkdagen.",
+    "on": "Besluit van {date}.",
+    "reason": {
+      "no_evidence": "We hebben je sessie nagekeken. Alles klopt; je punten zijn vrijgegeven.",
+      "pattern_explained": "We hebben je sessie nagekeken. Alles klopt; je punten zijn vrijgegeven.",
+      "shared_network": "We hebben je sessie nagekeken. Het gedeelde netwerk verklaart het patroon; je punten zijn vrijgegeven.",
+      "outage_confirmed": "Er was bij ons een storing op dat moment. Je sessie telt alsnog als voltooid.",
+      "late_log_valid": "Je toestel stuurde alsnog een geldig log. Je sessie telt alsnog als voltooid.",
+      "false_positive": "We hebben je sessie nagekeken. Alles klopt; je punten zijn vrijgegeven.",
+      "automation": "Deze sessie liep in een browser die door software werd bestuurd. Daarom telt hij niet. Je kunt binnen 14 dagen beroep instellen.",
+      "multiple_accounts": "Deze sessie hoort bij een patroon van meerdere accounts. Daarom telt hij niet. Je kunt binnen 14 dagen beroep instellen.",
+      "shared_device": "Deze sessie hoort bij een patroon van meerdere accounts op één toestel. Daarom telt hij niet. Je kunt binnen 14 dagen beroep instellen.",
+      "unattended_device": "Het patroon van deze sessies past bij een toestel dat zonder jou bleef draaien. Daarom tellen ze niet. Je kunt binnen 14 dagen beroep instellen.",
+      "implausible_pattern": "Het patroon van deze sessies klopt niet met focussen. Daarom tellen ze niet. Je kunt binnen 14 dagen beroep instellen.",
+      "clock_manipulation": "De klok van je toestel week sterk af van de onze. Daarom telt deze sessie niet. Je kunt binnen 14 dagen beroep instellen.",
+      "incomplete_evidence": "Voor een te groot deel van deze sessie kregen we geen signaal. Daarom telt hij niet. Je kunt binnen 14 dagen beroep instellen.",
+      "fraud_confirmed": "Je account is geblokkeerd: twee beoordelaars vonden fraude. Je kunt binnen 14 dagen beroep instellen.",
+      "repeat_offence": "Je account is geblokkeerd na herhaalde afgekeurde sessies. Je kunt binnen 14 dagen beroep instellen.",
+      "blocked_phone_reuse": "Je account is geblokkeerd: het telefoonnummer hoort bij een geblokkeerd account. Je kunt binnen 14 dagen beroep instellen.",
+      "other": "Er is een besluit genomen over je sessie of account."
+    },
+    "appeal": "Beroep instellen",
+    "appeal_until": "Beroep kan tot en met {date}.",
+    "appeal_open": "Je beroep is binnen. Een andere beoordelaar beslist binnen 5 werkdagen.",
+    "appeal_upheld": "Een tweede beoordelaar gaf je gelijk. Je punten zijn terug en de sessie telt.",
+    "appeal_denied": "Een tweede beoordelaar keek opnieuw en kwam tot hetzelfde besluit: {motivation}",
+    "appeal_title": "Beroep instellen",
+    "appeal_text": "Leg in je eigen woorden uit waarom het besluit niet klopt. Een andere beoordelaar dan de eerste beslist.",
+    "appeal_label": "Jouw uitleg",
+    "appeal_send": "Verstuur beroep",
+    "appeal_cancel": "Annuleer",
+    "appeal_sent": "Je beroep is binnen. Je ziet de status hier bij Meldingen."
+  },
+  "blocked": {
+    "title": "Je account is geblokkeerd",
+    "intro": "Je kunt geen sessies starten en niets verzilveren. Beroep instellen, je gegevens downloaden en je account verwijderen kan wel.",
+    "rights": "Je gegevens downloaden of je account verwijderen kan altijd.",
+    "privacy": "Naar privacy en gegevens"
+  },
+  "logout": "Uitloggen",
+  "reminders": {
+    "time": "Tijd van de herinnering",
+    "days": "Op deze dagen",
+    "day": {
+      "1": "ma",
+      "2": "di",
+      "3": "wo",
+      "4": "do",
+      "5": "vr",
+      "6": "za",
+      "7": "zo"
+    },
+    "saved": "Opgeslagen."
+  }
 }

@@ -4,6 +4,7 @@
 import { CURRENT_PARAMS, addDays, compareDays, daysBetween, focusDayOf, weekKey, weekStartAt } from '@rewarded/core';
 import { examDayAllowed, goalEffectiveFrom, goalSuggestion, needsOverreachConfirm } from '@rewarded/core/goals';
 import { DomainError, routes, type LedgerItem, type TodayResponse } from '@rewarded/contracts';
+import { idsFor } from '../../db/ids.ts';
 import type { Db } from '../../db/types.ts';
 import type { AuthState } from '../../middleware/context.ts';
 import { mount } from '../../middleware/route.ts';
@@ -51,6 +52,15 @@ export function hasRedemptionInWeek(db: Db, userId: string, week: string): boole
     return db.get("SELECT 1 AS x FROM redemption WHERE user_id = ? AND week_key = ? AND status IN ('reserved', 'delivered', 'replaced')", [userId, week]) !== undefined;
   } catch {
     return false;
+  }
+}
+
+/** Streak of the user's open squad, null without one (or before WP-5's tables exist). */
+function squadStreakOf(db: Db, userId: string): number | null {
+  try {
+    return db.get<{ streak: number }>('SELECT q.streak FROM squad_membership m JOIN squad q ON q.id = m.squad_id WHERE m.user_id = ? AND m.left_at IS NULL', [userId])?.streak ?? null;
+  } catch {
+    return null;
   }
 }
 
@@ -157,6 +167,7 @@ export const module: ApiModule = {
       return db.transaction(() => {
         // A pending change that is already in effect becomes the current goal first.
         const current = ctx.goalFor(db, p, t);
+        ctx.recordGoalChange(db, p, body.minutes, from, deps.platform.clock.now().toISOString(), () => idsFor(deps.platform).ulid());
         db.run('UPDATE user SET daily_goal_min = ?, daily_goal_next = ?, daily_goal_next_from = ? WHERE id = ?', [current, body.minutes, from, user.id]);
         const bron = body.from_suggestion ? ('voorstel' as const) : ('zelf' as const);
         deps.services.events.event(db, 'daily_goal_set', { minuten: body.minutes, bron, overmoed_bevestigd: overreach }, { pseudonym: user.pseudonym });
@@ -213,9 +224,14 @@ export const module: ApiModule = {
         joker_available: !weekRows.some((r) => r.jokerUsed),
         bonus_rule: dc.arm ?? 'none',
         earn_arm: dc.earnArm,
-        // The squad streak, prompt, harm card and survey come from WP-5 and WP-6.
-        streak: null,
+        // Squad streak of the open membership (spec §4.4); prompt, harm card and survey: WP-5 and WP-6.
+        streak: squadStreakOf(db, user.id),
       };
+      if (dc.arm === 'B') {
+        const ledger = deps.services.ledger as { balancesIn?: (tx: Db, userId: string) => { byKind: Record<string, number> } };
+        const remaining = Math.max(0, ledger.balancesIn?.(db, user.id).byKind.pending_goal_budget ?? 0);
+        res.week_budget = { remaining, per_day: P.goal_bonus.arm_b_points_per_remaining_day, first_day_of_week: t === week };
+      }
       // Goal suggestion after 7 days (spec §4.4): the median of the active days of the last week.
       const since = daysBetween(focusDayOf(Date.parse(p.createdAt), P), t);
       if (since >= P.goals.confirm_window_days) {

@@ -49,7 +49,7 @@ test('Kernflow in de browser tegen de echte API: uitnodiging, code uit /dev/inbo
   await page.mouse.click(200, 300);
   await expect(page.getByText('25 minuten. Je dagdoel is gehaald.')).toBeVisible();
   // Standard Playwright: webdriver = true gives H1, the points wait for a review.
-  await expect(page.getByText(/Deze sessie wordt nagekeken\./)).toBeVisible();
+  await expect(page.getByText(/Deze sessie wordt nagekeken/)).toBeVisible();
   const userId = api.sql<{ id: string }>('SELECT id FROM user WHERE email = ?', [email])[0]!.id;
   const session = api.sql<{ id: string; status: string; flag_codes: string }>("SELECT id, status, flag_codes FROM focus_session WHERE user_id = ? AND is_practice = 0", [userId])[0]!;
   expect(session.status).toBe('completed');

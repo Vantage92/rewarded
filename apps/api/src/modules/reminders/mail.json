@@ -1,0 +1,24 @@
+{
+  "nl": {
+    "goal_subject": "Je dagdoel staat nog open.",
+    "goal_text": "Het is {time}, de tijd die je koos. Je dagdoel van {goal} minuten staat nog open; je dag loopt tot 04:00.",
+    "squad_subject": "Je squad is bezig vandaag.",
+    "squad_text": "{names} haalden hun dagdoel al. Jij ook?",
+    "squad_text_one": "{names} haalde het dagdoel al. Jij ook?",
+    "start": "Start een sessie",
+    "footer": "Je krijgt deze mail omdat je een herinnering aanzette.",
+    "unsubscribe": "Geen herinneringen meer",
+    "and": "en"
+  },
+  "en": {
+    "goal_subject": "Your daily goal is still open.",
+    "goal_text": "It is {time}, the time you chose. Your daily goal of {goal} minutes is still open; your day runs until 04:00.",
+    "squad_subject": "Your squad is at it today.",
+    "squad_text": "{names} reached their daily goal already. You too?",
+    "squad_text_one": "{names} reached the daily goal already. You too?",
+    "start": "Start a session",
+    "footer": "You get this mail because you switched on a reminder.",
+    "unsubscribe": "No more reminders",
+    "and": "and"
+  }
+}

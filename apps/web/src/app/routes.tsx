@@ -24,13 +24,11 @@ const bare: ShellHandle = { chrome: 'bare' };
 export const shellPlaceholders: readonly [path: string, feature: string, owner: string, handle?: ShellHandle][] = [
   ['welkom', 'welcome', 'WP-8', bare],
   ['i/:token', 'invite', 'WP-8', bare],
-  ['c/:code', 'club_code', 'WP-8', bare],
   ['login', 'login', 'WP-8', bare],
   ['auth/*', 'auth', 'WP-8', bare],
   ['hoe-we-tellen', 'how_we_count', 'WP-8'],
   ['vragen/:moment', 'survey', 'WP-9'],
   ['hulp', 'help', 'WP-9'],
-  ['afmelden', 'unsubscribe', 'WP-9', bare],
   ['v/:token', 'verify', 'WP-9', bare],
 ];
 

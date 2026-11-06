@@ -108,6 +108,8 @@ export interface SessionHeader {
   verificationLevel: VerificationLevel;
   webdriver: boolean;
   uaClass: string;
+  /** Raw User-Agent at the start named a headless or automated browser (spec §6.3 H1). */
+  uaHeadless?: boolean;
 }
 
 /** One heartbeat as stored in `session_heartbeat` (architecture §3.2, §4.2). */

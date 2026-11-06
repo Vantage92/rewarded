@@ -33,6 +33,10 @@ export const ConfirmLinkRequest = z.strictObject({ token: Token });
 export const LoginCodeRequest = z.strictObject({ email: Email, code: SixDigitCode });
 export const LoginResponse = z.strictObject({ next: z.enum(['/onboarding', '/']) });
 
+/** HH:MM on a quarter hour. */
+export const ReminderTime = z.string().regex(/^(?:[01]\d|2[0-3]):(?:00|15|30|45)$/);
+/** ISO weekdays 1–7, unique, at least one. */
+export const ReminderDays = z.array(z.number().int().min(1).max(7)).min(1).max(7).refine((d) => new Set(d).size === d.length, { message: 'duplicate_day' });
 export const UserSettings = z.strictObject({
   compare_opt_in: z.boolean(),
   silent_mode: z.boolean(),
@@ -40,6 +44,9 @@ export const UserSettings = z.strictObject({
   no_points_mode: z.boolean(),
   email_reminders: z.boolean(),
   locale: Locale,
+  /** Reminder time (HH:MM, quarter hours, Europe/Amsterdam) and ISO weekdays (P5; repair wave). */
+  reminder_time: ReminderTime.optional(),
+  reminder_days: ReminderDays.optional(),
 });
 export const MeUser = z.strictObject({
   id: Ulid,
@@ -54,6 +61,8 @@ export const MeUser = z.strictObject({
   institution_domain: z.string().max(253).nullable(),
   research_opted_out: z.boolean(),
   created_at: Instant,
+  /** True while the account is blocked: only appeal, export and delete work (spec §6.5). */
+  blocked: z.boolean().optional(),
 });
 export const MeSquad = z.strictObject({ id: Ulid, name: ShortText, status: SquadStatus });
 export const MeClub = z.strictObject({ id: Ulid, name: ShortText, status: z.enum(['linked', 'pending_admin']) });
@@ -100,6 +109,8 @@ export const SettingsPatch = z
     no_points_mode: z.boolean().optional(),
     email_reminders: z.boolean().optional(),
     locale: Locale.optional(),
+    reminder_time: ReminderTime.optional(),
+    reminder_days: ReminderDays.optional(),
   })
   .refine((v) => Object.keys(v).length > 0, { message: 'empty_patch' });
 export const SettingsResponse = z.strictObject({ settings: UserSettings });

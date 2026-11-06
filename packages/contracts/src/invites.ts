@@ -17,6 +17,8 @@ export const InvitePreview = z.strictObject({
   inviter_first_name: ShortText.optional(),
   squad_name: ShortText.optional(),
   valid: z.boolean(),
+  /** T of the exam calendar this invite leads to (the goal bonus stops after it; spec §4.13, O6 "op [datum]"). */
+  t_day: z.iso.date().optional(),
 });
 export const AcceptedSquad = z.strictObject({ id: Ulid, name: ShortText });
 export const AcceptedDuel = z.strictObject({ id: Ulid, start_day: z.iso.date(), end_day: z.iso.date() });

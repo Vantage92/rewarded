@@ -12,6 +12,18 @@ export type RetentionReport = Record<string, number>;
 
 const iso = (ms: number): string => new Date(ms).toISOString();
 
+/** Moves sessions older than `cutoff` to a per-user placeholder device; returns the sessions moved. */
+function retireSessionDevices(db: Db, cutoff: number, now: Date): number {
+  const at = now.toISOString();
+  db.run(
+    `INSERT OR IGNORE INTO device (id, client_device_id, user_id, ua_class, first_seen_at, last_seen_at)
+     SELECT DISTINCT 'retired_' || s.user_id, 'retired:' || s.user_id, s.user_id, 'other', ?, ?
+       FROM focus_session s WHERE s.server_start_at < ? AND s.device_id <> 'retired_' || s.user_id`,
+    [at, at, cutoff],
+  );
+  return db.run("UPDATE focus_session SET device_id = 'retired_' || user_id WHERE server_start_at < ? AND device_id <> 'retired_' || user_id", [cutoff]).changes;
+}
+
 export function runRetention(deps: ModuleDeps, now: Date): RetentionReport {
   const { db } = deps;
   const c = retentionCutoffs(now.getTime());
@@ -31,8 +43,10 @@ export function runRetention(deps: ModuleDeps, now: Date): RetentionReport {
     rule('session_ua', ['focus_session'], () => db.run("UPDATE focus_session SET ua_class = 'other' WHERE server_start_at < ? AND ua_class <> 'other'", [c.network]).changes);
     // 90 days: raw heartbeats and visibility events, after a summary per session.
     rule('heartbeats', ['session_heartbeat', 'visibility_event', 'session_summary', 'focus_session'], () => summariseAndDropSignals(db, c.heartbeat));
-    // 180 days: devices not seen; sessions keep no device link after 30 days is not possible while
-    // focus_session.device_id is NOT NULL (WP-4), so the device row stays while a session uses it.
+    // 30 days: a session keeps no link to the real device (spec §4.10, art. 11.7a Tw). device_id is
+    // NOT NULL (WP-4), so older sessions point to one retired placeholder per user without a client id.
+    rule('session_device', ['focus_session', 'device'], () => retireSessionDevices(db, c.network, now));
+    // 180 days: devices not seen, once no session refers to them any more.
     rule('device', ['device'], () =>
       db.run(`DELETE FROM device WHERE last_seen_at < ? ${hasTables(db, 'focus_session') ? 'AND id NOT IN (SELECT device_id FROM focus_session)' : ''}`, [iso(c.device)]).changes,
     );

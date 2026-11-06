@@ -52,7 +52,8 @@ function LedgerPage({ cursor, last, onMore, locale }: { cursor: string | undefin
 
 export function BonusRuleScreen() {
   const { t } = useT();
-  useMe();
+  const me = useMe();
+  const { locale } = useT();
   const today = useApiQuery('me.today');
   const rule = today.data?.bonus_rule;
   return (
@@ -68,7 +69,7 @@ export function BonusRuleScreen() {
         <li>{t('points:bonus.joker')}</li>
         <li>{t('points:bonus.night')}</li>
         <li>{t('points:bonus.exam')}</li>
-        <li>{t('points:bonus.season')}</li>
+        {me.data?.calendar ? <li>{t('points:bonus.season', { date: formatDate(locale, me.data.calendar.t_day, { day: 'numeric', month: 'long', year: 'numeric' }) })}</li> : null}
       </ul>
       <Link to="/punten">{t('actions.back')}</Link>
     </Screen>

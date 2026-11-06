@@ -19,7 +19,19 @@
     "aborted_banner": "Your session stopped at {time}.",
     "aborted_banner_view": "See why",
     "signed_out": "Log in to start a session.",
-    "login": "Log in"
+    "login": "Log in",
+    "joker_available": "Joker this week: still available.",
+    "joker_used": "Joker used this week.",
+    "exam_link": "I have an exam today",
+    "exam_on": "Exam day. Your daily goal does not count today.",
+    "streak": "Squad streak: day {count}.",
+    "club": "Your club: {club}.",
+    "club_link": "See the ranking",
+    "reminder": "Would you like a reminder at {time}? At most one mail a day, only while your daily goal is still open.",
+    "reminder_yes": "Yes, at {time}",
+    "reminder_other": "Other time",
+    "reminder_no": "No, thanks",
+    "reminder_saved": "Reminder is on at {time}."
   },
   "prepare": {
     "title": "Ready for your session",
@@ -34,7 +46,8 @@
     "starting": "Your session is starting…",
     "start_failed": "The session could not start. {reason}",
     "start_failed_network": "There is no connection. Try again in a moment.",
-    "back": "Choose another length"
+    "back": "Choose another length",
+    "other_device": "You have a session on another device. Starting stops it."
   },
   "running": {
     "label": "Running session",
@@ -60,7 +73,8 @@
   "end_signal": {
     "title": "Session done.",
     "turn": "Turn your phone over.",
-    "waiting": "We are counting your session…"
+    "waiting": "We are counting your session…",
+    "tab_title": "Session done · Rewarded"
   },
   "completed": {
     "title": "Session completed",
@@ -70,7 +84,7 @@
     "week": "This week {count} of 7 days.",
     "streak": "Squad streak: day {count}.",
     "points": "+{count} points added.",
-    "points_pending": "This session is being reviewed. Your points are released once that is done, usually within 3 working days.",
+    "points_pending": "This session is being reviewed (reason: {reason}). Your points are released once that is done, usually within 3 working days.",
     "earn_in_label": "Earn-in period",
     "earn_in_value": "{value} of {max} minutes",
     "cap": "You are at 5 hours today. More focus counts for your daily goal, but earns no more points today. Rest counts too.",
@@ -78,7 +92,17 @@
     "again": "Another session",
     "done": "Done",
     "practice_done": "Well done. This is how the end of a session sounds and feels.",
-    "practice_note": "Practice does not count anywhere."
+    "practice_note": "Practice does not count anywhere.",
+    "reason": {
+      "no_signal": "for a large part of the time we got no signal",
+      "automation": "the browser was controlled by software",
+      "clock": "your device's clock was far off from ours",
+      "outage": "we had an outage",
+      "pattern": "a pattern a person reviews"
+    },
+    "squad_day": "Today: {met} of {active} active members reached their daily goal.",
+    "card": "Make a card",
+    "earn_in_left": "{count} more minutes of focus until your first redemption. Your points are ready."
   },
   "aborted": {
     "title": "Session stopped",
@@ -150,5 +174,21 @@
     "report_title": "Is this wrong?",
     "report_body": "After a stopped session you can report that it is wrong. A person can only restore a session if we had an outage or if your device still sent a valid log. A call or another app cannot be undone.",
     "practice": "Practise for a minute"
+  },
+  "bonus_rule": {
+    "a": "Reach your daily goal today: +{points} bonus.",
+    "a_done": "+{points} bonus for reaching your daily goal.",
+    "b": "Weekly budget: {remaining} left. Reaching your daily goal today secures {points}.",
+    "b_monday": "Your weekly budget: {remaining} points. Every day you reach your goal, you secure {points}.",
+    "b_done": "{points} from your weekly budget are now secured. {remaining} left in your weekly budget.",
+    "why": "Why do I see this?"
+  },
+  "exam": {
+    "title": "Exam today?",
+    "text": "Exam today? Then your daily goal does not count today. Your streak does not break and your joker stays. Good luck.",
+    "confirm": "Yes, today is an exam day",
+    "cancel": "Cancel",
+    "undo": "No exam after all",
+    "limit": "You already have three exam days this week."
   }
 }

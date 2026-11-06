@@ -2,9 +2,10 @@
 // §6.4, §8.2). Owner WP-5. The board sees aggregates only: weekly numbers rounded to fives, hidden
 // below 5 members and when they moved less than 5 since the last shown week (core/privacy). The
 // board queries never select a user id; they read the weekly snapshot club_week_stat.
+import { weekKey } from '@rewarded/core';
 import { isoWeekKey } from '@rewarded/core/catalog';
 import { codeCap, poolFor } from '@rewarded/core/challenges';
-import { groupMetric, shareFromRounded, suppressCount, toMetric, weeklyCountSeries, type Metric, type PrivacyRules } from '@rewarded/core/privacy';
+import { groupMetric, shareFromRounded, toMetric, weeklyCountSeries, type Metric, type PrivacyRules } from '@rewarded/core/privacy';
 import { DomainError, routes, type AdminClub, type BoardDashboardResponse } from '@rewarded/contracts';
 import { adminActor, auditRef } from '../../db/services/audit.ts';
 import type { Db } from '../../db/types.ts';
@@ -89,7 +90,8 @@ function boardFromStats(stats: readonly ClubWeekStat[]) {
   const linkedSeries = stats.map((s) => ({ count: s.linked, groupSize: s.linked }));
   const linked = lastOf(linkedSeries);
   const anchored = lastOf(stats.map((s) => ({ count: s.anchored, groupSize: s.linked })));
-  const pending = last ? toMetric(suppressCount(last.pending, Math.max(last.linked, last.pending), RULES)) : { value: null, suppressed: true };
+  // The difference rule applies to the pending links as well (architecture §6.4 rule 3).
+  const pending = lastOf(stats.map((s) => ({ count: s.pending, groupSize: Math.max(s.linked, s.pending) })));
   const sources = last ? Object.keys(JSON.parse(last.by_qr_source) as Record<string, number>).sort() : [];
   const bySource = sources.map((src) => ({
     qr_source: src,
@@ -156,7 +158,9 @@ export const module: ApiModule = {
       const club = requireBoard(db, me.id, params.id);
       const tab = query.tab ?? 'stand';
       db.transaction(() => services.events.event(db, 'club_dashboard_viewed', { vereniging_id: club.id, tab }, { pseudonym: me.pseudonym }));
-      const stats = clubWeekStats(db, club.id);
+      // Only closed weeks (rule 1 of §6.4: week figures); the running week is rewritten every day close.
+      const currentWeek = weekKey(today(deps), P.time.week_start_iso_weekday);
+      const stats = clubWeekStats(db, club.id).filter((s) => s.week_start < currentWeek);
       const b = boardFromStats(stats);
       let res: BoardDashboardResponse;
       if (tab === 'stand') {

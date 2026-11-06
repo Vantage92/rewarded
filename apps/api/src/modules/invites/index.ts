@@ -3,6 +3,7 @@
 // club; an invite the user registered with was already counted by the onboarding (WP-3).
 import { addDays } from '@rewarded/core';
 import { DomainError, routes } from '@rewarded/contracts';
+import { calendarDatesById, calendarDatesOfUser, calendarIdOfClub, calendarIdOfSquad } from '../../db/calendar.ts';
 import type { Db } from '../../db/types.ts';
 import { mount } from '../../middleware/route.ts';
 import type { ApiModule, ModuleDeps } from '../../module.ts';
@@ -43,6 +44,15 @@ export const module: ApiModule = {
         ...(inviter ? { inviter_first_name: inviter.first_name } : {}),
         ...(squad && squad.name_status === 'ok' ? { squad_name: squad.name } : {}),
         valid: true,
+        // The calendar the registration will use: squad, else club, else the creator's, else the default.
+        t_day: (inv.squad_id
+          ? calendarDatesById(db, calendarIdOfSquad(db, inv.squad_id))
+          : inv.club_id
+            ? calendarDatesById(db, calendarIdOfClub(db, inv.club_id))
+            : inv.creator_user_id
+              ? calendarDatesOfUser(db, inv.creator_user_id)
+              : calendarDatesById(db, null)
+        ).tDay,
       };
     });
 

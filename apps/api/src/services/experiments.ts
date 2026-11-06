@@ -34,6 +34,8 @@ export interface UserArmContext {
   ageBand: AgeBand;
   optedOut: boolean;
   unit: ExperimentUnitRef;
+  /** Focus day the arms are asked for; switches are evaluated on this day. Default: today. */
+  day?: string;
 }
 
 export interface ExperimentService {

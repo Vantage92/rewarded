@@ -137,13 +137,15 @@ describe.each(DRIVERS)('login flow on %s', (driver) => {
     expect((await c.get('/me')).status).toBe(401);
   });
 
-  it('spec §3.1 step 4: an existing user logs in to "/", also through a plus alias of the same address', async () => {
+  it('spec §3.1 step 4: an existing user logs in to "/", also through a plus alias (the mail goes to the account address)', async () => {
     const t = wp3App(driver);
     await register(t, 'jan.jansen@example.nl', '2000-01-01');
     const c = new Client(t);
     // No invite needed for an existing account.
     expect((await requestLink(t, c, 'jan.jansen+2@example.nl')).status).toBe(202);
-    const res = await c.post('/auth/confirm', { token: lastLogin(t, 'jan.jansen+2@example.nl').token });
+    // Repair wave: the mail goes to the account's own address, never to the typed variant.
+    expect(t.inbox.list('jan.jansen+2@example.nl')).toHaveLength(0);
+    const res = await c.post('/auth/confirm', { token: lastLogin(t, 'jan.jansen@example.nl').token });
     expect(res.body).toEqual({ next: '/' });
     expect(t.db.get('SELECT count(*) AS n FROM user')).toEqual({ n: 1 });
     const me = await c.get<{ user: { id: string } }>('/me');

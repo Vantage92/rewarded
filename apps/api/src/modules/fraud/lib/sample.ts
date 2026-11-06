@@ -13,7 +13,7 @@ import type { AdminActor } from '../../../services/flags.ts';
 import { installWp6Services } from './install.ts';
 import { sampleSeedOf } from './seed.ts';
 import type { SqlFlagService } from './flags.ts';
-import { eventFor, hasTables, idsOf, parseJson } from './util.ts';
+import { assertNotOwnSubject, eventFor, hasTables, idsOf, parseJson } from './util.ts';
 
 export interface SampleItemRow {
   id: string;
@@ -100,6 +100,7 @@ export interface JudgeInput {
 export function judgeItem(deps: ModuleDeps, tx: Db, sampleId: string, itemId: string, input: JudgeInput, actor: AdminActor): { item: SampleItemRow; flagId: string | null } {
   const item = tx.get<SampleItemRow>('SELECT * FROM fraud_sample_item WHERE id = ? AND sample_id = ?', [itemId, sampleId]);
   if (!item) throw new DomainError('NOT_FOUND');
+  assertNotOwnSubject(deps, actor, [item.user_id]);
   if (!isValidSampleReason(input.judgement, input.reason_code)) throw new DomainError('REASON_REQUIRED', { reason: 'unknown_reason_code' });
   if (!mayJudgeSampleItem({ interestDeclaredBy: item.interest_declared_by, reassignedTo: item.reassigned_to }, actor)) throw new DomainError('FORBIDDEN', { reason: 'interest_declared' });
   const at = deps.platform.clock.now().toISOString();

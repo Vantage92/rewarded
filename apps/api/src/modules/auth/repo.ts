@@ -48,6 +48,8 @@ export interface UserRow {
   squad_name_on_cards: number;
   no_points_mode: number;
   email_reminders: number;
+  reminder_time?: string;
+  reminder_days?: string;
   phone_verified_at: string | null;
   institution_domain: string | null;
   research_opt_out_at: string | null;

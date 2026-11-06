@@ -87,17 +87,23 @@ describe.each(DRIVERS)('experiment service on %s', (driver) => {
     const to = solo.arms.bonus === 'A' ? 'B' : 'A';
     t.db.transaction(() => ex.switchArm(t.db, { userId: 'u1', factor: 'bonus', from: solo.arms.bonus, to, reason: 'join' }));
     expect(t.db.get('SELECT effective_from_day FROM arm_switch')).toEqual({ effective_from_day: '2026-11-09' });
+    // A join switch belongs to a squad membership: on the solo unit it changes nothing. The squad
+    // case (A until Sunday, B from Monday) is covered in tooling/test/reparatie-arms.test.ts.
     const ctx = { userId: 'u1', ageBand: '18_plus' as const, optedOut: false, unit: { type: 'solo' as const, id: 'u1', stratum: '' } };
     expect(ex.armsFor(ctx).bonus).toBe(solo.arms.bonus);
     t.clock.set(new Date('2026-11-09T05:00:00Z'));
-    expect(ex.armsFor(ctx).bonus).toBe(to);
+    expect(ex.armsFor(ctx).bonus).toBe(solo.arms.bonus);
+    void to;
 
     expect(t.db.transaction(() => ex.stopArmB(t.db, 'admin:u_aaaa'))).toEqual({ effective: false });
     expect(() => t.db.transaction(() => ex.stopArmB(t.db, 'admin:u_aaaa'))).toThrow('FOUR_EYES_REQUIRED');
     expect(t.db.transaction(() => ex.stopArmB(t.db, 'admin:u_bbbb'))).toEqual({ effective: true });
     expect(ex.armBStoppedFrom()).toBe('2026-11-16');
+    // The stop is not retroactive: a day before the stop keeps its arm.
+    expect(ex.armsFor({ ...ctx, day: '2026-11-15' }).bonus).toBe(solo.arms.bonus);
     t.clock.set(new Date('2026-11-16T05:00:00Z'));
     expect(ex.armsFor(ctx).bonus).toBe('A');
+    expect(ex.armsFor({ ...ctx, day: '2026-11-15' }).bonus).toBe(solo.arms.bonus);
   });
 });
 

@@ -103,7 +103,7 @@ describe.each(DRIVERS)('clubs and challenges on %s', (driver) => {
     expect(lb.body.is_final).toBe(false);
   });
 
-  it('spec §3.8 / §4.7: performance challenge with fixed seats, enrollment before the start, ceilings, sample and four eyes', async () => {
+  it('spec §3.8 / §4.7 / UX P10: performance challenge with fixed seats, enrollment before the start, ceilings, sample and four eyes', async () => {
     const h = wp5Harness({ driver, start: '2026-12-03T10:00:00Z' });
     const admin = createUser(h, { admin: true });
     const prize = { kind: 'earned_individual', reward_kind: 'in_kind', description_nl: 'Boekenbon', description_en: 'Book voucher', value_cents: 1000, partner_id: '01JWP5PAR0000000000000000A', budget_id: '01JWP5BDG0000000000000000A', declaration_ref: 'decl-1', min_age_band: '18_plus' };
@@ -120,7 +120,13 @@ describe.each(DRIVERS)('clubs and challenges on %s', (driver) => {
     expect((await call(h, u1, 'POST', `/challenges/${id}/enroll`)).body.seat_no).toBe(1);
     expect((await call(h, u2, 'POST', `/challenges/${id}/enroll`)).body.seat_no).toBe(2);
     expect((await call(h, u3, 'POST', `/challenges/${id}/enroll`)).body.error.code).toBe('SEATS_FULL');
-    expect((await call(h, u1, 'GET', '/challenges')).body.items[0]).toMatchObject({ seats_left: 0, prize: { description: 'Boekenbon', value_cents: 1000 } });
+    const listed = (await call(h, u1, 'GET', '/challenges')).body.items[0];
+    expect(listed).toMatchObject({ seats_left: 0, prize: { description: 'Boekenbon' } });
+    // Repair wave: no euro value for students (P7), and a minor does not see an 18+ prize (P10).
+    expect(listed.prize.value_cents).toBeUndefined();
+    const minorList = (await call(h, minor, 'GET', '/challenges')).body.items as { id: string }[];
+    expect(minorList.some((c) => c.id === id)).toBe(false);
+    expect(JSON.stringify(minorList)).not.toContain('Boekenbon');
     h.clock.set(new Date('2026-12-07T10:00:00Z'));
     expect((await call(h, u3, 'POST', `/challenges/${id}/enroll`)).body.error.code).toBe('ENROLLMENT_CLOSED');
     expect((await call(h, u3, 'GET', `/challenges/${id}/progress`)).body.error.code).toBe('NOT_ENROLLED');

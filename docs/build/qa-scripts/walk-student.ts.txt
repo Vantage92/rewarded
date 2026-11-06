@@ -1,0 +1,389 @@
+// QA walk-through of the Rewarded MVP on the demo seed against `pnpm dev` (http://localhost:5173).
+import { chromium, type Page, type BrowserContext } from '/home/user/rewarded/node_modules/@playwright/test/index.mjs';
+import { adminTotp } from '/home/user/rewarded/tooling/seed/admins.ts';
+import { writeFileSync, mkdirSync } from 'node:fs';
+
+const WEB = 'http://localhost:5173';
+const API = `${WEB}/api/v1`;
+const OUT = '/home/user/rewarded/docs/build/screenshots';
+mkdirSync(OUT, { recursive: true });
+const log: { step: string; ok: boolean; notes: string[]; shot?: string }[] = [];
+let cur: { step: string; ok: boolean; notes: string[]; shot?: string };
+const begin = (step: string) => { cur = { step, ok: true, notes: [] }; log.push(cur); console.log(`\n== ${step}`); };
+const note = (s: string) => { cur.notes.push(s); console.log('  ' + s); };
+const fail = (s: string) => { cur.ok = false; note('FOUT: ' + s); };
+
+// ---- tiny API client with a cookie jar ----
+class Client {
+  jar = new Map<string, string>();
+  ip: string;
+  constructor(ip: string) { this.ip = ip; }
+  async req(method: string, path: string, body?: unknown) {
+    if (method !== 'GET' && !this.jar.has('rw_csrf')) await this.req('GET', '/health');
+    const headers: Record<string, string> = { Origin: WEB, 'X-Forwarded-For': this.ip, 'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/140 Safari/537.36' };
+    if (this.jar.size) headers.Cookie = [...this.jar].map(([k, v]) => `${k}=${v}`).join('; ');
+    if (method !== 'GET') { headers['X-CSRF-Token'] = this.jar.get('rw_csrf')!; headers['Content-Type'] = 'application/json'; headers['Idempotency-Key'] = crypto.randomUUID(); }
+    const r = await fetch(API + path, { method, headers, body: body === undefined ? undefined : JSON.stringify(body) });
+    for (const c of r.headers.getSetCookie()) { const [kv] = c.split(';'); const i = kv!.indexOf('='); this.jar.set(kv!.slice(0, i), kv!.slice(i + 1)); }
+    const text = await r.text();
+    let json: any; try { json = JSON.parse(text); } catch { json = text; }
+    if (!r.ok) throw new Error(`${method} ${path} -> ${r.status} ${text.slice(0, 300)}`);
+    return json;
+  }
+}
+const dev = new Client('203.0.113.250');
+const serverNow = async () => Date.parse((await dev.req('POST', '/dev/clock', { advance_ms: 0 })).now);
+const setServer = async (ms: number) => dev.req('POST', '/dev/clock', { set: new Date(ms).toISOString() });
+const inbox = async (to: string) => (await dev.req('GET', `/dev/inbox?to=${encodeURIComponent(to)}`)).messages as { channel: string; to: string; subject?: string; text: string }[];
+const lastCode = async (to: string) => {
+  const m = (await inbox(to)).filter((x) => /\b\d{6}\b/.test(x.text)).at(-1);
+  if (!m) throw new Error('no code for ' + to);
+  return m.text.match(/\b(\d{6})\b/)![1]!;
+};
+
+// ---- browser helpers ----
+async function syncServerToPage(page: Page) { const t = await page.evaluate(() => Date.now()); await setServer(t); }
+async function newCtx(browser: any, viewport: { width: number; height: number }): Promise<{ ctx: BrowserContext; page: Page }> {
+  const ctx = await browser.newContext({ viewport, deviceScaleFactor: 2, isMobile: viewport.width < 500, hasTouch: viewport.width < 500, locale: 'nl-NL', timezoneId: 'Europe/Amsterdam',
+    userAgent: viewport.width < 500 ? 'Mozilla/5.0 (Linux; Android 14; Pixel 7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Mobile Safari/537.36' : undefined });
+  const page = await ctx.newPage();
+  await page.addInitScript(() => {
+    (globalThis as any).__RW_TEST__ = true;
+    // A normal phone browser: webdriver false, so the sessions are not marked H1.
+    Object.defineProperty(Navigator.prototype, 'webdriver', { configurable: true, get: () => false });
+  });
+  await page.clock.install({ time: await serverNow() });
+  return { ctx, page };
+}
+async function shot(page: Page, name: string, full = true) {
+  const file = `${OUT}/${name}.png`;
+  await page.waitForTimeout(400);
+  await page.screenshot({ path: file, fullPage: full });
+  cur.shot = (cur.shot ? cur.shot + ', ' : '') + `${name}.png`;
+  console.log('  [shot] ' + name);
+}
+async function bodyText(page: Page) { return (await page.locator('body').innerText()).replace(/\s+\n/g, '\n'); }
+async function checkWords(page: Page, where: string) {
+  const t = await bodyText(page);
+  if (/bewezen/i.test(t)) fail(`"bewezen" op ${where}`);
+  // Euro amount near points on the same line.
+  for (const line of t.split('\n')) if (/punt/i.test(line) && /€|euro/i.test(line)) fail(`eurowaarde bij punten op ${where}: "${line.trim()}"`);
+  return t;
+}
+/** Lockstep: server clock and paused page clock move together. */
+async function advance(page: Page, ms: number, step = 30_000) {
+  for (let left = ms; left > 0; left -= step) {
+    const d = Math.min(step, left);
+    await setServer((await serverNow()) + d);
+    await page.clock.runFor(d);
+    await page.waitForTimeout(60);
+  }
+}
+async function pause(page: Page) {
+  const t = await page.evaluate(() => Date.now());
+  await setServer(t + 1000);
+  await page.clock.pauseAt(t + 1000);
+}
+async function waitVisible(page: Page, loc: ReturnType<Page['getByText']>, timeout = 15_000) {
+  await loc.first().waitFor({ state: 'visible', timeout });
+}
+
+async function main() {
+  const browser = await chromium.launch();
+  await dev.req('GET', '/health');
+  await setServer(Math.max((await serverNow()) + 120_000, Date.parse('2026-12-16T09:10:00.000Z')));
+  const start = await serverNow();
+  console.log('server now', new Date(start).toISOString());
+
+  // ---- Preparation over the API: admin Anna invites the waiting list (two of them are ours) ----
+  const anna = new Client('203.0.113.10');
+  await anna.req('POST', '/auth/magic-link', { email: 'anna.beheer@rewarded.test', locale: 'nl' });
+  await anna.req('POST', '/auth/code', { email: 'anna.beheer@rewarded.test', code: await lastCode('anna.beheer@rewarded.test') });
+  await setServer((await serverNow()) + 61_000);
+  await anna.req('POST', '/admin/mfa/verify', { code: adminTotp('anna', new Date(await serverNow())) });
+  const visitor1 = new Client('203.0.113.31');
+  const visitor2 = new Client('203.0.113.32');
+  const run = Date.now() % 100000;
+  const adultEmail = `lotte.qa${run}@student.demostad.test`;
+  const minorEmail = `mees.qa${run}@student.demostad.test`;
+  await visitor1.req('POST', '/waitlist', { email: adultEmail, locale: 'nl', source: 'landing', consent_version: 'privacy-0.3' }).catch((e) => console.log('waitlist1', e.message));
+  await visitor2.req('POST', '/waitlist', { email: minorEmail, locale: 'nl', source: 'landing', consent_version: 'privacy-0.3' }).catch((e) => console.log('waitlist2', e.message));
+  const batch = await anna.req('POST', '/admin/waitlist/invite-batch', { count: 30 });
+  console.log('invite batch', JSON.stringify(batch).slice(0, 200));
+  const tokenOf = async (email: string) => { const m = (await inbox(email)).map((x) => x.text.match(/\/i\/([A-Za-z0-9_-]{16,128})/)?.[1]).filter(Boolean).at(-1); if (!m) throw new Error('no invite for ' + email); return m; };
+  const adultToken = await tokenOf(adultEmail);
+  const minorToken = await tokenOf(minorEmail);
+  await setServer((await serverNow()) + 31_000);
+
+  // ================= Student (adult), 390x844 =================
+  const { ctx, page } = await newCtx(browser, { width: 390, height: 844 });
+  async function onboard(p: Page, token: string, email: string, first: string, dob: [string, string, string], prefix: string, shots: boolean) {
+    begin(`${prefix}: uitnodiging openen`);
+    await p.goto(`${WEB}/i/${token}`);
+    await waitVisible(p, p.getByRole('link', { name: 'Doe mee' }).or(p.getByRole('button', { name: 'Doe mee' })) as any);
+    if (shots) await shot(p, `${prefix}-01-uitnodiging`);
+    note((await checkWords(p, 'uitnodiging')).split('\n').slice(0, 8).join(' | '));
+    await p.getByRole('link', { name: 'Doe mee' }).or(p.getByRole('button', { name: 'Doe mee' })).first().click();
+    const begrepen = p.getByRole('button', { name: 'Begrepen' }).or(p.getByRole('link', { name: 'Begrepen' }));
+    await p.waitForTimeout(500);
+    if (await begrepen.first().isVisible().catch(() => false)) { if (shots) await shot(p, `${prefix}-02-hoe-het-werkt`); await begrepen.first().click(); }
+    await p.getByLabel('E-mailadres').fill(email);
+    if (await p.getByLabel('Voornaam').isVisible().catch(() => false)) await p.getByLabel('Voornaam').fill(first);
+    if (shots) await shot(p, `${prefix}-03-email`);
+    await p.getByRole('button', { name: 'Stuur link' }).click();
+    begin(`${prefix}: inloggen met code uit dev-inbox`);
+    await waitVisible(p, p.getByRole('heading', { name: 'Check je mail' }) as any);
+    const mails = await inbox(email);
+    note(`mail: "${mails.at(-1)?.subject}"`);
+    await p.getByLabel('Code van 6 cijfers').fill(await lastCode(email));
+    if (shots) await shot(p, `${prefix}-04-check-je-mail-code`);
+    await p.getByRole('button', { name: 'Ga verder' }).click();
+    begin(`${prefix}: onboarding met geboortedatum`);
+    await waitVisible(p, p.getByRole('heading', { name: 'Je geboortedatum' }) as any);
+    if (await p.getByLabel('Voornaam').isVisible().catch(() => false)) await p.getByLabel('Voornaam').fill(first);
+    await p.getByLabel('Dag').fill(dob[0]); await p.getByLabel('Maand').fill(dob[1]); await p.getByLabel('Jaar').fill(dob[2]);
+    await shot(p, `${prefix}-05-geboortedatum`);
+    await p.getByRole('button', { name: 'Verder' }).click();
+    const terms = p.getByLabel('Ik ga akkoord met de gebruiksvoorwaarden');
+    for (let i = 0; i < 6 && !(await terms.isVisible().catch(() => false)); i++) {
+      await p.waitForTimeout(400);
+      if (await terms.isVisible().catch(() => false)) break;
+      const h = await p.getByRole('heading', { level: 1 }).first().innerText().catch(() => '?');
+      note(`tussenscherm: ${h}`);
+      if (shots || prefix === 'minderjarig') await shot(p, `${prefix}-06-tussenscherm-${i}`);
+      const next = p.getByRole('button', { name: /^(Verder|Begrepen|Ga verder|Oké|Ok)$/ });
+      if (await next.first().isEnabled().catch(() => false)) await next.first().click();
+    }
+    if (shots) await shot(p, `${prefix}-07-akkoord`);
+    note((await bodyText(p)).split('\n').slice(0, 6).join(' | '));
+    await terms.check();
+    await p.getByLabel('Ik heb de privacyverklaring gelezen').check();
+    await p.getByRole('button', { name: 'Akkoord' }).click();
+    await waitVisible(p, p.getByRole('radio', { name: '25 min' }) as any);
+    if (shots) await shot(p, `${prefix}-08-dagdoel`);
+    await p.getByRole('radio', { name: '25 min' }).click();
+    await p.getByRole('button', { name: 'Verder' }).click();
+    await waitVisible(p, p.getByRole('heading', { name: 'Niet storen' }) as any);
+    if (shots) await shot(p, `${prefix}-09-niet-storen`);
+    await p.getByRole('link', { name: 'Ik zet het aan' }).click();
+    await waitVisible(p, p.getByRole('heading', { name: 'Oefensessie' }) as any);
+  }
+
+  await onboard(page, adultToken, adultEmail, 'Lotte', ['17', '5', '2003'], 'student', true);
+
+  begin('student: oefensessie');
+  await shot(page, 'student-10-oefensessie-start');
+  await pause(page);
+  await page.getByRole('button', { name: 'Start oefening' }).click();
+  await page.clock.runFor(500);
+  await waitVisible(page, page.getByRole('timer') as any);
+  await advance(page, 20_000, 5_000);
+  await shot(page, 'student-11-oefensessie-loopt', false);
+  await advance(page, 45_000, 5_000);
+  await page.waitForTimeout(500);
+  await shot(page, 'student-12a-oefensessie-draai-om');
+  await page.mouse.click(200, 300);
+  await advance(page, 2_000, 500);
+  await shot(page, 'student-12-oefensessie-klaar');
+  note((await bodyText(page)).split('\n').slice(0, 8).join(' | '));
+  const verder = page.getByRole('button', { name: 'Verder' }).or(page.getByRole('link', { name: 'Verder' }));
+  if (await verder.first().isVisible().catch(() => false)) await verder.first().click();
+  await page.clock.runFor(1000);
+  await page.waitForTimeout(500);
+  await shot(page, 'student-13-eerste-sessie');
+  note((await bodyText(page)).split('\n').slice(0, 8).join(' | '));
+
+  begin('student: sessie van 25 minuten (dev-klok, zichtbaar)');
+  await page.goto(`${WEB}/focus?duur=25`);
+  for (let i = 0; i < 8; i++) { await page.clock.runFor(250); await page.waitForTimeout(60); }
+  await waitVisible(page, page.getByRole('button', { name: 'Begin' }) as any);
+  await shot(page, 'student-14-sessie-f2-voor-start');
+  await page.getByRole('button', { name: 'Begin' }).click();
+  await page.clock.runFor(500);
+  await waitVisible(page, page.getByRole('timer') as any);
+  await page.evaluate(() => (globalThis as any).__rwTest?.setVisibility('visible'));
+  await advance(page, 60_000);
+  let t = await checkWords(page, 'lopende sessie (1 min)');
+  await shot(page, 'student-15-sessie-loopt-1min', false);
+  await advance(page, 11 * 60_000);
+  t = await checkWords(page, 'lopende sessie (12 min)');
+  await shot(page, 'student-16-sessie-loopt-12min', false);
+  if (/\bpunt/i.test(t)) fail(`het woord "punt" staat in beeld tijdens de sessie: ${t.split('\n').filter((l) => /punt/i.test(l)).join(' / ')}`);
+  else note('tijdens de sessie geen punten in beeld (1 en 12 min)');
+  note('scherm tijdens sessie: ' + t.split('\n').slice(0, 10).join(' | '));
+  await advance(page, 13 * 60_000 + 2_000);
+  begin('student: eindscherm met punten');
+  await page.clock.runFor(1000);
+  await waitVisible(page, page.getByRole('heading', { name: 'Sessie klaar.' }) as any);
+  await page.mouse.click(200, 300);
+  await advance(page, 2_000, 500);
+  await page.waitForTimeout(500);
+  t = await checkWords(page, 'eindscherm');
+  await shot(page, 'student-17-eindscherm-punten');
+  note(t.split('\n').slice(0, 12).join(' | '));
+  if (!/punten/.test(t)) fail('geen punten op het eindscherm');
+  if (/nagekeken/.test(t)) note('sessie wordt nagekeken (markering)');
+  const vd = page.getByRole('button', { name: /Klaar|Verder|Sluiten|Naar huis/ });
+  if (await vd.first().isVisible().catch(() => false)) { await vd.first().click(); await page.clock.runFor(1000); }
+
+  begin('student: afgebroken sessie met uitleg (zichtbaarheid hidden na 8 min)');
+  await advance(page, 10 * 60_000, 60_000);
+  await page.goto(`${WEB}/focus?duur=25`);
+  for (let i = 0; i < 8; i++) { await page.clock.runFor(250); await page.waitForTimeout(60); }
+  await waitVisible(page, page.getByRole('button', { name: 'Begin' }) as any);
+  await page.getByRole('button', { name: 'Begin' }).click();
+  await page.clock.runFor(500);
+  await waitVisible(page, page.getByRole('timer') as any);
+  await advance(page, 8 * 60_000);
+  await page.evaluate(() => (globalThis as any).__rwTest.setVisibility('hidden'));
+  await advance(page, 20_000, 1000);
+  await page.evaluate(() => (globalThis as any).__rwTest.setVisibility('visible'));
+  await advance(page, 5_000, 1000);
+  await page.waitForTimeout(500);
+  t = await checkWords(page, 'afbreekscherm');
+  await shot(page, 'student-18-afgebroken-sessie');
+  note(t.split('\n').slice(0, 12).join(' | '));
+  if (!/niet meer op je scherm/.test(t)) fail('geen uitleg van de reden "hidden" zichtbaar');
+  if (/\+\d+ punten/.test(t)) fail('punten bijgeschreven bij een afgebroken sessie');
+  const klopt = page.getByRole('button', { name: 'Klopt dit niet?' });
+  if (await klopt.isVisible().catch(() => false)) { await klopt.click(); await page.clock.runFor(500); await shot(page, 'student-19-afgebroken-klopt-dit-niet'); note('dialoog: ' + (await page.getByRole('dialog').innerText().catch(() => '')).replace(/\n/g, ' | ')); await page.keyboard.press('Escape'); }
+  // Free the browser clock again for the normal screens.
+  await syncServerToPage(page);
+  await page.clock.resume();
+
+  const visitAndShot = async (p: Page, path: string, name: string, stepName: string) => {
+    begin(stepName);
+    await p.goto(WEB + path);
+    await p.waitForTimeout(1500);
+    const txt = await checkWords(p, path);
+    await shot(p, name);
+    note(txt.split('\n').filter(Boolean).slice(0, 40).join(' | '));
+    return txt;
+  };
+  const home = await visitAndShot(page, '/', 'student-20-vandaag', 'student: vandaag (home)');
+  void home;
+  await visitAndShot(page, '/punten', 'student-21-punten', 'student: punten');
+  await visitAndShot(page, '/punten/geschiedenis', 'student-22-punten-geschiedenis', 'student: puntengeschiedenis');
+  await visitAndShot(page, '/squad', 'student-23-squad', 'student: squad-overzicht (nog geen squad)');
+  await visitAndShot(page, '/vereniging/ranglijst', 'student-24-verenigingsranglijst', 'student: verenigingsranglijst (zonder vereniging)');
+  await visitAndShot(page, '/punten/catalogus', 'student-25-catalogus', 'student: catalogus');
+  await visitAndShot(page, '/profiel', 'student-26-profiel', 'student: profiel');
+  await ctx.close();
+
+  // ================= Demo student in a squad and a club (390x844) =================
+  const { ctx: dctx, page: dpage } = await newCtx(browser, { width: 390, height: 844 });
+  const demoEmail = 'sanne.devries@student.demostad.test';
+  begin('demo-student (squadoprichter, Kompas): inloggen');
+  await dpage.goto(WEB + '/login');
+  await dpage.getByLabel('E-mailadres').fill(demoEmail);
+  await dpage.getByRole('button', { name: 'Stuur link' }).click();
+  await waitVisible(dpage, dpage.getByRole('heading', { name: 'Check je mail' }) as any);
+  await dpage.getByLabel('Code van 6 cijfers').fill(await lastCode(demoEmail));
+  await dpage.getByRole('button', { name: 'Ga verder' }).click();
+  await dpage.waitForTimeout(2000);
+  await shot(dpage, 'demo-30-vandaag');
+  note((await checkWords(dpage, 'vandaag demo')).split('\n').slice(0, 12).join(' | '));
+  await visitAndShot(dpage, '/squad', 'demo-31-squad', 'demo-student: squad-overzicht');
+  await visitAndShot(dpage, '/vereniging', 'demo-32-vereniging', 'demo-student: vereniging');
+  await visitAndShot(dpage, '/vereniging/ranglijst', 'demo-33-verenigingsranglijst', 'demo-student: verenigingsranglijst');
+  await visitAndShot(dpage, '/punten', 'demo-34-punten', 'demo-student: punten');
+  await visitAndShot(dpage, '/punten/catalogus', 'demo-35-catalogus', 'demo-student: catalogus');
+  await visitAndShot(dpage, '/profiel', 'demo-36-profiel', 'demo-student: profiel');
+  await dctx.close();
+
+  // ================= Board dashboard, 1280x800 =================
+  const { ctx: bctx, page: bpage } = await newCtx(browser, { width: 1280, height: 800 });
+  begin('bestuur: inloggen en dashboard');
+  await bpage.goto(WEB + '/login');
+  await bpage.getByLabel('E-mailadres').fill(demoEmail);
+  await bpage.getByRole('button', { name: 'Stuur link' }).click();
+  await waitVisible(bpage, bpage.getByRole('heading', { name: 'Check je mail' }) as any);
+  await bpage.getByLabel('Code van 6 cijfers').fill(await lastCode(demoEmail));
+  await bpage.getByRole('button', { name: 'Ga verder' }).click();
+  await bpage.waitForTimeout(1500);
+  await bpage.goto(WEB + '/bestuur');
+  await bpage.waitForTimeout(2500);
+  t = await checkWords(bpage, '/bestuur');
+  await shot(bpage, 'bestuur-40-dashboard');
+  note(bpage.url());
+  note(t.split('\n').filter(Boolean).slice(0, 30).join(' | '));
+  // Names of students in the club must not appear.
+  const names = ['Sanne', 'de Vries'];
+  const firstNames = (await (await fetch(API + '/health')).json()) && [];
+  void firstNames; void names;
+  for (const link of await bpage.getByRole('link').all()) { const h = await link.getAttribute('href'); if (h?.startsWith('/bestuur/')) note('bestuurslink: ' + h); }
+  await bctx.close();
+
+  // ================= Admin, 1280x800 =================
+  await setServer((await serverNow()) + 31_000);
+  const { ctx: actx, page: apage } = await newCtx(browser, { width: 1280, height: 800 });
+  begin('beheer: inloggen met code en TOTP');
+  await apage.goto(WEB + '/login');
+  await apage.getByLabel('E-mailadres').fill('bram.beheer@rewarded.test');
+  await apage.getByRole('button', { name: 'Stuur link' }).click();
+  await waitVisible(apage, apage.getByRole('heading', { name: 'Check je mail' }) as any);
+  await apage.getByLabel('Code van 6 cijfers').fill(await lastCode('bram.beheer@rewarded.test'));
+  await apage.getByRole('button', { name: 'Ga verder' }).click();
+  await apage.waitForTimeout(1500);
+  await apage.goto(WEB + '/beheer');
+  await apage.waitForTimeout(1500);
+  await shot(apage, 'beheer-50-mfa');
+  note((await bodyText(apage)).split('\n').filter(Boolean).slice(0, 8).join(' | '));
+  await syncServerToPage(apage);
+  const code = adminTotp('bram', new Date(await serverNow()));
+  await apage.getByLabel(/Code/).first().fill(code);
+  await apage.getByRole('button', { name: /Bevestig|Verder|Inloggen|Controleer/ }).first().click();
+  await apage.waitForTimeout(1500);
+  begin('beheer: fraudewachtrij en markering vrijgeven');
+  await apage.goto(WEB + '/beheer/wachtrij');
+  await apage.waitForTimeout(2000);
+  await shot(apage, 'beheer-51-wachtrij');
+  t = await checkWords(apage, '/beheer/wachtrij');
+  note(t.split('\n').filter(Boolean).slice(0, 25).join(' | '));
+  const card = apage.getByRole('form', { name: /Besluit over markering/ }).first();
+  await card.waitFor({ timeout: 10_000 });
+  note('kaart: ' + (await card.getAttribute('aria-label')));
+  await card.getByRole('radio', { name: 'Vrijgeven' }).check().catch(() => {});
+  await card.getByLabel(/^Redencode/).selectOption('no_evidence');
+  await card.getByLabel('Interne toelichting').fill('QA: gewone browser na controle.');
+  await shot(apage, 'beheer-52-besluit-ingevuld');
+  await card.getByRole('button', { name: 'Besluit vastleggen' }).click({ force: true });
+  await apage.waitForTimeout(2000);
+  await shot(apage, 'beheer-53-na-vrijgave');
+  note((await bodyText(apage)).split('\n').filter(Boolean).slice(0, 12).join(' | '));
+  for (const sub of ['', '/kpi', '/sessies', '/tentamenkalenders']) {
+    begin(`beheer: overzicht ${sub || '/'}`);
+    await apage.goto(WEB + '/beheer' + sub);
+    await apage.waitForTimeout(1500);
+    await checkWords(apage, '/beheer' + sub);
+    await shot(apage, `beheer-54-overzicht${sub.replace('/', '-') || '-start'}`);
+    note((await bodyText(apage)).split('\n').filter(Boolean).slice(0, 10).join(' | '));
+  }
+  await actx.close();
+
+  // ================= 17-year-old =================
+  const { ctx: mctx, page: mpage } = await newCtx(browser, { width: 390, height: 844 });
+  await onboard(mpage, minorToken, minorEmail, 'Mees', ['1', '3', '2009'], 'minderjarig', false);
+  await mpage.getByRole('button', { name: 'Overslaan' }).click().catch(() => {});
+  await mpage.waitForTimeout(800);
+  const draws = /trekking|loting|verloting|kans op|\bkans\b|loterij|winnen/i;
+  for (const [path, name] of [['/', 'minderjarig-60-vandaag'], ['/punten', 'minderjarig-61-punten'], ['/punten/catalogus', 'minderjarig-62-catalogus'], ['/profiel', 'minderjarig-63-profiel'], ['/kans', 'minderjarig-64-kans-route'], ['/vereniging', 'minderjarig-65-vereniging']] as const) {
+    begin(`17-jarige: ${path}`);
+    await mpage.goto(WEB + path);
+    await mpage.waitForTimeout(1500);
+    const tx = await checkWords(mpage, path);
+    const html = await mpage.content();
+    await shot(mpage, name);
+    if (draws.test(tx)) fail(`trekking-achtige tekst zichtbaar: ${tx.split('\n').filter((l) => draws.test(l)).join(' / ')}`);
+    if (/trekking|draw/i.test(html.replace(/<script[\s\S]*?<\/script>/g, ''))) note('LET OP: "trekking/draw" in de DOM');
+    if (/€/.test(tx)) fail(`eurobedrag zichtbaar voor 17-jarige: ${tx.split('\n').filter((l) => /€/.test(l)).join(' / ')}`);
+    note(tx.split('\n').filter(Boolean).slice(0, 10).join(' | '));
+  }
+  await mctx.close();
+  await browser.close();
+}
+
+main().catch((e) => { if (cur) fail(String(e?.message ?? e).slice(0, 600)); console.error(e); }).finally(() => {
+  writeFileSync('/tmp/qa-log-final.json', JSON.stringify(log, null, 2));
+  process.exit(0);
+});

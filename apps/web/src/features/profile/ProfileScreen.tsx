@@ -5,16 +5,18 @@ import type { GoalMinutes, MeResponse, UserSettings } from '@rewarded/contracts'
 import { useQueryClient } from '@tanstack/react-query';
 import { useState } from 'react';
 import { Link } from 'react-router';
-import { Button, Card, LanguageSwitch, Modal, Segment, Switch, TextField, ThemeSwitch, useToast } from '../../design/index.ts';
+import { Button, Card, Modal, Segment, Switch, TextField, ThemeSwitch, useToast } from '../../design/index.ts';
 import { useT } from '../../i18n/index.tsx';
 import { apiKey, errorText, useApiMutation } from '../../lib/api/index.ts';
-import { ErrorNote, Screen, Skeleton, formatDate, isApiError, useMe } from './kit.tsx';
+import { BlockedScreen, DecisionsCard, LogoutButton } from './Decisions.tsx';
+import { AccountLanguageSwitch, ErrorNote, Screen, Skeleton, formatDate, isApiError, useMe } from './kit.tsx';
 
 const GOALS = [25, 50, 90, 120] as const;
 
 export function ProfileScreen() {
   const { t } = useT();
   const me = useMe();
+  if (me.data?.user?.blocked) return <BlockedScreen />;
   return (
     <Screen title={t('profile:title')}>
       {me.isPending ? <Skeleton lines={5} /> : null}
@@ -43,6 +45,7 @@ function ProfileContent({ me }: { me: MeResponse }) {
       </Card>
       <DailyGoal current={user.daily_goal_min} createdAt={user.created_at} />
       {me.settings ? <Settings me={me} settings={me.settings} /> : null}
+      <DecisionsCard />
       <Research optedOut={user.research_opted_out} />
       <InstitutionEmail domain={user.institution_domain} />
       <Card title={t('profile:links.title')}>
@@ -70,8 +73,9 @@ function ProfileContent({ me }: { me: MeResponse }) {
       </Card>
       <Card>
         <ThemeSwitch />
-        <LanguageSwitch />
+        <AccountLanguageSwitch />
       </Card>
+      <LogoutButton />
     </>
   );
 }
@@ -160,7 +164,21 @@ function Settings({ me, settings }: { me: MeResponse; settings: UserSettings }) 
       />
       <Switch label={t('profile:settings.squad_name_cards')} description={t('profile:settings.squad_name_cards_desc')} checked={local.squad_name_on_cards} onChange={set('squad_name_on_cards')} />
       {me.flags.no_points_mode ? <Switch label={t('profile:settings.no_points')} description={t('profile:settings.no_points_desc')} checked={local.no_points_mode} onChange={set('no_points_mode')} /> : null}
-      {me.flags.reminders ? <Switch label={t('profile:settings.reminders')} description={t('profile:settings.reminders_desc')} checked={local.email_reminders} onChange={set('email_reminders')} /> : null}
+      {me.flags.reminders ? (
+        <div id="herinneringen">
+          <Switch label={t('profile:settings.reminders')} description={t('profile:settings.reminders_desc')} checked={local.email_reminders} onChange={set('email_reminders')} />
+          {local.email_reminders ? (
+            <ReminderSchedule
+              time={local.reminder_time ?? '19:30'}
+              days={local.reminder_days ?? [1, 2, 3, 4, 5, 6, 7]}
+              onChange={(patchBody) => {
+                setLocal((s) => ({ ...s, ...patchBody }));
+                patch.mutate({ body: patchBody });
+              }}
+            />
+          ) : null}
+        </div>
+      ) : null}
     </Card>
   );
 }
@@ -270,5 +288,42 @@ function InstitutionEmail({ domain }: { domain: string | null }) {
         </p>
       </Card>
     </section>
+  );
+}
+
+const QUARTERS = Array.from({ length: 96 }, (_, i) => `${String(Math.floor(i / 4)).padStart(2, '0')}:${String((i % 4) * 15).padStart(2, '0')}`);
+
+/** P5: time (quarter hours) and days of the reminder mail. */
+function ReminderSchedule({ time, days, onChange }: { time: string; days: readonly number[]; onChange: (p: { reminder_time?: string; reminder_days?: number[] }) => void }) {
+  const { t } = useT();
+  return (
+    <div className="wp9-stack">
+      <label className="wp9-stack">
+        <span>{t('profile:reminders.time')}</span>
+        <select value={time} onChange={(e) => onChange({ reminder_time: e.target.value })}>
+          {QUARTERS.map((q) => (
+            <option key={q} value={q}>
+              {q}
+            </option>
+          ))}
+        </select>
+      </label>
+      <fieldset>
+        <legend>{t('profile:reminders.days')}</legend>
+        {[1, 2, 3, 4, 5, 6, 7].map((d) => (
+          <label key={d} className="wp9-row">
+            <input
+              type="checkbox"
+              checked={days.includes(d)}
+              onChange={(e) => {
+                const next = e.target.checked ? [...days, d] : days.filter((x) => x !== d);
+                if (next.length > 0) onChange({ reminder_days: [...new Set(next)].sort() });
+              }}
+            />
+            <span>{t(`profile:reminders.day.${d}`)}</span>
+          </label>
+        ))}
+      </fieldset>
+    </div>
   );
 }

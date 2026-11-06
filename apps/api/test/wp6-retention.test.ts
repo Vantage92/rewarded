@@ -11,7 +11,7 @@ import { actor, createAdmin, createUser, rawClub, rawLink, rawSession, wp6Harnes
 const DAY = 86_400_000;
 
 describe('architecture §10.6 retention per rule', () => {
-  it('reduces or deletes every datum past its period and keeps the rest', () => {
+  it('§10.6 reduces or deletes every datum past its period and keeps the rest (device link after 30 days)', () => {
     const h = wp6Harness({ start: '2026-12-01T10:00:00Z' });
     const admin = createAdmin(h);
     const old = createUser(h);
@@ -70,6 +70,9 @@ describe('architecture §10.6 retention per rule', () => {
     h.clock.set(new Date(t0.getTime() + 31 * DAY));
     r = runRetention(h.deps, h.clock.now());
     expect(h.db.get('SELECT ip_hash, net_class, ua_class FROM focus_session WHERE id = ?', [sOld])).toEqual({ ip_hash: null, net_class: null, ua_class: 'other' });
+    // §10.6 (repair): after 30 days the session no longer points to the real device.
+    const realDevice = h.db.get<{ id: string }>("SELECT id FROM device WHERE user_id = ? AND client_device_id NOT LIKE 'retired:%'", [old.id])!.id;
+    expect(h.db.get('SELECT device_id FROM focus_session WHERE id = ?', [sOld])).toEqual({ device_id: `retired_${old.id}` });
     expect(h.db.get('SELECT registration_ip_hash, registration_net_class FROM user WHERE id = ?', [old.id])).toEqual({ registration_ip_hash: null, registration_net_class: null });
     expect(h.db.get('SELECT ip_hash FROM club_membership WHERE user_id = ?', [old.id])).toEqual({ ip_hash: null });
     expect(JSON.parse((h.db.get<{ evidence: string }>('SELECT evidence FROM fraud_flag WHERE id = ?', [fDecided]) as { evidence: string }).evidence)).toEqual({ threshold: 3, net_class: 'other' });
@@ -97,6 +100,8 @@ describe('architecture §10.6 retention per rule', () => {
     expect(h.db.get('SELECT count(*) AS n FROM fraud_sample_item')).toEqual({ n: 0 });
     expect(h.db.get("SELECT count(*) AS n FROM blocked_phone_hash WHERE phone_hash = 'ph_exp'")).toEqual({ n: 0 });
     expect(h.db.get<{ n: number }>('SELECT count(*) AS n FROM audit_log')?.n).toBeLessThan(auditBefore);
+    // §10.6 (repair): a device not seen for 180 days is gone, client_device_id included.
+    expect(h.db.get('SELECT count(*) AS n FROM device WHERE id = ?', [realDevice])).toEqual({ n: 0 });
     // The audit log still refuses deleting recent rows.
     h.db.transaction(() => h.services.audit.audit(h.db, { actor: 'system', action: 'test_line', objectType: 'test', objectRef: 'new' }));
     expect(() => h.db.run('DELETE FROM audit_log')).toThrow(/append-only/);

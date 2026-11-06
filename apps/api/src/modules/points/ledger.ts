@@ -181,7 +181,17 @@ export class SqlLedgerService implements LedgerService {
     const p = ctx.profile(tx, userId);
     if (!p) return null;
     const regDay = focusDayOf(Date.parse(p.createdAt), params);
-    const from = compareDays(regDay, week) > 0 ? regDay : week;
+    const start = compareDays(regDay, week) > 0 ? regDay : week;
+    // The budget starts on the first focus day of the week on which the user is in arm B (a join
+    // switch from the next Monday, the arm B flag mid-week): 20 × remaining bonus days (spec §5).
+    let from: FocusDay | null = null;
+    for (let d = start; compareDays(d, addDays(week, 6)) <= 0; d = addDays(d, 1)) {
+      if (ctx.arms(tx, userId, d).bonus === 'B') {
+        from = d;
+        break;
+      }
+    }
+    if (from === null) return null;
     // Vacation days from the table count like the params pause.
     // The season is that of the user's exam calendar (spec §4.13).
     const season = calendarDatesOfUser(tx, userId, params).season;
@@ -199,6 +209,35 @@ export class SqlLedgerService implements LedgerService {
       arm: 'B',
     });
     if (res.created) this.goalEvent(tx, userId, 'goal_budget_grant', 'B', week);
+    return res.created ? res.entry : null;
+  }
+
+  /**
+   * Safety net of the week close: what is still in pending_goal_budget after the week, beyond the
+   * days that wait for a flag decision (`postponed`), lapses with reason week_end.
+   */
+  lapseWeekRest(tx: Db, userId: string, week: FocusDay): Entry | null {
+    const balance = this.balancesIn(tx, userId).byKind.pending_goal_budget;
+    const last = addDays(week, 6);
+    // Flow of this week only: its grant and the secure, lapse and reverse entries of its days.
+    const flow = Number(tx.get<{ n: number }>(
+      `SELECT COALESCE(SUM(p.amount), 0) AS n FROM journal_entry e JOIN posting p ON p.entry_id = e.id JOIN ledger_account_owner o ON o.account_id = p.account_id
+       WHERE o.user_id = ? AND o.kind = 'pending_goal_budget'
+         AND ((e.ref_type = 'week' AND e.ref_id = ?) OR (e.focus_day >= ? AND e.focus_day <= ?))`,
+      [userId, week, week, last],
+    )?.n ?? 0);
+    const postponed = Number(tx.get<{ n: number }>("SELECT count(*) AS n FROM user_day WHERE user_id = ? AND goal_state = 'postponed' AND focus_day >= ? AND focus_day <= ?", [userId, week, last])?.n ?? 0);
+    const excess = Math.min(balance, flow - postponed * CURRENT_PARAMS.goal_bonus.arm_b_points_per_remaining_day);
+    if (excess <= 0) return null;
+    const res = this.post(tx, 'goal_budget_lapse', `goal_lapse_week:${userId}:${week}`, {
+      userId,
+      postings: [{ account: 'user:pending_goal_budget', amount: -excess }, { account: 'system:lapsed', amount: excess }],
+      refType: 'week',
+      refId: week,
+      reasonCode: 'week_end',
+      actor: 'system',
+      arm: 'B',
+    });
     return res.created ? res.entry : null;
   }
 

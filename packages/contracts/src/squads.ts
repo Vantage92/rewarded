@@ -17,16 +17,26 @@ export const SquadDto = z.strictObject({
 });
 export const CreateSquadRequest = z.strictObject({ name: SquadName, club_id: Ulid.optional() });
 export const CreateSquadResponse = z.strictObject({ squad: SquadDto, invite: InviteDto });
-export const SquadMember = z.strictObject({ first_name: ShortText, paused: z.boolean(), goal_met_today: z.boolean() });
+/** A member in silent mode shows only the first name and `status: 'silent'` (architecture §6.4; repair wave). */
+export const SquadMember = z.strictObject({
+  first_name: ShortText,
+  paused: z.boolean().optional(),
+  goal_met_today: z.boolean().optional(),
+  status: z.enum(['silent']).optional(),
+});
 export const SquadMineResponse = z.strictObject({
   squad: SquadDto,
   members: z.array(SquadMember).max(6),
   streak: NonNegInt,
   status: SquadStatus,
+  /** Squad day as an aggregate (spec §4.4): active members (not paused) and how many met the goal, silent members included. */
+  today: z.strictObject({ active: NonNegInt, goal_met: NonNegInt }).optional(),
 });
 export const PresenceResponse = z.strictObject({
   members: z.array(z.strictObject({ member_ref: Ref, focusing: z.boolean(), remaining_min: Minutes.optional() })).max(6),
   polled_at: Instant,
+  /** Denominator of "X van Y focussen nu": active members, not paused, silent ones included (spec §4.4). */
+  active_count: NonNegInt.optional(),
 });
 export const CompareResponse = z.strictObject({
   members: z.array(z.strictObject({ first_name: ShortText, minutes_today: Minutes, minutes_week: Minutes })).max(6),

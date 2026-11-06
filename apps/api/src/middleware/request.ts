@@ -25,11 +25,16 @@ interface NodeEnv {
   incoming?: { socket?: { remoteAddress?: string } };
 }
 
-/** Client IP: X-Forwarded-For only behind our own proxy, else the socket address. */
-export function clientIp(headers: Headers, env: unknown, trustProxy: boolean): string {
+/**
+ * Client IP: X-Forwarded-For only behind our own proxy, else the socket address. Each proxy appends
+ * the address it saw, so the element `hops` from the right is the one our outermost proxy wrote; the
+ * elements before it are chosen by the client and never trusted.
+ */
+export function clientIp(headers: Headers, env: unknown, trustProxy: boolean, hops = 1): string {
   if (trustProxy) {
-    const first = headers.get('x-forwarded-for')?.split(',')[0]?.trim();
-    if (first) return first;
+    const parts = (headers.get('x-forwarded-for') ?? '').split(',').map((p) => p.trim()).filter((p) => p.length > 0);
+    const pick = parts[parts.length - Math.max(1, hops)];
+    if (pick) return pick;
   }
   const addr = (env as NodeEnv | undefined)?.incoming?.socket?.remoteAddress;
   return addr ?? '0.0.0.0';
@@ -37,7 +42,7 @@ export function clientIp(headers: Headers, env: unknown, trustProxy: boolean): s
 
 export function requestContext(deps: RequestContextDeps): MiddlewareHandler<AppEnv> {
   return async (c, next) => {
-    const ip = clientIp(c.req.raw.headers, c.env, deps.http.trustProxy);
+    const ip = clientIp(c.req.raw.headers, c.env, deps.http.trustProxy, deps.http.proxyHops ?? 1);
     c.set('requestId', Buffer.from(deps.random.bytes(8)).toString('hex'));
     c.set('ipHash', deps.hasher.hash('ip', ip));
     c.set('netClass', deps.net.classify(ip));

@@ -42,6 +42,8 @@ function settingsOf(u: UserRow): UserSettings {
     no_points_mode: u.no_points_mode === 1,
     email_reminders: u.email_reminders === 1,
     locale: u.locale,
+    reminder_time: u.reminder_time ?? '19:30',
+    reminder_days: [...(u.reminder_days ?? '1234567')].map(Number).filter((d) => d >= 1 && d <= 7),
   };
 }
 
@@ -58,6 +60,7 @@ function meUser(db: Db, u: UserRow): MeUser {
     phone_verified: u.phone_verified_at !== null,
     institution_domain: u.institution_domain,
     research_opted_out: u.research_opt_out_at !== null,
+    ...(u.status === 'blocked' ? { blocked: true } : {}),
     created_at: u.created_at,
   };
 }
@@ -78,7 +81,8 @@ function login(c: Context<AppEnv>, deps: ModuleDeps, row: MagicLinkRow, via: 'li
     bumpStat(db, now, via === 'link' ? 'consumed_link' : 'consumed_code');
     const user = userByNormHash(db, normHash);
     if (user) {
-      if (user.status !== 'active') throw new DomainError('ACCOUNT_BLOCKED');
+      if (user.status !== 'active' && user.status !== 'blocked') throw new DomainError('ACCOUNT_BLOCKED');
+      // A blocked account gets a restricted session (middleware/auth.ts allowBlocked).
       return { cookie: createSession(db, platform, { userId: user.id }, c.var.uaClass), next: '/' as const };
     }
     const cookie = createSession(db, platform, { pendingEmail: row.email, prePseudonym: randomToken(platform.random, 16), inviteToken: row.invite_token }, c.var.uaClass);
@@ -134,13 +138,17 @@ export const module: ApiModule = {
       api,
       routes['auth.magicLink'],
       async ({ c, body }) => {
-        const email = body.email.trim().toLowerCase();
-        const normHash = platform.hasher.hash('email', normalizeEmail(email));
+        const typed = body.email.trim().toLowerCase();
+        const normHash = platform.hasher.hash('email', normalizeEmail(typed));
         enforceRateLimit(c, RATE_LIMITS.magicLinkEmail, `e:${normHash}`);
         const now = platform.clock.now();
         // An invite token that admits nobody is refused, whatever the address (no enumeration).
         if (body.invite_token !== undefined && !usableInvite(db, body.invite_token, now)) throw new DomainError('INVITE_REQUIRED');
-        const known = userByNormHash(db, normHash) !== undefined;
+        const account = userByNormHash(db, normHash);
+        const known = account !== undefined;
+        // For an existing account the mail goes to the address of the account, not to the typed variant
+        // (a plus address or catch-all mailbox would otherwise log in to someone else's account).
+        const email = account ? account.email.trim().toLowerCase() : typed;
         if (!known && body.invite_token === undefined) {
           // Closed pilot: no account and no invite. Same 202, but the mail points to the waitlist.
           await platform.mailer.send(inviteNeededMail(body.locale, email, http.appOrigin));
@@ -187,8 +195,11 @@ export const module: ApiModule = {
     });
 
     mount(api, routes['auth.code'], ({ c, body }) => {
-      const email = body.email.trim().toLowerCase();
-      enforceRateLimit(c, RATE_LIMITS.loginCodeEmail, `e:${platform.hasher.hash('email', normalizeEmail(email))}`);
+      const typed = body.email.trim().toLowerCase();
+      const normHash = platform.hasher.hash('email', normalizeEmail(typed));
+      enforceRateLimit(c, RATE_LIMITS.loginCodeEmail, `e:${normHash}`);
+      // The request row of an existing account carries the account's own address (see auth.magicLink).
+      const email = userByNormHash(db, normHash)?.email.trim().toLowerCase() ?? typed;
       const now = platform.clock.now();
       // The code belongs to the latest request for this address (five attempts per request, §10.2).
       const row = db.get<MagicLinkRow>('SELECT * FROM auth_magic_link WHERE email = ? AND used_at IS NULL ORDER BY created_at DESC, id DESC LIMIT 1', [email]);
@@ -216,7 +227,7 @@ export const module: ApiModule = {
       });
       clearSessionCookie(c);
       return undefined;
-    });
+    }, { allowBlocked: true });
 
     mount(api, routes['me.get'], ({ auth }) => {
       const flags = readFeatureFlags(db);
@@ -226,7 +237,7 @@ export const module: ApiModule = {
       if (!u) throw new DomainError('AUTH_REQUIRED');
       // Squad, club and calendar of the unit (architecture §8.2; integration wave).
       return { user: meUser(db, u), age_band: u.age_band, settings: settingsOf(u), ...meUnit(db, u.id), flags, onboarding_complete: true };
-    });
+    }, { allowBlocked: true });
 
     mount(api, routes['me.onboarding'], ({ c, auth, body }) => {
       if (auth.kind !== 'pre') throw new DomainError('FORBIDDEN');
@@ -272,8 +283,8 @@ export const module: ApiModule = {
         db.run(
           `INSERT INTO user (id, email, email_norm_hash, first_name, last_name, locale, age_band, turns_18_on, pseudonym,
              registration_source, registration_invite_id, registration_ip_hash, registration_net_class, daily_goal_min, silent_mode,
-             cohort, registration_channel, terms_version, privacy_version, research_info_version, created_at)
-           VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+             cohort, registration_channel, terms_version, privacy_version, research_info_version, created_at, email_reminders)
+           VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0)`,
           [
             userId,
             auth.email,
@@ -351,6 +362,10 @@ export const module: ApiModule = {
         if (v !== undefined) columns.push([key, v ? 1 : 0]);
       }
       if (body.locale !== undefined) columns.push(['locale', body.locale]);
+      // Reminders are opt-in (P5): a choice is recorded, so the insert trigger of 0400 leaves it alone.
+      if (body.email_reminders !== undefined) columns.push(['reminders_chosen_at', platform.clock.now().toISOString()]);
+      if (body.reminder_time !== undefined) columns.push(['reminder_time', body.reminder_time]);
+      if (body.reminder_days !== undefined) columns.push(['reminder_days', [...new Set(body.reminder_days)].sort().join('')]);
       db.run(`UPDATE user SET ${columns.map(([k]) => `${k} = ?`).join(', ')} WHERE id = ?`, [...columns.map(([, v]) => v), auth.user.id]);
       return { settings: settingsOf(userById(db, auth.user.id)!) };
     });

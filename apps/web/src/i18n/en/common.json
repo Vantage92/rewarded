@@ -63,7 +63,7 @@
     "minutes_long": "{value} of {max} minutes"
   },
   "placeholder": {
-    "coming": "This screen arrives in a later work package ({owner})."
+    "coming": "This screen is not available yet."
   },
   "not_found": {
     "title": "Page not found",

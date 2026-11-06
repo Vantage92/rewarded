@@ -183,6 +183,7 @@ export const responseExamples = {
   'referral.mine': { pending: [] },
   'surveys.due': {},
   'appeals.create': { appeal_id: exampleId(130) },
+  'appeals.mine': { items: [{ flag_id: exampleId(50), kind: 'review', status: 'rejected', reason_code: 'reject_automation', decided_at: T25, appeal_until: T25, appeal: null }] },
   'privacy.deleteMe': { deleted_at: T0 },
   'waitlist.join': {},
 } satisfies ResponseExamples;

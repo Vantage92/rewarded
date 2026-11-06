@@ -194,6 +194,7 @@ export class SessionEngine {
       goal_met: day?.goalMet ?? false,
       streak: null,
       earn_in_progress_min: Math.min(CURRENT_PARAMS.points.earn_in_min, earnInMinutes(tx, r.user_id)),
+      ...(flagged ? { flag_reason: flagReasonOf(JSON.parse(r.flag_codes) as string[]) } : {}),
     };
   }
 
@@ -237,21 +238,58 @@ export class SessionEngine {
       (v.outcome === 'review' && reason === 'outage') ||
       (reason === 'appeal_upheld' && (r.abort_reason === 'heartbeat_gap' || r.abort_reason === 'late_end'));
     if (!ok) return { restored: false, session: toFocusSession(r) };
-    const core: SessionVerdict = { outcome: 'completed', verifiedMin: r.planned_min, flags: [], metrics: v.metrics };
+    // appeal_upheld only with an upheld appeal about this session (spec §6.5), not on the admin's word.
+    if (reason === 'appeal_upheld' && !upheldAppealFor(tx, r.id)) return { restored: false, session: toFocusSession(r) };
+    // The new verdict keeps its flags (H1, H3, H4): flagged sessions stay pending until the decision
+    // (spec §6.3, §6.4), as in complete().
+    const codes: string[] = [...v.flags];
+    const core: SessionVerdict = { outcome: 'completed', verifiedMin: r.planned_min, flags: v.flags, metrics: v.metrics };
     tx.run(
       `UPDATE focus_session SET status = 'completed', abort_reason = NULL, abort_at = NULL, verified_min = ?, server_end_at = ?, closed_by = 'restore',
-         restored_by = ?, restored_reason = ?, review_status = 'none', verdict = ? WHERE id = ?`,
-      [r.planned_min, r.planned_end_at, actor, reason, JSON.stringify({ core }), r.id],
+         restored_by = ?, restored_reason = ?, review_status = ?, flag_codes = ?, verdict = ? WHERE id = ?`,
+      [r.planned_min, r.planned_end_at, actor, reason, codes.length > 0 ? 'pending' : 'none', JSON.stringify(codes), JSON.stringify({ core }), r.id],
     );
+    for (const code of codes) {
+      this.deps.services.flags.raise(tx, {
+        code: code as 'H1' | 'H3' | 'H4',
+        subject: { type: 'session', id: r.id },
+        sessionIds: [r.id],
+        evidence: { covered_gap_s: v.metrics.coveredGapS, clock_skew_ms: v.metrics.clockSkewMs, webdriver: r.webdriver === 1, restored: true },
+      });
+    }
     this.deps.services.ledger.reconcileDay(tx, r.user_id, r.focus_day, { type: 'restore', sessionId: r.id });
     const after = loadRow(tx, r.id) as SessionRow;
     const pts = this.sessionPoints(tx, r.id);
     this.deps.services.events.event(
       tx,
       'session_completed',
-      { session_id: r.id, minuten: after.verified_min, punten: pts.available + pts.pending, flagged: false, flag_codes: [], claim_delay_s: after.claim_delay_s },
+      { session_id: r.id, minuten: after.verified_min, punten: pts.available + pts.pending, flagged: codes.length > 0, flag_codes: codes as never, claim_delay_s: after.claim_delay_s },
       { pseudonym: this.pseudonym(tx, r.user_id) },
     );
     return { restored: true, session: toFocusSession(after) };
   }
+}
+
+/** Whether an upheld appeal exists about a flag on this session (the report or a heuristic flag). */
+function upheldAppealFor(tx: Tx, sessionId: string): boolean {
+  try {
+    return (
+      tx.get(
+        `SELECT 1 AS x FROM appeal a WHERE a.outcome = 'upheld' AND a.object_type IN ('flag', 'block')
+           AND a.object_id IN (SELECT flag_id FROM fraud_flag_session WHERE session_id = ? UNION SELECT id FROM fraud_flag WHERE subject_type = 'session' AND subject_id = ?)`,
+        [sessionId, sessionId],
+      ) !== undefined
+    );
+  } catch {
+    return false;
+  }
+}
+
+/** Fixed reason per heuristic group for the F5 copy (UX §6.2): the exact threshold is never named. */
+export function flagReasonOf(codes: readonly string[]): 'no_signal' | 'automation' | 'clock' | 'outage' | 'pattern' {
+  if (codes.includes('H1')) return 'automation';
+  if (codes.includes('H3')) return 'no_signal';
+  if (codes.includes('H4')) return 'clock';
+  if (codes.includes('OUTAGE')) return 'outage';
+  return 'pattern';
 }

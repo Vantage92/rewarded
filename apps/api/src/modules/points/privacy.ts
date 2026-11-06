@@ -43,6 +43,18 @@ export function registerWp4Privacy(deps: ModuleDeps): void {
               late_start, review_status, flag_codes FROM focus_session WHERE user_id = ? ORDER BY server_start_at`,
       [userId],
     ),
+    // The stored signals per session (architecture §10.7): heartbeats, visibility events, summaries.
+    heartbeats: db.all(
+      `SELECT h.session_id, h.seq, h.server_recv_at, h.client_ts, h.visibility, h.wakelock, h.buffered, h.kind FROM session_heartbeat h
+         JOIN focus_session s ON s.id = h.session_id WHERE s.user_id = ? ORDER BY h.session_id, h.server_recv_at`,
+      [userId],
+    ),
+    visibility_events: db.all(
+      `SELECT v.session_id, v.kind, v.client_ts, v.server_recv_at, v.buffered FROM visibility_event v
+         JOIN focus_session s ON s.id = v.session_id WHERE s.user_id = ? ORDER BY v.session_id, v.server_recv_at`,
+      [userId],
+    ),
+    summaries: db.all('SELECT m.* FROM session_summary m JOIN focus_session s ON s.id = m.session_id WHERE s.user_id = ? ORDER BY m.session_id', [userId]),
   }));
   p.registerExporter('redemptions', (userId: string) => ({
     redemptions: db.all('SELECT id, reward_id, points, points_from_referral, week_key, month_key, status, created_at FROM redemption WHERE user_id = ? ORDER BY created_at', [userId]),

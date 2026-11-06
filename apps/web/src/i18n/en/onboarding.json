@@ -92,7 +92,7 @@
   },
   "consent": {
     "title": "Research, terms and privacy",
-    "pilot": "This is a pilot. We test two bonus rules that yield the same; your squad gets one, by lot. Your points per minute are the same for everyone. Some parts reach you at a different moment than others. The goal bonus stops at the end of your institution's last exam week. You can always stop and have your data deleted.",
+    "pilot": "This is a pilot. We test two bonus rules that yield the same; your squad gets one, by lot. Your points per minute are the same for everyone. Some parts reach you at a different moment than others. The goal bonus stops at the end of your institution's last exam week, on {date}. You can always stop and have your data deleted.",
     "research": "In this pilot Rewarded is also a study. By lot you get one of two bonus rules that yield the same, one of two moments for the Pledge, sometimes an extra invitation to form a squad, and possibly a rest period without new points from the end of your exam weeks up to and including the April exam period; it may also fall in exam weeks. If you still want to earn points then, you always can, and you stay in the study. Your minute points are the same for everyone. The catalogue is small: each week you see how many rewards there are for how many students. You can always opt out of the study under Me; your points stay.",
     "group": "From the day you hear your group, that group belongs to you, also if you switch squads.",
     "minor": "You always get the standard bonus rule and keep earning points, also in a squad that earns no points for a while.",

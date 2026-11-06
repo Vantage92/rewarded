@@ -17,7 +17,8 @@ import {
 } from './common.ts';
 import { defineRoutes } from './route.ts';
 
-export const PrizeSummary = z.strictObject({ kind: PrizeKind, description: ShortText, value_cents: NonNegInt });
+// value_cents is no longer sent to students (UX principle P7: no euro amounts); optional for old clients.
+export const PrizeSummary = z.strictObject({ kind: PrizeKind, description: ShortText, value_cents: NonNegInt.optional() });
 export const ChallengeListItem = z.strictObject({
   id: Ulid,
   type: ChallengeType,

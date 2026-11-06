@@ -30,7 +30,7 @@ export const module: ApiModule = {
         c.header('Content-Disposition', 'attachment; filename="rewarded-export.json"');
         return body;
       },
-      { rateLimits: [{ bucket: 'privacy:export', limit: 5, windowSec: 3600, key: 'user' }] },
+      { rateLimits: [{ bucket: 'privacy:export', limit: 5, windowSec: 3600, key: 'user' }], allowBlocked: true },
     );
 
     mount(api, deleteMe, ({ auth, body }) => {
@@ -39,7 +39,7 @@ export const module: ApiModule = {
       const at = deps.platform.clock.now().toISOString();
       db.transaction(() => deleteAccount(deps, db, user.id, 'system'));
       return reply(202, { deleted_at: at });
-    });
+    }, { allowBlocked: true });
 
     mount(api, routes['admin.users.delete'], ({ auth, params }) => {
       const actor = actorOf(deps, auth);

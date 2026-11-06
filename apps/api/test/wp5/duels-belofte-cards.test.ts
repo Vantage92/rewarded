@@ -198,25 +198,34 @@ describe('spec §4.9 referral behind the flag', () => {
 });
 
 describe('architecture §6.3 reminder mail', () => {
-  it('§6.3 at most one per user per day, only when the goal is not met, off with the signed link', async () => {
+  it('§6.3 / UX §4.9 at most one per user per day at the chosen time, only when the goal is not met, off with a random token', async () => {
     const h = wp5Harness({ start: '2026-12-03T18:31:00Z' });
-    const [late, done, off] = [createUser(h), createUser(h), createUser(h)];
+    const [late, done, off, early] = [createUser(h), createUser(h), createUser(h), createUser(h)];
+    // Reminders are opt-in (P5): a direct insert without a choice is off.
+    expect(h.db.get<{ n: number }>('SELECT count(*) AS n FROM user WHERE email_reminders = 1')!.n).toBe(0);
+    h.db.run("UPDATE user SET email_reminders = 1, reminders_chosen_at = '2026-12-01T10:00:00.000Z' WHERE id IN (?, ?, ?)", [late.id, done.id, early.id]);
+    h.db.run("UPDATE user SET reminder_time = '20:00' WHERE id = ?", [early.id]);
     putDay(h, done.id, '2026-12-03', { goalMet: true });
-    h.db.run('UPDATE user SET email_reminders = 0 WHERE id = ?', [off.id]);
+    void off;
     expect((await sendReminders(h.deps, '2026-12-03')).sent).toBe(0); // flag off
     setFlag(h, 'reminders');
-    expect(remindersJob.dueKey!(new Date('2026-12-03T18:29:00Z'))).toBeNull();
-    expect(remindersJob.dueKey!(new Date('2026-12-03T18:31:00Z'))).toBe('reminders:2026-12-03');
+    expect(remindersJob.dueKey!(new Date('2026-12-03T18:31:00Z'))).toBe('reminders:2026-12-03T19:30');
+    expect(remindersJob.dueKey!(new Date('2026-12-03T18:46:00Z'))).toBe('reminders:2026-12-03T19:45');
     expect((await sendReminders(h.deps, '2026-12-03')).sent).toBe(1);
     expect((await sendReminders(h.deps, '2026-12-03')).sent).toBe(0);
+    // 20:00 for the user who chose that time.
+    expect((await sendReminders(h.deps, '2026-12-03', new Date('2026-12-03T19:01:00Z'))).sent).toBe(1);
     const mail = h.inbox.list(late.email).at(-1)!;
     expect(mail.channel).toBe('email');
     const text = mail.channel === 'email' ? mail.text : '';
-    expect(text).not.toMatch(/punt|point/i);
+    expect(text).not.toMatch(/punt|point|streak/i);
+    expect(text).toContain('Je krijgt deze mail omdat je een herinnering aanzette.');
+    expect(mail.channel === 'email' ? mail.subject : '').toBe('Je dagdoel staat nog open.');
     const token = /#t=([A-Za-z0-9_-]+)/.exec(text)![1]!;
+    expect(token).not.toContain(late.id);
     expect((await call(h, ANON, 'POST', '/reminders/unsubscribe', { token: `${token.slice(0, -1)}x` })).body.error.code).toBe('LINK_INVALID');
     expect((await call(h, ANON, 'POST', '/reminders/unsubscribe', { token })).status).toBe(204);
     expect(h.db.get<{ email_reminders: number }>('SELECT email_reminders FROM user WHERE id = ?', [late.id])!.email_reminders).toBe(0);
-    expect(h.events.named('reminder_sent')).toHaveLength(1);
+    expect(h.events.named('reminder_sent')).toHaveLength(2);
   });
 });

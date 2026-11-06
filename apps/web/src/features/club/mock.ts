@@ -13,7 +13,7 @@ export const handlers: MockHandlers = {
         title: 'Elke dag van de tentamenweek 120 minuten',
         period: { start_day: '2027-01-11', end_day: '2027-01-17' },
         seats_left: 12,
-        prize: { kind: 'earned_individual', description: 'Een boekenbon', value_cents: 1000 },
+        prize: { kind: 'earned_individual', description: 'Een boekenbon' },
       },
     ],
   }),

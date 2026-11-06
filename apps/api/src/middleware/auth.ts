@@ -77,7 +77,9 @@ export function loadSession(db: Db, clock: Clock, cookieValue: string | undefine
       createdAt: row.created_at,
     };
   }
-  if (row.u_status !== 'active') {
+  // A blocked account keeps a restricted session: appeal, export and delete only (spec §6.5,
+  // art. 22 and 15–17 AVG); checkAuth refuses every other route with ACCOUNT_BLOCKED.
+  if (row.u_status !== 'active' && row.u_status !== 'blocked') {
     db.run('DELETE FROM auth_session WHERE user_id = ?', [row.user_id]);
     return { kind: 'none' };
   }
@@ -91,7 +93,7 @@ export function loadSession(db: Db, clock: Clock, cookieValue: string | undefine
       pseudonym: row.u_pseudonym ?? '',
       email: row.u_email ?? '',
       ageBand: row.u_age_band ?? '18_plus',
-      status: row.u_status,
+      status: row.u_status ?? 'active',
       isTeam: row.u_is_team === 1,
       locale: row.u_locale ?? 'nl',
       adminRole: row.a_role ?? null,
@@ -157,6 +159,8 @@ export function sessionLoader(db: Db, clock: Clock): MiddlewareHandler<AppEnv> {
 export interface RequireAuthOptions {
   /** Only for POST /admin/mfa/enroll and /verify: admin without a second factor yet. */
   allowWithoutMfa?: boolean;
+  /** Routes a blocked account may still use: GET /me, logout, appeals, export and DELETE /me. */
+  allowBlocked?: boolean;
 }
 
 /** Whether the auth state satisfies one of the levels; throws the matching error otherwise. */
@@ -165,6 +169,7 @@ export function checkAuth(auth: AuthState, levels: readonly AuthLevel[], opts: R
   if (auth.kind === 'pre' && levels.includes('pre')) return;
   if (auth.kind === 'user') {
     const u = auth.user;
+    if (u.status === 'blocked' && !opts.allowBlocked) throw new DomainError('ACCOUNT_BLOCKED');
     if (levels.includes('admin') && u.adminRole !== null) {
       if (auth.mfaAt === null && !opts.allowWithoutMfa) throw new DomainError('MFA_REQUIRED');
       return;

@@ -120,6 +120,8 @@ export const EndSessionResponse = z.strictObject({
   /** Squad streak after this session, null without a squad. */
   streak: NonNegInt.nullable(),
   earn_in_progress_min: Minutes,
+  /** Why a flagged session is reviewed, a fixed code per heuristic group (UX §6.2 F5; repair wave). */
+  flag_reason: z.enum(['no_signal', 'automation', 'clock', 'outage', 'pattern']).optional(),
 });
 
 export const StopSessionRequest = z.strictObject({ nonce: Nonce });
@@ -223,7 +225,7 @@ export const sessionRoutes = defineRoutes({
   'admin.sessions.restore': {
     module: 'sessions', method: 'POST', path: '/admin/sessions/:id/restore', auth: ['admin'],
     params: SessionId, body: AdminRestoreRequest, response: AdminRestoreResponse, responseKind: 'json', status: [200],
-    errors: ['SESSION_NOT_RESTORABLE', 'PERIOD_LOCKED', 'REASON_REQUIRED'], spec: 'arch §8.2 Beheer, §4.8',
+    errors: ['SESSION_NOT_RESTORABLE', 'PERIOD_LOCKED', 'REASON_REQUIRED', 'SAME_REVIEWER'], spec: 'arch §8.2 Beheer, §4.8',
   },
   'admin.outages.create': {
     module: 'sessions', method: 'POST', path: '/admin/outages', auth: ['admin'],

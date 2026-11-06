@@ -1,6 +1,6 @@
 # Rewarded
 
-Focus-app die je beloont voor bewezen focus. Web-MVP als Progressive Web App.
+Focus-app voor studenten: samen focussen in een squad, met punten voor focustijd die we zichtbaar op je scherm zagen. Web-MVP als Progressive Web App.
 
 - `docs/00-founder-brief.md` — vertrekpunt en hypotheses
 - `docs/research/` — onderzoek van het strategieteam (architectuur: `docs/research/07-architectuur.md`)
@@ -9,6 +9,49 @@ Focus-app die je beloont voor bewezen focus. Web-MVP als Progressive Web App.
 - `docs/pitch/` — pitch en kritische beoordelingsrondes
 
 ## Status
+
+**Eind-QA afgerond (5 november 2026): de web-MVP draait end-to-end op de demo-seed.** Het rapport staat in `docs/build/QA.md`, met de screenshots in `docs/build/screenshots/`.
+
+Verificatie op een schone stand:
+
+- `pnpm install`, `pnpm build` en `pnpm seed:demo` geven exit 0;
+- `pnpm verify` geeft exit 0, met 86 bestanden en 1171 tests;
+- `pnpm e2e` geeft exit 0, met 60 geslaagd, 11 `fixme` en 0 gefaald.
+
+De kernflow werkt in de echte app tegen de echte API:
+
+- uitnodiging, inloggen met de code uit de dev-inbox, onboarding met geboortedatum, en de oefensessie;
+- 25 minuten met de dev-klok, en het eindscherm met punten;
+- een afgebroken sessie met reden en 0 punten;
+- squad, verenigingsranglijst, catalogus en profiel;
+- bestuursdashboard en een beheerder die een markering vrijgeeft na TOTP.
+
+De harde randvoorwaarden zijn in de werkende app gecontroleerd: geen punten tijdens de sessie, geen eurowaarde bij punten, geen trekkingen (niet gebouwd), bestuur ziet alleen aggregaten, en "bewezen" komt niet voor. In de QA is één blocker opgelost: de eerste login vanuit een verse browser mislukte op CSRF (`apps/web/src/lib/api/web.ts`).
+
+### Wat nog ontbreekt (eerlijk)
+
+- **Vragenlijsten** (`/surveys/*`) zijn niet gebouwd. Daardoor ontbreekt de pilotmeting (instroom, reflectie en welzijn) en criterium 1 van de stopregel. Dit is het belangrijkste open punt voor de pilot.
+- **Schermen voor de rustperiode** (bericht op T − 6 en op A-start, "Ik wil weer punten verdienen", `rest_notice`). De API is er; 4 e2e-scenario's staan op `fixme`.
+- **Bestuur kan het eigen dashboard niet vanuit de app openen**: alleen via de link uit de mail (QA, major).
+- **Niet op echte toestellen getest**: Safari/WebKit, de echte Wake Lock, schermvergrendeling, app-wissels en de PWA-installatie (`e2e/MANUAL.md`). De suite draait alleen in Chromium.
+- **Productie-infrastructuur**: er is geen productiemailer en geen sms-provider, de hogere fraudedrempels (H2/H7/H10/H12) en `net_classes` volgen pas na de red-teamdag, en er is geen terugboekroute.
+- **A/A-controle met kalenders**, de kalender per faculteit, herkansingsdagen in KPI (d) en H3, en het wisselen van kalender bij een overstap.
+- **Web-UI voor een deel van de beheerroutes** (herbevestiging van het anker, "Ik heb een belang", uitbetaling aan ambassadeurs). De API is er.
+- **Kleinere UX-punten uit de QA**:
+  - de kop van de deelnamegraad volgt de lopende week;
+  - een dubbele zin op het afbreekscherm;
+  - `/punten/catalogus` en `/vereniging/ranglijst` hebben geen eigen scherm;
+  - de lange akkoordtekst.
+- **Bekende operationele punten**:
+  - `job_run` groeit met ongeveer 1500 rijen per dag zonder opruiming;
+  - de rate limit op MFA telt ook geslaagde pogingen;
+  - zet in dev eerst de klok op de demotijd, anders weigert de TOTP-replaybescherming de beheercodes.
+
+Volledige lijsten: `docs/build/QA.md`, `docs/build/REPARATIE.md` ("Niet gedaan") en `docs/build/INTEGRATIE.md` ("Niet gedaan").
+
+### Eerdere golven
+
+**Reparatiegolf na de onafhankelijke review afgerond (6 november 2026).** Alle 10 blockers en alle majors uit `docs/build/REVIEW-*.md` zijn opgelost, met tests; het rapport staat in `docs/build/REPARATIE.md` (wat niet is gedaan staat daar onder "Niet gedaan"). De belangrijkste wijzigingen: arm per focusdag (aansluiten werkt vanaf de volgende maandag, ook bij herbeoordeling), beroep na een blokkade met een beperkte sessie, Meldingen en beroep in Ik, herinneringen opt-in met eigen tijd en dagen en uitschrijven met één klik, de QR-link `/c/:code`, de Bonusregel op F1 en F5, een rate limit op TOTP, de echte client-IP achter de proxy, en geen 18+-prijzen of eurobedragen voor minderjarigen. Migratiereeks `0400–0499` hoort bij de reparatie. De productie-API start alleen met `TRUST_PROXY` (0 of 1) en een `APP_ORIGIN` met `https://`.
 
 **Integratiegolf afgerond (6 november 2026).** De werkpakketten WP-0 tot en met WP-11 zijn samengevoegd tot één werkend geheel; het bouwrapport staat in `docs/build/INTEGRATIE.md`, de rapporten per pakket in `docs/build/WP-*.md`.
 

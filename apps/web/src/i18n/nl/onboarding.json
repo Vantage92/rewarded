@@ -92,7 +92,7 @@
   },
   "consent": {
     "title": "Onderzoek, voorwaarden en privacy",
-    "pilot": "Dit is een pilot. We testen twee bonusregels die evenveel opleveren; jouw squad krijgt er één, door loting. Je punten per minuut zijn voor iedereen gelijk. Sommige onderdelen krijg je op een ander moment dan anderen. De doelbonus stopt aan het einde van de laatste tentamenweek van je instelling. Je kunt altijd stoppen en je gegevens laten verwijderen.",
+    "pilot": "Dit is een pilot. We testen twee bonusregels die evenveel opleveren; jouw squad krijgt er één, door loting. Je punten per minuut zijn voor iedereen gelijk. Sommige onderdelen krijg je op een ander moment dan anderen. De doelbonus stopt aan het einde van de laatste tentamenweek van je instelling, op {date}. Je kunt altijd stoppen en je gegevens laten verwijderen.",
     "research": "Rewarded is in deze pilot ook een onderzoek. Door loting krijg je een van twee bonusregels die evenveel opleveren, een van twee momenten voor de Belofte, soms een extra uitnodiging om een squad te maken, en mogelijk een rustperiode zonder nieuwe punten vanaf het einde van je tentamenweken tot en met de tentamenperiode van april; die kan ook in tentamenweken vallen. Wil je dan toch punten verdienen, dan kan dat altijd, en je blijft in het onderzoek. Je minuutpunten zijn voor iedereen gelijk. De catalogus is klein: je ziet elke week hoeveel beloningen er zijn voor hoeveel studenten. Afmelden voor het onderzoek kan altijd in Ik; je punten blijven.",
     "group": "Vanaf de dag dat je je groep hoort, hoort die groep bij jou, ook als je van squad wisselt.",
     "minor": "Jij krijgt altijd de gewone bonusregel en blijft punten verdienen, ook in een squad die een tijd geen punten verdient.",

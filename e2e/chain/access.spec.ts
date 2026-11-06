@@ -98,11 +98,11 @@ test('Registratie met jan.jansen+2@ na jan.jansen@: geweigerd als bestaand adres
   const c = new Chain(api);
   await c.student({ email: 'jan.jansen@student.demostad.test', firstName: 'Jan' });
   const before = api.sql<{ n: number }>('SELECT count(*) AS n FROM user')[0]!.n;
-  // The alias logs into the existing account; no second account, no onboarding.
+  // The alias logs into the existing account; the code goes to the account's own address (repair wave).
   const alias = 'Jan.Jansen+2@student.demostad.test';
   const a = api.newActor(homeIp());
   await a.api.call('auth.magicLink', { body: { email: alias, locale: 'nl' } });
-  const r = await a.api.call('auth.code', { body: { email: alias, code: await lastCode(api.inbox, alias.toLowerCase()) } });
+  const r = await a.api.call('auth.code', { body: { email: alias, code: await lastCode(api.inbox, 'jan.jansen@student.demostad.test') } });
   expect(r.next).toBe('/');
   expect((await a.api.call('me.get')).user?.email).toBe('jan.jansen@student.demostad.test');
   expect(api.sql<{ n: number }>('SELECT count(*) AS n FROM user')[0]!.n).toBe(before);

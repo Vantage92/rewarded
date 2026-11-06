@@ -17,7 +17,7 @@ test('spec §4.1: 3 minutes offline with a visible page; the buffered log covers
   await page.mouse.click(200, 300);
   await expect(page.getByText('25 minuten. Je dagdoel is gehaald.')).toBeVisible();
   // 3 of 25 minutes covered by the log is more than 10%: H3, points under review (spec §6.3).
-  await expect(page.getByText(/Deze sessie wordt nagekeken\./)).toBeVisible();
+  await expect(page.getByText(/Deze sessie wordt nagekeken/)).toBeVisible();
   const s = rw.fake.session()!;
   expect(s.status).toBe('completed');
   expect(s.flags).toEqual(['H3']);

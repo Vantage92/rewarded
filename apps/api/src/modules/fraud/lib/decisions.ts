@@ -8,7 +8,7 @@ import { deleteUserSessions } from '../../../middleware/auth.ts';
 import type { ModuleDeps } from '../../../module.ts';
 import type { AdminActor, FlagRecord } from '../../../services/flags.ts';
 import { flagSessionIds, flagUserIds, loadFlag, type FlagRow } from './flags.ts';
-import { eventFor, hasTables } from './util.ts';
+import { assertNotOwnSubject, eventFor, hasTables } from './util.ts';
 
 export interface BookedPosting {
   type: string;
@@ -71,6 +71,8 @@ export interface DecisionOutcome {
 
 /** POST /admin/flags/:id/decision. */
 export function decideFlag(deps: ModuleDeps, tx: Db, flagId: string, decision: 'release' | 'reject' | 'block', actor: AdminActor, reasonCode: string, note: string): DecisionOutcome {
+  const pre = loadFlag(tx, flagId);
+  if (pre) assertNotOwnSubject(deps, actor, flagUserIds(tx, pre));
   const res = deps.services.flags.decide(tx, flagId, decision, actor, reasonCode);
   tx.run('UPDATE fraud_flag SET note = ? WHERE id = ?', [note || null, flagId]);
   const row = loadFlag(tx, flagId) as FlagRow;
@@ -98,6 +100,8 @@ export interface BlockOutcome {
 
 /** POST /admin/blocks/:id/confirm: four eyes, then the account is blocked and its hashes kept 2 years. */
 export function confirmBlock(deps: ModuleDeps, tx: Db, flagId: string, actor: AdminActor, note: string): BlockOutcome {
+  const pre = loadFlag(tx, flagId);
+  if (pre) assertNotOwnSubject(deps, actor, flagUserIds(tx, pre));
   const flag = deps.services.flags.confirmBlock(tx, flagId, actor);
   const row = loadFlag(tx, flagId) as FlagRow;
   const now = deps.platform.clock.now();

@@ -179,16 +179,26 @@ export function evaluateSession(input: EvaluateSessionInput): SessionVerdict {
   // Nothing decisive yet. The sweep decides at planned end + grace (spec §4.1).
   if (now >= plannedEnd + graceMs) {
     if (overlapsOutage(lastContact.at, plannedEnd, outages)) return { outcome: 'review', cause: 'outage', flags, metrics };
+    // The session itself passed the gap rules up to the planned end; only the end did not arrive in
+    // time: that is late_end (spec §4.1, own copy), not heartbeat_gap.
+    if (plannedEnd - lastContact.at <= gapOkMs) return { outcome: 'aborted', reason: 'late_end', at: plannedEnd, flags: [], metrics };
     return { outcome: 'aborted', reason: 'heartbeat_gap', at: lastContact.at, flags: [], metrics };
   }
   return { outcome: 'pending', flags: [], metrics };
+}
+
+/** Headless or automated browsers by their User-Agent (spec §6.3 H1). */
+export const HEADLESS_UA = /Headless|PhantomJS|Puppeteer|Playwright|Selenium/i;
+export function isHeadlessUserAgent(ua: string | null | undefined): boolean {
+  return typeof ua === 'string' && HEADLESS_UA.test(ua);
 }
 
 /** H1, H3, H4 at verdict time (architecture §4.3 step 6). */
 export function flagsFor(input: EvaluateSessionInput, metrics: SessionMetrics): SessionFlagCode[] {
   const { session, params } = input;
   const out: SessionFlagCode[] = [];
-  if (session.webdriver) out.push('H1');
+  // H1: navigator.webdriver or a headless User-Agent seen by the server at the start (spec §6.3).
+  if (session.webdriver || session.uaHeadless === true) out.push('H1');
   if (metrics.coveredGapS * 100 > params.covered_gap_flag_pct * session.plannedMin * 60) out.push('H3');
   if (metrics.clockSkewMs !== null && Math.abs(metrics.clockSkewMs) > params.clock_skew_flag_s * S) out.push('H4');
   return out;

@@ -60,6 +60,29 @@ describe('http client', () => {
     expect(seen[0]!.headers['X-CSRF-Token']).toBe('abc=123');
     document.cookie = 'rw_csrf=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/';
   });
+
+  it('retries a mutation once with the rw_csrf cookie from the 403 when it had none (QA: first login from /login)', async () => {
+    document.cookie = 'rw_csrf=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/';
+    const seen: { headers: Record<string, string> }[] = [];
+    const web = createWebApi({
+      mode: 'http',
+      fetch: async (_url, init) => {
+        seen.push({ headers: init.headers });
+        if (seen.length === 1) {
+          document.cookie = 'rw_csrf=fresh; path=/';
+          return { status: 403, ok: false, text: async () => JSON.stringify({ error: { code: 'CSRF_INVALID', message_key: 'errors.common.csrf_invalid' } }) };
+        }
+        return { status: 429, ok: false, text: async () => JSON.stringify({ error: { code: 'RATE_LIMITED', message_key: 'errors.common.rate_limited' } }) };
+      },
+    });
+    const call = web.api.call as (id: RouteId) => Promise<unknown>;
+    const err = (await call(firstPost).catch((e: unknown) => e)) as ApiClientError;
+    expect(err.code).toBe('RATE_LIMITED');
+    expect(seen).toHaveLength(2);
+    expect(seen[0]!.headers['X-CSRF-Token']).toBeUndefined();
+    expect(seen[1]!.headers['X-CSRF-Token']).toBe('fresh');
+    document.cookie = 'rw_csrf=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/';
+  });
 });
 
 describe('TanStack Query helpers (§9.2)', () => {

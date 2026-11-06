@@ -1,0 +1,13 @@
+{
+  "busy": "One moment…",
+  "invalid": "This link does not work (any more). You can also switch reminders off yourself in Me.",
+  "home": "Go to Rewarded",
+  "reminders": {
+    "title": "No more reminders",
+    "done": "Done. You will not get reminder mails any more. You can switch them on again in Me."
+  },
+  "waitlist": {
+    "title": "Leave the waiting list",
+    "done": "You are no longer on the waiting list. We will not mail you again."
+  }
+}

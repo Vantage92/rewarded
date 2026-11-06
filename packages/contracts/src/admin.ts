@@ -132,7 +132,7 @@ export const adminRoutes = defineRoutes({
   'admin.prizes.verify': {
     module: 'admin', method: 'POST', path: '/admin/prizes/:id/verify', auth: ['admin'],
     params: IdParam, body: PrizeVerifyRequest, response: PrizeResponse, responseKind: 'json', status: [200],
-    errors: ['AGE_CHECK_REQUIRED', 'FOUR_EYES_REQUIRED', 'SAMPLE_REQUIRED'], spec: 'arch §8.2 Beheer, spec §4.7',
+    errors: ['AGE_CHECK_REQUIRED', 'FOUR_EYES_REQUIRED', 'SAMPLE_REQUIRED', 'SAME_REVIEWER'], spec: 'arch §8.2 Beheer, spec §4.7',
   },
   'admin.prizes.ageCheck': {
     module: 'admin', method: 'POST', path: '/admin/prizes/:id/age-check', auth: ['admin'],

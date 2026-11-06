@@ -5,6 +5,7 @@ import { useState } from 'react';
 import { Banner, Button, Card, Switch } from '../../../design/index.ts';
 import { isErrorCode, messageKey } from '@rewarded/contracts/errors';
 import { useT } from '../../../i18n/index.tsx';
+import { useApiQuery } from '../../../lib/api/index.ts';
 import type { SessionStore } from '../session/store.ts';
 
 export interface PrepareViewProps {
@@ -20,6 +21,8 @@ export function PrepareView({ store, minutes, practice = false, startError, firs
   const { t } = useT();
   const [tone, setTone] = useState(true);
   const [busy, setBusy] = useState(false);
+  // A session running elsewhere (this screen has none yet): starting here stops it (spec §4.1 second_session).
+  const active = useApiQuery('sessions.active', undefined, { retry: false, staleTime: 0 });
   const begin = () => {
     store.unlockSignal();
     setBusy(true);
@@ -40,6 +43,7 @@ export function PrepareView({ store, minutes, practice = false, startError, firs
       {!store.wakeLockSupported() ? <Banner tone="info">{t('focus:prepare.no_wakelock')}</Banner> : null}
       <p>{t('focus:prepare.signal_info')}</p>
       <Switch label={t('focus:prepare.tone')} checked={tone} onChange={setTone} />
+      {active.data?.session && !practice ? <Banner tone="info">{t('focus:prepare.other_device')}</Banner> : null}
       {startError ? <p role="alert">{t('focus:prepare.start_failed', { reason })}</p> : null}
       <Button block onClick={begin} disabled={busy}>
         {t('focus:prepare.begin')}

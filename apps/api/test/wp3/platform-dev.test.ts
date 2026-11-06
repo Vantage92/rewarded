@@ -147,11 +147,12 @@ describe.each(DRIVERS)('migration series on %s (arch §12.3)', (driver) => {
     expect(migrationOwner('0001')).toBe('WP-3');
     expect(migrationOwner('0079')).toBe('WP-3');
     expect(migrationOwner('0080')).toBe('WP-6');
-    expect(migrationOwner('0400')).toBeUndefined();
+    expect(migrationOwner('0400')).toBe('REPARATIE');
+    expect(migrationOwner('0500')).toBeUndefined();
     const dir = mkdtempSync(join(tmpdir(), 'rw-wp3-'));
     dirs.push(dir);
     writeFileSync(join(dir, '0001_a.sql'), 'CREATE TABLE a (x INTEGER) STRICT;');
-    writeFileSync(join(dir, '0400_b.sql'), 'CREATE TABLE b (x INTEGER) STRICT;');
+    writeFileSync(join(dir, '0500_b.sql'), 'CREATE TABLE b (x INTEGER) STRICT;');
     const db = openDb({ path: ':memory:', driver });
     expect(() => migrate(db, { dir, clock: new DevClock(new Date()) })).toThrow(/outside every work-package range/);
     expect(db.get("SELECT 1 AS x FROM sqlite_master WHERE name = 'a'")).toBeUndefined();

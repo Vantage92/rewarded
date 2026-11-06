@@ -179,6 +179,16 @@ describe('spec §4.1 Wat telt als afgebroken (integration)', () => {
     expect(h.db.get<{ abort_reason: string }>('SELECT abort_reason FROM focus_session WHERE id = ?', [c.sessionId])?.abort_reason).toBe('late_end');
   });
 
+  it('§4.1 late_end via the sweep: last heartbeat 30 s before the end, no end report: late_end, not heartbeat_gap (repair)', async () => {
+    const { h, user, c } = await setup();
+    await c.start(25);
+    await c.run(25 * MIN - 30_000);
+    c.advance(11 * MIN);
+    const active = await call(h, user, 'GET', '/sessions/active');
+    expect(active.body.session).toBeUndefined();
+    expect(h.db.get<{ abort_reason: string; closed_by: string }>('SELECT abort_reason, closed_by FROM focus_session WHERE id = ?', [c.sessionId])).toEqual({ abort_reason: 'late_end', closed_by: 'sweep' });
+  });
+
   it('§4.1 battery dead: the sweep aborts on the last heartbeat after end + 10 min', async () => {
     const { h, user, c } = await setup();
     await c.start(25);

@@ -1,7 +1,7 @@
 // Sessions module (architecture §4, §8.2 "Sessies"): devices, idempotent session routes with the
 // nonce chain, replays and resume, "Klopt dit niet?", restore and outages. Owner WP-4.
 import { CURRENT_PARAMS, focusDayOf, isLateStart } from '@rewarded/core';
-import { classifyClose, classifyHeartbeat } from '@rewarded/core/session';
+import { classifyClose, classifyHeartbeat, isHeadlessUserAgent } from '@rewarded/core/session';
 import { DomainError, StartSessionRequest, routes, type HeartbeatResponse, type RouteDef } from '@rewarded/contracts';
 import { z } from 'zod';
 import { idsFor, sha256 } from '../../db/ids.ts';
@@ -110,11 +110,11 @@ export const module: ApiModule = {
           const plannedEnd = now + body.planned_min * 60_000;
           db.run(
             `INSERT INTO focus_session (id, user_id, device_id, planned_min, is_practice, status, server_start_at, planned_end_at, focus_day, late_start,
-               nonce_hash, last_seq, start_idempotency_key, mono_start_ms, last_heartbeat_at, webdriver, standalone, ua_class, ip_hash, net_class)
-             VALUES (?, ?, ?, ?, ?, 'active', ?, ?, ?, ?, ?, 0, ?, ?, ?, ?, ?, ?, ?, ?)`,
+               nonce_hash, last_seq, start_idempotency_key, mono_start_ms, last_heartbeat_at, webdriver, standalone, ua_class, ip_hash, net_class, ua_headless)
+             VALUES (?, ?, ?, ?, ?, 'active', ?, ?, ?, ?, ?, 0, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
             [
               id, user.id, device.id, body.planned_min, body.practice ? 1 : 0, now, plannedEnd, focusDayOf(now, P), isLateStart(now, P) ? 1 : 0,
-              hash, c.req.header('Idempotency-Key') ?? null, body.mono_ms, now, body.webdriver ? 1 : 0, body.standalone ? 1 : 0, device.ua_class, c.var.ipHash ?? null, c.var.netClass ?? null,
+              hash, c.req.header('Idempotency-Key') ?? null, body.mono_ms, now, body.webdriver ? 1 : 0, body.standalone ? 1 : 0, device.ua_class, c.var.ipHash ?? null, c.var.netClass ?? null, isHeadlessUserAgent(c.req.header('User-Agent')) ? 1 : 0,
             ],
           );
           const dev = db.get<{ wakelock_supported: number }>('SELECT wakelock_supported FROM device WHERE id = ?', [device.id]);
@@ -286,6 +286,8 @@ export const module: ApiModule = {
       return db.transaction(() => {
         const r = loadRow(db, params.id);
         if (!r) throw new DomainError('NOT_FOUND');
+        // Conflict of interest (architecture §10.8): never the own session.
+        if (adminActor(deps.platform.hasher, r.user_id) === actor) throw new DomainError('SAME_REVIEWER', { reason: 'own_subject' });
         const res = deps.services.sessions.restore(db, r.id, body.reason_code, actor);
         if (!res.restored) throw new DomainError('SESSION_NOT_RESTORABLE');
         deps.services.audit.audit(db, { actor, action: 'session_restored', objectType: 'session', objectRef: r.id, reason: body.reason_code });

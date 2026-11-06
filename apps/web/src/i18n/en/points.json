@@ -71,7 +71,7 @@
     "sent": "We sent a six-digit code.",
     "invalid_number": "Enter your number with country code, like +31612345678.",
     "type_not_allowed": "We can't use this number. Use the number of your own mobile phone.",
-    "in_use": "This number already belongs to another account. Not right? Ask via Help; a person will look at it."
+    "in_use": "This number already belongs to another account. Not right? Let us know via the contact address in the privacy statement; a person looks at it."
   },
   "voucher": {
     "title": "Your code",
@@ -107,7 +107,7 @@
     "joker": "The joker protects your squad streak, not the goal bonus.",
     "night": "Sessions that start between 01:00 and 04:00 count for points and your daily goal, but without goal bonus.",
     "exam": "On an exam day your daily goal doesn't count. With the 'weekly budget' rule that day quietly drops out of the budget.",
-    "season": "The goal bonus stops at the end of the last exam week of your institution. You'll see that in advance."
+    "season": "The goal bonus stops at the end of the last exam week of your institution, on {date}."
   },
   "plus": {
     "title": "Plus",
@@ -116,6 +116,7 @@
     "yes": "Let me know",
     "no": "No",
     "thanks": "Thanks. We'll let you know.",
-    "declined": "Fine. You won't hear about it again."
+    "declined": "Fine. You won't hear about it again.",
+    "off": "Plus is not available right now."
   }
 }
