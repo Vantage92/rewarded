@@ -1,5 +1,7 @@
 {
   "exam_day_limit": "You can set at most 3 exam days per week.",
   "period_locked": "This day is already closed and can no longer change.",
-  "overreach_confirm_required": "That is a high daily goal for your first week. Are you sure?"
+  "overreach_confirm_required": "That is a high daily goal for your first week. Are you sure?",
+  "not_in_rest_arm": "You are not in the rest group, so there is nothing to step out of.",
+  "already_exited": "You already stepped out of the rest period. You earn points again."
 }

@@ -81,13 +81,13 @@ interface SessionFact {
 /** Rest-period arm of a party on a day (spec §3.16, §4.9 Rustperiode), and when it may vest. */
 function restInfo(db: Db, userId: string, day: FocusDay): { inRest: boolean; afterRestDay: FocusDay | null; afterExitDay: FocusDay | null } {
   const u = userById(db, userId);
-  if (!u || u.age_band === '16_17' || u.research_opt_out_at !== null || !isFeatureEnabled(db, 'rest_period')) return { inRest: false, afterRestDay: null, afterExitDay: null };
+  if (!u || u.age_band === '16_17' || u.cohort === 'expansion' || u.research_opt_out_at !== null || !isFeatureEnabled(db, 'rest_period')) return { inRest: false, afterRestDay: null, afterExitDay: null };
   const m = openMembership(db, userId);
   const squad = m ? squadById(db, m.squad_id) : undefined;
   if (!squad || squad.arm_rest !== 'rest') return { inRest: false, afterRestDay: null, afterExitDay: null };
   const cal = calendarById(db, squad.calendar_id);
-  const restFirst = addDays(cal.tDay, 1);
-  const restLast = cal.aEndDay ?? P.rest_period.last_day;
+  const restFirst = cal.dates.restPeriod.first_day;
+  const restLast = cal.dates.restPeriod.last_day;
   const afterExitDay = u.rest_exit_at ? addDays(focusDayOf(Date.parse(u.rest_exit_at), P), 1) : null;
   const inWindow = compareDays(day, restFirst) >= 0 && compareDays(day, restLast) <= 0;
   const exited = afterExitDay !== null && compareDays(day, afterExitDay) >= 0;

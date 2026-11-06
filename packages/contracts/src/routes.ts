@@ -4,6 +4,7 @@
 import { adminRoutes } from './admin.ts';
 import { authRoutes } from './auth.ts';
 import { belofteRoutes } from './belofte.ts';
+import { calendarRoutes } from './calendars.ts';
 import { cardRoutes } from './cards.ts';
 import { catalogRoutes } from './catalog.ts';
 import { challengeRoutes } from './challenges.ts';
@@ -53,6 +54,7 @@ export const routes = {
   ...kpiRoutes,
   ...supportRoutes,
   ...adminRoutes,
+  ...calendarRoutes,
   ...drawRoutes,
 } as const;
 

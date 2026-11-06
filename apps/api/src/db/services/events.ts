@@ -3,6 +3,7 @@
 // contracts taxonomy (parseEventProps rejects unknown or retired names and extra fields).
 // Arms, channel and cohort are added from the user's assignment; client events of pre users go to
 // event_pending under the pre pseudonym (moved or deleted by the auth module).
+import { examCalendarOfUser } from '../calendar.ts';
 import { isEventName, parseEventProps, type ActiveEventName, type EventProps, type ServerEventName } from '@rewarded/contracts';
 import type { EventContext, EventWriter } from '../../services/events.ts';
 import type { Arms, ExperimentService } from '../../services/experiments.ts';
@@ -65,7 +66,7 @@ export class SqlEventWriter implements EventWriter {
     const meta = ctx.pseudonym ? this.meta(tx, ctx.pseudonym, ctx.squadId) : undefined;
     tx.run(
       `INSERT INTO event (id, name, pseudonym, server_at, props, release, arm_bonus, arm_belofte, arm_rest, arm_prompt, channel, squad_id, calendar_id, cohort)
-       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NULL, ?)`,
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
       [
         id,
         name,
@@ -79,6 +80,7 @@ export class SqlEventWriter implements EventWriter {
         meta?.arms?.prompt ?? null,
         meta?.channel ?? null,
         ctx.squadId ?? null,
+        meta?.calendarId ?? null,
         meta?.cohort ?? null,
       ],
     );
@@ -86,7 +88,7 @@ export class SqlEventWriter implements EventWriter {
   }
 
   /** Arms on the event are the personal arms of the day (after exceptions), as KPI queries need. */
-  private meta(tx: Db, pseudonym: string, squadId: string | undefined): { arms: Arms | undefined; channel: string; cohort: string } | undefined {
+  private meta(tx: Db, pseudonym: string, squadId: string | undefined): { arms: Arms | undefined; channel: string; cohort: string; calendarId: string | null } | undefined {
     const u = tx.get<UserRow>('SELECT id, age_band, research_opt_out_at, registration_channel, cohort FROM user WHERE pseudonym = ?', [pseudonym]);
     if (!u) return undefined;
     const units = [
@@ -99,6 +101,13 @@ export class SqlEventWriter implements EventWriter {
       arms = this.deps.experiments.armsFor({ userId: u.id, ageBand: u.age_band, optedOut: u.research_opt_out_at !== null, unit });
       break;
     }
-    return { arms, channel: u.registration_channel, cohort: u.cohort };
+    // Calendar of the user's unit, so KPI queries can read T, N and A per calendar (spec §7.2, §4.13).
+    let calendarId: string | null = null;
+    try {
+      calendarId = examCalendarOfUser(tx, u.id).id;
+    } catch {
+      calendarId = null;
+    }
+    return { arms, channel: u.registration_channel, cohort: u.cohort, calendarId };
   }
 }

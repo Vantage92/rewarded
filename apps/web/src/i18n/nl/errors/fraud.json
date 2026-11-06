@@ -6,5 +6,9 @@
   "no_eligible_reviewer": "Geen beschikbare beheerder die niet bij het eerste besluit betrokken was; het beroep wacht op een derde persoon.",
   "sample_required": "Eerst moet de steekproef klaar zijn: elk item heeft een oordeel nodig.",
   "domain_not_allowed": "Dit adres hoort niet bij een deelnemende hogeschool of universiteit.",
-  "institution_email_in_use": "Dit instellingsadres is al door een ander account bevestigd. Neem contact op via Hulp als dat niet klopt."
+  "institution_email_in_use": "Dit instellingsadres is al door een ander account bevestigd. Neem contact op via Hulp als dat niet klopt.",
+  "address_mismatch": "Dit is niet het adres dat je eerder bevestigde.",
+  "anchor_not_unique": "Een instellingsadres hoort bij meer dan één account. De uitbetaling wacht.",
+  "ambassador_sample_required": "Eerst de steekproef van deze ambassadeur beoordelen.",
+  "interest_declared": "Je meldde al een belang bij dit item. Een tweede beoordelaar neemt het over."
 }

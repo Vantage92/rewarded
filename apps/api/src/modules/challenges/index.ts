@@ -3,6 +3,7 @@
 // the PrizeService (WP-6) within the euro ceilings; the result needs the prize sample (SAMPLE_REQUIRED)
 // and four eyes (FOUR_EYES_REQUIRED). No individual prize challenge for the research cohort during
 // the rest period (spec §4.6; challenge terms B7, proposal).
+import { calendarDatesOfUser } from '../../db/calendar.ts';
 import { addDays, compareDays } from '@rewarded/core';
 import { nextSeat, performanceProgress } from '@rewarded/core/challenges';
 import { DomainError, routes, type AdminChallenge, type ChallengeRules, type PrizeSpec } from '@rewarded/contracts';
@@ -11,7 +12,7 @@ import type { Db } from '../../db/types.ts';
 import { mount, reply } from '../../middleware/route.ts';
 import type { ApiModule, ModuleDeps } from '../../module.ts';
 import { prizeCeiling, type PrizeSpec as ServicePrizeSpec } from '../../services/prizes.ts';
-import { P, calendarById, ids, nowIso, openMembership, squadById, studentOf, today, userById, userDays } from '../squads/lib/social.ts';
+import { P, ids, nowIso, studentOf, today, userById, userDays } from '../squads/lib/social.ts';
 import type { ChallengeRow } from './scores.ts';
 
 type StoredPrize = PrizeSpec & { prize_id: string };
@@ -83,11 +84,10 @@ function toServiceSpec(p: PrizeSpec): ServicePrizeSpec {
 function blockedByRestPeriod(db: Db, userId: string, c: ChallengeRow): boolean {
   const u = userById(db, userId);
   if (!u || u.cohort !== 'experiment' || c.type !== 'performance') return false;
-  const m = openMembership(db, userId);
-  const squad = m ? squadById(db, m.squad_id) : undefined;
-  const cal = calendarById(db, squad?.calendar_id ?? null);
-  const first = addDays(cal.tDay, 1);
-  const last = cal.aEndDay ?? P.rest_period.last_day;
+  // The user's unit calendar: squad, else own club, else the default (spec §4.13).
+  const rp = calendarDatesOfUser(db, userId, P).restPeriod;
+  const first = rp.first_day;
+  const last = rp.last_day;
   return compareDays(c.period_start_day, last) <= 0 && compareDays(c.period_end_day, first) >= 0;
 }
 
@@ -196,13 +196,15 @@ export const module: ApiModule = {
       checkPrizes(body.type, body.prizes);
       const c = db.transaction(() => {
         const id = ids(deps).ulid();
-        const prizeIds = body.prizes.length > 0 ? services.prizes.createForChallenge(db, id, body.prizes.map(toServiceSpec)) : [];
-        const stored: StoredPrize[] = body.prizes.map((p, i) => ({ ...p, prize_id: prizeIds[i] ?? ids(deps).ulid() }));
+        // The challenge row first: prize.challenge_id refers to it (integration fix of the 500 in WP-11).
         db.run(
           `INSERT INTO challenge (id, type, title_nl, title_en, period_start_day, period_end_day, pool, rules, prizes, status, created_by, created_at)
-           VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 'draft', ?, ?)`,
-          [id, body.type, body.title_nl, body.title_en, body.period_start_day, body.period_end_day, body.pool ?? null, JSON.stringify(body.rules), JSON.stringify(stored), actor, nowIso(deps)],
+           VALUES (?, ?, ?, ?, ?, ?, ?, ?, '[]', 'draft', ?, ?)`,
+          [id, body.type, body.title_nl, body.title_en, body.period_start_day, body.period_end_day, body.pool ?? null, JSON.stringify(body.rules), actor, nowIso(deps)],
         );
+        const prizeIds = body.prizes.length > 0 ? services.prizes.createForChallenge(db, id, body.prizes.map(toServiceSpec)) : [];
+        const stored: StoredPrize[] = body.prizes.map((p, i) => ({ ...p, prize_id: prizeIds[i] ?? ids(deps).ulid() }));
+        db.run('UPDATE challenge SET prizes = ? WHERE id = ?', [JSON.stringify(stored), id]);
         services.audit.audit(db, { actor, action: 'challenge_created', objectType: 'challenge', objectRef: id });
         return challengeById(db, id)!;
       });

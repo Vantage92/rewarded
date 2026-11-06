@@ -10,23 +10,19 @@ Focus-app die je beloont voor bewezen focus. Web-MVP als Progressive Web App.
 
 ## Status
 
-Dit is het **fundament (WP-0)**: repo-structuur, buildketen, tests, lint en lege stubs. Er is nog geen productlogica, geen scherm en geen domeinregel. Elke API-module en elke web-feature bestaat als stub die alleen een health-route of een placeholderscherm geeft, met de eigenaar erbij.
+**Integratiegolf afgerond (6 november 2026).** De werkpakketten WP-0 tot en met WP-11 zijn samengevoegd tot één werkend geheel; het bouwrapport staat in `docs/build/INTEGRATIE.md`, de rapporten per pakket in `docs/build/WP-*.md`.
 
-Volgende werkpakketten (architectuur §12.1):
+Wat werkt, end-to-end in de browser tegen de echte API (`e2e/chain/kernflow.spec.ts`): uitnodiging via squadlink, inloggen met de code uit de dev-inbox, onboarding, een sessie van 25 minuten op de dev-klok, punten met doelbonus, squad, verenigingsranglijst, catalogus en een beheerder die een markering vrijgeeft na TOTP.
 
-| WP | Naam | Vult |
-|---|---|---|
-| WP-1 | Core-regie | `packages/core/src/{params,time}` |
-| WP-2 | Contracts | `packages/contracts/**` (bevroren op dag 2, tag `contracts-v1`) |
-| WP-3 | API-basis | `apps/api/src/{db,platform,middleware}`, scheduler, `modules/{auth,waitlist,dev,events}`, migraties `0001–0079` |
-| WP-4 | Sessies en punten | `core/{session,ledger,goals,catalog}`, `modules/{sessions,points,catalog,redemptions,phone}`, migraties `0100–0199` |
-| WP-5 | Sociaal | `core/{squads,challenges,belofte,referral,privacy}`, tien sociale modules, migraties `0200–0299` |
-| WP-6 | Fraude, beheer, trekkingen, privacy | `core/{fraud,draws}`, `modules/{fraud,admin,draws,privacy,kpi,support}`, migraties `0080–0099` en `0300–0399` |
-| WP-7 | Web-shell | `apps/web/src/{app,design,lib/api,sw}`, `i18n/*/common.json`, `public/` |
-| WP-8 | Web focus-engine en toegang | `platform/`, `features/{focus,onboarding,waitlist}` |
-| WP-9 | Web features | `features/{points,squads,duels,club,challenges,belofte,cards,draws,profile}` |
-| WP-10 | Web bestuur en beheer | `features/{board,admin}` |
-| WP-11 | Seed en e2e | `tooling/seed/**`, `e2e/**` |
+Na pitchronde 3 doorgevoerd:
+
+- **Tentamenkalender per vereniging** (`packages/core/src/calendar`, tabel `exam_calendar` met `is_default` en `a_resit_days`, beheerroutes `/admin/exam-calendars`, scherm `/beheer/tentamenkalenders`). Sessies en punten (seizoen, doelbonus, arm B-budget, pool), squads (tentamenperiodes), challenges, Belofte, referral, cohort bij registratie, bewakingsregel en KPI's lezen de kalender van de eenheid. De vaste data in `params` voeden alleen nog de standaardkalender. Zonder vereniging geldt de standaardkalender (migratie 0211).
+- **Instellingsanker** als HMAC met de eigen `pepper_inst`; alleen HMAC en domein worden bewaard.
+- **H12** meet overlap over de hele sessieduur.
+- **Rustperiode per persoon** vanaf T − 6 (`user.rest_arm_fixed`); het uitbreidingscohort in een rustsquad verdient persoonlijk door; een overstap naar een doorlopende squad telt als uitstap (`rest_period_exit`, bron `squad_switch`); `POST /me/rest-exit`.
+- **Seed** met twee verenigingskalenders met een verschillende T plus de standaardkalender.
+
+Wat nog ontbreekt, staat in `docs/build/INTEGRATIE.md` onder "Niet gedaan".
 
 ## Vereisten
 
@@ -53,17 +49,25 @@ pnpm build            # productiebundel API (zonder dev-module) en web-app met s
 pnpm --filter @rewarded/api start   # draait de productiebundel; vraagt peppers (pnpm secrets:init)
 ```
 
-`pnpm seed:demo` bestaat nog niet en meldt dat; de demo-seed komt in WP-11.
+```sh
+pnpm seed:demo        # demo in .data/rewarded.sqlite (stop eerst pnpm dev); klok daarna op 16 december
+```
+
+Met `pnpm dev` draaiend: `POST /api/v1/dev/reset {"seed":"demo"}` laadt de demo in de draaiende server, `POST /api/v1/dev/clock {"set": "..."}` zet de klok en `GET /api/v1/dev/inbox` toont mails en sms'en (codes om in te loggen). De beheerders en hun TOTP-geheimen staan in de uitvoer van de seed. `?api=mock` in de URL (alleen dev) draait de web-app op de mocks, `?api=http` schakelt terug.
 
 ## Testen
 
 ```sh
 pnpm test             # Vitest over core, contracts, api, web en tooling
-pnpm e2e              # Playwright (Chromium); start zelf api en web via webServer
+pnpm e2e              # Playwright (Chromium); start zelf web en per worker een API-proces
 pnpm verify           # typecheck + lint + test
+pnpm -F @rewarded/web lint:i18n   # i18n-lint (NL/EN-pariteit, verboden woorden)
+pnpm -F @rewarded/web test:pwa    # PWA: service worker, offline-shell, axe
 ```
 
-De integratietests van de API draaien tegen beide SQLite-drivers (`better-sqlite3` en `node:sqlite`). Een test bouwt de productiebundel en controleert dat de dev-module, de dev-klok en de dev-inbox er niet in zitten.
+Integratietests: `apps/api/test/integratie/`, `packages/core/test/integratie-*.test.ts`, `tooling/test/integratie-ronde3.test.ts`, `apps/web/test/integratie.test.tsx`, en de e2e-specs `e2e/chain/kernflow.spec.ts` en `e2e/chain/focus-real.spec.ts`.
+
+De integratietests van de API draaien tegen beide SQLite-drivers (`better-sqlite3` en `node:sqlite`). Een test bouwt de productiebundel, controleert dat de dev-module, de dev-klok en de dev-inbox er niet in zitten, start de bundel en controleert dat `/dev/*` 404 geeft.
 
 ## Structuur
 

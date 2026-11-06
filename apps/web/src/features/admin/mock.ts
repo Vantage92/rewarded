@@ -20,6 +20,9 @@ import type {
   WaitlistPriority,
 } from '@rewarded/contracts';
 import { mockError } from '@rewarded/contracts/mock';
+import type { ExamCalendar, ExamCalendarInput } from '@rewarded/contracts';
+import { CURRENT_PARAMS } from '@rewarded/core/params';
+import { calendarDates } from '@rewarded/core/calendar';
 
 /** Valid ULID made of digits (Crockford base32 allows them). */
 export const mockId = (n: number) => `01JD${String(n).padStart(22, '0')}`;
@@ -922,4 +925,50 @@ function mockPrize(id: string, status: 'candidate' | 'verified', verifiedBy: str
 
 /** The mock used in mock mode; the demo switch in the admin layout changes its acting admin. */
 export const adminMock = createAdminMock();
-export const handlers: MockHandlers = adminMock.handlers;
+
+// Exam calendars (integration wave): an in-memory list with the derived dates of core/calendar.
+const mockCalendars: ExamCalendar[] = [];
+const toCalendar = (id: string, b: ExamCalendarInput): ExamCalendar => {
+  const cal = { id, isDefault: b.is_default ?? false, tDay: b.t_day, nStartDay: b.n_start_day ?? null, nEndDay: b.n_end_day ?? null, aStartDay: b.a_start_day ?? null, aEndDay: b.a_end_day ?? null, aResitDays: b.a_resit_days ?? [], examPeriods: b.exam_periods ?? [] };
+  const d = calendarDates(cal, CURRENT_PARAMS);
+  return {
+    id, institution: b.institution, faculty: b.faculty ?? null, is_default: cal.isDefault, t_day: b.t_day, n_start_day: cal.nStartDay, n_end_day: cal.nEndDay,
+    a_start_day: cal.aStartDay, a_end_day: cal.aEndDay, a_resit_days: [...cal.aResitDays], exam_periods: [...cal.examPeriods], source_ref: b.source_ref, checked_at: b.checked_at,
+    club_confirmation_ref: b.club_confirmation_ref ?? null, fixed_at: null, club_ids: [],
+    derived: {
+      season: d.season, bonus_stop_at: d.bonusStopAt, prize_weeks: d.prizeWeeks, january_actives: d.januaryActives, early_offer_day: d.earlyOfferDay, rest_period: d.restPeriod,
+      reflection_window: d.reflectionWindow, n: d.n, a: d.a, early_2_offer_day: d.early2OfferDay, rest_repeat_notice_day: d.restRepeatNoticeDay, late_offer_day: d.lateOfferDay,
+      registration_last_day: d.registrationLastDay, exam_periods: d.examPeriods,
+    },
+  };
+};
+mockCalendars.push(toCalendar('0000000000000000000000DEF0', { institution: 'Standaardkalender', is_default: true, t_day: '2027-01-17', a_end_day: '2027-03-31', source_ref: 'werkhypothese', checked_at: '2026-11-05' }));
+const calendarHandlers: MockHandlers = {
+  'admin.examCalendars.list': () => ({ items: mockCalendars }),
+  'admin.examCalendars.get': ({ params }) => {
+    const c = mockCalendars.find((x) => x.id === params.id);
+    if (!c) throw mockError('NOT_FOUND');
+    return { calendar: c };
+  },
+  'admin.examCalendars.create': ({ body }) => {
+    const b = body as ExamCalendarInput;
+    if (b.is_default && mockCalendars.some((c) => c.is_default)) throw mockError('DEFAULT_CALENDAR_EXISTS');
+    const c = toCalendar(`01JK${String(mockCalendars.length + 1).padStart(22, '0')}`, b);
+    mockCalendars.push(c);
+    return { calendar: c };
+  },
+  'admin.examCalendars.patch': ({ params, body }) => {
+    const i = mockCalendars.findIndex((x) => x.id === params.id);
+    if (i < 0) throw mockError('NOT_FOUND');
+    const cur = mockCalendars[i]!;
+    const b = body as { t_day?: string; fix?: true };
+    const next = { ...toCalendar(cur.id, { ...cur, t_day: b.t_day ?? cur.t_day }), fixed_at: b.fix ? new Date().toISOString() : cur.fixed_at };
+    mockCalendars[i] = next;
+    return { calendar: next };
+  },
+  'admin.clubs.aprilMembers': ({ params, body }) => {
+    const b = body as { april_members: number; source_ref: string };
+    return { club_id: String(params.id), april_members: b.april_members, source_ref: b.source_ref, recorded_at: new Date().toISOString() };
+  },
+};
+export const handlers: MockHandlers = { ...adminMock.handlers, ...calendarHandlers };

@@ -13,11 +13,12 @@ export const CODE_TTL_MS = 15 * 60_000;
 export const MAX_ATTEMPTS = 5;
 
 /**
- * HMAC of the normalised address. Architecture §10.9 names a separate pepper_inst; the platform
- * Hasher (WP-3) has no such purpose yet, so the e-mail pepper is used with a domain separator.
+ * HMAC of the normalised address with the local pepper_inst (architecture §10.9, round 3): unique
+ * per address through the unique index on user.institution_email_hash. Only the HMAC and the
+ * domain are stored, never the address.
  */
 export function institutionHash(deps: ModuleDeps, email: string): string {
-  return deps.platform.hasher.hash('email', `inst|${normalizeEmail(email)}`);
+  return deps.platform.hasher.hash('inst', normalizeEmail(email));
 }
 
 export function domainOf(email: string): string {
@@ -42,7 +43,10 @@ function codeHash(userId: string, code: string): string {
 export async function startInstitution(deps: ModuleDeps, userId: string, email: string): Promise<void> {
   const { db } = deps;
   const domain = domainOf(email);
-  if (!domainAllowed(db, domain)) throw new DomainError('DOMAIN_NOT_ALLOWED');
+  if (!domainAllowed(db, domain)) {
+    db.transaction(() => eventFor(deps, db, userId, 'institution_email_rejected', { domein: domain.slice(0, 253), reden: 'domain' }));
+    throw new DomainError('DOMAIN_NOT_ALLOWED');
+  }
   const hash = institutionHash(deps, email);
   const user = db.get<{ institution_email_hash: string | null; institution_reconfirm_due: number }>('SELECT institution_email_hash, institution_reconfirm_due FROM user WHERE id = ?', [userId]);
   if (!user) throw new DomainError('NOT_FOUND');
@@ -61,7 +65,11 @@ export async function startInstitution(deps: ModuleDeps, userId: string, email: 
   } else if (user.institution_reconfirm_due === 1) purpose = 'reconfirm';
   if (purpose !== 'sample') {
     const taken = db.get('SELECT 1 AS x FROM user WHERE institution_email_hash = ? AND id <> ?', [hash, userId]) ?? db.get('SELECT 1 AS x FROM blocked_institution_hash WHERE institution_email_hash = ?', [hash]);
-    if (taken) throw new DomainError('INSTITUTION_EMAIL_IN_USE');
+    if (taken) {
+      // An address already anchored to another account (spec §7.1 institution_email_rejected).
+      db.transaction(() => eventFor(deps, db, userId, 'institution_email_rejected', { domein: domain.slice(0, 253), reden: 'in_use' }));
+      throw new DomainError('INSTITUTION_EMAIL_IN_USE');
+    }
   }
   const code = sixDigitCode(deps.platform.random);
   const now = deps.platform.clock.now();

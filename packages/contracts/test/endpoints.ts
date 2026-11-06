@@ -137,6 +137,16 @@ export const SECTION_8_2_ENDPOINTS = [
   'POST /admin/ambassadors',
   'GET /admin/kpi/:query',
   'GET /admin/audit',
+  // Round 2/3 rows of arch §8.2 v1.4, added in the integration wave
+  'GET /admin/exam-calendars',
+  'GET /admin/exam-calendars/:id',
+  'POST /admin/exam-calendars',
+  'PATCH /admin/exam-calendars/:id',
+  'POST /admin/clubs/:id/april-members',
+  'POST /me/rest-exit',
+  'POST /me/institution-email/reconfirm',
+  'POST /admin/samples/:id/items/:item/interest',
+  'POST /admin/ambassadors/:id/payouts',
   // Ontwikkeling en test
   'GET /dev/inbox',
   'POST /dev/clock',
@@ -147,11 +157,14 @@ export const SECTION_8_2_ENDPOINTS = [
 
 /** Codes of architecture §8.3 grouped by HTTP class. */
 export const SECTION_8_3_CODES: Record<string, readonly string[]> = {
-  '400/422': ['VALIDATION_FAILED', 'INVALID_DURATION', 'CEILING_EXCEEDED', 'KIND_NOT_ALLOWED', 'EXAM_DAY_LIMIT', 'DOMAIN_NOT_ALLOWED', 'PHONE_TYPE_NOT_ALLOWED', 'CONFIRMATION_REQUIRED', 'REASON_REQUIRED', 'DOCUMENT_REQUIRED', 'DECLARATION_REQUIRED', 'CASH_CHECK_REQUIRED', 'UNKNOWN_EVENT'],
+  '400/422': ['VALIDATION_FAILED', 'INVALID_DURATION', 'CEILING_EXCEEDED', 'KIND_NOT_ALLOWED', 'EXAM_DAY_LIMIT', 'DOMAIN_NOT_ALLOWED', 'PHONE_TYPE_NOT_ALLOWED', 'CONFIRMATION_REQUIRED', 'REASON_REQUIRED', 'DOCUMENT_REQUIRED', 'DECLARATION_REQUIRED', 'CASH_CHECK_REQUIRED', 'UNKNOWN_EVENT', 'SOURCE_REQUIRED'],
   '401': ['AUTH_REQUIRED', 'LINK_INVALID', 'LINK_EXPIRED', 'MFA_REQUIRED', 'MFA_INVALID'],
   '403': ['FORBIDDEN', 'CSRF_INVALID', 'AGE_BELOW_MINIMUM', 'AGE_RESTRICTED', 'ACCOUNT_BLOCKED', 'INVITE_REQUIRED', 'COMPARE_OPT_IN_REQUIRED'],
-  '404': ['NOT_FOUND', 'FEATURE_DISABLED', 'CARD_UNAVAILABLE', 'NOT_IN_SQUAD', 'NOT_ENROLLED'],
-  '409': ['SESSION_CLOSED', 'SESSION_NOT_ABORTED', 'SESSION_NOT_RESTORABLE', 'NONCE_INVALID', 'EARN_IN_REQUIRED', 'PHONE_NOT_VERIFIED', 'PHONE_IN_USE', 'WEEKLY_CAP', 'MONTHLY_CAP', 'OUT_OF_STOCK', 'INSUFFICIENT_POINTS', 'REFERRAL_SHARE_EXCEEDED', 'COVERAGE_INSUFFICIENT', 'PRICE_IMMUTABLE', 'IDEMPOTENCY_CONFLICT', 'ALREADY_IN_SQUAD', 'SQUAD_FULL', 'DUEL_ACTIVE', 'BELOFTE_ACTIVE', 'ALREADY_LINKED', 'SEATS_FULL', 'ENROLLMENT_CLOSED', 'SESSION_UNDER_REVIEW', 'ALREADY_REPORTED', 'ALREADY_APPEALED', 'APPEAL_WINDOW_CLOSED', 'FOUR_EYES_REQUIRED', 'SAME_REVIEWER', 'NO_ELIGIBLE_REVIEWER', 'SAMPLE_REQUIRED', 'AGE_CHECK_REQUIRED', 'FIRST_REDEEM_HOLD', 'OFFER_NOT_YET', 'INSTITUTION_EMAIL_IN_USE', 'ALREADY_OPTED_OUT', 'AGREEMENT_REQUIRED', 'MEMBERS_FIXED', 'BOARD_MEMBER_CONFLICT', 'NOT_ELIGIBLE', 'NOT_DUE', 'PERIOD_LOCKED', 'TERMS_OUTDATED', 'OVERREACH_CONFIRM_REQUIRED', 'INVITE_MOMENT_NOT_ALLOWED', 'NAME_REJECTED'],
+  '404': ['NOT_FOUND', 'FEATURE_DISABLED', 'CARD_UNAVAILABLE', 'NOT_IN_SQUAD', 'NOT_ENROLLED', 'NOT_IN_REST_ARM'],
+  '409': ['SESSION_CLOSED', 'SESSION_NOT_ABORTED', 'SESSION_NOT_RESTORABLE', 'NONCE_INVALID', 'EARN_IN_REQUIRED', 'PHONE_NOT_VERIFIED', 'PHONE_IN_USE', 'WEEKLY_CAP', 'MONTHLY_CAP', 'OUT_OF_STOCK', 'INSUFFICIENT_POINTS', 'REFERRAL_SHARE_EXCEEDED', 'COVERAGE_INSUFFICIENT', 'PRICE_IMMUTABLE', 'IDEMPOTENCY_CONFLICT', 'ALREADY_IN_SQUAD', 'SQUAD_FULL', 'DUEL_ACTIVE', 'BELOFTE_ACTIVE', 'ALREADY_LINKED', 'SEATS_FULL', 'ENROLLMENT_CLOSED', 'SESSION_UNDER_REVIEW', 'ALREADY_REPORTED', 'ALREADY_APPEALED', 'APPEAL_WINDOW_CLOSED', 'FOUR_EYES_REQUIRED', 'SAME_REVIEWER', 'NO_ELIGIBLE_REVIEWER', 'SAMPLE_REQUIRED', 'AGE_CHECK_REQUIRED', 'FIRST_REDEEM_HOLD', 'OFFER_NOT_YET', 'INSTITUTION_EMAIL_IN_USE', 'ALREADY_OPTED_OUT', 'AGREEMENT_REQUIRED', 'MEMBERS_FIXED', 'BOARD_MEMBER_CONFLICT', 'NOT_ELIGIBLE', 'NOT_DUE', 'PERIOD_LOCKED', 'TERMS_OUTDATED', 'OVERREACH_CONFIRM_REQUIRED', 'INVITE_MOMENT_NOT_ALLOWED', 'NAME_REJECTED',
+    // after rounds 2 and 3 (arch §8.3 v1.4)
+    'ALREADY_EXITED', 'MERGE_ARM_MISMATCH', 'SCHEDULE_LOCKED', 'CALENDAR_FIXED', 'EXPANSION_CAP_REACHED',
+    'ADDRESS_MISMATCH', 'AMBASSADOR_SAMPLE_REQUIRED', 'ANCHOR_NOT_UNIQUE', 'INTEREST_DECLARED', 'DEFAULT_CALENDAR_EXISTS'],
   '410': ['INVITE_INVALID', 'INVITE_EXPIRED', 'INVITE_EXHAUSTED', 'CODE_EXPIRED'],
   '429': ['RATE_LIMITED', 'TOO_MANY_ATTEMPTS'],
   '500/503': ['INTERNAL', 'MAINTENANCE'],
@@ -173,5 +186,8 @@ export const SPEC_7_1_EVENTS = [
   'belofte_stopped', 'catalog_viewed', 'redemption_completed', 'redemption_blocked', 'coverage_alert', 'flag_reviewed',
   'appeal_submitted', 'appeal_decided', 'prize_awarded', 'no_points_mode_changed', 'card_created', 'card_share_opened',
   'verify_page_viewed', 'referral_pending_created', 'referral_vested', 'referral_lapsed', 'support_labeled',
+  // spec 1.3 (rounds 2 and 3), added in the integration wave
+  'rest_period_exit', 'rest_period_flag_off', 'institution_email_rejected', 'institution_email_reconfirmed', 'sample_interest_declared',
+  'sample_contact_reconfirmed', 'belofte_renewal_offered', 'competence_feedback_shown', 'catalog_empty_seen',
 ] as const;
 export const UX_EVENTS = ['signal_played', 'draw_opt_out', 'reminder_scheduled', 'reminder_settings_changed', 'reminder_sent', 'reminder_opened', 'belofte_witness_viewed'] as const;

@@ -5,5 +5,6 @@
   "declaration_required": "Leg eerst de verklaring van de partner vast.",
   "cash_check_required": "Vink aan dat het item geen geld of vrij besteedbaar tegoed is.",
   "coverage_insufficient": "Het vrije budget dekt dit niet.",
-  "price_immutable": "De puntenprijs ligt vast zodra een item gepubliceerd is."
+  "price_immutable": "De puntenprijs ligt vast zodra een item gepubliceerd is.",
+  "schedule_locked": "Het vrijgaveschema ligt vast en kan niet meer omlaag."
 }

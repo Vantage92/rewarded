@@ -5,5 +5,6 @@
   "declaration_required": "Record the partner declaration first.",
   "cash_check_required": "Tick that the item is not money or freely spendable credit.",
   "coverage_insufficient": "The free budget does not cover this.",
-  "price_immutable": "The points price is fixed once an item is published."
+  "price_immutable": "The points price is fixed once an item is published.",
+  "schedule_locked": "The release schedule is fixed and can no longer be lowered."
 }

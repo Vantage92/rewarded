@@ -42,7 +42,6 @@ describe('app shell', () => {
     ['/challenges/abc', 'Challenge'],
     ['/belofte', 'De Belofte'],
     ['/kaart/123', 'Kaart'],
-    ['/kans', 'Kans'],
     ['/profiel/privacy', 'Profiel'],
   ])('shows the placeholder for %s', (path, title) => {
     renderAt(path);
@@ -55,6 +54,12 @@ describe('app shell', () => {
   ])('lazily loads %s', async (path, title) => {
     renderAt(path);
     expect((await screen.findByRole('heading', { level: 1 })).textContent).toBe(title);
+  });
+
+  // Spec §3.9 / productplan §0c.3: no draws screen, so /kans is an unknown page.
+  it('has no draws screen at /kans (spec §3.9)', () => {
+    renderAt('/kans');
+    expect(screen.getByRole('heading', { level: 1 }).textContent).toBe('Pagina niet gevonden');
   });
 
   it('shows a not-found page for unknown routes', () => {

@@ -21,6 +21,7 @@ import {
   Ulid,
   VersionTag,
 } from './common.ts';
+import { MeCalendar } from './calendars.ts';
 import { defineRoutes } from './route.ts';
 
 const SixDigitCode = z.string().regex(/^\d{6}$/);
@@ -63,6 +64,8 @@ export const MeResponse = z.strictObject({
   settings: UserSettings.nullable(),
   squad: MeSquad.optional(),
   club: MeClub.optional(),
+  /** Exam calendar of the user's unit (spec §4.13); added in the integration wave. */
+  calendar: MeCalendar.optional(),
   flags: FeatureFlags,
   onboarding_complete: z.boolean(),
 });
@@ -131,7 +134,7 @@ export const authRoutes = defineRoutes({
   'me.onboarding': {
     module: 'auth', method: 'POST', path: '/onboarding', auth: ['pre'],
     body: OnboardingRequest, response: OnboardingResponse, responseKind: 'json', status: [201],
-    errors: ['AGE_BELOW_MINIMUM', 'TERMS_OUTDATED', 'VALIDATION_FAILED', 'OVERREACH_CONFIRM_REQUIRED'], spec: 'arch §8.2, spec §3.1',
+    errors: ['AGE_BELOW_MINIMUM', 'TERMS_OUTDATED', 'VALIDATION_FAILED', 'OVERREACH_CONFIRM_REQUIRED', 'EXPANSION_CAP_REACHED'], spec: 'arch §8.2, spec §3.1',
   },
   'me.settings': {
     module: 'auth', method: 'PATCH', path: '/me/settings', auth: ['student'],

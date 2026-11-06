@@ -88,7 +88,7 @@ export class SessionEngine {
         tx.run(
           `INSERT OR IGNORE INTO session_heartbeat (session_id, seq, kind, server_recv_at, client_ts, mono_ms, visibility, wakelock, nonce_ok, buffered)
            VALUES (?, ?, 'buffered', ?, ?, ?, ?, ?, 0, 1)`,
-          [r.id, it.seq, now, it.client_ts, it.mono_ms, it.visibility, it.wakelock],
+          [r.id, it.seq + (r.seq_offset ?? 0), now, it.client_ts, it.mono_ms, it.visibility, it.wakelock],
         );
       }
     }

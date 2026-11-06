@@ -62,6 +62,8 @@ export const ERROR_CODES = {
   ACCOUNT_BLOCKED: { module: 'auth', http: 403 },
   TERMS_OUTDATED: { module: 'auth', http: 409 },
   ALREADY_OPTED_OUT: { module: 'auth', http: 409 },
+  // Round 2/3 (integration): registration above the MAU cap goes to the waitlist.
+  EXPANSION_CAP_REACHED: { module: 'auth', http: 409 },
   // admin
   MFA_REQUIRED: { module: 'admin', http: 401 },
   MFA_INVALID: { module: 'admin', http: 401 },
@@ -79,6 +81,9 @@ export const ERROR_CODES = {
   EXAM_DAY_LIMIT: { module: 'points', http: 422 },
   PERIOD_LOCKED: { module: 'points', http: 409 },
   OVERREACH_CONFIRM_REQUIRED: { module: 'points', http: 409 },
+  // rest exit, POST /me/rest-exit (spec §3.16 step 4; integration)
+  NOT_IN_REST_ARM: { module: 'points', http: 404 },
+  ALREADY_EXITED: { module: 'points', http: 409 },
   // catalog (partners, budgets, rewards)
   CEILING_EXCEEDED: { module: 'catalog', http: 422 },
   KIND_NOT_ALLOWED: { module: 'catalog', http: 422 },
@@ -87,6 +92,7 @@ export const ERROR_CODES = {
   CASH_CHECK_REQUIRED: { module: 'catalog', http: 422 },
   COVERAGE_INSUFFICIENT: { module: 'catalog', http: 409 },
   PRICE_IMMUTABLE: { module: 'catalog', http: 409 },
+  SCHEDULE_LOCKED: { module: 'catalog', http: 409 },
   // redemptions
   EARN_IN_REQUIRED: { module: 'redemptions', http: 409 },
   FIRST_REDEEM_HOLD: { module: 'redemptions', http: 409 },
@@ -111,12 +117,17 @@ export const ERROR_CODES = {
   INVITE_MOMENT_NOT_ALLOWED: { module: 'squads', http: 409 },
   NAME_REJECTED: { module: 'squads', http: 409 },
   NOT_ELIGIBLE: { module: 'squads', http: 409 },
+  MERGE_ARM_MISMATCH: { module: 'squads', http: 409 },
   // duels
   DUEL_ACTIVE: { module: 'duels', http: 409 },
   // clubs
   ALREADY_LINKED: { module: 'clubs', http: 409 },
   AGREEMENT_REQUIRED: { module: 'clubs', http: 409 },
   MEMBERS_FIXED: { module: 'clubs', http: 409 },
+  // exam calendars, /admin/exam-calendars (spec §4.13; integration)
+  CALENDAR_FIXED: { module: 'clubs', http: 409 },
+  DEFAULT_CALENDAR_EXISTS: { module: 'clubs', http: 409 },
+  SOURCE_REQUIRED: { module: 'clubs', http: 422 },
   // challenges
   SEATS_FULL: { module: 'challenges', http: 409 },
   ENROLLMENT_CLOSED: { module: 'challenges', http: 409 },
@@ -140,6 +151,11 @@ export const ERROR_CODES = {
   SAMPLE_REQUIRED: { module: 'fraud', http: 409 },
   DOMAIN_NOT_ALLOWED: { module: 'fraud', http: 422 },
   INSTITUTION_EMAIL_IN_USE: { module: 'fraud', http: 409 },
+  // round 3 (integration): HMAC anchor, sample interest, ambassador payouts
+  ADDRESS_MISMATCH: { module: 'fraud', http: 409 },
+  ANCHOR_NOT_UNIQUE: { module: 'fraud', http: 409 },
+  AMBASSADOR_SAMPLE_REQUIRED: { module: 'fraud', http: 409 },
+  INTEREST_DECLARED: { module: 'fraud', http: 409 },
   // privacy
   CONFIRMATION_REQUIRED: { module: 'privacy', http: 422 },
 } as const satisfies Record<string, ErrorDef>;

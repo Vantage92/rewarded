@@ -7,6 +7,7 @@ import { useState, type FormEvent } from 'react';
 import { Link, useParams } from 'react-router';
 import { Button, ButtonLink, Chip, TextField } from '../../../design/index.ts';
 import { apiKey, useApiMutation, useApiQuery } from '../../../lib/api/index.ts';
+import { AprilMembers, useClubCalendars } from './calendars.tsx';
 import { Block, CheckboxField, ErrorNote, formatEuro, formatPct, isApiError, Loading, Notice, parseEuroToCents, Section, SelectField, Table, TextAreaField, upsertWorkset, useTa, useWorkset } from '../ui.tsx';
 
 const LEVEL = CURRENT_PARAMS.levels['1'];
@@ -55,7 +56,8 @@ function ClubList() {
 function ClubCreate() {
   const { ta } = useTa();
   const qc = useQueryClient();
-  const [f, setF] = useState({ name: '', city: '', members: '', kind: 'institution' as MembersSourceKind, sourceRef: '', agreement: '', pool: '', helpLabel: '', helpUrl: '', boardEmails: '' });
+  const [f, setF] = useState({ name: '', city: '', members: '', kind: 'institution' as MembersSourceKind, sourceRef: '', agreement: '', pool: '', helpLabel: '', helpUrl: '', boardEmails: '', calendar: '' });
+  const calendars = useClubCalendars();
   const create = useApiMutation('admin.clubs.create', { onSuccess: () => void qc.invalidateQueries({ queryKey: apiKey('admin.clubs.list') }) });
   const members = Number(f.members);
   const membersOk = Number.isInteger(members) && members >= 1;
@@ -72,6 +74,7 @@ function ClubCreate() {
         members_source_kind: f.kind,
         members_source_ref: f.sourceRef.trim(),
         ...(f.agreement.trim() ? { agreement_ref: f.agreement.trim() } : {}),
+        ...(f.calendar ? { exam_calendar_id: f.calendar } : {}),
         ...(f.pool ? { pool: f.pool as ClubPool } : {}),
         ...(f.helpLabel.trim() && f.helpUrl.trim() ? { help_resources: [{ label: f.helpLabel.trim(), url: f.helpUrl.trim() }] } : {}),
         ...(emails.length ? { board_member_emails: emails } : {}),
@@ -100,6 +103,14 @@ function ClubCreate() {
         />
         <TextField label={ta('clubs.source_ref')} hint={ta('clubs.source_ref_hint')} value={f.sourceRef} onChange={(e) => setF({ ...f, sourceRef: e.target.value })} required />
         <TextField label={ta('clubs.agreement')} hint={ta('clubs.agreement_hint')} value={f.agreement} onChange={(e) => setF({ ...f, agreement: e.target.value })} optional />
+        <SelectField
+          label={ta('clubs.calendar')}
+          hint={ta('clubs.calendar_hint')}
+          value={f.calendar}
+          onChange={(e) => setF({ ...f, calendar: e.target.value })}
+          placeholder={ta('clubs.calendar_none')}
+          options={calendars.map((c) => ({ value: c.id, label: `${c.institution}${c.faculty ? ` · ${c.faculty}` : ''} (T ${c.t_day})` }))}
+        />
         <SelectField label={ta('clubs.pool')} value={f.pool} onChange={(e) => setF({ ...f, pool: e.target.value })} placeholder={ta('clubs.pool_auto')} options={POOLS.map((p) => ({ value: p, label: ta(`pool.${p}`) }))} />
         <TextField label={ta('clubs.help_label')} value={f.helpLabel} onChange={(e) => setF({ ...f, helpLabel: e.target.value })} optional />
         <TextField label={ta('clubs.help_url')} type="url" value={f.helpUrl} onChange={(e) => setF({ ...f, helpUrl: e.target.value })} optional />
@@ -146,6 +157,10 @@ function ClubDetail({ id }: { id: string }) {
               <dd>{c.agreement_ref ?? ta('clubs.no_agreement')}</dd>
             </div>
             <div>
+              <dt>{ta('clubs.calendar')}</dt>
+              <dd>{c.exam_calendar_id ? <Link to="/beheer/tentamenkalenders">{ta('clubs.calendar_set')}</Link> : ta('clubs.calendar_none')}</dd>
+            </div>
+            <div>
               <dt>{ta('clubs.prize')}</dt>
               <dd>{c.prize_eligible ? ta('clubs.prize_yes') : ta('clubs.prize_no_reason')}</dd>
             </div>
@@ -162,8 +177,8 @@ function ClubDetail({ id }: { id: string }) {
             <Link to={`/bestuur/${c.id}`}>{ta('clubs.board_link')}</Link>
           </p>
           <ClubPatch club={c} />
+          <AprilMembers clubId={c.id} current={c.april_members} />
           <PendingLinks clubId={c.id} />
-          <p className="field-hint">{ta('clubs.april_missing')}</p>
         </>
       ) : null}
     </Section>
@@ -175,6 +190,8 @@ function ClubPatch({ club }: { club: AdminClub }) {
   const qc = useQueryClient();
   const [members, setMembers] = useState(String(club.declared_members));
   const [agreement, setAgreement] = useState('');
+  const [calendar, setCalendar] = useState(club.exam_calendar_id ?? '');
+  const calendars = useClubCalendars();
   const patch = useApiMutation('admin.clubs.patch', {
     onSuccess: () => {
       void qc.invalidateQueries({ queryKey: apiKey('admin.clubs.get') });
@@ -190,14 +207,23 @@ function ClubPatch({ club }: { club: AdminClub }) {
         aria-label={ta('clubs.patch')}
         onSubmit={(e) => {
           e.preventDefault();
-          const body: { declared_members?: number; agreement_ref?: string } = {};
+          const body: { declared_members?: number; agreement_ref?: string; exam_calendar_id?: string } = {};
           if (!fixed && Number.isInteger(n) && n >= 1 && n !== club.declared_members) body.declared_members = n;
           if (agreement.trim()) body.agreement_ref = agreement.trim();
+          if (calendar && calendar !== club.exam_calendar_id) body.exam_calendar_id = calendar;
           if (Object.keys(body).length) patch.mutate({ params: { id: club.id }, body });
         }}
       >
         <TextField label={ta('clubs.declared')} inputMode="numeric" value={members} onChange={(e) => setMembers(e.target.value)} disabled={fixed} hint={fixed ? ta('clubs.members_fixed_hint') : ta('clubs.cap_rule')} />
         {!club.agreement_ref ? <TextField label={ta('clubs.agreement')} hint={ta('clubs.agreement_hint')} value={agreement} onChange={(e) => setAgreement(e.target.value)} /> : null}
+        <SelectField
+          label={ta('clubs.calendar')}
+          hint={ta('clubs.calendar_hint')}
+          value={calendar}
+          onChange={(e) => setCalendar(e.target.value)}
+          placeholder={ta('clubs.calendar_none')}
+          options={calendars.map((k) => ({ value: k.id, label: `${k.institution}${k.faculty ? ` · ${k.faculty}` : ''} (T ${k.t_day})` }))}
+        />
         <Button type="submit" variant="secondary" disabled={patch.isPending}>
           {ta('clubs.patch_submit')}
         </Button>

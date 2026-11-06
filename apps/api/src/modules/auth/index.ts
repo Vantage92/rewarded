@@ -2,7 +2,9 @@
 // Magic link with the token in the URL fragment, confirmed by an explicit POST; a six-digit code as
 // fallback for other browser contexts; the invite travels in the magic-link row. Under 16 nothing
 // is kept. The answer to POST /auth/magic-link is always 202, so it shows no account exists.
-import { DomainError, routes, type ExperimentAssignmentDto, type MeUser, type UserSettings } from '@rewarded/contracts';
+import { calendarDates, cohortForRegistration } from '@rewarded/core/calendar';
+import { calendarDatesById, calendarDatesOfUser, calendarIdOfClub, calendarIdOfSquad, examCalendarOfUser } from '../../db/calendar.ts';
+import { DomainError, routes, type ExperimentAssignmentDto, type MeResponse, type MeUser, type UserSettings } from '@rewarded/contracts';
 import { CURRENT_PARAMS, addDays, focusDayOf } from '@rewarded/core';
 import type { Context } from 'hono';
 import { readFeatureFlags } from '../../db/flags.ts';
@@ -88,6 +90,33 @@ function login(c: Context<AppEnv>, deps: ModuleDeps, row: MagicLinkRow, via: 'li
 
 function noAssignment(): ExperimentAssignmentDto {
   return { unit: 'solo', arm_bonus: 'A', arm_belofte: 'late', arm_rest: 'continue', arm_prompt: 'na', block: 'outside' };
+}
+
+function hasTable(db: Db, name: string): boolean {
+  return db.get("SELECT 1 AS x FROM sqlite_master WHERE type = 'table' AND name = ?", [name]) !== undefined;
+}
+
+/** Squad, club and calendar for GET /me; each only when its table and row exist. */
+function meUnit(db: Db, userId: string): Pick<MeResponse, 'squad' | 'club' | 'calendar'> {
+  const out: Pick<MeResponse, 'squad' | 'club' | 'calendar'> = {};
+  if (hasTable(db, 'squad_membership')) {
+    const sq = db.get<{ id: string; name: string; status: 'building' | 'active' | 'archived' }>(
+      'SELECT s.id, s.name, s.status FROM squad_membership m JOIN squad s ON s.id = m.squad_id WHERE m.user_id = ? AND m.left_at IS NULL ORDER BY m.joined_at DESC LIMIT 1',
+      [userId],
+    );
+    if (sq) out.squad = { id: sq.id, name: sq.name, status: sq.status };
+  }
+  if (hasTable(db, 'club_membership')) {
+    const cl = db.get<{ id: string; name: string; pending: number }>(
+      'SELECT c.id, c.name, m.pending_admin AS pending FROM club_membership m JOIN club c ON c.id = m.club_id WHERE m.user_id = ? AND m.left_at IS NULL LIMIT 1',
+      [userId],
+    );
+    if (cl) out.club = { id: cl.id, name: cl.name, status: cl.pending === 1 ? 'pending_admin' : 'linked' };
+  }
+  const cal = examCalendarOfUser(db, userId, CURRENT_PARAMS);
+  const d = calendarDates(cal, CURRENT_PARAMS);
+  out.calendar = { id: cal.id, is_default: cal.isDefault, t_day: d.tDay, bonus_stop_at: d.bonusStopAt, early_offer_day: d.earlyOfferDay, rest_period: d.restPeriod, a: d.a };
+  return out;
 }
 
 export const module: ApiModule = {
@@ -195,8 +224,8 @@ export const module: ApiModule = {
       if (auth.kind !== 'user') throw new DomainError('AUTH_REQUIRED');
       const u = userById(db, auth.user.id);
       if (!u) throw new DomainError('AUTH_REQUIRED');
-      // squad and club are added by their owners (WP-5) once their tables exist.
-      return { user: meUser(db, u), age_band: u.age_band, settings: settingsOf(u), flags, onboarding_complete: true };
+      // Squad, club and calendar of the unit (architecture §8.2; integration wave).
+      return { user: meUser(db, u), age_band: u.age_band, settings: settingsOf(u), ...meUnit(db, u.id), flags, onboarding_complete: true };
     });
 
     mount(api, routes['me.onboarding'], ({ c, auth, body }) => {
@@ -222,7 +251,16 @@ export const module: ApiModule = {
       if (userByNormHash(db, normHash)) throw new DomainError('VALIDATION_FAILED', { issues: [{ path: 'email', code: 'email_in_use' }] });
 
       const today = focusDayOf(now.getTime(), CURRENT_PARAMS);
-      const cohort = today <= CURRENT_PARAMS.experiments.registration_last_day ? 'experiment' : 'expansion';
+      // Experiment population up to and including T of the unit's calendar (spec §4.13): the invite's
+      // squad or club calendar, else the creator's unit, else the default calendar.
+      const inviteCal = invite.squad_id
+        ? calendarDatesById(db, calendarIdOfSquad(db, invite.squad_id), CURRENT_PARAMS)
+        : invite.club_id
+          ? calendarDatesById(db, calendarIdOfClub(db, invite.club_id), CURRENT_PARAMS)
+          : invite.creator_user_id
+            ? calendarDatesOfUser(db, invite.creator_user_id, CURRENT_PARAMS)
+            : calendarDatesById(db, null, CURRENT_PARAMS);
+      const cohort = cohortForRegistration(inviteCal, today);
       const channel = channelOf(invite.source);
       const userId = ids.ulid();
       const pseudonym = randomToken(platform.random, 16);

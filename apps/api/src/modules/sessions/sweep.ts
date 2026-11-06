@@ -1,7 +1,6 @@
 // Sweep (architecture §4.3): evaluates every active session without contact, every minute. Owner WP-4.
-// The job file itself would live in jobs/ (not a WP-4 path in this build); wire it with
-//   export { job } from '../modules/sessions/sweep.ts';
-// Until then the day close (step 1), GET /sessions/active and every session route settle sessions.
+// Registered by jobs/sweep.ts (integration wave); the day close (step 1), GET /sessions/active and
+// every session route settle sessions as well.
 import type { Job } from '../../jobs/scheduler.ts';
 import { installWp4Services } from '../points/services.ts';
 

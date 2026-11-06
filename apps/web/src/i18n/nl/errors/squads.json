@@ -5,5 +5,6 @@
   "compare_opt_in_required": "Zet eerst zelf \"Minuten vergelijken\" aan in Ik.",
   "invite_moment_not_allowed": "Je kunt nu geen nieuwe uitnodiging maken. Dat kan weer als er een plek vrij is, hoogstens één keer per week.",
   "name_rejected": "Deze naam kunnen we niet gebruiken. Kies een andere naam.",
-  "not_eligible": "Dit kan nu niet voor jullie squad."
+  "not_eligible": "Dit kan nu niet voor jullie squad.",
+  "merge_arm_mismatch": "Samenvoegen kan alleen met een squad in dezelfde onderzoeksgroep."
 }

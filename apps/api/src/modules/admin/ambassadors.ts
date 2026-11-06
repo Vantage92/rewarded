@@ -96,8 +96,7 @@ export function ambassadorPayout(deps: ModuleDeps, tx: Db, ambassadorId: string,
     return { status: 'sampled', sampleId, counted: counted.length, feeCents: 0 };
   }
   const open = tx.get<{ n: number }>('SELECT count(*) AS n FROM fraud_sample_item WHERE sample_id = ? AND judged_at IS NULL', [existing.sample_id])?.n ?? 0;
-  // AMBASSADOR_SAMPLE_REQUIRED is not in contracts v1; SAMPLE_REQUIRED carries the same meaning.
-  if (open > 0) throw new DomainError('SAMPLE_REQUIRED', { open_items: open });
+  if (open > 0) throw new DomainError('AMBASSADOR_SAMPLE_REQUIRED', { open_items: open });
   const counted = countedUsers(tx, ambassadorId, monthKey).length;
   if (existing.status === 'sampled') {
     tx.run("UPDATE ambassador_payout SET status = 'proposed', proposed_by = ?, counted_users = ? WHERE id = ?", [actor, counted, existing.id]);

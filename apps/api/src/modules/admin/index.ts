@@ -15,7 +15,7 @@ import { installWp6Services } from '../fraud/lib/install.ts';
 import { loadPrize, type PrizeRow } from '../fraud/lib/prizes.ts';
 import type { SqlPrizeService } from '../fraud/lib/prizes.ts';
 import { actorOf, hasTables, idsOf, parseJson, ref } from '../fraud/lib/util.ts';
-import { createAmbassador, listAmbassadors } from './ambassadors.ts';
+import { ambassadorPayout, createAmbassador, listAmbassadors } from './ambassadors.ts';
 
 /** Flags whose switch needs a second admin (architecture §8.2): turning arm B or the rest arm on, and stopping arm B. */
 export function needsFourEyes(key: FeatureFlagKey, enabled: boolean): boolean {
@@ -271,6 +271,16 @@ export const module: ApiModule = {
     mount(api, routes['admin.ambassadors.create'], ({ auth, body }) => {
       const actor = actorOf(deps, auth);
       return db.transaction(() => reply(201, { ambassador: createAmbassador(deps, db, body, actor) }));
+    });
+    // POST /admin/ambassadors/:id/payouts (architecture §8.2, §6.5; route added in the integration wave).
+    mount(api, routes['admin.ambassadors.payout'], ({ auth, params, body }) => {
+      const actor = actorOf(deps, auth);
+      return db.transaction(() => {
+        const r = ambassadorPayout(deps, db, params.id, body.month_key, actor);
+        const sampleSize = db.get<{ n: number }>('SELECT count(*) AS n FROM fraud_sample_item WHERE sample_id = ?', [r.sampleId])?.n ?? 0;
+        const status = r.status === 'sampled' ? ('sample_drawn' as const) : r.status === 'proposed' ? ('pending_four_eyes' as const) : ('recorded' as const);
+        return reply(status === 'recorded' ? 200 : 202, { status, sample_size: sampleSize, payable_registrations: r.counted });
+      });
     });
 
     // --- audit log --------------------------------------------------------------------------

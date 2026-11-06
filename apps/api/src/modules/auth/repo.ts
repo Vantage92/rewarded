@@ -26,6 +26,7 @@ export interface InviteRow {
   squad_id: string | null;
   club_id: string | null;
   qr_source: string | null;
+  creator_user_id?: string | null;
   max_uses: number;
   uses: number;
   expires_at: string;

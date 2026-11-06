@@ -5,6 +5,7 @@
 import { closeBelofteDay } from '../../modules/belofte/logic.ts';
 import { hasSessionTables, hasSocialTables } from '../../modules/squads/lib/social.ts';
 import type { DayCloseStep } from '../scheduler.ts';
+import { fixRestArmsForDay } from '../../modules/points/restarm.ts';
 
 export const step: DayCloseStep = {
   no: 6,
@@ -13,5 +14,7 @@ export const step: DayCloseStep = {
   run({ day, deps, vacation }) {
     if (vacation || !hasSocialTables(deps.db) || !hasSessionTables(deps.db)) return;
     deps.db.transaction(() => closeBelofteDay(deps.db, deps, day));
+    // From T − 6 of each calendar the rest arm belongs to the person (spec §3.16 step 2; integration wave).
+    if (deps.services.pointsContext) deps.db.transaction(() => fixRestArmsForDay(deps.db, deps, day));
   },
 };

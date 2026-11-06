@@ -29,7 +29,12 @@ export class HmacHasher implements Hasher {
   private readonly peppers: Required<Peppers>;
   constructor(peppers: Peppers) {
     // pepper_email is separate (§10.9); older secrets files lack it, so it is derived from pepper_audit.
-    this.peppers = { ...peppers, pepper_email: peppers.pepper_email ?? deriveSecret(peppers.pepper_audit, 'pepper_email') };
+    this.peppers = {
+      ...peppers,
+      pepper_email: peppers.pepper_email ?? deriveSecret(peppers.pepper_audit, 'pepper_email'),
+      // The institution anchor has its own pepper (§10.9); derived like pepper_email for older files.
+      pepper_inst: peppers.pepper_inst ?? deriveSecret(peppers.pepper_audit, 'pepper_inst'),
+    };
   }
   hash(purpose: HashPurpose, value: string): string {
     return createHmac('sha256', this.peppers[`pepper_${purpose}`]).update(value).digest('hex');
@@ -78,6 +83,7 @@ export function loadPeppers(secretsDir: string): Peppers {
   }
   const out: Peppers = { pepper_ip: data.pepper_ip as string, pepper_phone: data.pepper_phone as string, pepper_audit: data.pepper_audit as string };
   if (typeof data.pepper_email === 'string' && data.pepper_email.length >= 32) out.pepper_email = data.pepper_email;
+  if (typeof data.pepper_inst === 'string' && data.pepper_inst.length >= 32) out.pepper_inst = data.pepper_inst;
   return out;
 }
 

@@ -1,7 +1,8 @@
 // Shared helpers of the WP-5 modules (squads, invites, duels, clubs, challenges, leaderboards,
 // belofte, cards, referral, reminders). Everything here stays inside WP-5's own folders; other work
 // packages are reached only through services and their documented tables.
-import { CURRENT_PARAMS, addDays, compareDays, focusDayOf, type FocusDay, type Params } from '@rewarded/core';
+import { CURRENT_PARAMS, calendarDates, compareDays, derivedExamPeriods, focusDayOf, pilotStartDay, type CalendarDates as CoreCalendarDates, type FocusDay, type Params } from '@rewarded/core';
+import { examCalendarById } from '../../../db/calendar.ts';
 import { DomainError, type InviteDto, type InviteSource } from '@rewarded/contracts';
 import { idsFor, randomToken } from '../../../db/ids.ts';
 import type { Db } from '../../../db/types.ts';
@@ -291,42 +292,24 @@ export interface CalendarDates {
   aStartDay: FocusDay | null;
   aEndDay: FocusDay | null;
   examPeriods: { first_day: FocusDay; last_day: FocusDay }[];
-}
-
-interface CalendarRow {
-  id: string;
-  t_day: string;
-  a_start_day: string | null;
-  a_end_day: string | null;
-  exam_periods: string;
+  /** All derived dates of core/calendar. */
+  dates: CoreCalendarDates;
 }
 
 /**
  * Calendar of a unit (spec §4.13): a squad follows its club's calendar, without a club its maker's
- * club. Until the per-club calendars are entered, the dates fall back to params v1: T = last day
- * of the goal-bonus season, exam period = pilot start until T (assumption, see the WP-5 report).
+ * club, else the default calendar. Integration wave: read through db/calendar.ts (core/calendar),
+ * so the default comes from the is_default row or core defaultCalendar, never from params here.
  */
 export function calendarById(db: Db, id: string | null): CalendarDates {
-  const row = id ? db.get<CalendarRow>('SELECT id, t_day, a_start_day, a_end_day, exam_periods FROM exam_calendar WHERE id = ?', [id]) : undefined;
-  if (row) {
-    let periods: { first_day: string; last_day: string }[] = [];
-    try {
-      periods = JSON.parse(row.exam_periods) as { first_day: string; last_day: string }[];
-    } catch {
-      periods = [];
-    }
-    if (periods.length === 0) periods = defaultExamPeriods(row.t_day, row.a_start_day, row.a_end_day);
-    return { id: row.id, tDay: row.t_day, aStartDay: row.a_start_day, aEndDay: row.a_end_day, examPeriods: periods };
-  }
-  const t = P.goal_bonus.season.last_day;
-  return { id: null, tDay: t, aStartDay: null, aEndDay: P.rest_period.last_day, examPeriods: defaultExamPeriods(t, null, null) };
+  const cal = examCalendarById(db, id, P);
+  const d = calendarDates(cal, P);
+  return { id: cal.id, tDay: d.tDay, aStartDay: cal.aStartDay, aEndDay: d.restPeriod.last_day, examPeriods: d.examPeriods, dates: d };
 }
 
 /** Exam periods (spec §4.13): pilot start until T, and the April window with the week before it. */
 export function defaultExamPeriods(tDay: FocusDay, aStart: FocusDay | null, aEnd: FocusDay | null): { first_day: FocusDay; last_day: FocusDay }[] {
-  const out = [{ first_day: P.goal_bonus.season.first_day, last_day: tDay }];
-  if (aStart && aEnd) out.push({ first_day: addDays(aStart, -7), last_day: aEnd });
-  return out;
+  return derivedExamPeriods(pilotStartDay(P), tDay, aStart, aEnd);
 }
 
 export function calendarOfClub(db: Db, clubId: string | null): string | null {

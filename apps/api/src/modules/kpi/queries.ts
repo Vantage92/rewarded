@@ -47,13 +47,14 @@ SELECT 'total', NULL, count(*), count(d.pseudonym), round(100.0 * count(d.pseudo
 
   Q('d30_post_season', 'spec §7.2 D30 buiten de tentamenweken (venster N per kalender)', ['event', 'focus_session', 'exam_calendar'], `
 , cohort AS (SELECT pseudonym, calendar_id FROM ev, p WHERE name = 'account_created' AND substr(server_at, 1, 10) BETWEEN p.f AND p.t),
-hit AS (SELECT DISTINCT c.pseudonym FROM cohort c JOIN exam_calendar k ON k.id = coalesce(c.calendar_id, (SELECT id FROM exam_calendar ORDER BY t_day LIMIT 1))
-         JOIN ok_completed e ON e.pseudonym = c.pseudonym WHERE date(e.server_at) BETWEEN k.n_start_day AND k.n_end_day)
+hit AS (SELECT DISTINCT c.pseudonym FROM cohort c JOIN exam_calendar k ON k.id = coalesce(c.calendar_id, (SELECT id FROM exam_calendar WHERE is_default = 1))
+         JOIN ok_completed e ON e.pseudonym = c.pseudonym
+        WHERE date(e.server_at) BETWEEN coalesce(k.n_start_day, date(k.t_day, '+1 days')) AND coalesce(k.n_end_day, date(k.t_day, '+14 days')))
 SELECT count(*) AS cohort, count(h.pseudonym) AS active_in_n, round(100.0 * count(h.pseudonym) / max(count(*), 1), 1) AS pct FROM cohort c LEFT JOIN hit h ON h.pseudonym = c.pseudonym`),
 
   Q('january_actives_cd', 'spec §7.2 januari-actieven T−13…T−7, voorwaarden (c) en (d), per rustarm', ['event', 'focus_session', 'exam_calendar'], `
 , k AS (SELECT * FROM exam_calendar),
-days AS (SELECT DISTINCT e.pseudonym, date(e.server_at) AS d, e.arm_rest, e.calendar_id FROM ok_completed e),
+days AS (SELECT DISTINCT e.pseudonym, date(e.server_at) AS d, e.arm_rest, coalesce(e.calendar_id, (SELECT id FROM exam_calendar WHERE is_default = 1)) AS calendar_id FROM ok_completed e),
 jan AS (SELECT d.pseudonym, coalesce(max(d.arm_rest), 'continue') AS arm, max(d.calendar_id) AS calendar_id FROM days d JOIN k ON k.id = d.calendar_id
          WHERE d.d BETWEEN date(k.t_day, '-13 days') AND date(k.t_day, '-7 days') GROUP BY d.pseudonym HAVING count(DISTINCT d.d) >= 2),
 c_ok AS (SELECT j.pseudonym FROM jan j WHERE
@@ -104,7 +105,7 @@ SELECT n.wk AS week_after_active, (SELECT count(*) FROM sq) AS squads, count(CAS
   FROM (SELECT 4 AS wk UNION ALL SELECT 8) n LEFT JOIN act a ON a.wk = n.wk GROUP BY n.wk`),
 
   Q('squad_reactivation', 'spec §7.2 Reactivering van squads per rustarm', ['squad', 'squad_membership', 'focus_session', 'exam_calendar'], `
-, sq AS (SELECT q.id, coalesce(q.arm_rest, 'none') AS arm, k.t_day, k.a_start_day, k.a_end_day FROM squad q JOIN exam_calendar k ON k.id = q.calendar_id),
+, sq AS (SELECT q.id, coalesce(q.arm_rest, 'none') AS arm, k.t_day, k.a_start_day, k.a_end_day FROM squad q JOIN exam_calendar k ON k.id = coalesce(q.calendar_id, (SELECT id FROM exam_calendar WHERE is_default = 1))),
 cnt AS (SELECT sq.id, sq.arm,
           (SELECT count(DISTINCT m.user_id) FROM squad_membership m JOIN focus_session s ON s.user_id = m.user_id AND s.status = 'completed' AND s.is_practice = 0
             WHERE m.squad_id = sq.id AND s.focus_day BETWEEN date(sq.t_day, '-13 days') AND sq.t_day) AS before_n,

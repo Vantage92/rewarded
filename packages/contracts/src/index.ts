@@ -29,6 +29,7 @@ export * from './privacy.ts';
 export * from './kpi.ts';
 export * from './support.ts';
 export * from './admin.ts';
+export * from './calendars.ts';
 export * from './routes.ts';
 export * from './client.ts';
 export * from './mock.ts';

@@ -1,5 +1,8 @@
 {
   "already_linked": "Je bent al aan een vereniging gekoppeld.",
   "agreement_required": "Zonder getekende overeenkomst krijgt de vereniging geen code.",
-  "members_fixed": "Het ledental ligt vast en kan niet meer veranderen."
+  "members_fixed": "Het ledental ligt vast en kan niet meer veranderen.",
+  "calendar_fixed": "Deze tentamenkalender ligt vast. Een wijziging vraagt een reden en een tweede beheerder.",
+  "default_calendar_exists": "Er is al een standaardkalender.",
+  "source_required": "Geef de bron op."
 }

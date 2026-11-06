@@ -93,11 +93,11 @@ export const squadRoutes = defineRoutes({
   },
   'squads.mergeRequest': {
     module: 'squads', method: 'POST', path: '/squads/mine/merge-requests', auth: ['member'],
-    body: MergeRequestBody, response: MergeRequestResponse, responseKind: 'json', status: [201], errors: ['NOT_ELIGIBLE'], spec: 'arch §8.2, §6.3',
+    body: MergeRequestBody, response: MergeRequestResponse, responseKind: 'json', status: [201], errors: ['NOT_ELIGIBLE', 'MERGE_ARM_MISMATCH'], spec: 'arch §8.2, §6.3',
   },
   'squads.mergeAccept': {
     module: 'squads', method: 'POST', path: '/squads/merge-requests/:id/accept', auth: ['member'],
-    params: IdParam, response: SquadMineResponse, responseKind: 'json', status: [200], errors: ['NOT_ELIGIBLE', 'SQUAD_FULL'], spec: 'arch §8.2, §6.3',
+    params: IdParam, response: SquadMineResponse, responseKind: 'json', status: [200], errors: ['NOT_ELIGIBLE', 'SQUAD_FULL', 'MERGE_ARM_MISMATCH'], spec: 'arch §8.2, §6.3',
   },
   'squads.nameReport': {
     module: 'squads', method: 'POST', path: '/squads/:id/name-report', auth: ['student'],

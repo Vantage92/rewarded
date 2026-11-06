@@ -1,5 +1,6 @@
 // SQL LedgerService (architecture §5.1, §12.2): double-entry journal with unique keys, derived
 // balances and reconcileDay. Every booking runs inside the caller's transaction.
+import { calendarDatesOfUser } from '../../db/calendar.ts';
 import { createHash } from 'node:crypto';
 import { CURRENT_PARAMS, addDays, compareDays, focusDayOf, weekKey } from '@rewarded/core';
 import { armBWeeklyGrant } from '@rewarded/core/goals';
@@ -182,7 +183,9 @@ export class SqlLedgerService implements LedgerService {
     const regDay = focusDayOf(Date.parse(p.createdAt), params);
     const from = compareDays(regDay, week) > 0 ? regDay : week;
     // Vacation days from the table count like the params pause.
-    let amount = armBWeeklyGrant(params, week, from);
+    // The season is that of the user's exam calendar (spec §4.13).
+    const season = calendarDatesOfUser(tx, userId, params).season;
+    let amount = armBWeeklyGrant({ time: params.time, vacation_pause: params.vacation_pause, goal_bonus: { ...params.goal_bonus, season } }, week, from);
     for (let d = from; compareDays(d, addDays(week, 6)) <= 0; d = addDays(d, 1)) {
       if (ctx.isVacation(tx, d) && !(compareDays(d, params.vacation_pause.first_day) >= 0 && compareDays(d, params.vacation_pause.last_day) <= 0)) amount -= params.goal_bonus.arm_b_points_per_remaining_day;
     }

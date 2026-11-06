@@ -3,6 +3,7 @@
 import { activeFromDay } from '@rewarded/core/squads';
 import { DomainError, type ExperimentFactor } from '@rewarded/contracts';
 import type { Db } from '../../../db/types.ts';
+import { afterJoinSquad, beforeLeaveSquad } from '../../points/restarm.ts';
 import type { ModuleDeps } from '../../../module.ts';
 import { P, ids, nowIso, openMembers, openMembership, squadEventCtx, today, userById, type SquadRow } from './social.ts';
 
@@ -53,6 +54,8 @@ export function addMember(
     [ids(deps).ulid(), squad.id, user.id, o.role, nowIso(deps), activeFromDay(day), o.inviteId],
   );
   if (o.switchReason) logJoinSwitches(tx, deps, user.id, squad, o.switchReason);
+  // Rest arm per person from T − 6; a switch to a continuing squad counts as a rest exit (spec §3.16).
+  if (deps.services.pointsContext) afterJoinSquad(tx, deps, user.id, squad.cohort === 'experiment' ? squad.arm_rest : null);
   const count = members.length + 1;
   if (o.event) {
     deps.services.events.event(tx, o.event, { squad_id: squad.id, invite_id: o.inviteId, ledental_na: count }, { pseudonym: user.pseudonym, squadId: squad.id });
@@ -72,6 +75,7 @@ export function addMember(
 export function leaveSquad(tx: Db, deps: ModuleDeps, user: { id: string; pseudonym: string }, o: { event: boolean } = { event: true }): string | null {
   const m = openMembership(tx, user.id);
   if (!m) return null;
+  if (deps.services.pointsContext) beforeLeaveSquad(tx, deps, user.id);
   const day = today(deps);
   tx.run('UPDATE squad_membership SET left_at = ?, left_day = ? WHERE id = ?', [nowIso(deps), day, m.id]);
   const rest = openMembers(tx, m.squad_id);

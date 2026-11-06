@@ -15,12 +15,14 @@ import { installWp6Services } from './lib/install.ts';
 import { confirmInstitution, startInstitution } from './lib/institution.ts';
 import { judgeItem, type SampleItemRow } from './lib/sample.ts';
 import { actorOf, hasTables, parseJson, ref, studentOf } from './lib/util.ts';
+import { registerRound3Fraud } from './round3.ts';
 
 export const module: ApiModule = {
   name: 'fraud',
   owner: 'WP-6',
   register(api, deps) {
     installWp6Services(deps);
+    registerRound3Fraud(api, deps);
     const { db } = deps;
 
     // --- student ---------------------------------------------------------------------------

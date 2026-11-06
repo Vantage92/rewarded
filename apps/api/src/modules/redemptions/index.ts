@@ -16,7 +16,7 @@ import { enforceRateLimit, RATE_LIMITS } from '../../middleware/rateLimit.ts';
 import { mount, reply } from '../../middleware/route.ts';
 import type { ApiModule, ModuleDeps } from '../../module.ts';
 import type { ActorRef } from '../../services/audit.ts';
-import { poolOf, releaseDue } from '../catalog/stock.ts';
+import { releaseDue } from '../catalog/stock.ts';
 import { earnInMinutes, type SqlLedgerService } from '../points/ledger.ts';
 import { hasRedemptionInWeek } from '../points/index.ts';
 import { installWp4Services } from '../points/services.ts';
@@ -150,7 +150,7 @@ export const module: ApiModule = {
       const voucher = db.get<VoucherRow>(
         `SELECT id, reward_id, code, pool FROM reward_voucher WHERE reward_id = ? AND pool = ? AND status = 'available' AND redemption_id IS NULL
            AND release_day <= ? AND (anchor_only = 0 OR ? = 1) ORDER BY anchor_only * ? DESC, release_day, id LIMIT 1`,
-        [reward.id, poolOf(p.cohort, today), today, anchored ? 1 : 0, anchored ? 1 : 0],
+        [reward.id, ctx.pool(p, today, db), today, anchored ? 1 : 0, anchored ? 1 : 0],
       );
       if (!voucher) throw new DomainError('OUT_OF_STOCK');
       const bal = deps.services.ledger.balances(userId).byKind;

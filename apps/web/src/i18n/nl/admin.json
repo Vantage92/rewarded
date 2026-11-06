@@ -1,7 +1,9 @@
 {
   "title": "Beheer",
   "subtitle": "Interne beheeromgeving van Rewarded. Elke inzage en elk besluit komt in het auditlog.",
-  "actions": { "close": "Sluiten" },
+  "actions": {
+    "close": "Sluiten"
+  },
   "nav": {
     "label": "Beheeronderdelen",
     "overview": "Overzicht",
@@ -12,6 +14,7 @@
     "first_redemptions": "Eerste verzilveringen",
     "outages": "Storingen",
     "clubs": "Verenigingen",
+    "calendars": "Tentamenkalenders",
     "challenges": "Challenges",
     "budget": "Partners en budget",
     "catalog": "Catalogus",
@@ -63,8 +66,17 @@
     "coverage_alarm": "Dekkingsalarm: de gedekte voorraadwaarde is lager dan de waarde van de uitstaande punten.",
     "principle": "Heuristieken markeren alleen. Een mens beslist, met een redencode uit de vaste lijst."
   },
-  "not_found": { "title": "Dit onderdeel bestaat niet", "back": "Terug naar het overzicht" },
-  "flag_status": { "open": "Open", "blocked": "Geblokkeerd", "released": "Vrijgegeven", "rejected": "Afgekeurd", "closed": "Gesloten" },
+  "not_found": {
+    "title": "Dit onderdeel bestaat niet",
+    "back": "Terug naar het overzicht"
+  },
+  "flag_status": {
+    "open": "Open",
+    "blocked": "Geblokkeerd",
+    "released": "Vrijgegeven",
+    "rejected": "Afgekeurd",
+    "closed": "Gesloten"
+  },
   "flag_code": {
     "H1": "H1: bestuurde browser",
     "H2": "H2: veel accounts op één adres",
@@ -107,9 +119,22 @@
     "abort": "Afbreekcode",
     "minutes": "{n} min"
   },
-  "session_status": { "active": "Bezig", "completed": "Voltooid", "aborted": "Afgebroken" },
-  "review_status": { "none": "Geen", "pending": "In afwachting", "released": "Vrijgegeven", "rejected": "Afgekeurd" },
-  "net": { "campus": "Campus", "mobile_cgnat": "Mobiel (CGNAT)", "other": "Overig" },
+  "session_status": {
+    "active": "Bezig",
+    "completed": "Voltooid",
+    "aborted": "Afgebroken"
+  },
+  "review_status": {
+    "none": "Geen",
+    "pending": "In afwachting",
+    "released": "Vrijgegeven",
+    "rejected": "Afgekeurd"
+  },
+  "net": {
+    "campus": "Campus",
+    "mobile_cgnat": "Mobiel (CGNAT)",
+    "other": "Overig"
+  },
   "decision": {
     "form_label": "Besluit over markering {code}",
     "label": "Besluit",
@@ -139,7 +164,11 @@
     "submit": "Sessie herstellen",
     "done": "Hersteld: {status}, {minutes} minuten."
   },
-  "restore_reason": { "outage": "Storing aan onze kant", "late_log": "Gebufferd log kwam alsnog binnen", "appeal_upheld": "Beroep gegrond" },
+  "restore_reason": {
+    "outage": "Storing aan onze kant",
+    "late_log": "Gebufferd log kwam alsnog binnen",
+    "appeal_upheld": "Beroep gegrond"
+  },
   "reasons": {
     "no_evidence": "Geen bewijs voor misbruik",
     "pattern_explained": "Patroon verklaard",
@@ -181,8 +210,16 @@
     "motivation_hint": "De student ziet deze motivering.",
     "submit": "Beroep beslissen"
   },
-  "appeal_object": { "flag": "een markering", "redemption": "een verzilvering", "block": "een blokkade", "prize": "een prijs" },
-  "appeal_outcome": { "upheld": "Gegrond", "rejected": "Ongegrond" },
+  "appeal_object": {
+    "flag": "een markering",
+    "redemption": "een verzilvering",
+    "block": "een blokkade",
+    "prize": "een prijs"
+  },
+  "appeal_outcome": {
+    "upheld": "Gegrond",
+    "rejected": "Ongegrond"
+  },
   "four_eyes": {
     "title": "Vier ogen",
     "intro": "Besluiten die een tweede beheerder moet bevestigen.",
@@ -220,7 +257,11 @@
     "submit": "Oordeel vastleggen",
     "flag_opened": "Er is een markering geopend in de wachtrij."
   },
-  "judgement": { "none": "Geen aanwijzing", "suspect": "Verdacht", "fraud": "Frauduleus" },
+  "judgement": {
+    "none": "Geen aanwijzing",
+    "suspect": "Verdacht",
+    "fraud": "Frauduleus"
+  },
   "first": {
     "title": "Eerste verzilveringen",
     "intro": "Accounts in de wachttijd van 7 dagen. Alleen kijken; er wordt niets automatisch geweigerd.",
@@ -237,8 +278,16 @@
     "h11_no": "Nee",
     "open_flag_missing": "Een markering openen vanuit deze lijst kan nog niet: contracts v1 heeft daar geen route voor."
   },
-  "anchor": { "none": "Geen", "institution": "Instellingsmail", "phone": "Telefoon", "both": "Beide" },
-  "line": { "mobile": "Mobiel", "none": "Geen" },
+  "anchor": {
+    "none": "Geen",
+    "institution": "Instellingsmail",
+    "phone": "Telefoon",
+    "both": "Beide"
+  },
+  "line": {
+    "mobile": "Mobiel",
+    "none": "Geen"
+  },
   "outages": {
     "title": "Storingen",
     "intro": "Leg een storing aan onze kant vast. Daarna zie je welke afgebroken sessies je kunt herstellen.",
@@ -265,7 +314,7 @@
     "code": "Code",
     "code_value": "{code}, plafond {cap}",
     "no_code": "geen code",
-    "no_code_reason": "Geen code: eerst een getekende overeenkomst vastleggen.",
+    "no_code_reason": "Geen code: eerst een getekende overeenkomst en een tentamenkalender vastleggen.",
     "status": "Status",
     "prize": "Hoofdprijs",
     "prize_yes": "Kan meedingen",
@@ -308,11 +357,27 @@
     "qr": "QR-bron",
     "approve": "Goedkeuren",
     "reject": "Afwijzen",
-    "april_missing": "De taak \"extern ledental opvragen voor april\" en tentamenkalenders per vereniging hebben nog geen route in contracts v1."
+    "calendar": "Tentamenkalender",
+    "calendar_hint": "Zonder kalender geen code (spec §4.13).",
+    "calendar_none": "Geen kalender",
+    "calendar_set": "Kalender ingesteld"
   },
-  "source": { "institution": "opgave aan de instelling", "board_grant": "bestuursbeurs", "faculty": "bevestiging faculteit", "self": "eigen opgave" },
-  "pool": { "lt150": "minder dan 150 leden", "150_500": "150–500 leden", "gt500": "meer dan 500 leden" },
-  "club_status": { "draft": "Concept", "active": "Actief", "archived": "Gearchiveerd" },
+  "source": {
+    "institution": "opgave aan de instelling",
+    "board_grant": "bestuursbeurs",
+    "faculty": "bevestiging faculteit",
+    "self": "eigen opgave"
+  },
+  "pool": {
+    "lt150": "minder dan 150 leden",
+    "150_500": "150–500 leden",
+    "gt500": "meer dan 500 leden"
+  },
+  "club_status": {
+    "draft": "Concept",
+    "active": "Actief",
+    "archived": "Gearchiveerd"
+  },
   "challenges": {
     "title": "Challenges",
     "intro": "Aanloopklassement, prijsperiode met hoofd- en drempelprijs en prestatiechallenges met vaste plaatsen. Niet te publiceren zonder dekking of boven de europlafonds; de uitslag is pas definitief na de steekproef en met vier ogen.",
@@ -348,8 +413,18 @@
     "create_submit": "Challenge aanmaken",
     "created": "Challenge aangemaakt als concept."
   },
-  "challenge_status": { "draft": "Concept", "published": "Gepubliceerd", "running": "Loopt", "review": "In controle", "final": "Definitief" },
-  "challenge_type": { "club_warmup": "Aanloopklassement", "club_prize": "Prijsperiode verenigingen", "performance": "Prestatiechallenge" },
+  "challenge_status": {
+    "draft": "Concept",
+    "published": "Gepubliceerd",
+    "running": "Loopt",
+    "review": "In controle",
+    "final": "Definitief"
+  },
+  "challenge_type": {
+    "club_warmup": "Aanloopklassement",
+    "club_prize": "Prijsperiode verenigingen",
+    "performance": "Prestatiechallenge"
+  },
   "prize": {
     "kind": "Soort prijs",
     "reward_kind": "Vorm",
@@ -382,10 +457,27 @@
     "delivery_submit": "Leveringsgegevens opslaan",
     "status": "Prijsstatus: {status}."
   },
-  "prize_kind": { "earned_individual": "Verdiend, individueel", "earned_collective": "Verdiend, collectief" },
-  "prize_status": { "open": "Open", "candidate": "Kandidaat", "verified": "Geverifieerd", "delivered": "Geleverd", "rejected": "Afgewezen" },
-  "document": { "passport": "Paspoort", "id_card": "Identiteitskaart", "drivers_license": "Rijbewijs", "student_card": "Studentenkaart" },
-  "age": { "16_17": "16+", "18_plus": "18+" },
+  "prize_kind": {
+    "earned_individual": "Verdiend, individueel",
+    "earned_collective": "Verdiend, collectief"
+  },
+  "prize_status": {
+    "open": "Open",
+    "candidate": "Kandidaat",
+    "verified": "Geverifieerd",
+    "delivered": "Geleverd",
+    "rejected": "Afgewezen"
+  },
+  "document": {
+    "passport": "Paspoort",
+    "id_card": "Identiteitskaart",
+    "drivers_license": "Rijbewijs",
+    "student_card": "Studentenkaart"
+  },
+  "age": {
+    "16_17": "16+",
+    "18_plus": "18+"
+  },
   "budget": {
     "title": "Partners en budget",
     "intro": "Alleen geboekte omzet of eigen budget van Rewarded, met documentverwijzing. Verplichting naast budget, met dekkingsgraad.",
@@ -433,10 +525,27 @@
     "budget_id_hint": "Boek eerst een budget bij Partners en budget, of plak het id.",
     "option": "{doc} (vrij {free})"
   },
-  "budget_kind": { "direct_reward": "Directe financiering", "revenue": "Deel van omzet", "own_budget": "Eigen budget Rewarded" },
-  "budget_pool": { "pilot": "Gesloten pilot", "research": "Onderzoekscohort", "expansion": "Uitbreiding" },
-  "budget_status": { "booked": "Geboekt", "cancelled": "Geannuleerd" },
-  "partner_kind": { "vereniging": "Vereniging", "faculteit": "Faculteit", "sponsor": "Sponsor", "werkgever": "Werkgever", "rewarded": "Rewarded" },
+  "budget_kind": {
+    "direct_reward": "Directe financiering",
+    "revenue": "Deel van omzet",
+    "own_budget": "Eigen budget Rewarded"
+  },
+  "budget_pool": {
+    "pilot": "Gesloten pilot",
+    "research": "Onderzoekscohort",
+    "expansion": "Uitbreiding"
+  },
+  "budget_status": {
+    "booked": "Geboekt",
+    "cancelled": "Geannuleerd"
+  },
+  "partner_kind": {
+    "vereniging": "Vereniging",
+    "faculteit": "Faculteit",
+    "sponsor": "Sponsor",
+    "werkgever": "Werkgever",
+    "rewarded": "Rewarded"
+  },
   "catalog": {
     "title": "Catalogus",
     "intro": "Items met kostprijs, soort en puntenprijs, partnerverklaring, CSV-import, gespreide vrijgave en reservering voor accounts met een anker.",
@@ -488,9 +597,25 @@
     "releases_invalid": "Vul een geldige week en hele aantallen in.",
     "releases_submit": "Vrijgave opslaan"
   },
-  "reward_kind": { "in_kind": "In natura", "service": "Dienst", "partner_discount": "Partnerkorting op één product" },
-  "reward_status": { "draft": "Concept", "published": "Gepubliceerd", "offline": "Offline" },
-  "weekday": { "0": "Ma", "1": "Di", "2": "Wo", "3": "Do", "4": "Vr", "5": "Za", "6": "Zo" },
+  "reward_kind": {
+    "in_kind": "In natura",
+    "service": "Dienst",
+    "partner_discount": "Partnerkorting op één product"
+  },
+  "reward_status": {
+    "draft": "Concept",
+    "published": "Gepubliceerd",
+    "offline": "Offline"
+  },
+  "weekday": {
+    "0": "Ma",
+    "1": "Di",
+    "2": "Wo",
+    "3": "Do",
+    "4": "Vr",
+    "5": "Za",
+    "6": "Zo"
+  },
   "waitlist": {
     "title": "Wachtlijst",
     "intro": "Nodig in batches uit, op volgorde van voorrang. Een groep krijgt samen één uitnodiging.",
@@ -511,7 +636,12 @@
     "invite": "{n} aanmeldingen uitnodigen",
     "invited_done": "{entries} aanmeldingen uitgenodigd in {invites} uitnodigingen."
   },
-  "priority": { "group": "Groep", "club": "Vereniging", "card": "Kaart", "none": "Geen voorrang" },
+  "priority": {
+    "group": "Groep",
+    "club": "Vereniging",
+    "card": "Kaart",
+    "none": "Geen voorrang"
+  },
   "users": {
     "title": "Gebruikers",
     "intro": "Zoeken en inzien kan alleen met een reden; elke inzage komt in het auditlog.",
@@ -541,7 +671,11 @@
     "deleted": "Het account is verwijderd.",
     "block_note": "Blokkeren gaat via een besluit in de fraudewachtrij, met vier ogen."
   },
-  "user_status": { "active": "Actief", "blocked": "Geblokkeerd", "deleted": "Verwijderd" },
+  "user_status": {
+    "active": "Actief",
+    "blocked": "Geblokkeerd",
+    "deleted": "Verwijderd"
+  },
   "vacation": {
     "title": "Vakantiepauze",
     "intro": "In deze periode bevriezen streaks, pauzetellers, Belofte-dagen en de doelbonus. Elke wijziging krijgt een logregel; gesloten dagen veranderen niet.",
@@ -569,9 +703,23 @@
     "from_to": "Van → naar",
     "reason": "Reden"
   },
-  "unit": { "squad": "Squad", "solo": "Solo" },
-  "factor": { "bonus": "Doelbonus", "belofte": "Belofte", "rest": "Rustperiode", "prompt": "Squadprompt" },
-  "switch_reason": { "join": "Sloot zich aan", "merge": "Samengevoegd", "minor": "Minderjarig", "opt_out": "Afgemeld voor het onderzoek", "arm_b_stopped": "Arm B gestopt" },
+  "unit": {
+    "squad": "Squad",
+    "solo": "Solo"
+  },
+  "factor": {
+    "bonus": "Doelbonus",
+    "belofte": "Belofte",
+    "rest": "Rustperiode",
+    "prompt": "Squadprompt"
+  },
+  "switch_reason": {
+    "join": "Sloot zich aan",
+    "merge": "Samengevoegd",
+    "minor": "Minderjarig",
+    "opt_out": "Afgemeld voor het onderzoek",
+    "arm_b_stopped": "Arm B gestopt"
+  },
   "arm_b": {
     "title": "Arm B stoppen",
     "intro": "Bij de stopregel krijgt iedereen arm A vanaf de volgende maandag. Een tweede beheerder moet bevestigen.",
@@ -589,7 +737,12 @@
     "stop_rule": "Stopregel arm B: {count} van {threshold}.",
     "stop_triggered": "Stopregel geraakt"
   },
-  "harm": { "S1": "S1: nachtelijke sessies", "S2": "S2: zeer lange dagen", "S3": "S3: terugval na een gebroken streak", "S4": "S4: supportlabel welzijn" },
+  "harm": {
+    "S1": "S1: nachtelijke sessies",
+    "S2": "S2: zeer lange dagen",
+    "S3": "S3: terugval na een gebroken streak",
+    "S4": "S4: supportlabel welzijn"
+  },
   "flags": {
     "title": "Vlaggen",
     "intro": "Arm B en het aanzetten van de rustarm vragen een tweede beheerder; de rustarm uitzetten niet. Trekkingen worden niet gebouwd.",
@@ -682,9 +835,23 @@
     "received_on": "Ontvangen op",
     "external_submit": "Vastleggen"
   },
-  "support_kind": { "redemption_broken": "Code werkt niet", "session": "Sessie", "other": "Overig", "external": "Extern" },
-  "support_label": { "uitbetalen": "Uitbetalen", "focus": "Focus", "vrienden": "Vrienden", "techniek": "Techniek", "welzijn": "Welzijn" },
-  "support_status": { "open": "Open", "resolved": "Afgehandeld" },
+  "support_kind": {
+    "redemption_broken": "Code werkt niet",
+    "session": "Sessie",
+    "other": "Overig",
+    "external": "Extern"
+  },
+  "support_label": {
+    "uitbetalen": "Uitbetalen",
+    "focus": "Focus",
+    "vrienden": "Vrienden",
+    "techniek": "Techniek",
+    "welzijn": "Welzijn"
+  },
+  "support_status": {
+    "open": "Open",
+    "resolved": "Afgehandeld"
+  },
   "ambassadors": {
     "title": "Ambassadeurs",
     "intro": "Codes, controle op bestuurslidmaatschap en de telling. Een bestuurslid van een deelnemende vereniging kan geen ambassadeur zijn.",
@@ -712,5 +879,50 @@
     "reason": "Reden",
     "more": "Meer laden",
     "immutable": "Het auditlog is niet te wijzigen of te verwijderen."
+  },
+  "calendars": {
+    "title": "Tentamenkalenders",
+    "intro": "Per vereniging, en per faculteit waar die verschilt, de bron van T, N en A. Zonder kalender krijgt een vereniging geen code. De standaardkalender geldt voor eenheden zonder vereniging.",
+    "caption": "Tentamenkalenders met de afgeleide data",
+    "empty": "Nog geen kalenders.",
+    "institution": "Instelling",
+    "faculty": "Faculteit",
+    "t_day": "T (laatste tentamenzondag)",
+    "t_hint": "Een zondag: de bonusstop is om 04:00 op de maandag erna.",
+    "bonus_stop": "Bonusstop",
+    "early_offer": "Aanbod Belofte (T − 6)",
+    "rest_period": "Rustperiode",
+    "a": "Aprilvenster",
+    "a_missing": "Nog niet vastgelegd",
+    "a_start": "Begin aprilvenster",
+    "a_end": "Einde aprilvenster",
+    "resits": "Herkansingsdagen in A",
+    "resits_hint": "Data gescheiden door komma's; ze tellen niet mee in de nawerkingsmaat.",
+    "clubs": "Verenigingen",
+    "status": "Status",
+    "default_name": "{name} (standaard)",
+    "pending": "Wijziging wacht op een tweede beheerder",
+    "fixed": "Vastgezet",
+    "open": "Nog te wijzigen",
+    "create": "Kalender toevoegen",
+    "create_submit": "Kalender opslaan",
+    "created": "Kalender opgeslagen, T is {t}.",
+    "source": "Bron",
+    "source_hint": "Pagina van de instelling of faculteit.",
+    "checked_at": "Gecontroleerd op",
+    "confirmation": "Bevestiging van de vereniging",
+    "is_default": "Standaardkalender",
+    "is_default_hint": "Er is precies één standaardkalender.",
+    "edit": "Wijzigen: {name}",
+    "reason": "Reden",
+    "reason_hint": "Na het vastzetten alleen met een reden en een tweede beheerder.",
+    "reason_required": "Geef eerst een reden.",
+    "save": "Opslaan",
+    "confirm_pending": "Wijziging bevestigen als tweede beheerder",
+    "fix": "Vastzetten",
+    "pending_notice": "De wijziging wacht op een tweede beheerder.",
+    "april_title": "Ledental voor april",
+    "april_members": "Extern ledental",
+    "april_source_hint": "Door Rewarded zelf opgevraagd, met datum."
   }
 }

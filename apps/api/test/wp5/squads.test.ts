@@ -95,7 +95,7 @@ describe.each(DRIVERS)('squads on %s', (driver) => {
     h.db.run("UPDATE squad SET arm_rest = 'rest' WHERE id = ?", [a.squadId]);
     h.db.run("UPDATE squad SET arm_rest = 'continue' WHERE id = ?", [b.squadId]);
     const mismatch = await call(h, a.users[0]!, 'POST', '/squads/mine/merge-requests', { target_squad_ref: b.squadId });
-    expect(mismatch.body.error).toMatchObject({ code: 'NOT_ELIGIBLE', details: { reason: 'merge_arm_mismatch' } });
+    expect(mismatch.body.error).toMatchObject({ code: 'MERGE_ARM_MISMATCH', details: { reason: 'merge_arm_mismatch' } });
     h.db.run("UPDATE squad SET arm_rest = 'rest'");
     const req = await call(h, a.users[0]!, 'POST', '/squads/mine/merge-requests', { target_squad_ref: b.squadId });
     expect(req.status).toBe(201);

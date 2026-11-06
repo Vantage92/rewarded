@@ -101,9 +101,10 @@ describe.each(DRIVERS)('dev routes on %s (arch §8.2 Ontwikkeling)', (driver) =>
     const first = await c.post<{ status: string; run_key: string }>('/dev/jobs/day_close/run', { run_key: 'day_close:2026-11-04' });
     expect(first.body).toEqual({ status: 'done', run_key: 'day_close:2026-11-04' });
     expect((await c.post<{ status: string }>('/dev/jobs/day_close/run', { run_key: 'day_close:2026-11-04' })).body.status).toBe('skipped');
-    // A job name outside the contract is invalid; a known name without a job file (yet) is not found.
+    // A job name outside the contract is invalid. Since the integration wave every contract name has
+    // a job file (jobs/retention.ts and jobs/sweep.ts), so retention runs.
     expect((await c.post<{ error: { code: string } }>('/dev/jobs/nope/run', {})).body.error.code).toBe('VALIDATION_FAILED');
-    expect((await c.post<{ error: { code: string } }>('/dev/jobs/retention/run', {})).body.error.code).toBe('NOT_FOUND');
+    expect((await c.post<{ status: string }>('/dev/jobs/retention/run', {})).body.status).toBe('done');
   });
 
   it('dev reset empties the tables, keeps the migration log and the append-only triggers', async () => {

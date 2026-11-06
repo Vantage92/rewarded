@@ -11,6 +11,7 @@ import type { ApiModule, ModuleDeps } from '../../module.ts';
 import type { UserDay } from '../../services/userDay.ts';
 import { earnInMinutes } from './ledger.ts';
 import { installWp4Services } from './services.ts';
+import { registerRestExit } from './restarm.ts';
 
 const P = CURRENT_PARAMS;
 const WEEK_START = P.time.week_start_iso_weekday;
@@ -58,6 +59,7 @@ export const module: ApiModule = {
   owner: 'WP-4',
   register(api, deps: ModuleDeps) {
     installWp4Services(deps);
+    registerRestExit(api, deps);
     const { db } = deps;
     const ctx = deps.services.pointsContext;
     const now = () => deps.platform.clock.now().getTime();

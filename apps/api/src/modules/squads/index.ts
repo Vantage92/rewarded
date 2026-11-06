@@ -255,8 +255,8 @@ export const module: ApiModule = {
         { clubId: squad.club_id, armRest: squad.arm_rest, lowActivity: squad.low_activity_since_day !== null, cohort: squad.cohort },
         { clubId: target.club_id, armRest: target.arm_rest, lowActivity: target.low_activity_since_day !== null, cohort: target.cohort },
       );
-      // MERGE_ARM_MISMATCH (arch §8.3, round 2) is not in contracts-v1; NOT_ELIGIBLE carries the reason.
-      if (verdict === 'arm_mismatch') throw new DomainError('NOT_ELIGIBLE', { reason: 'merge_arm_mismatch' });
+      // MERGE_ARM_MISMATCH (arch §8.3, round 2); details.reason kept for older clients.
+      if (verdict === 'arm_mismatch') throw new DomainError('MERGE_ARM_MISMATCH', { reason: 'merge_arm_mismatch' });
       if (verdict !== 'ok') throw new DomainError('NOT_ELIGIBLE');
       const id = ids(deps).ulid();
       const expires = new Date(deps.platform.clock.now().getTime() + P.squads.invite_valid_days * DAY_MS).toISOString();
@@ -282,7 +282,7 @@ export const module: ApiModule = {
         { clubId: from.club_id, armRest: from.arm_rest, lowActivity: from.low_activity_since_day !== null, cohort: from.cohort },
         { clubId: mine.club_id, armRest: mine.arm_rest, lowActivity: mine.low_activity_since_day !== null, cohort: mine.cohort },
       );
-      if (verdict === 'arm_mismatch') throw new DomainError('NOT_ELIGIBLE', { reason: 'merge_arm_mismatch' });
+      if (verdict === 'arm_mismatch') throw new DomainError('MERGE_ARM_MISMATCH', { reason: 'merge_arm_mismatch' });
       if (verdict !== 'ok') throw new DomainError('NOT_ELIGIBLE');
       const a = openMembers(db, from.id);
       const b = openMembers(db, mine.id);

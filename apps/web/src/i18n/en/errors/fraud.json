@@ -6,5 +6,9 @@
   "no_eligible_reviewer": "No available admin who was not involved in the first decision; the appeal waits for a third person.",
   "sample_required": "The sample has to be finished first: every item needs a judgement.",
   "domain_not_allowed": "This address does not belong to a participating university or university of applied sciences.",
-  "institution_email_in_use": "This institution address has already been confirmed by another account. Contact us via Help if that is wrong."
+  "institution_email_in_use": "This institution address has already been confirmed by another account. Contact us via Help if that is wrong.",
+  "address_mismatch": "This is not the address you confirmed before.",
+  "anchor_not_unique": "An institution address belongs to more than one account. The payout waits.",
+  "ambassador_sample_required": "First judge this ambassador's sample.",
+  "interest_declared": "You already declared an interest in this item. A second reviewer takes over."
 }

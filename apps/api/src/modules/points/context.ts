@@ -2,7 +2,9 @@
 // Arms come from the ExperimentService; the season, vacation pause and rest period from params and
 // the WP-3 tables. `arms` is a replaceable field so tests and later packages can swap the lookup.
 import { CURRENT_PARAMS, addDays, compareDays, focusDayOf, type Params } from '@rewarded/core';
-import { earnArmFor, inGoalSeason, personalBonusArm } from '@rewarded/core/goals';
+import { earnArmFor, personalBonusArm } from '@rewarded/core/goals';
+import { isSeasonDay } from '@rewarded/core/calendar';
+import { calendarDatesOfUser } from '../../db/calendar.ts';
 import type { BonusArm, EarnArm, RestArm } from '@rewarded/core/ledger';
 import type { FocusDay } from '@rewarded/core/time';
 import { isFeatureEnabled } from '../../db/flags.ts';
@@ -66,7 +68,20 @@ export class PointsContext {
   private readonly deps: ModuleDeps;
   constructor(deps: ModuleDeps) {
     this.deps = deps;
-    this.arms = (db, userId) => this.defaultArms(db, userId);
+    this.arms = (db, userId, day) => this.personalArms(db, userId, day);
+  }
+
+  /** Arms of the user's current unit (squad, else solo), before the fixed rest arm. */
+  unitArms(db: Db, userId: string, _day: FocusDay): { bonus: BonusArm | null; rest: RestArm } {
+    return this.defaultArms(db, userId);
+  }
+
+  /** Unit arms, with the rest arm fixed to the person from T − 6 of the calendar (spec §3.16 step 2). */
+  private personalArms(db: Db, userId: string, day: FocusDay): { bonus: BonusArm | null; rest: RestArm } {
+    const a = this.defaultArms(db, userId);
+    const fixed = db.get<{ rest_arm_fixed: RestArm | null }>('SELECT rest_arm_fixed FROM user WHERE id = ?', [userId])?.rest_arm_fixed ?? null;
+    if (fixed && compareDays(day, calendarDatesOfUser(db, userId, this.params).restArmFixedFrom) >= 0) return { ...a, rest: fixed };
+    return a;
   }
 
   profile(db: Db, userId: string): UserProfile | undefined {
@@ -139,7 +154,9 @@ export class PointsContext {
     const p = this.profile(db, userId);
     const row = db.get<{ exam_day: number; closed_at: string | null }>('SELECT exam_day, closed_at FROM user_day WHERE user_id = ? AND focus_day = ?', [userId, day]);
     const vacation = this.isVacation(db, day);
-    const inSeason = !vacation && inGoalSeason({ goal_bonus: this.params.goal_bonus, vacation_pause: { first_day: '0000-01-01', last_day: '0000-01-01' } }, day);
+    // Season and rest period follow the exam calendar of the user's unit (spec §4.13, integration wave).
+    const cal = calendarDatesOfUser(db, userId, this.params);
+    const inSeason = !vacation && isSeasonDay(cal, { vacation_pause: { first_day: '0000-01-01', last_day: '0000-01-01' } }, day);
     const arms = p ? this.arms(db, userId, day) : { bonus: null, rest: 'continue' as const };
     const restExitFromDay = p?.restExitAt ? addDays(focusDayOf(Date.parse(p.restExitAt), this.params), 1) : null;
     const earnArm = p
@@ -149,6 +166,8 @@ export class PointsContext {
           restArm: arms.rest,
           restPeriodEnabled: isFeatureEnabled(db, 'rest_period'),
           restExitFromDay,
+          cohort: p.cohort,
+          restPeriod: cal.restPeriod,
         })
       : 'earn';
     return {
@@ -163,7 +182,7 @@ export class PointsContext {
   }
 
   /** Voucher pool of a user (architecture §5.3): experiment until the bonus stop, then research; expansion. */
-  pool(p: UserProfile, day: FocusDay): Pool {
-    return poolOf(p.cohort, day);
+  pool(p: UserProfile, day: FocusDay, db?: Db): Pool {
+    return poolOf(p.cohort, day, db ? calendarDatesOfUser(db, p.id, this.params).tDay : undefined);
   }
 }

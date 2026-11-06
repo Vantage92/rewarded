@@ -171,7 +171,7 @@ export const catalogRoutes = defineRoutes({
   'admin.rewards.releases': {
     module: 'catalog', method: 'POST', path: '/admin/rewards/:id/releases', auth: ['admin'],
     params: IdParam, body: RewardReleaseRequest, response: AdminRewardResponse, responseKind: 'json', status: [200],
-    errors: ['OUT_OF_STOCK'], spec: 'arch §8.2 Beheer, spec §4.3',
+    errors: ['OUT_OF_STOCK', 'SCHEDULE_LOCKED'], spec: 'arch §8.2 Beheer, spec §4.3',
   },
 });
 

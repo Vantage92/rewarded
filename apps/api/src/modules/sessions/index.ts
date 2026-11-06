@@ -92,7 +92,13 @@ export const module: ApiModule = {
             active = engine.settle(db, active, now, 'sweep');
             if (active.status === 'active') {
               const { nonce, hash } = newNonce(deps);
-              db.run('UPDATE focus_session SET prev_nonce_hash = nonce_hash, nonce_hash = ?, last_seq = 0, last_heartbeat_at = ? WHERE id = ?', [hash, now, active.id]);
+              // The protocol seq restarts at 1; stored rows continue after the highest seq so far (§4.7).
+              db.run(
+                `UPDATE focus_session SET prev_nonce_hash = nonce_hash, nonce_hash = ?, last_seq = 0, last_heartbeat_at = ?,
+                   seq_offset = (SELECT coalesce(MAX(seq), 0) FROM session_heartbeat WHERE session_id = focus_session.id AND kind IN ('online', 'buffered'))
+                 WHERE id = ?`,
+                [hash, now, active.id],
+              );
               return reply(200, { session_id: active.id, nonce, server_start_at: new Date(active.server_start_at).toISOString(), planned_end_at: new Date(active.planned_end_at).toISOString(), heartbeat_s: 30 as const, resumed: true as const });
             }
           } else if (active) {
@@ -139,7 +145,7 @@ export const module: ApiModule = {
           db.run(
             `INSERT OR IGNORE INTO session_heartbeat (session_id, seq, kind, server_recv_at, client_ts, mono_ms, visibility, wakelock, nonce_ok, buffered)
              VALUES (?, ?, 'online', ?, ?, ?, ?, ?, 1, 0)`,
-            [r.id, body.seq, now, body.client_ts, body.mono_ms, body.visibility, body.wakelock],
+            [r.id, body.seq + (r.seq_offset ?? 0), now, body.client_ts, body.mono_ms, body.visibility, body.wakelock],
           );
           const { nonce, hash } = newNonce(deps);
           db.run('UPDATE focus_session SET prev_nonce_hash = nonce_hash, nonce_hash = ?, last_seq = ?, last_heartbeat_at = ? WHERE id = ?', [hash, body.seq, now, r.id]);
@@ -176,6 +182,15 @@ export const module: ApiModule = {
           // stores them: a late log is what restore_session re-evaluates (§4.8).
           engine.ingest(db, r, body.events, now);
           const after = r.status === 'active' ? engine.settle(db, r, now, 'events') : r;
+          // H9 (spec §6.3): the first touch after the end signal often arrives later, by beacon. The
+          // claim delay of a completed session is filled from it when the end report had none.
+          if (after.status === 'completed' && after.claim_delay_s === null) {
+            const monoEnd = r.mono_start_ms + r.planned_min * 60_000;
+            const first = body.events
+              .filter((e): e is Extract<(typeof body.events)[number], { type: 'visibility' }> => e.type === 'visibility' && (e.kind === 'first_interaction_after_end' || e.kind === 'visible') && e.mono_ms >= monoEnd)
+              .sort((a, b) => a.mono_ms - b.mono_ms)[0];
+            if (first) db.run('UPDATE focus_session SET claim_delay_s = ? WHERE id = ? AND claim_delay_s IS NULL', [Math.round((first.mono_ms - monoEnd) / 1000), r.id]);
+          }
           return reply(202, { status: after.status });
         });
       },

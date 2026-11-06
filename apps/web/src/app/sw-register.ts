@@ -25,8 +25,10 @@ export async function registerServiceWorker({ url = '/sw.js', canActivate = () =
   });
   notify();
   let reloading = false;
+  // The first install also fires controllerchange (clientsClaim); only an update reloads the page.
+  const hadController = Boolean(container.controller);
   container.addEventListener('controllerchange', () => {
-    if (reloading) return;
+    if (reloading || !hadController) return;
     reloading = true;
     location.reload();
   });

@@ -83,14 +83,19 @@ export interface EarnArmInput {
   restPeriodEnabled: boolean;
   /** First focus day with points again after a rest exit (the day after the exit). */
   restExitFromDay: FocusDay | null;
+  /** Expansion cohort: personally continuing, also in a rest squad (spec §3.16 step 3, jurist should-fix 3). */
+  cohort?: 'experiment' | 'expansion';
+  /** Rest period of the unit's calendar (core/calendar); without it the default from params. */
+  restPeriod?: { readonly first_day: FocusDay; readonly last_day: FocusDay };
 }
 
 /** earnArm for a day (architecture §5.1 rule 5): rest only in the rest arm during the rest period. */
 export function earnArmFor(params: Pick<Params, 'rest_period'>, day: FocusDay, input: EarnArmInput): EarnArm {
   if (!input.restPeriodEnabled || input.restArm !== 'rest') return 'earn';
-  if (input.ageBand === '16_17' || input.optedOut) return 'earn';
+  if (input.ageBand === '16_17' || input.optedOut || input.cohort === 'expansion') return 'earn';
   if (input.restExitFromDay !== null && compareDays(day, input.restExitFromDay) >= 0) return 'earn';
-  return compareDays(day, params.rest_period.first_day) >= 0 && compareDays(day, params.rest_period.last_day) <= 0 ? 'rest' : 'earn';
+  const rp = input.restPeriod ?? params.rest_period;
+  return compareDays(day, rp.first_day) >= 0 && compareDays(day, rp.last_day) <= 0 ? 'rest' : 'earn';
 }
 
 /** Personal bonus arm: minors and opted-out users always get arm A (spec §5 Toewijzing). */

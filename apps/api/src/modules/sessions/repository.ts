@@ -31,6 +31,8 @@ export interface SessionRow {
   nonce_hash: string;
   prev_nonce_hash: string | null;
   last_seq: number;
+  /** Storage offset for heartbeat seqs after a resume (migration 0130). */
+  seq_offset: number;
   last_response: string | null;
   mono_start_ms: number;
   verdict: string | null;

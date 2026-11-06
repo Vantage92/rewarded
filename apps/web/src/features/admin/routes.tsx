@@ -17,6 +17,7 @@ export const ADMIN_SECTIONS: readonly (readonly [path: string, name: SectionName
   ['eerste-verzilveringen', 'FirstRedemptions', 'first_redemptions'],
   ['storingen', 'Outages', 'outages'],
   ['verenigingen', 'Clubs', 'clubs'],
+  ['tentamenkalenders', 'Calendars', 'calendars'],
   ['challenges', 'Challenges', 'challenges'],
   ['budget', 'BudgetSection', 'budget'],
   ['catalogus', 'Catalog', 'catalog'],

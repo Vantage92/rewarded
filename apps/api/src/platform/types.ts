@@ -40,16 +40,19 @@ export interface SmsSender {
   lookupLineType?(e164: string): Promise<PhoneLineType>;
 }
 
-/** Purposes match the separate peppers in architecture §10.9 (`email` for email_norm_hash, §10.4). */
-export type HashPurpose = 'ip' | 'phone' | 'audit' | 'email';
+/**
+ * Purposes match the separate peppers in architecture §10.9 (`email` for email_norm_hash, §10.4;
+ * `inst` for the institution anchor institution_email_hash, round 3 — added in the integration wave).
+ */
+export type HashPurpose = 'ip' | 'phone' | 'audit' | 'email' | 'inst';
 
 export interface Hasher {
   /** Keyed hash (HMAC-SHA256, hex) with the pepper for this purpose. */
   hash(purpose: HashPurpose, value: string): string;
 }
 
-/** `pepper_email` is optional for secrets files written before WP-3; see HmacHasher. */
-export type Peppers = Record<'pepper_ip' | 'pepper_phone' | 'pepper_audit', string> & { pepper_email?: string };
+/** `pepper_email` and `pepper_inst` are optional for older secrets files; see HmacHasher. */
+export type Peppers = Record<'pepper_ip' | 'pepper_phone' | 'pepper_audit', string> & { pepper_email?: string; pepper_inst?: string };
 
 export interface Platform {
   clock: Clock;

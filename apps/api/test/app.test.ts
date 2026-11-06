@@ -21,7 +21,8 @@ describe('API over HTTP', () => {
     const body = (await res.json()) as { status: string; db: string; modules: string[] };
     expect(body.status).toBe('ok');
     expect(body.db).toBe('better-sqlite3');
-    expect(body.modules).toHaveLength(25);
+    // 24 production modules: modules/draws was removed in the integration wave (architecture §12.5).
+    expect(body.modules).toHaveLength(24);
   });
 
   it('serves a health route for every module stub', async () => {

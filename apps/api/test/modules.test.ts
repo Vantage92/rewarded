@@ -2,9 +2,10 @@ import { describe, expect, it } from 'vitest';
 import { modules } from '../src/modules.gen.ts';
 import { devModules } from '../src/modules.dev.gen.ts';
 
-// The fixed module list: union of all modules in architecture §2 and §12.1.
+// The fixed module list: union of all modules in architecture §2 and §12.1. modules/draws was
+// removed in the integration wave (architecture §12.5: no route under /draws).
 const EXPECTED = [
-  'admin', 'auth', 'belofte', 'cards', 'catalog', 'challenges', 'clubs', 'draws', 'duels', 'events',
+  'admin', 'auth', 'belofte', 'cards', 'catalog', 'challenges', 'clubs', 'duels', 'events',
   'fraud', 'invites', 'kpi', 'leaderboards', 'phone', 'points', 'privacy', 'redemptions', 'referral',
   'reminders', 'sessions', 'squads', 'support', 'waitlist',
 ];

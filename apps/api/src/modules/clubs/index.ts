@@ -13,6 +13,7 @@ import type { ApiModule, ModuleDeps } from '../../module.ts';
 import { P, focusDayOfIso, ids, nowIso, studentOf, today } from '../squads/lib/social.ts';
 import { clubById, clubDto, linkClub, type ClubRow } from './link.ts';
 import { clubWeekStats, type ClubWeekStat } from './stats.ts';
+import { registerCalendarRoutes } from './calendars.ts';
 
 const RULES: PrivacyRules = P.board;
 const CODE_ALPHABET = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
@@ -43,7 +44,20 @@ function adminClub(deps: ModuleDeps, db: Db, c: ClubRow): AdminClub {
     status: c.status,
     help_resources: help,
     board_member_refs: board.map((b) => auditRef(deps.platform.hasher, b.user_id)),
+    exam_calendar_id: c.exam_calendar_id,
+    april_members: (c as ClubRow & { april_members?: number | null }).april_members ?? null,
   };
+}
+
+/** Spec §4.13: a club gets a code only with an agreement and a club calendar (never the default). */
+function calendarUsable(db: Db, calendarId: string | null | undefined): boolean {
+  if (!calendarId) return false;
+  const row = db.get<{ is_default: number }>('SELECT is_default FROM exam_calendar WHERE id = ?', [calendarId]);
+  return row !== undefined && row.is_default === 0;
+}
+
+function requireClubCalendar(db: Db, calendarId: string | null | undefined): void {
+  if (calendarId && !calendarUsable(db, calendarId)) throw new DomainError('VALIDATION_FAILED', { field: 'exam_calendar_id' });
 }
 
 function requireBoard(db: Db, userId: string, clubId: string): ClubRow {
@@ -118,6 +132,7 @@ export const module: ApiModule = {
   name: 'clubs',
   owner: 'WP-5',
   register(api, deps) {
+    registerCalendarRoutes(api, deps);
     const { db, services } = deps;
 
     mount(api, routes['clubs.join'], ({ auth, body, c }) => {
@@ -203,14 +218,16 @@ export const module: ApiModule = {
       const id = ids(deps).ulid();
       const at = nowIso(deps);
       const club = db.transaction(() => {
-        const code = body.agreement_ref ? newJoinCode(deps, db) : null;
+        requireClubCalendar(db, body.exam_calendar_id);
+        const code = body.agreement_ref && calendarUsable(db, body.exam_calendar_id) ? newJoinCode(deps, db) : null;
         db.run(
-          `INSERT INTO club (id, name, city, declared_members, members_source_kind, members_source_ref, prize_eligible, agreement_ref, help_resources, pool, join_code, status, created_by, created_at)
-           VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+          `INSERT INTO club (id, name, city, exam_calendar_id, declared_members, members_source_kind, members_source_ref, prize_eligible, agreement_ref, help_resources, pool, join_code, status, created_by, created_at)
+           VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
           [
             id,
             body.name,
             body.city,
+            body.exam_calendar_id ?? null,
             body.declared_members,
             body.members_source_kind,
             body.members_source_ref,
@@ -250,15 +267,21 @@ export const module: ApiModule = {
         }
         if (body.help_resources !== undefined) set.push(['help_resources', JSON.stringify(body.help_resources)]);
         if (body.pool !== undefined) set.push(['pool', body.pool]);
-        if (body.agreement_ref !== undefined) {
-          set.push(['agreement_ref', body.agreement_ref]);
-          if (!c.join_code) {
-            set.push(['join_code', newJoinCode(deps, db)]);
-            set.push(['status', 'active']);
-          }
+        if (body.exam_calendar_id !== undefined) {
+          requireClubCalendar(db, body.exam_calendar_id);
+          set.push(['exam_calendar_id', body.exam_calendar_id]);
+        }
+        if (body.agreement_ref !== undefined) set.push(['agreement_ref', body.agreement_ref]);
+        const agreement = body.agreement_ref ?? c.agreement_ref;
+        const calendar = body.exam_calendar_id !== undefined ? body.exam_calendar_id : c.exam_calendar_id;
+        if (!c.join_code && agreement && calendarUsable(db, calendar)) {
+          set.push(['join_code', newJoinCode(deps, db)]);
+          set.push(['status', 'active']);
         }
         if (body.fix_members) set.push(['members_fixed_at', c.members_fixed_at ?? at]);
         if (set.length > 0) db.run(`UPDATE club SET ${set.map(([k]) => `${k} = ?`).join(', ')} WHERE id = ?`, [...set.map(([, v]) => v), c.id]);
+        // Squads of the club follow its calendar (spec §4.13).
+        if (body.exam_calendar_id !== undefined) db.run('UPDATE squad SET calendar_id = ? WHERE club_id = ?', [body.exam_calendar_id, c.id]);
         addBoardMembers(db, c.id, body.board_member_emails ?? [], actor, at);
         services.audit.audit(db, { actor, action: 'club_updated', objectType: 'club', objectRef: c.id });
         return clubById(db, c.id)!;

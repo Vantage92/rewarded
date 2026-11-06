@@ -1,7 +1,8 @@
 // Voucher stock, pools and budget coverage (architecture §3.3, §5.2, §5.3). Shared by the catalog,
 // redemption and job code of WP-4. Week keys in the database are the Monday date of the focus week
 // (core `weekKey`); the contracts use ISO week keys (`isoWeekKey` converts).
-import { CURRENT_PARAMS, addDays, compareDays } from '@rewarded/core';
+import { CURRENT_PARAMS, addDays, compareDays, defaultCalendar } from '@rewarded/core';
+import { calendarDatesOfUser } from '../../db/calendar.ts';
 import { coverableCents } from '@rewarded/core/catalog';
 import type { FocusDay } from '@rewarded/core/time';
 import type { Db } from '../../db/types.ts';
@@ -47,33 +48,27 @@ export function releaseDue(db: Db, today: FocusDay): number {
   ).changes;
 }
 
-/** Voucher pool of a user on a focus day: experiment until the bonus stop, then research; expansion. */
-export function poolOf(cohort: 'experiment' | 'expansion', day: FocusDay): Pool {
+/**
+ * Voucher pool of a user on a focus day: experiment until the bonus stop of the user's calendar
+ * (T, spec §4.13), then research; expansion. Without tDay the default calendar (core) is used.
+ */
+export function poolOf(cohort: 'experiment' | 'expansion', day: FocusDay, tDay: FocusDay = defaultCalendar(P).tDay): Pool {
   if (cohort === 'expansion') return 'expansion';
-  return compareDays(day, P.goal_bonus.season.last_day) > 0 ? 'research' : 'pilot';
-}
-
-/** SQL condition on `user u` for the users of a pool on `day` (same rule as poolOf). */
-function poolCondition(pool: Pool, day: FocusDay): { sql: string; params: string[] } {
-  if (pool === 'expansion') return { sql: "u.cohort = 'expansion'", params: [] };
-  const after = compareDays(day, P.goal_bonus.season.last_day) > 0;
-  if ((pool === 'research') !== after) return { sql: '0', params: [] };
-  return { sql: "u.cohort = 'experiment'", params: [] };
+  return compareDays(day, tDay) > 0 ? 'research' : 'pilot';
 }
 
 /**
  * Users who may redeem in a pool (architecture §5.3 `eligible_users`): active, not a team account,
- * past the earn-in period and past the first-redemption hold at `nowIso`.
+ * past the earn-in period and past the first-redemption hold at `nowIso`. The pool per user follows
+ * the user's own calendar, so this counts in TypeScript rather than in one SQL condition.
  */
 export function eligibleUsers(db: Db, pool: Pool, day: FocusDay, nowIso: string): number {
-  const c = poolCondition(pool, day);
-  return Number(
-    db.get<{ n: number }>(
-      `SELECT COUNT(*) AS n FROM user u WHERE u.status = 'active' AND u.is_team = 0 AND u.earn_in_reached_at IS NOT NULL
-         AND u.first_redeem_after IS NOT NULL AND u.first_redeem_after <= ? AND ${c.sql}`,
-      [nowIso, ...c.params],
-    )?.n ?? 0,
+  const rows = db.all<{ id: string; cohort: 'experiment' | 'expansion' }>(
+    `SELECT u.id, u.cohort FROM user u WHERE u.status = 'active' AND u.is_team = 0 AND u.earn_in_reached_at IS NOT NULL
+       AND u.first_redeem_after IS NOT NULL AND u.first_redeem_after <= ?`,
+    [nowIso],
   );
+  return rows.filter((u) => poolOf(u.cohort, day, u.cohort === 'expansion' ? undefined : calendarDatesOfUser(db, u.id, P).tDay) === pool).length;
 }
 
 /** Vouchers scheduled for release in a week (Monday date), per pool. */

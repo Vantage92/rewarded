@@ -19,6 +19,23 @@ export default defineConfig({
       devOptions: { enabled: false },
     }),
   ],
+  // Integration wave: split the main bundle into stable vendor and contracts chunks (cacheable
+  // across releases); features stay in the entry, admin and board were already lazy (WP-10).
+  build: {
+    rolldownOptions: {
+      output: {
+        codeSplitting: {
+          groups: [
+            { name: 'vendor-react', test: /node_modules[\\/](react|react-dom|react-router|scheduler)[\\/]/ },
+            { name: 'vendor-query', test: /node_modules[\\/]@tanstack[\\/]/ },
+            { name: 'vendor-zod', test: /node_modules[\\/]zod[\\/]/ },
+            { name: 'contracts', test: /packages[\\/]contracts[\\/]/ },
+            { name: 'core', test: /packages[\\/]core[\\/]/ },
+          ],
+        },
+      },
+    },
+  },
   server: { port: 5173, strictPort: true, proxy: apiProxy },
   preview: { port: 4173, strictPort: true, proxy: apiProxy },
 });

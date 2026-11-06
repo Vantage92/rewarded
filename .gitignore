@@ -3,6 +3,7 @@ dist/
 coverage/
 .data/
 .cache/
+.prod-bundle-test/
 .secrets/
 *.sqlite
 *.sqlite-wal

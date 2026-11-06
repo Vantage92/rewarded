@@ -110,6 +110,7 @@ export const DEV_PEPPERS: Peppers = {
   pepper_phone: 'dev-pepper-phone-not-secret-0000000000',
   pepper_audit: 'dev-pepper-audit-not-secret-0000000000',
   pepper_email: 'dev-pepper-email-not-secret-0000000000',
+  pepper_inst: 'dev-pepper-inst-not-secret-00000000000',
 };
 
 /** Fixed TOTP encryption key and experiment seed for dev and tests. Never valid in production. */

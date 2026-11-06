@@ -1,5 +1,6 @@
 // Dev-only routes (architecture §8.2 Ontwikkeling, §10.3). Owner WP-3.
 // Only server.dev.ts loads this module, via modules.dev.gen.ts; the production bundle never contains it.
+import { restoreMigrationRows } from '../../db/migration-rows.ts';
 import { DomainError } from '@rewarded/contracts';
 import { devRoutes, type AaCheckResponse } from '@rewarded/contracts/dev';
 import { armAt } from '../../db/services/experiments.ts';
@@ -31,6 +32,7 @@ export function resetDatabase(deps: ModuleDeps): void {
       for (const t of triggers) db.exec(`DROP TRIGGER "${t.name}"`);
       for (const t of tables) db.exec(`DELETE FROM "${t}"`);
       for (const t of triggers) db.exec(t.sql);
+      restoreMigrationRows(db);
     });
   } finally {
     db.exec('PRAGMA foreign_keys = ON');

@@ -13,7 +13,7 @@ import type { AuthState } from '../../middleware/context.ts';
 import { mount, reply } from '../../middleware/route.ts';
 import type { ApiModule } from '../../module.ts';
 import { installWp4Services } from '../points/services.ts';
-import { allocatedCents, eligibleUsers, freeBudgetCents, nextReleaseDay, poolOf, releaseDue, releasedInWeek, stockToday, type BudgetRow, type Pool } from './stock.ts';
+import { allocatedCents, eligibleUsers, freeBudgetCents, nextReleaseDay, releaseDue, releasedInWeek, stockToday, type BudgetRow, type Pool } from './stock.ts';
 
 const P = CURRENT_PARAMS;
 const LEVEL = 1; // every web session has verification level 1 (architecture §4.6)
@@ -133,7 +133,7 @@ export const module: ApiModule = {
       if (!p) throw new DomainError('NOT_FOUND');
       const t = today();
       db.transaction(() => releaseDue(db, t));
-      const pool = poolOf(p.cohort, t);
+      const pool = ctx.pool(p, t, db);
       const en = auth.user.locale === 'en';
       const rows = db.all<RewardRow & { partner_name: string }>(
         `SELECT r.*, pa.name AS partner_name FROM reward r JOIN partner pa ON pa.id = r.partner_id

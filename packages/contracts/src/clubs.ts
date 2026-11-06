@@ -1,6 +1,6 @@
 // /api/v1/clubs, the board routes and the club admin routes (architecture §6.2, §6.4, §8.2).
 import { z } from 'zod';
-import { ClubPool, IdParam, Instant, MembersSourceKind, NonNegInt, Ref, ShortText, Ulid, Url, WeekKey } from './common.ts';
+import { ClubPool, IdParam, Instant, MembersSourceKind, NonNegInt, PosInt, Ref, ShortText, Ulid, Url, WeekKey } from './common.ts';
 import { defineRoutes } from './route.ts';
 
 export const JoinCode = z.string().regex(/^[A-Z0-9]{4,12}$/);
@@ -47,6 +47,9 @@ export const AdminClub = ClubDto.extend({
   status: z.enum(['draft', 'active', 'archived']),
   help_resources: z.array(z.strictObject({ label: ShortText, url: Url })).max(10),
   board_member_refs: z.array(Ref),
+  /** Exam calendar of the club (spec §4.13); without a confirmed calendar there is no code. Integration wave. */
+  exam_calendar_id: Ulid.nullable().optional(),
+  april_members: PosInt.nullable().optional(),
 });
 export const AdminClubCreate = z.strictObject({
   name: ShortText,
@@ -58,6 +61,8 @@ export const AdminClubCreate = z.strictObject({
   help_resources: z.array(z.strictObject({ label: ShortText, url: Url })).max(10).optional(),
   pool: ClubPool.optional(),
   board_member_emails: z.array(z.email().max(254)).max(10).optional(),
+  /** Never the default calendar (architecture §3.4). Integration wave. */
+  exam_calendar_id: Ulid.nullable().optional(),
 });
 export const AdminClubPatch = AdminClubCreate.partial().extend({ fix_members: z.literal(true).optional() });
 export const AdminClubResponse = z.strictObject({ club: AdminClub });

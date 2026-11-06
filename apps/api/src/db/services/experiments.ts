@@ -212,6 +212,9 @@ export class SqlExperimentService implements ExperimentService {
       case 'arm_b_stopped':
         return this.nextMonday();
       case 'opt_out':
+      case 'squad_switch':
+      case 'rest_flag_off':
+        // Rest exit (also via a squad switch) and the rest flag off: from the next focus day (spec §3.16).
         return addDays(this.today(), 1);
       case 'minor':
         return this.today();

@@ -1,5 +1,7 @@
 {
   "exam_day_limit": "Je kunt hoogstens 3 tentamendagen per week instellen.",
   "period_locked": "Deze dag is al afgesloten en kan niet meer veranderen.",
-  "overreach_confirm_required": "Dat is een hoog dagdoel voor je eerste week. Weet je het zeker?"
+  "overreach_confirm_required": "Dat is een hoog dagdoel voor je eerste week. Weet je het zeker?",
+  "not_in_rest_arm": "Je zit niet in de rustgroep, dus er is niets om uit te stappen.",
+  "already_exited": "Je bent al uit de rustperiode gestapt. Je verdient weer punten."
 }

@@ -113,7 +113,8 @@ export const ArmRest = z.enum(['rest', 'continue']);
 export const ArmPrompt = z.enum(['strong', 'standard', 'na']);
 export const ExperimentFactor = z.enum(['bonus', 'belofte', 'rest', 'prompt']);
 export const ExperimentUnit = z.enum(['squad', 'solo']);
-export const ArmSwitchReason = z.enum(['join', 'merge', 'minor', 'opt_out', 'arm_b_stopped']);
+// rest_flag_off and squad_switch: round 3 (architecture §12.5, WP-3 row); appended, so older values stay valid.
+export const ArmSwitchReason = z.enum(['join', 'merge', 'minor', 'opt_out', 'arm_b_stopped', 'rest_flag_off', 'squad_switch']);
 export const EarnArm = z.enum(['earn', 'rest']);
 export const GoalState = z.enum(['none', 'pending', 'available', 'secured', 'lapsed', 'postponed', 'exam']);
 

@@ -3,7 +3,8 @@
 // `rest_period` off when exceeded; protective, so without four eyes) and the absolute threshold.
 // The stop rule itself is only counted and reported: stopping arm B is a founder decision through
 // POST /admin/experiments/arm-b/stop with four eyes.
-import { CURRENT_PARAMS, addDays, isDayInRange, type FocusDay } from '@rewarded/core';
+import { allCalendarDates } from '../../../db/calendar.ts';
+import { CURRENT_PARAMS, addDays, type FocusDay } from '@rewarded/core';
 import { absoluteHarm, guardRuleRestArm, harmRules, stopRuleArmB, HARM_CODES, type ArmCount, type HarmCode, type StopRuleResult } from '@rewarded/core/fraud';
 import { isFeatureEnabled, setFeatureFlag } from '../../../db/flags.ts';
 import type { Db } from '../../../db/types.ts';
@@ -24,15 +25,10 @@ export interface HarmWeekResult {
 
 const zeroCodes = (): Record<HarmCode, number> => ({ S1: 0, S2: 0, S3: 0, S4: 0 });
 
-/** Whether `week` lies in T + 1 … A-end of any calendar (else of the global rest period). */
+/** Whether `week` overlaps T + 1 … A-end of any calendar, the default calendar included (spec §4.13). */
 function guardWindow(db: Db, week: FocusDay): boolean {
   const end = addDays(week, 6);
-  if (hasTables(db, 'exam_calendar')) {
-    const rows = db.all<{ t_day: string; a_end_day: string | null }>('SELECT t_day, a_end_day FROM exam_calendar');
-    if (rows.length > 0) return rows.some((r) => r.a_end_day !== null && addDays(r.t_day, 1) <= end && week <= r.a_end_day);
-  }
-  const rp = CURRENT_PARAMS.rest_period;
-  return isDayInRange(week, rp) || isDayInRange(end, rp);
+  return allCalendarDates(db, CURRENT_PARAMS).some((d) => d.restPeriod.first_day <= end && week <= d.restPeriod.last_day);
 }
 
 export function evaluateHarmWeek(deps: ModuleDeps, week: FocusDay): HarmWeekResult | null {

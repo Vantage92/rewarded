@@ -45,8 +45,13 @@ describe.each(DRIVERS)('clubs and challenges on %s', (driver) => {
     expect(created.body.club).toMatchObject({ join_code: null, status: 'draft', prize_eligible: false, pool: 'lt150', code_cap: 132 });
     expect(created.body.club.board_member_refs).toHaveLength(1);
     const id = created.body.club.id as string;
-    const signed = await call(h, admin, 'PATCH', `/admin/clubs/${id}`, { agreement_ref: 'ovk-2026-01', members_source_kind: 'institution', fix_members: true });
-    expect(signed.body.club).toMatchObject({ status: 'active', prize_eligible: true });
+    const signedNoCal = await call(h, admin, 'PATCH', `/admin/clubs/${id}`, { agreement_ref: 'ovk-2026-01', members_source_kind: 'institution', fix_members: true });
+    // Integration wave (spec §4.13): no code without a confirmed club calendar either.
+    expect(signedNoCal.body.club).toMatchObject({ status: 'draft', join_code: null, prize_eligible: true });
+    const cal = await call(h, admin, 'POST', '/admin/exam-calendars', { institution: 'Hogeschool Demostad', t_day: '2027-01-24', source_ref: 'https://example.test/rooster', checked_at: '2026-11-05' });
+    expect(cal.status).toBe(201);
+    const signed = await call(h, admin, 'PATCH', `/admin/clubs/${id}`, { exam_calendar_id: cal.body.calendar.id });
+    expect(signed.body.club).toMatchObject({ status: 'active', prize_eligible: true, exam_calendar_id: cal.body.calendar.id });
     expect(signed.body.club.join_code).toMatch(/^[A-Z0-9]{6}$/);
     expect((await call(h, admin, 'PATCH', `/admin/clubs/${id}`, { declared_members: 300 })).body.error.code).toBe('MEMBERS_FIXED');
     expect((await call(h, board, 'GET', '/admin/clubs')).status).toBe(403);

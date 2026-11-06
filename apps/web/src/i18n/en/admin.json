@@ -1,7 +1,9 @@
 {
   "title": "Admin",
   "subtitle": "Internal admin environment of Rewarded. Every lookup and every decision goes into the audit log.",
-  "actions": { "close": "Close" },
+  "actions": {
+    "close": "Close"
+  },
   "nav": {
     "label": "Admin sections",
     "overview": "Overview",
@@ -12,6 +14,7 @@
     "first_redemptions": "First redemptions",
     "outages": "Outages",
     "clubs": "Associations",
+    "calendars": "Exam calendars",
     "challenges": "Challenges",
     "budget": "Partners and budget",
     "catalog": "Catalogue",
@@ -63,8 +66,17 @@
     "coverage_alarm": "Coverage alarm: the covered stock value is lower than the value of outstanding points.",
     "principle": "Heuristics only flag. A person decides, with a reason code from the fixed list."
   },
-  "not_found": { "title": "This section does not exist", "back": "Back to the overview" },
-  "flag_status": { "open": "Open", "blocked": "Blocked", "released": "Released", "rejected": "Rejected", "closed": "Closed" },
+  "not_found": {
+    "title": "This section does not exist",
+    "back": "Back to the overview"
+  },
+  "flag_status": {
+    "open": "Open",
+    "blocked": "Blocked",
+    "released": "Released",
+    "rejected": "Rejected",
+    "closed": "Closed"
+  },
   "flag_code": {
     "H1": "H1: automated browser",
     "H2": "H2: many accounts on one address",
@@ -107,9 +119,22 @@
     "abort": "Abort code",
     "minutes": "{n} min"
   },
-  "session_status": { "active": "Running", "completed": "Completed", "aborted": "Aborted" },
-  "review_status": { "none": "None", "pending": "Pending", "released": "Released", "rejected": "Rejected" },
-  "net": { "campus": "Campus", "mobile_cgnat": "Mobile (CGNAT)", "other": "Other" },
+  "session_status": {
+    "active": "Running",
+    "completed": "Completed",
+    "aborted": "Aborted"
+  },
+  "review_status": {
+    "none": "None",
+    "pending": "Pending",
+    "released": "Released",
+    "rejected": "Rejected"
+  },
+  "net": {
+    "campus": "Campus",
+    "mobile_cgnat": "Mobile (CGNAT)",
+    "other": "Other"
+  },
   "decision": {
     "form_label": "Decision on flag {code}",
     "label": "Decision",
@@ -139,7 +164,11 @@
     "submit": "Restore session",
     "done": "Restored: {status}, {minutes} minutes."
   },
-  "restore_reason": { "outage": "Outage on our side", "late_log": "Buffered log arrived late", "appeal_upheld": "Appeal upheld" },
+  "restore_reason": {
+    "outage": "Outage on our side",
+    "late_log": "Buffered log arrived late",
+    "appeal_upheld": "Appeal upheld"
+  },
   "reasons": {
     "no_evidence": "No evidence of misuse",
     "pattern_explained": "Pattern explained",
@@ -181,8 +210,16 @@
     "motivation_hint": "The student sees this motivation.",
     "submit": "Decide appeal"
   },
-  "appeal_object": { "flag": "a flag", "redemption": "a redemption", "block": "a block", "prize": "a prize" },
-  "appeal_outcome": { "upheld": "Upheld", "rejected": "Rejected" },
+  "appeal_object": {
+    "flag": "a flag",
+    "redemption": "a redemption",
+    "block": "a block",
+    "prize": "a prize"
+  },
+  "appeal_outcome": {
+    "upheld": "Upheld",
+    "rejected": "Rejected"
+  },
   "four_eyes": {
     "title": "Four eyes",
     "intro": "Decisions a second admin has to confirm.",
@@ -220,7 +257,11 @@
     "submit": "Record judgement",
     "flag_opened": "A flag was opened in the queue."
   },
-  "judgement": { "none": "No indication", "suspect": "Suspect", "fraud": "Fraudulent" },
+  "judgement": {
+    "none": "No indication",
+    "suspect": "Suspect",
+    "fraud": "Fraudulent"
+  },
   "first": {
     "title": "First redemptions",
     "intro": "Accounts in the 7-day waiting period. Look only; nothing is refused automatically.",
@@ -237,8 +278,16 @@
     "h11_no": "No",
     "open_flag_missing": "Opening a flag from this list is not possible yet: contracts v1 has no route for it."
   },
-  "anchor": { "none": "None", "institution": "Institution email", "phone": "Phone", "both": "Both" },
-  "line": { "mobile": "Mobile", "none": "None" },
+  "anchor": {
+    "none": "None",
+    "institution": "Institution email",
+    "phone": "Phone",
+    "both": "Both"
+  },
+  "line": {
+    "mobile": "Mobile",
+    "none": "None"
+  },
   "outages": {
     "title": "Outages",
     "intro": "Record an outage on our side. Then you see which aborted sessions you can restore.",
@@ -265,7 +314,7 @@
     "code": "Code",
     "code_value": "{code}, cap {cap}",
     "no_code": "no code",
-    "no_code_reason": "No code: record a signed agreement first.",
+    "no_code_reason": "No code: record a signed agreement and an exam calendar first.",
     "status": "Status",
     "prize": "Main prize",
     "prize_yes": "Can compete",
@@ -308,11 +357,27 @@
     "qr": "QR source",
     "approve": "Approve",
     "reject": "Reject",
-    "april_missing": "The task \"request the external member count for April\" and exam calendars per association have no route in contracts v1 yet."
+    "calendar": "Exam calendar",
+    "calendar_hint": "No calendar, no code (spec §4.13).",
+    "calendar_none": "No calendar",
+    "calendar_set": "Calendar set"
   },
-  "source": { "institution": "statement to the institution", "board_grant": "board grant", "faculty": "faculty confirmation", "self": "own statement" },
-  "pool": { "lt150": "fewer than 150 members", "150_500": "150–500 members", "gt500": "more than 500 members" },
-  "club_status": { "draft": "Draft", "active": "Active", "archived": "Archived" },
+  "source": {
+    "institution": "statement to the institution",
+    "board_grant": "board grant",
+    "faculty": "faculty confirmation",
+    "self": "own statement"
+  },
+  "pool": {
+    "lt150": "fewer than 150 members",
+    "150_500": "150–500 members",
+    "gt500": "more than 500 members"
+  },
+  "club_status": {
+    "draft": "Draft",
+    "active": "Active",
+    "archived": "Archived"
+  },
   "challenges": {
     "title": "Challenges",
     "intro": "Warm-up ranking, prize period with main and threshold prize and performance challenges with fixed places. Cannot be published without coverage or above the euro caps; the result is final only after the sample and with four eyes.",
@@ -348,8 +413,18 @@
     "create_submit": "Create challenge",
     "created": "Challenge created as a draft."
   },
-  "challenge_status": { "draft": "Draft", "published": "Published", "running": "Running", "review": "Under review", "final": "Final" },
-  "challenge_type": { "club_warmup": "Warm-up ranking", "club_prize": "Association prize period", "performance": "Performance challenge" },
+  "challenge_status": {
+    "draft": "Draft",
+    "published": "Published",
+    "running": "Running",
+    "review": "Under review",
+    "final": "Final"
+  },
+  "challenge_type": {
+    "club_warmup": "Warm-up ranking",
+    "club_prize": "Association prize period",
+    "performance": "Performance challenge"
+  },
   "prize": {
     "kind": "Kind of prize",
     "reward_kind": "Form",
@@ -382,10 +457,27 @@
     "delivery_submit": "Save delivery details",
     "status": "Prize status: {status}."
   },
-  "prize_kind": { "earned_individual": "Earned, individual", "earned_collective": "Earned, collective" },
-  "prize_status": { "open": "Open", "candidate": "Candidate", "verified": "Checked", "delivered": "Delivered", "rejected": "Refused" },
-  "document": { "passport": "Passport", "id_card": "Identity card", "drivers_license": "Driving licence", "student_card": "Student card" },
-  "age": { "16_17": "16+", "18_plus": "18+" },
+  "prize_kind": {
+    "earned_individual": "Earned, individual",
+    "earned_collective": "Earned, collective"
+  },
+  "prize_status": {
+    "open": "Open",
+    "candidate": "Candidate",
+    "verified": "Checked",
+    "delivered": "Delivered",
+    "rejected": "Refused"
+  },
+  "document": {
+    "passport": "Passport",
+    "id_card": "Identity card",
+    "drivers_license": "Driving licence",
+    "student_card": "Student card"
+  },
+  "age": {
+    "16_17": "16+",
+    "18_plus": "18+"
+  },
   "budget": {
     "title": "Partners and budget",
     "intro": "Only booked revenue or Rewarded's own budget, with a document reference. Obligation next to budget, with coverage ratio.",
@@ -433,10 +525,27 @@
     "budget_id_hint": "Book a budget under Partners and budget first, or paste the id.",
     "option": "{doc} (free {free})"
   },
-  "budget_kind": { "direct_reward": "Direct funding", "revenue": "Share of revenue", "own_budget": "Rewarded's own budget" },
-  "budget_pool": { "pilot": "Closed pilot", "research": "Research cohort", "expansion": "Expansion" },
-  "budget_status": { "booked": "Booked", "cancelled": "Cancelled" },
-  "partner_kind": { "vereniging": "Association", "faculteit": "Faculty", "sponsor": "Sponsor", "werkgever": "Employer", "rewarded": "Rewarded" },
+  "budget_kind": {
+    "direct_reward": "Direct funding",
+    "revenue": "Share of revenue",
+    "own_budget": "Rewarded's own budget"
+  },
+  "budget_pool": {
+    "pilot": "Closed pilot",
+    "research": "Research cohort",
+    "expansion": "Expansion"
+  },
+  "budget_status": {
+    "booked": "Booked",
+    "cancelled": "Cancelled"
+  },
+  "partner_kind": {
+    "vereniging": "Association",
+    "faculteit": "Faculty",
+    "sponsor": "Sponsor",
+    "werkgever": "Employer",
+    "rewarded": "Rewarded"
+  },
   "catalog": {
     "title": "Catalogue",
     "intro": "Items with cost price, kind and point price, partner declaration, CSV import, spread release and a reserved share for anchored accounts.",
@@ -488,9 +597,25 @@
     "releases_invalid": "Enter a valid week and whole numbers.",
     "releases_submit": "Save release"
   },
-  "reward_kind": { "in_kind": "In kind", "service": "Service", "partner_discount": "Partner discount on one product" },
-  "reward_status": { "draft": "Draft", "published": "Published", "offline": "Offline" },
-  "weekday": { "0": "Mon", "1": "Tue", "2": "Wed", "3": "Thu", "4": "Fri", "5": "Sat", "6": "Sun" },
+  "reward_kind": {
+    "in_kind": "In kind",
+    "service": "Service",
+    "partner_discount": "Partner discount on one product"
+  },
+  "reward_status": {
+    "draft": "Draft",
+    "published": "Published",
+    "offline": "Offline"
+  },
+  "weekday": {
+    "0": "Mon",
+    "1": "Tue",
+    "2": "Wed",
+    "3": "Thu",
+    "4": "Fri",
+    "5": "Sat",
+    "6": "Sun"
+  },
   "waitlist": {
     "title": "Waiting list",
     "intro": "Invite in batches, in order of priority. A group gets one invitation together.",
@@ -511,7 +636,12 @@
     "invite": "Invite {n} sign-ups",
     "invited_done": "{entries} sign-ups invited in {invites} invitations."
   },
-  "priority": { "group": "Group", "club": "Association", "card": "Card", "none": "No priority" },
+  "priority": {
+    "group": "Group",
+    "club": "Association",
+    "card": "Card",
+    "none": "No priority"
+  },
   "users": {
     "title": "Users",
     "intro": "Searching and viewing only with a reason; every lookup goes into the audit log.",
@@ -541,7 +671,11 @@
     "deleted": "The account has been deleted.",
     "block_note": "Blocking goes through a decision in the fraud queue, with four eyes."
   },
-  "user_status": { "active": "Active", "blocked": "Blocked", "deleted": "Deleted" },
+  "user_status": {
+    "active": "Active",
+    "blocked": "Blocked",
+    "deleted": "Deleted"
+  },
   "vacation": {
     "title": "Holiday pause",
     "intro": "In this period streaks, pause counters, Promise days and the goal bonus freeze. Every change gets a log line; closed days do not change.",
@@ -569,9 +703,23 @@
     "from_to": "From → to",
     "reason": "Reason"
   },
-  "unit": { "squad": "Squad", "solo": "Solo" },
-  "factor": { "bonus": "Goal bonus", "belofte": "Promise", "rest": "Rest period", "prompt": "Squad prompt" },
-  "switch_reason": { "join": "Joined", "merge": "Merged", "minor": "Minor", "opt_out": "Opted out of the research", "arm_b_stopped": "Arm B stopped" },
+  "unit": {
+    "squad": "Squad",
+    "solo": "Solo"
+  },
+  "factor": {
+    "bonus": "Goal bonus",
+    "belofte": "Promise",
+    "rest": "Rest period",
+    "prompt": "Squad prompt"
+  },
+  "switch_reason": {
+    "join": "Joined",
+    "merge": "Merged",
+    "minor": "Minor",
+    "opt_out": "Opted out of the research",
+    "arm_b_stopped": "Arm B stopped"
+  },
   "arm_b": {
     "title": "Stop arm B",
     "intro": "Under the stop rule everyone gets arm A from the next Monday. A second admin has to confirm.",
@@ -589,7 +737,12 @@
     "stop_rule": "Arm B stop rule: {count} of {threshold}.",
     "stop_triggered": "Stop rule reached"
   },
-  "harm": { "S1": "S1: night-time sessions", "S2": "S2: very long days", "S3": "S3: drop-off after a broken streak", "S4": "S4: support label wellbeing" },
+  "harm": {
+    "S1": "S1: night-time sessions",
+    "S2": "S2: very long days",
+    "S3": "S3: drop-off after a broken streak",
+    "S4": "S4: support label wellbeing"
+  },
   "flags": {
     "title": "Flags",
     "intro": "Arm B and switching on the rest arm need a second admin; switching the rest arm off does not. Draws are not built.",
@@ -682,9 +835,23 @@
     "received_on": "Received on",
     "external_submit": "Record"
   },
-  "support_kind": { "redemption_broken": "Code does not work", "session": "Session", "other": "Other", "external": "External" },
-  "support_label": { "uitbetalen": "Payout", "focus": "Focus", "vrienden": "Friends", "techniek": "Technical", "welzijn": "Wellbeing" },
-  "support_status": { "open": "Open", "resolved": "Resolved" },
+  "support_kind": {
+    "redemption_broken": "Code does not work",
+    "session": "Session",
+    "other": "Other",
+    "external": "External"
+  },
+  "support_label": {
+    "uitbetalen": "Payout",
+    "focus": "Focus",
+    "vrienden": "Friends",
+    "techniek": "Technical",
+    "welzijn": "Wellbeing"
+  },
+  "support_status": {
+    "open": "Open",
+    "resolved": "Resolved"
+  },
   "ambassadors": {
     "title": "Ambassadors",
     "intro": "Codes, board-membership check and the count. A board member of a participating association cannot be an ambassador.",
@@ -712,5 +879,50 @@
     "reason": "Reason",
     "more": "Load more",
     "immutable": "The audit log cannot be changed or deleted."
+  },
+  "calendars": {
+    "title": "Exam calendars",
+    "intro": "Per club, and per faculty where it differs, the source of T, N and A. Without a calendar a club gets no code. The default calendar applies to units without a club.",
+    "caption": "Exam calendars with the derived dates",
+    "empty": "No calendars yet.",
+    "institution": "Institution",
+    "faculty": "Faculty",
+    "t_day": "T (last exam Sunday)",
+    "t_hint": "A Sunday: the bonus stops at 04:00 on the Monday after.",
+    "bonus_stop": "Bonus stop",
+    "early_offer": "Belofte offer (T − 6)",
+    "rest_period": "Rest period",
+    "a": "April window",
+    "a_missing": "Not set yet",
+    "a_start": "Start of April window",
+    "a_end": "End of April window",
+    "resits": "Resit days in A",
+    "resits_hint": "Dates separated by commas; they do not count in the after-effect measure.",
+    "clubs": "Clubs",
+    "status": "Status",
+    "default_name": "{name} (default)",
+    "pending": "Change waits for a second admin",
+    "fixed": "Fixed",
+    "open": "Still editable",
+    "create": "Add calendar",
+    "create_submit": "Save calendar",
+    "created": "Calendar saved, T is {t}.",
+    "source": "Source",
+    "source_hint": "Page of the institution or faculty.",
+    "checked_at": "Checked on",
+    "confirmation": "Confirmation by the club",
+    "is_default": "Default calendar",
+    "is_default_hint": "There is exactly one default calendar.",
+    "edit": "Edit: {name}",
+    "reason": "Reason",
+    "reason_hint": "After fixing only with a reason and a second admin.",
+    "reason_required": "Give a reason first.",
+    "save": "Save",
+    "confirm_pending": "Confirm the change as second admin",
+    "fix": "Fix",
+    "pending_notice": "The change waits for a second admin.",
+    "april_title": "Member count for April",
+    "april_members": "External member count",
+    "april_source_hint": "Requested by Rewarded itself, with the date."
   }
 }

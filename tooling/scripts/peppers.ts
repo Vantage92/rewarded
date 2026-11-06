@@ -24,7 +24,7 @@ const pepper = () => randomBytes(32).toString('base64url');
 mkdirSync(dir, { recursive: true, mode: 0o700 });
 writeFileSync(
   file,
-  JSON.stringify({ pepper_ip: pepper(), pepper_phone: pepper(), pepper_audit: pepper(), created_at: new Date().toISOString() }, null, 2) + '\n',
+  JSON.stringify({ pepper_ip: pepper(), pepper_phone: pepper(), pepper_audit: pepper(), pepper_email: pepper(), pepper_inst: pepper(), created_at: new Date().toISOString() }, null, 2) + '\n',
   { mode: 0o600 },
 );
 chmodSync(file, 0o600);
